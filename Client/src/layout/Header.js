@@ -42,13 +42,13 @@ const Header = () => {
                 </div >
                 <div className='mt-5 mr-32 ml-4 p-1 bg-green-200 rounded-2'>
                     <ul className=''>
-                        <li className='inline-block mr-14 hover:opacity-50'>
+                        <li className='inline-block mr-14 hover:border-b hover:border-slate-500'>
                             <a href='#'>
                                 <span className='font-medium mr-1'>Điện thoại</span>
                                 <i className="bi bi-phone-fill text-5 text-green-700"></i>
                             </a>
                         </li>
-                        <li className='inline-block mr-14 hover:opacity-50'>
+                        <li className='inline-block mr-14 hover:border-b hover:border-slate-500'>
                             <a href='#'>
                                 <span className='font-medium mr-1'>Máy tính bảng</span>
                                 <i className="bi bi-tablet-landscape-fill text-5 text-green-700"></i>

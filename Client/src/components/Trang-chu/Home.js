@@ -1,6 +1,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useEffect, useState } from "react";
 
 const Home = () => {
     const image = [
@@ -14,46 +15,70 @@ const Home = () => {
         "https://cdn.hoanghamobile.com/i/home/Uploads/2022/09/15/anh-landing-page-dat-truoc-bo-suu-tap-gioi-han-z-flip4-04_637988303148073415.jpg",
     ]
 
+    const [positionX, setPositionX] = useState(0)
+    const [indexItem, setIndex] = useState(0)
+
 
     const sliderMain = document.querySelector('.slider-main')
-    const sliderItems = document.querySelectorAll('.slider-item')
-    let positionX = 0
-    let index = 0
+    const sliderItems = document.querySelectorAll('.slider-item').length
+
+    // setInterval(() => {
+    //     // if (positionX < -8000) {
+    //     //     setPositionX(0)
+    //     // }
+    //     // else {
+    //     //     setPositionX(pre => pre - 1000)
+    //     // }
+    // }, 3000)
+
+    // useEffect(() => {
+    //     setInterval(() => {
+    //         if (positionX < -8000) {
+    //             setPositionX(0)
+    //         }
+    //         else {
+    //             setPositionX(pre => pre - 1000)
+    //         }
+    //     }, 3000)
+
+    //     clearInterval();
+    // }, [])
 
     const handleClickNext = () => {
-        const sliderItemWidth = sliderItems[0].offsetWidth;
-        const sliderLength = sliderItems.length
-        index = index++
-        if (index > sliderLength) {
-            index = 1
+        if (indexItem === sliderItems - 1) {
             return
         }
         else {
-            positionX = positionX - sliderItemWidth
-            sliderMain.style = `transform : translateX(${positionX}px)`
+            setIndex(pre => pre + 1)
+            setPositionX(pre => pre - 1000)
         }
     }
 
     const handleClickPrevious = () => {
-        const sliderItemWidth = sliderItems[0].offsetWidth;
-        positionX = positionX + sliderItemWidth
-        sliderMain.style = `transform : translateX(${positionX}px)`
+        if (indexItem <= 0) {
+            return
+        }
+        else {
+            setIndex(pre => pre - 1)
+            setPositionX(pre => pre + 1000)
+        }
     }
+
     return (
         <>
             <div className="slider">
                 <i className="bi bi-caret-left-fill slider-prev border-2 border-gray-200 hover:bg-slate-100" onClick={handleClickPrevious}></i>
-                <ul className="slider-dots">
+                <ul className="slider-dots" >
                     {image.map((item, index) => (
-                        <li className="slider-dot-item active" data-index={index} ></li>
+                        <li className="slider-dot-item" style={{ background: `${indexItem === index ? 'gray' : '#fff'}` }} data-index={index} ></li>
                     ))}
                 </ul>
                 <div className="slider-wrapper">
-                    <div className="slider-main">
+                    <div className="slider-main" style={{ transform: `translateX(${positionX}px)` }}>
                         {image.map((item, index) => (
                             <div className="slider-item">
                                 <img
-                                    className="block m-w-full"
+                                    className="block max-w-full"
                                     src={item}
                                     alt=""
                                 />
