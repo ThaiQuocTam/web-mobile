@@ -26,6 +26,7 @@ const Home = () => {
         index = index++
         if (index > sliderLength) {
             index = 1
+            return
         }
         else {
             positionX = positionX - sliderItemWidth
@@ -34,9 +35,8 @@ const Home = () => {
     }
 
     const handleClickPrevious = () => {
-        const sliderItemWidth = sliderItems[0].offsetWidth
+        const sliderItemWidth = sliderItems[0].offsetWidth;
         positionX = positionX + sliderItemWidth
-        console.log(positionX);
         sliderMain.style = `transform : translateX(${positionX}px)`
     }
     return (
