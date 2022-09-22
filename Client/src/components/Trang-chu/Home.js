@@ -42,7 +42,7 @@ const Home = () => {
     return (
         <>
             <div className="slider">
-                <i className="bi bi-caret-left-fill slider-prev" onClick={handleClickPrevious}></i>
+                <i className="bi bi-caret-left-fill slider-prev border-2 border-gray-200 hover:bg-slate-100" onClick={handleClickPrevious}></i>
                 <ul className="slider-dots">
                     {image.map((item, index) => (
                         <li className="slider-dot-item active" data-index={index} ></li>
@@ -61,7 +61,7 @@ const Home = () => {
                         ))}
                     </div>
                 </div>
-                <i className="bi bi-caret-right-fill slider-next" onClick={handleClickNext}></i>
+                <i className="bi bi-caret-right-fill slider-next border-2 border-gray-200 hover:bg-slate-100" onClick={handleClickNext}></i>
             </div>
         </>
     )
