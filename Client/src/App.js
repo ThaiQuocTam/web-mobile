@@ -1,13 +1,13 @@
 import SignIn from 'components/Sign-in/SignIn';
 import SignUp from 'components/Sign-up/SignUp';
-import Home from 'components/Trang-chu/Home';
+import HomePage from 'page/Home.page';
 import { Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<HomePage />} />
         <Route path='/SignIn' element={<SignIn />} />
         <Route path='/SignUp' element={<SignUp />} />
       </Routes>

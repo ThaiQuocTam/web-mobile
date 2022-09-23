@@ -40,7 +40,7 @@ const Header = () => {
                         </li>
                     </ul>
                 </div >
-                <div className='mt-5 mr-32 ml-4 p-1 bg-green-200 rounded-2'>
+                <div className='mt-5 mr-28 ml-4 p-1 bg-green-200 rounded-2'>
                     <ul className=''>
                         <li className='inline-block mr-14 hover:border-b hover:border-slate-500'>
                             <a href='#'>

@@ -171,6 +171,7 @@ module.exports = {
         DEFAULT: colors.green,
         50: "#f0fdf4",
         100: "#dcfce7",
+        150: "#aaccb6",
         200: "#bbf7d0",
         300: "#86efac",
         400: "#4ade80",
@@ -179,6 +180,7 @@ module.exports = {
         700: "#15803d",
         800: "#166534",
         900: "#14532d",
+        950: "#00483d"
       },
 
       emerald: {
@@ -652,6 +654,7 @@ module.exports = {
       2: "2px",
       4: "4px",
       8: "8px",
+      25: "25px"
     },
     boxShadow: {
       "soft-xxs": "0 1px 5px 1px #ddd",
@@ -696,7 +699,7 @@ module.exports = {
         md: "720px",
         lg: "960px",
         xl: "1140px",
-        "2xl": "1320px",
+        "xxl": "1320px",
       },
     },
     content: {
@@ -1125,6 +1128,7 @@ module.exports = {
       "5xl": "64rem",
       "6xl": "72rem",
       "7xl": "80rem",
+      "8xl": "1000px",
       full: "100%",
       min: "min-content",
       max: "max-content",
