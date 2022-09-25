@@ -1,15 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import image from '../Assets/images/picwish.jpg'
 
 const Header = () => {
     return (
         <>
-            <header className='h-200 p-5 pl-30'>
+            <header className='h-200 p-5 pl-30 z-10'>
                 <div className=''>
                     <div className='float-left h-40 w-40 relative position-top mr-10'>
-                        <a href='#' className='block w-full h-full'>
+                        <Link to='/' className='block w-full h-full'>
                             <img className='w-full h-full' src={image} />
-                        </a>
+                        </Link>
                     </div>
                     <ul className=''>
                         <li className='inline-block mr-24'>
@@ -43,16 +44,16 @@ const Header = () => {
                 <div className='mt-5 mr-28 ml-4 p-1 bg-green-200 rounded-2'>
                     <ul className=''>
                         <li className='inline-block mr-14 hover:border-b hover:border-slate-500'>
-                            <a href='#'>
+                            <Link to='/ListSmartphone'>
                                 <span className='font-medium mr-1'>Điện thoại</span>
                                 <i className="bi bi-phone-fill text-5 text-green-700"></i>
-                            </a>
+                            </Link>
                         </li>
                         <li className='inline-block mr-14 hover:border-b hover:border-slate-500'>
-                            <a href='#'>
+                            <Link to='/ListTablet'>
                                 <span className='font-medium mr-1'>Máy tính bảng</span>
                                 <i className="bi bi-tablet-landscape-fill text-5 text-green-700"></i>
-                            </a>
+                            </Link>
                         </li>
                     </ul >
                 </div >

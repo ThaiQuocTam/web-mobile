@@ -3,6 +3,7 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Home.css';
+import { Link } from 'react-router-dom';
 
 const FlashSale = () => {
 
@@ -36,7 +37,7 @@ const FlashSale = () => {
                                         <img className='mx-auto' src={item.image} />
                                     </div>
                                 </div>
-                                <div className='text-center '>
+                                <div className='text-center h-20 mb-2'>
                                     <div className='pt-2 pb-1'>
                                         <span className='text-3.5 font-semibold text-black'>{item.name}</span>
                                     </div>
@@ -44,6 +45,13 @@ const FlashSale = () => {
                                         <span className='text-red-600 text-3.5 mr-5 font-semibold'>{item.price}</span>
                                         <span className='line-through text-3'>{item.discount}</span>
                                     </div>
+                                </div>
+                                <div className='bg-red-600 text-center p-1 rounded-1 shadow-soft-2xl'>
+                                    <Link to='#'>
+                                        <div>
+                                            <button className='text-3.5 font-semibold text-white'>Xem chi tiết</button>
+                                        </div>
+                                    </Link>
                                 </div>
                             </div>
                         ))

@@ -94,6 +94,28 @@ const listSmartphone = [
         price: '1,550,000 ₫',
         discount: '6,790,000 ₫'
     },
+    {
+        id: "13",
+        name: "Oppo Note 10 Pro - chính hãng",
+        image: "https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/08/10/z-flip-4.jpg",
+        price: '4,710,000 ₫',
+        discount: '5,220,000 ₫'
+    },
+    {
+        id: "14",
+        name: "Samsung Galaxy S10 CC - chính hãng",
+        image: "https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/07/04/image-removebg-preview-10.png",
+        price: '9,100,000 ₫',
+        discount: '12,500,000 ₫'
+    },
+    {
+        id: "15",
+        name: "VIVO Note 10 Plus - 8GB/128GB - chính hãng",
+        image: "https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/04/18/image-removebg-preview-7.png",
+        price: '3,777,000 ₫',
+        discount: '4,777,000 ₫'
+    }
+
 ]
 
 const listTable = [
@@ -106,7 +128,7 @@ const listTable = [
     },
     {
         id: 2,
-        name: "Laptop HUAWEI MateBook D14 -6941487256952 - i3-1115G4/8GB/256GSSD/14.0FHD/W11SL - Chính hãng",
+        name: "Laptop HUAWEI MateBook D14 -6941487256952 - i3-1115G4 /8GB/256GSSD/14.0FHD/W11SL - Chính hãng",
         image: "https://cdn.hoanghamobile.com/i/productlist/dsp/Uploads/2022/06/22/huawei-d-14-5.png    ",
         price: "10,990,000",
         discount: "13,990,000"

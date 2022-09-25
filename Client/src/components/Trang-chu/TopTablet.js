@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { listTable } from 'models/Home.model'
 import './Home.css'
+import { Link } from 'react-router-dom';
 
 const TopTablet = () => {
     const settings = {
@@ -36,7 +37,7 @@ const TopTablet = () => {
                                         <img className='mx-auto w-full' src={item.image} />
                                     </div>
                                 </div>
-                                <div className='text-center '>
+                                <div className='text-center h-36'>
                                     <div className='pt-2 pb-1'>
                                         <span className='text-3.5 font-semibold text-black'>{item.name}</span>
                                     </div>
@@ -44,6 +45,13 @@ const TopTablet = () => {
                                         <span className='text-red-600 text-3.5 mr-5 font-semibold'>{item.price}<span className='ml-1'>₫</span></span>
                                         <span className='line-through text-3'>{item.discount}<span className='ml-1'>₫</span></span>
                                     </div>
+                                </div>
+                                <div className='bg-red-600 text-center p-1 rounded-1 shadow-soft-2xl'>
+                                    <Link to='#'>
+                                        <div>
+                                            <button className='text-3.5 font-semibold text-white'>Xem chi tiết</button>
+                                        </div>
+                                    </Link>
                                 </div>
                             </div>
                         ))

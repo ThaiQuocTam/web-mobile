@@ -11,13 +11,15 @@ const Home = () => {
 
     useEffect(() => {
         const timerId = setTimeout(() => {
-            if (positionX === -7000) {
-                return
-            }
-            else {
+            if (positionX <= 0 && positionX > -7000) {
                 setPositionX(pre => pre - 1000)
                 setIndex(pre => pre + 1)
             }
+            else {
+                setPositionX(0)
+                setIndex(0)
+            }
+
         }, 3000)
 
         return () => clearTimeout(timerId)
