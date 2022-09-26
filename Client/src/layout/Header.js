@@ -36,7 +36,7 @@ const Header = () => {
                         <li className='inline-block mr-10 hover:opacity-50'>
                             <div className='cursor-pointer'>
                                 <i className="bi bi-person-fill text-6 pr-2 text-green-700"></i>
-                                <span className='font-semibold text-3.5'>Đăng nhập</span>
+                                <span className='font-semibold text-3.5' >Đăng nhập</span>
                             </div>
                         </li>
                     </ul>

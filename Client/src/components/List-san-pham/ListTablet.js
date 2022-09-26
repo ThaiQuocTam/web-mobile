@@ -27,7 +27,6 @@ const ListTablet = () => {
                                 <span className='text-3.5 font-semibold text-black'>{item.name}</span>
                             </div>
                             <div className='pb-2'>
-                                <span className='text-red-600 text-3.5 mr-5 font-semibold'>{item.price}<span className='ml-1'>₫</span></span>
                                 <span className='line-through text-3'>{item.discount}<span className='ml-1'>₫</span></span>
                             </div>
                         </div>
