@@ -1,14 +1,11 @@
 import { listSmartphone } from "models/Home.model"
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import ShowButton from "./showButton"
+import ShowButton from "./ShowButton"
 
 const ListSmartphone = () => {
-
-    const [ID, setID] = useState(idProducts)
-    const [show, setShow] = useState(false)
-
-    console.log(show);
+    const idProducts = listSmartphone.map(item => item.id)
+    const [ID, setID] = useState(0)
 
     return (
         <>
@@ -19,13 +16,13 @@ const ListSmartphone = () => {
             </div>
             <div className="overflow-hidden w-full ml-14" >
                 {listSmartphone.map((item, index) => (
-                    <div onMouseEnter={() => { const exist = idProducts.includes(item.id); exist === true ? setShow(true) : '' }} className='p-5 mx-5 my-5 w-60 h-90 box-shadow rounded-2 bg-white float-left'>
+                    <div onMouseEnter={() => { const exist = idProducts.includes(item.id); exist === true ? setID(item.id) : '' }} className='p-5 mx-5 my-5 w-60 h-90 box-shadow rounded-2 bg-white float-left'>
                         <div className=''>
                             <div className=''>
                                 <img className='mx-auto' src={item.image} />
                             </div>
                         </div>
-                        <div className='text-center '>
+                        <div className='text-center h-20 mb-2'>
                             <div className='pt-2 pb-1'>
                                 <span className='text-3.5 font-semibold text-black'>{item.name}</span>
                             </div>
@@ -35,7 +32,7 @@ const ListSmartphone = () => {
                             </div>
                         </div>
                         {
-                            show && <ShowButton />
+                            ID === item.id ? <ShowButton /> : ''
                         }
 
                     </div>

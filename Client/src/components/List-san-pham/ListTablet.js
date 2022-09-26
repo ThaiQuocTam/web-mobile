@@ -1,6 +1,12 @@
 import { listTable } from "models/Home.model"
-import { Link } from "react-router-dom"
+import { useState } from "react"
+import ShowButton from "./ShowButton"
+
 const ListTablet = () => {
+
+    const idProducts = listTable.map(item => item.id)
+    const [ID, setID] = useState(0)
+
     return (
         <>
             <div className="w-full overflow-hidden mb-5">
@@ -8,28 +14,29 @@ const ListTablet = () => {
                     <span className='text-4 font-semibold text-white'>MÁY TÍNH BẢNG</span>
                 </div>
             </div>
-            <Link to='#'>
-                <div className="overflow-hidden w-full ml-14">
-                    {listTable.map((item, index) => (
-                        <div className='p-5 mx-5 my-5 w-60 h-90 box-shadow rounded-2 bg-white float-left'>
+            <div className="overflow-hidden w-full ml-14">
+                {listTable.map((item, index) => (
+                    <div onMouseEnter={() => { const exist = idProducts.includes(item.id); exist ? setID(item.id) : '' }} className='p-5 mx-5 my-5 w-60 h-96 box-shadow rounded-2 bg-white float-left'>
+                        <div className=''>
                             <div className=''>
-                                <div className=''>
-                                    <img className='mx-auto w-full' src={item.image} />
-                                </div>
-                            </div>
-                            <div className='text-center '>
-                                <div className='pt-2 pb-1'>
-                                    <span className='text-3.5 font-semibold text-black'>{item.name}</span>
-                                </div>
-                                <div className='pb-2'>
-                                    <span className='text-red-600 text-3.5 mr-5 font-semibold'>{item.price}<span className='ml-1'>₫</span></span>
-                                    <span className='line-through text-3'>{item.discount}<span className='ml-1'>₫</span></span>
-                                </div>
+                                <img className='mx-auto w-full' src={item.image} />
                             </div>
                         </div>
-                    ))}
-                </div>
-            </Link>
+                        <div className='text-center h-36'>
+                            <div className='pt-2 pb-1'>
+                                <span className='text-3.5 font-semibold text-black'>{item.name}</span>
+                            </div>
+                            <div className='pb-2'>
+                                <span className='text-red-600 text-3.5 mr-5 font-semibold'>{item.price}<span className='ml-1'>₫</span></span>
+                                <span className='line-through text-3'>{item.discount}<span className='ml-1'>₫</span></span>
+                            </div>
+                        </div>
+                        {
+                            ID === item.id ? <ShowButton /> : ''
+                        }
+                    </div>
+                ))}
+            </div>
         </>
     )
 }
