@@ -543,7 +543,11 @@ module.exports = {
       pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       bounce: "bounce 1s infinite",
       "fade-up": "fade-up 1.5s both",
-      modalForm: "modalForm 0.5s ease"
+      modalForm: "modalForm 0.5s ease",
+      aniLeft1: "aniLeft1 0.8s ease",
+      aniLeft2: "aniLeft2 0.8s ease",
+      aniRight1: "aniRight1 0.8s ease",
+      aniRight2: "aniRight2 0.8s ease"
     },
     aspectRatio: {
       auto: "auto",
@@ -664,6 +668,7 @@ module.exports = {
       "soft-lg": "0 2px 12px 0 rgba(0,0,0,.16)",
       "soft-xl": "0 20px 27px 0 rgba(0,0,0,0.05)",
       "soft-2xl": "0 .3125rem .625rem 0 rgba(0,0,0,.12)",
+      "soft-3D": "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
       "soft-3xl": "0 8px 26px -4px hsla(0,0%,8%,.15),0 8px 9px -5px hsla(0,0%,8%,.06)",
       "soft-primary-outline": "0 0 0 2px #e9aede",
       blur: "inset 0 0 1px 1px hsla(0,0%,100%,.9),0 20px 27px 0 rgba(0,0,0,.05)",
@@ -1056,6 +1061,43 @@ module.exports = {
         from: {
           transform: "translateY(25%)",
           opacity: "0"
+        },
+        to: {
+          opacity: "1"
+        }
+      },
+      aniLeft1: {
+        from: {
+          opacity: "1",
+          transform: "translateX(-360px)"
+        },
+        to: {
+          opacity: "1"
+        }
+      },
+      aniLeft2: {
+        from: {
+          opacity: "1",
+          transform: "translateX(-360px)"
+        },
+        to: {
+          opacity: "1"
+        }
+      },
+      aniRight1: {
+        from: {
+          opacity: "1",
+          transform: "translateX(338px)",
+
+        },
+        to: {
+          opacity: "1"
+        }
+      },
+      aniRight2: {
+        from: {
+          opacity: "1",
+          transform: "translateX(338px)",
         },
         to: {
           opacity: "1"

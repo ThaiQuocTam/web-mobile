@@ -85,7 +85,7 @@
   .slider-main {
     display: flex;
     position: relative;
-    transition: transform 0.25s linear;
+    transition: transform 0.5s linear;
     height: 100%;
   }
 
