@@ -4,8 +4,6 @@ import image from '../Assets/images/picwish.jpg'
 
 const Header = () => {
 
-
-
     const [mouseSmartphone, setMouseSmartphone] = useState('')
     const [mouseTablet, setMouseTablet] = useState('')
 
