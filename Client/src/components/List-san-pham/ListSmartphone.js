@@ -1,3 +1,4 @@
+import BackHome from "components/Trang-chu/BackHome"
 import { listSmartphone } from "models/Home.model"
 import { useState } from "react"
 import { Link } from "react-router-dom"
@@ -9,6 +10,9 @@ const ListSmartphone = () => {
 
     return (
         <>
+            <div>
+                <BackHome />
+            </div>
             <div className="w-full overflow-hidden mb-5">
                 <div className="float-left pl-5 pr-5 ml-20 border-l-25 border-green-200 p-2 bg-green-950">
                     <span className='text-4 font-semibold text-white'>ĐIỆN THOẠI</span>

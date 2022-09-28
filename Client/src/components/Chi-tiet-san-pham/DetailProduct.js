@@ -1,3 +1,5 @@
+import BackHome from "components/Trang-chu/BackHome"
+import FlashSale from "components/Trang-chu/FlashSale"
 import { Products } from "models/DetailProduct.model"
 import { useEffect, useState } from "react"
 
@@ -47,11 +49,12 @@ const DetailProduct = () => {
 
   return (
     <>
-      <div className=' mx-34'>
-        <div className='w-1/2'>
-          <div className='w-full'>
-            <span className='text-5 font-extrabold '>Tên điện thoại</span>
-          </div>
+      <div>
+        <BackHome />
+      </div>
+      <div className='mx-34'>
+        <div className='w-full'>
+          <span className='text-5 font-extrabold '>Điện thoại di động TECNO POVA 3 6GB/128GB - Pin 7000 mAh - Chính hãng</span>
         </div>
         <div className="flex w-full">
           <div className='w-1/2'>
@@ -97,7 +100,7 @@ const DetailProduct = () => {
             </div>
             <div className="pl-10 mt-5">
               <div className="mb-2">
-                <span className="text-3.5 font-bold">THÔNG TIN BẢO HÀNH</span>
+                <span className="text-3.5 font-bold">THÔNG TIN KHUYẾN MÃI </span>
               </div>
               <div>
                 <span className="w-full border borer-slate-100 block rounded-3 h-24 p-3 focus:outline-none">Mua 1 tặng 1t</span>
@@ -116,11 +119,57 @@ const DetailProduct = () => {
             </div>
           </div>
         </div>
-        <div>
+      </div>
 
+      <div className="flex mx-34 my-3 border border-slate-50 bg-slate-50 rounded-2">
+        <div className="w-1/2 p-5">
+          <div className="w-full">
+            <img className="w-full rounded-2" src="https://cdn.hoanghamobile.com/i/content/Uploads/2022/04/15/galaxy-a73.jpg" />
+          </div>
+        </div>
+        <div className="w-/2 p-5">
+          <div>
+            <span className="font-bold text-4">THÔNG SỐ KĨ THUẬT</span>
+          </div>
+          <div className="my-2">
+            <label className="font-bold text-3.5">Công nghệ màn hình : &nbsp;&nbsp;</label>
+            <span className="text-3.5">Super AMOLED Plus</span>
+          </div>
+          <div className="my-2">
+            <label className="font-bold text-3.5">Độ phân giải: &nbsp;&nbsp;</label>
+            <span className="text-3.5">Super AMOLED Plus</span>
+          </div>
+          <div className="my-2">
+            <label className="font-bold text-3.5">Hệ điều hành : &nbsp;&nbsp;</label>
+            <span className="text-3.5">Super AMOLED Plus</span>
+          </div>
+          <div className="my-2">
+            <label className="font-bold text-3.5">Chíp xử lý (CPU) : &nbsp;&nbsp;</label>
+            <span className="text-3.5">Super AMOLED Plus</span>
+          </div>
+          <div className="my-2">
+            <label className="font-bold text-3.5">Bộ nhớ ROM : &nbsp;&nbsp;</label>
+            <span className="text-3.5">Super AMOLED Plus</span>
+          </div>
+          <div className="my-2">
+            <label className="font-bold text-3.5">RAM : &nbsp;&nbsp;</label>
+            <span className="text-3.5">Super AMOLED Plus</span>
+          </div>
+          <div className="my-2">
+            <label className="font-bold text-3.5">Dung lượng pin : &nbsp;&nbsp;</label>
+            <span className="text-3.5">Super AMOLED Plus</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="">
+        <div className='pl-24 mt-8 mb-5'>
+          <div className='bg-green-950 max-w-54 p-1 pl-5 border-l-25 border-green-200 rounded-1'>
+            <span className='text-4 font-semibold text-white'>GỢI Ý CHO BẠN</span>
+          </div>
         </div>
         <div>
-
+          <FlashSale />
         </div>
       </div>
     </>

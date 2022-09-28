@@ -2,6 +2,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import { images } from '../../models/Home.model'
+import FlashSale from "./FlashSale";
 
 const Home = () => {
 
@@ -68,6 +69,14 @@ const Home = () => {
                     </div>
                 </div>
                 <i className="bi bi-caret-right-fill slider-next border-2 border-gray-200 hover:bg-slate-100" onClick={handleClickNext}></i>
+            </div>
+            <div>
+                <div className='pl-24 mt-8 mb-5'>
+                    <div className='bg-green-950 max-w-54 p-1 pl-5 border-l-25 border-green-200 rounded-1'>
+                        <span className='text-4 font-semibold text-white'>FLASH SALE</span>
+                    </div>
+                </div>
+                <FlashSale />
             </div>
         </>
     )

@@ -1,3 +1,4 @@
+import BackHome from "components/Trang-chu/BackHome"
 import { listTable } from "models/Home.model"
 import { useState } from "react"
 import ShowButton from "./ShowButton"
@@ -9,6 +10,9 @@ const ListTablet = () => {
 
     return (
         <>
+            <div>
+                <BackHome />
+            </div>
             <div className="w-full overflow-hidden mb-5">
                 <div className="float-left pl-5 pr-5 ml-20 border-l-25 border-green-200 p-2 bg-green-950">
                     <span className='text-4 font-semibold text-white'>MÁY TÍNH BẢNG</span>
@@ -27,6 +31,7 @@ const ListTablet = () => {
                                 <span className='text-3.5 font-semibold text-black'>{item.name}</span>
                             </div>
                             <div className='pb-2'>
+                                <span className='text-red-600 text-3.5 mr-5 font-semibold'>{item.price}<span className='ml-1'>₫</span></span>
                                 <span className='line-through text-3'>{item.discount}<span className='ml-1'>₫</span></span>
                             </div>
                         </div>
