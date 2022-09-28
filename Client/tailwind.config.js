@@ -547,7 +547,8 @@ module.exports = {
       aniLeft1: "aniLeft1 0.8s ease",
       aniLeft2: "aniLeft2 0.8s ease",
       aniRight1: "aniRight1 0.8s ease",
-      aniRight2: "aniRight2 0.8s ease"
+      aniRight2: "aniRight2 0.8s ease",
+      onMouseCss: "onMouse 0.8s ease"
     },
     aspectRatio: {
       auto: "auto",
@@ -1098,6 +1099,15 @@ module.exports = {
         from: {
           opacity: "1",
           transform: "translateX(338px)",
+        },
+        to: {
+          opacity: "1"
+        }
+      },
+      onMouse: {
+        from: {
+          opacity: "0",
+          transform: "translateX(-113px)"
         },
         to: {
           opacity: "1"

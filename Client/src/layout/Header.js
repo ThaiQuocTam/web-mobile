@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import image from '../Assets/images/picwish.jpg'
 
 const Header = () => {
+
+
+
+    const [mouseSmartphone, setMouseSmartphone] = useState('')
+    const [mouseTablet, setMouseTablet] = useState('')
+
     return (
         <>
             <header className='h-200 p-5 pl-30 z-10'>
@@ -43,17 +49,38 @@ const Header = () => {
                 </div >
                 <div className='mt-5 mr-28 ml-4 p-1 bg-green-200 rounded-2'>
                     <ul className=''>
-                        <li className='inline-block mr-14 hover:border-b hover:border-slate-500'>
+                        <li
+                            onMouseEnter={() => {
+                                setMouseSmartphone('block w-86px h-2px bg-black animate-onMouseCss');
+                                setMouseTablet('')
+                            }} onMouseLeave={() => setMouseSmartphone('')}
+                            className='inline-block mr-14 overflow-hidden cursor-pointer'>
                             <Link to='/ListSmartphone'>
                                 <span className='font-medium mr-1'>Điện thoại</span>
                                 <i className="bi bi-phone-fill text-5 text-green-700"></i>
                             </Link>
+                            <div className='h-2px'>
+                                <span className={mouseSmartphone} ></span>
+                            </div>
                         </li>
-                        <li className='inline-block mr-14 hover:border-b hover:border-slate-500'>
+                        <li
+                            onMouseEnter={
+                                () => {
+                                    setMouseTablet('block w-28 h-2px bg-black animate-onMouseCss');
+                                    setMouseSmartphone('')
+                                }
+                            }
+                            onMouseLeave={
+                                () => setMouseTablet('')
+                            }
+                            className='inline-block mr-14 overflow-hidden cursor-pointer' >
                             <Link to='/ListTablet'>
                                 <span className='font-medium mr-1'>Máy tính bảng</span>
                                 <i className="bi bi-tablet-landscape-fill text-5 text-green-700"></i>
                             </Link>
+                            <div className='h-2px'>
+                                <span className={mouseTablet} ></span>
+                            </div>
                         </li>
                     </ul >
                 </div >

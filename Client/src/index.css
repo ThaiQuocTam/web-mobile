@@ -138,6 +138,13 @@
     @apply border-r-2 border-gray-300;
   }
 
+  .w-86px {
+    width: 86px;
+  }
+
+  .h-2px {
+    height: 2px;
+  }
 
 }
 
