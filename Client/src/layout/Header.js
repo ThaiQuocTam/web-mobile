@@ -32,16 +32,20 @@ const Header = () => {
                             </a>
                         </li>
                         <li className='inline-block mr-14 hover:opacity-50'>
-                            <a href='#'>
-                                <i className="bi bi-clock-history text-6 pr-2 text-green-700"></i>
-                                <span className='inline-block pb-2 text-3.5 font-semibold'>Tra cứu đơn hàng</span>
-                            </a>
+                            <Link to='/OderLookup'>
+                                <div className='cursor-pointer'>
+                                    <i className="bi bi-clock-history text-6 pr-2 text-green-700"></i>
+                                    <span className='inline-block pb-2 text-3.5 font-semibold'>Tra cứu đơn hàng</span>
+                                </div>
+                            </Link>
                         </li>
                         <li className='inline-block mr-10 hover:opacity-50'>
-                            <div className='cursor-pointer'>
-                                <i className="bi bi-person-fill text-6 pr-2 text-green-700"></i>
-                                <span className='font-semibold text-3.5' >Đăng nhập</span>
-                            </div>
+                            <Link to='/SignIn'>
+                                <div className='cursor-pointer'>
+                                    <i className="bi bi-person-fill text-6 pr-2 text-green-700"></i>
+                                    <span className='font-semibold text-3.5' >Đăng nhập</span>
+                                </div>
+                            </Link>
                         </li>
                     </ul>
                 </div >
