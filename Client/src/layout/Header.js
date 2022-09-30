@@ -55,7 +55,7 @@ const Header = () => {
                             onMouseEnter={() => {
                                 setMouseSmartphone('block w-86px h-2px bg-black animate-onMouseCss');
                                 setMouseTablet('')
-                            }} onMouseLeave={() => setMouseSmartphone('')}
+                            }}
                             className='inline-block mr-14 overflow-hidden cursor-pointer'>
                             <Link to='/ListSmartphone'>
                                 <span className='font-medium mr-1'>Điện thoại</span>
@@ -71,9 +71,6 @@ const Header = () => {
                                     setMouseTablet('block w-28 h-2px bg-black animate-onMouseCss');
                                     setMouseSmartphone('')
                                 }
-                            }
-                            onMouseLeave={
-                                () => setMouseTablet('')
                             }
                             className='inline-block mr-14 overflow-hidden cursor-pointer' >
                             <Link to='/ListTablet'>
