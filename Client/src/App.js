@@ -19,6 +19,7 @@ function App() {
           <Route path='/ListTablet' element={<ListTabletPage />} />
           <Route path='/DetailProduct' element={<DetailProduct />} />
           <Route path='/OderLookup' element={<OrderLookup />} />
+          <Route path='Cart' element />
         </Routes>
       </div>
     </>
