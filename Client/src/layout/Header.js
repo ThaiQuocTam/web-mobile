@@ -43,7 +43,7 @@ const Header = () => {
                             <Link to='/SignIn'>
                                 <div className='cursor-pointer'>
                                     <i className="bi bi-person-fill text-6 pr-2 text-green-700"></i>
-                                    <span className='font-semibold text-3.5 text-red-500' >Đăng nhập</span>
+                                    <span className='font-semibold text-3.5' >Đăng nhập</span>
                                 </div>
                             </Link>
                         </li>
