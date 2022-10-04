@@ -3,7 +3,6 @@ import './SignUp.css';
 
 const SignUp = () => {
   return (
-
     <div className="flex">
       <div className="w-1/4 mr-3 image">
       </div>
@@ -17,7 +16,7 @@ const SignUp = () => {
                 type="text"
                 name="tentaikhoan"
                 placeholder="Tên tài khoản"
-                className="mt-1 p-2 bg-gray-200 rounded border border-gray-400 w-full"
+                className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
               />
             </div>
             <div className="mt-4">
@@ -26,7 +25,7 @@ const SignUp = () => {
                 type="text"
                 name="hoten"
                 placeholder="Họ tên"
-                className="mt-1 p-2 bg-gray-200 rounded border border-gray-400 w-full"
+                className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
               />
 
 
@@ -38,7 +37,7 @@ const SignUp = () => {
                 name="password"
 
                 placeholder="Mật khẩu"
-                className="mt-1 p-2 bg-gray-200 rounded border border-gray-400 w-full"
+                className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
               />
 
             </div>
@@ -49,7 +48,7 @@ const SignUp = () => {
                 name="password2"
 
                 placeholder="Nhật lại mật khẩu"
-                className="mt-1 p-2 bg-gray-200 rounded border border-gray-400 w-full"
+                className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
               />
             </div>
             <div className="mt-4">
@@ -58,7 +57,7 @@ const SignUp = () => {
                 type="email"
                 name="email"
                 placeholder="Email"
-                className="mt-1 p-2 bg-gray-200 rounded border border-gray-400 w-full"
+                className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
               />
             </div>
             <div className="mt-4">
@@ -77,14 +76,14 @@ const SignUp = () => {
                 type="number"
                 name="sdt"
                 placeholder="Số điện thoại"
-                className="mt-1 p-2 bg-gray-200 rounded border border-gray-400 w-full"
+                className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
               />
             </div>
             <div className="mt-4">
               <input
                 type="submit"
                 value="Đăng ký"
-                className="mt-1 p-2 border border-gray-400 rounded cursor-pointer bg-purple-600 text-white"
+                className="mt-1 p-2 w-full hover:bg-purple-800 border focus:outline-none border-gray-400 rounded cursor-pointer bg-purple-600 text-white"
               />
             </div>
           </div>

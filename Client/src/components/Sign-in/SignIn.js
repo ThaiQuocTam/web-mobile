@@ -17,7 +17,7 @@ const SignIn = () => {
                                     type="text"
                                     name="tentaikhoan"
                                     placeholder="Tên tài khoản"
-                                    className="mt-1 p-2 bg-gray-200 rounded border border-gray-400 w-full"
+                                    className="mt-1 p-2 bg-gray-200 focus:outline-none rounded border border-gray-400 w-full"
                                 />
                             </div>
                             <div className="mt-4">
@@ -27,7 +27,7 @@ const SignIn = () => {
                                     name="password"
 
                                     placeholder="Mật khẩu"
-                                    className="mt-1 p-2 bg-gray-200 rounded border border-gray-400 w-full"
+                                    className="mt-1 p-2 bg-gray-200 focus:outline-none rounded border border-gray-400 w-full"
                                 />
                             </div>
                             <div className='flex'>
@@ -35,7 +35,7 @@ const SignIn = () => {
                                     <input
                                         type="submit"
                                         value="Đăng nhập"
-                                        className="mt-1 p-2 border w-28 border-gray-400 rounded cursor-pointer bg-purple-600 text-white"
+                                        className="mt-1 p-2 hover:bg-purple-800 border w-28 border-gray-400 rounded cursor-pointer bg-purple-600 text-white"
                                     />
                                 </div>
 
@@ -44,7 +44,7 @@ const SignIn = () => {
                                         <input
                                             type="submit"
                                             value="Đăng ký"
-                                            className="mt-1 w-28 p-2 float-right border border-gray-400 rounded cursor-pointer bg-purple-600 text-white"
+                                            className="mt-1 hover:bg-purple-800 w-28 p-2 float-right border border-gray-400 rounded cursor-pointer bg-purple-600 text-white"
                                         />
                                     </Link>
                                 </div>
