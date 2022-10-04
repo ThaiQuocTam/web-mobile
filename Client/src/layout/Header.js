@@ -23,6 +23,7 @@ const Header = () => {
                                 <a href='#'><i className="bi bi-search text-7 cursor-pointer leading-6-em block float-right"></i></a>
                             </div>
                         </li>
+                        <Link to='/Cart'>
                         <li className='inline-block mr-14 text-6 hover:opacity-50'>
                             <a className='inline-block' href='#'>
                                 <i className="bi bi-cart2 inline-block text-green-900 text-7 pr-1"></i>
@@ -31,6 +32,7 @@ const Header = () => {
                                 </span>
                             </a>
                         </li>
+                        </Link>
                         <li className='inline-block mr-14 hover:opacity-50'>
                             <Link to='/OderLookup'>
                                 <div className='cursor-pointer'>
