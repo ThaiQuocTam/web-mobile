@@ -5,6 +5,7 @@ import OrderLookup from 'components/Tra-cuu-don-hang/OrderLookup';
 import HomePage from 'page/Home.page';
 import ListSmartphonePage from 'page/ListSmartphone.page';
 import ListTabletPage from 'page/ListTablet.page';
+import Cart from 'components/Gio-hang/Cart';
 import { Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
           <Route path='/ListTablet' element={<ListTabletPage />} />
           <Route path='/DetailProduct' element={<DetailProduct />} />
           <Route path='/OderLookup' element={<OrderLookup />} />
-          <Route path='Cart' element />
+          <Route path='/Cart' element={<Cart/>} />
         </Routes>
       </div>
     </>
