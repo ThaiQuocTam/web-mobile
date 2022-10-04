@@ -3,7 +3,7 @@ import React from 'react'
 const Cart = () => {
     return (
         <>
-      sdfds
+            Thay oi cau tam
         </>
     )
 }
