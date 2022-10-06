@@ -27,8 +27,6 @@ const SignUp = () => {
                 placeholder="Họ tên"
                 className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
               />
-
-
             </div>
             <div className="mt-4">
               <label>Mật khẩu</label>
@@ -91,6 +89,7 @@ const SignUp = () => {
       </div>
     </div>
   )
+  
 }
 
 export default SignUp
