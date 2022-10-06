@@ -6,7 +6,9 @@ import HomePage from 'page/Home.page';
 import ListSmartphonePage from 'page/ListSmartphone.page';
 import ListTabletPage from 'page/ListTablet.page';
 import Cart from 'components/Gio-hang/Cart';
+import OrderDetail from 'components/Thong-tin-don-hang/OrderDetail';
 import { Routes, Route } from 'react-router-dom'
+
 
 function App() {
   return (
@@ -20,7 +22,8 @@ function App() {
           <Route path='/ListTablet' element={<ListTabletPage />} />
           <Route path='/DetailProduct' element={<DetailProduct />} />
           <Route path='/OderLookup' element={<OrderLookup />} />
-          <Route path='/Cart' element={<Cart/>} />
+          <Route path='/Cart' element={<Cart />} />
+          <Route path='/OrderDetail' element={<OrderDetail />} />
         </Routes>
       </div>
     </>
