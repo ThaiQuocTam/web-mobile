@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import './SignIn.css';
 const SignIn = () => {
+
+    const [hidePass, setHidePass] = useState(true)
+
+    const handleShowPass = () => {
+        setHidePass(() => !hidePass)
+    }
+
     return (
         <>
             <div className="flex justify-center pr-56">
@@ -17,18 +24,21 @@ const SignIn = () => {
                                     type="text"
                                     name="tentaikhoan"
                                     placeholder="Tên tài khoản"
-                                    className="mt-1 p-2 bg-gray-200 focus:outline-none rounded border border-gray-400 w-full"
+                                    className="mt-1 p-2 pr-12 bg-gray-200 focus:outline-none rounded border border-gray-400 w-full"
                                 />
                             </div>
                             <div className="mt-4">
                                 <label>Mật khẩu</label>
                                 <input
-                                    type="password"
+                                    type={hidePass ? 'password' : 'text'}
                                     name="password"
-
                                     placeholder="Mật khẩu"
-                                    className="mt-1 p-2 bg-gray-200 focus:outline-none rounded border border-gray-400 w-full"
+                                    className="mt-1 p-2 pr-12 bg-gray-200 focus:outline-none rounded border border-gray-400 w-full"
                                 />
+                                {
+                                    hidePass ? <span className='relative right-4 float-right top-17px cursor-pointer' onClick={handleShowPass}><i class="bi bi-eye-slash-fill"></i></span> : <span className='relative right-4 float-right top-17px cursor-pointer line-through' onClick={handleShowPass}><i class="bi bi-eye-fill"></i></span>
+                                }
+
                             </div>
                             <div className='flex'>
                                 <div className="mt-4 w-1/2">
