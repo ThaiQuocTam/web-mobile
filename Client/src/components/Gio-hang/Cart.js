@@ -1,3 +1,4 @@
+import BackHome from 'components/Trang-chu/BackHome'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './Cart.css'
@@ -5,12 +6,10 @@ import './Cart.css'
 const Cart = () => {
     return (
         <>
-            <div class="flex flex-row">
-                <body>
-                    <a href="#" class="cd-top text-replace js-cd-top  hover:text-red-500">
-                        <i class="bi bi-box-arrow-in-left">BACK</i>
-                    </a>
-                </body>
+            <div>
+                <BackHome />
+            </div>
+            <div class="flex flex-row pl-60">
                 <div class="basis-1/2 ">
                     <div class="flex flex-col mt-10 p-3 bg-white">
                         <h2> GIỎ HÀNG</h2>
