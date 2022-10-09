@@ -4,12 +4,17 @@ import './Cart.css';
 const Cart = () => {
     return (
       <div class="flex flex-row">
+        <body> 
+          <a href="#" class="cd-top text-replace js-cd-top  hover:text-red-500">
+            <i class="bi bi-box-arrow-in-left">BACK</i>
+          </a>
+        </body>
       <div class="basis-1/2 ">
         <div class="flex flex-col mt-10 p-3 bg-white">
         <h2> GIỎ HÀNG</h2>
           <div>
             <form className="border border-gray-500 rounded-[12px] mt-4">
-            <i className="bi bi-backspace-fill "/>
+              <i className="bi bi-backspace-fill float-right hover:text-red-500 "/>
               <div className='flex'>
                   <img className="mx-2 my-1" src='https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/09/08/1111.png'/>
                 <div>
@@ -17,14 +22,15 @@ const Cart = () => {
                   <p className="mt-4 ">Giá điện thoại: 33.324.000$</p>
                   <div className='my-4 text-center flex'>
                     <p className="mt-2 ">Số lượng:</p>
-                    <input className="minus is-form" type="button" onClick="tru()" value="-"/>
+                    <input className="minus is-form  hover:text-red-500" type="button" onClick="tru()" value="-"/>
                     <input aria-label="quantity" className="input-qty" max="10" min="1" name="" type="number" value="1" id="textbox"/>
-                    <input className="plus is-form" type="button" onClick="cong()" value="+"/>  
+                    <input className="plus is-form  hover:text-red-500" type="button" onClick="cong()" value="+"/>  
                   </div>
                 </div>
               </div>
             </form>
             <form className="border border-gray-500 rounded-[12px] mt-4">
+              <i className="bi bi-backspace-fill float-right hover:text-red-500 "/>
               <div className='flex'>
                   <img className="mx-2 my-1" src='https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/09/08/1111.png'/>
                 <div>
@@ -32,9 +38,9 @@ const Cart = () => {
                   <p className="mt-4 ">Giá điện thoại: 33.324.000$</p>
                   <div className='my-4 text-center flex'>
                     <p className="mt-2 ">Số lượng:</p>
-                    <input className="minus is-form" type="button" onClick="tru()" value="-"/>
+                    <input className="minus is-form  hover:text-red-500" type="button" onClick="tru()" value="-"/>
                     <input aria-label="quantity" className="input-qty" max="10" min="1" name="" type="number" value="1" id="textbox"/>
-                    <input className="plus is-form" type="button" onClick="cong()" value="+"/>  
+                    <input className="plus is-form  hover:text-red-500" type="button" onClick="cong()" value="+"/>  
                   </div>
                 </div>
               </div>
