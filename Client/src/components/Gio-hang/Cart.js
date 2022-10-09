@@ -9,6 +9,7 @@ const Cart = () => {
         <h2> GIỎ HÀNG</h2>
           <div>
             <form className="border border-gray-500 rounded-[12px] mt-4">
+            <i className="bi bi-backspace-fill "/>
               <div className='flex'>
                   <img className="mx-2 my-1" src='https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/09/08/1111.png'/>
                 <div>
