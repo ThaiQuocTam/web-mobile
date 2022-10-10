@@ -1,7 +1,6 @@
-import BackHome from "components/Trang-chu/BackHome"
+import BackHome from "components/Client/Trang-chu/BackHome"
 import { listSmartphone } from "models/Home.model"
 import { useState } from "react"
-import { Link } from "react-router-dom"
 import ShowButton from "./ShowButton"
 
 const ListSmartphone = () => {

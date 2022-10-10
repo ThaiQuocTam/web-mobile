@@ -1,16 +1,16 @@
-import ListTablet from 'components/Client/List-san-pham/ListTablet'
+import Cart from 'components/Client/Gio-hang/Cart'
 import Footer from 'layout/Footer'
 import Header from 'layout/Header'
 import React from 'react'
 
-const ListTabletPage = () => {
+const CartPage = () => {
     return (
         <>
             <Header />
-            <ListTablet />
+            <Cart />
             <Footer />
         </>
     )
 }
 
-export default ListTabletPage
+export default CartPage

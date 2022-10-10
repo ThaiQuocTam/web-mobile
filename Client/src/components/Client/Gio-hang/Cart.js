@@ -1,4 +1,4 @@
-import BackHome from 'components/Trang-chu/BackHome'
+import BackHome from 'components/Client/Trang-chu/BackHome'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './Cart.css'
@@ -102,7 +102,7 @@ const Cart = () => {
                                         className="mt-1 p-2 h-44 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
                                     />
                                 </div>
-                                <Link to='/OrderDetail'>
+                                <Link to='/Client/OrderDetail'>
                                     <div className="mt-4">
                                         <input
                                             type="submit"

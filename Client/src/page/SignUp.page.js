@@ -1,16 +1,16 @@
-import ListTablet from 'components/Client/List-san-pham/ListTablet'
+import SignUp from 'components/Client/Sign-up/SignUp'
 import Footer from 'layout/Footer'
 import Header from 'layout/Header'
 import React from 'react'
 
-const ListTabletPage = () => {
+const SignUpPage = () => {
     return (
         <>
             <Header />
-            <ListTablet />
+            <SignUp />
             <Footer />
         </>
     )
 }
 
-export default ListTabletPage
+export default SignUpPage

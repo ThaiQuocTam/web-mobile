@@ -1,16 +1,16 @@
-import ListTablet from 'components/Client/List-san-pham/ListTablet'
+import OrderLookup from 'components/Client/Tra-cuu-don-hang/OrderLookup'
 import Footer from 'layout/Footer'
 import Header from 'layout/Header'
 import React from 'react'
 
-const ListTabletPage = () => {
+const OrderLookupPage = () => {
     return (
         <>
             <Header />
-            <ListTablet />
+            <OrderLookup />
             <Footer />
         </>
     )
 }
 
-export default ListTabletPage
+export default OrderLookupPage

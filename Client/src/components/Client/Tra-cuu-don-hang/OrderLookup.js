@@ -1,5 +1,5 @@
 import React from 'react'
-import BackHome from 'components/Trang-chu/BackHome'
+import BackHome from 'components/Client/Trang-chu/BackHome'
 
 const OrderLookup = () => {
     return (

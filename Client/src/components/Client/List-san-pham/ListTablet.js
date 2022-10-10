@@ -1,4 +1,4 @@
-import BackHome from "components/Trang-chu/BackHome"
+import BackHome from "components/Client/Trang-chu/BackHome"
 import { listTable } from "models/Home.model"
 import { useState } from "react"
 import ShowButton from "./ShowButton"

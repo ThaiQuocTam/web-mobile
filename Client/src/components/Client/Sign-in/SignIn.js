@@ -50,7 +50,7 @@ const SignIn = () => {
                                 </div>
 
                                 <div className="mt-4 w-1/2">
-                                    <Link to='/SignUp'>
+                                    <Link to='/Client/SignUp'>
                                         <input
                                             type="submit"
                                             value="Đăng ký"
