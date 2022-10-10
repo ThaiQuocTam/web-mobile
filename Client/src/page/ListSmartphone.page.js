@@ -1,13 +1,9 @@
-import ListSmartphone from 'components/Client/List-san-pham/ListSmartphone'
-import Footer from 'layout/Footer'
-import Header from 'layout/Header'
+import ListSmartphone from 'components/List-san-pham/ListSmartphone'
 
 const ListSmartphonePage = () => {
     return (
         <>
-            <Header />
             <ListSmartphone />
-            <Footer />
         </>
     )
 }

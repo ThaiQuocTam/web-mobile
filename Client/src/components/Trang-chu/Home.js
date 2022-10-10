@@ -1,7 +1,7 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
-import { images } from '../../../models/Home.model'
+import { images } from '../../models/Home.model'
 import FlashSale from "./FlashSale";
 
 const Home = () => {

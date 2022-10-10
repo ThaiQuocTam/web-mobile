@@ -1,4 +1,4 @@
-import BackHome from 'components/Client/Trang-chu/BackHome'
+import BackHome from 'components/Trang-chu/BackHome'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './Cart.css'

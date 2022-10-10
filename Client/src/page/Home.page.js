@@ -1,19 +1,15 @@
-import Banner from 'components/Client/Trang-chu/Banner'
-import FlashSale from 'components/Client/Trang-chu/FlashSale'
-import Home from 'components/Client/Trang-chu/Home'
-import TopTablet from 'components/Client/Trang-chu/TopTablet'
-import Footer from 'layout/Footer'
-import Header from 'layout/Header'
+import Banner from 'components/Trang-chu/Banner'
+import FlashSale from 'components/Trang-chu/FlashSale'
+import Home from 'components/Trang-chu/Home'
+import TopTablet from 'components/Trang-chu/TopTablet'
 import React from 'react'
 
 const HomePage = () => {
     return (
         <>
-            <Header />
             <Home />
             <Banner />
             <TopTablet />
-            <Footer />
         </>
     )
 }

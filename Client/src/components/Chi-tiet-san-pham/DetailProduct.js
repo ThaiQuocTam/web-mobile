@@ -1,5 +1,5 @@
-import BackHome from "components/Client/Trang-chu/BackHome"
-import FlashSale from "components/Client/Trang-chu/FlashSale"
+import BackHome from "components/Trang-chu/BackHome"
+import FlashSale from "components/Trang-chu/FlashSale"
 import { Products } from "models/DetailProduct.model"
 import { useEffect, useState } from "react"
 

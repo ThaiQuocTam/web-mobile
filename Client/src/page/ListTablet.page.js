@@ -1,14 +1,10 @@
-import ListTablet from 'components/Client/List-san-pham/ListTablet'
-import Footer from 'layout/Footer'
-import Header from 'layout/Header'
+import ListTablet from 'components/List-san-pham/ListTablet'
 import React from 'react'
 
 const ListTabletPage = () => {
     return (
         <>
-            <Header />
             <ListTablet />
-            <Footer />
         </>
     )
 }
