@@ -7,6 +7,7 @@ const Header = () => {
     const [mouseSmartphone, setMouseSmartphone] = useState('')
     const [mouseTablet, setMouseTablet] = useState('')
 
+
     return (
         <>
             <header className='h-200 p-5 pl-30 z-10'>
@@ -24,14 +25,14 @@ const Header = () => {
                             </div>
                         </li>
                         <Link to='/Cart'>
-                        <li className='inline-block mr-14 text-6 hover:opacity-50'>
-                            <a className='inline-block' href='#'>
-                                <i className="bi bi-cart2 inline-block text-green-900 text-7 pr-1"></i>
-                                <span className='w-7 h-7 text-center text-white text-3.5 p-1 pb-1 bg-orange-500 rounded-2 block float-right'>
-                                    0
-                                </span>
-                            </a>
-                        </li>
+                            <li className='inline-block mr-14 text-6 hover:opacity-50'>
+                                <a className='inline-block' href='#'>
+                                    <i className="bi bi-cart2 inline-block text-green-900 text-7 pr-1"></i>
+                                    <span className='w-7 h-7 text-center text-white text-3.5 p-1 pb-1 bg-orange-500 rounded-2 block float-right'>
+                                        0
+                                    </span>
+                                </a>
+                            </li>
                         </Link>
                         <li className='inline-block mr-14 hover:opacity-50'>
                             <Link to='/OderLookup'>
@@ -53,36 +54,39 @@ const Header = () => {
                 </div >
                 <div className='mt-5 mr-28 ml-4 p-1 bg-green-200 rounded-2'>
                     <ul className=''>
-                        <li
-                            onMouseEnter={() => {
-                                setMouseSmartphone('block w-86px h-2px bg-black animate-onMouseCss');
-                                setMouseTablet('')
-                            }}
-                            className='inline-block mr-14 overflow-hidden cursor-pointer'>
-                            <Link to='/ListSmartphone'>
+                        <Link to='/ListSmartphone'>
+                            <li
+                                onMouseEnter={() => {
+                                    setMouseSmartphone('block w-86px h-2px bg-black animate-onMouseCss');
+                                    setMouseTablet('')
+                                }}
+                                onMouseLeave={() => setMouseSmartphone('')}
+                                className='inline-block mr-14 overflow-hidden cursor-pointer'>
                                 <span className='font-medium mr-1'>Điện thoại</span>
                                 <i className="bi bi-phone-fill text-5 text-green-700"></i>
-                            </Link>
-                            <div className='h-2px'>
-                                <span className={mouseSmartphone} ></span>
-                            </div>
-                        </li>
-                        <li
-                            onMouseEnter={
-                                () => {
-                                    setMouseTablet('block w-28 h-2px bg-black animate-onMouseCss');
-                                    setMouseSmartphone('')
+                                <div className='h-2px'>
+                                    <span className={mouseSmartphone} ></span>
+                                </div>
+                            </li>
+                        </Link>
+                        <Link to='/ListTablet'>
+                            <li
+                                onMouseEnter={
+                                    () => {
+                                        setMouseTablet('block w-28 h-2px bg-black animate-onMouseCss');
+                                        setMouseSmartphone('')
+                                    }
                                 }
-                            }
-                            className='inline-block mr-14 overflow-hidden cursor-pointer' >
-                            <Link to='/ListTablet'>
+                                onMouseLeave={() => setMouseTablet('')}
+                                className='inline-block mr-14 overflow-hidden cursor-pointer'
+                                onClick={() => setActive()}>
                                 <span className='font-medium mr-1'>Máy tính bảng</span>
                                 <i className="bi bi-tablet-landscape-fill text-5 text-green-700"></i>
-                            </Link>
-                            <div className='h-2px'>
-                                <span className={mouseTablet} ></span>
-                            </div>
-                        </li>
+                                <div className='h-2px'>
+                                    <span className={mouseTablet} ></span>
+                                </div>
+                            </li>
+                        </Link>
                     </ul >
                 </div >
             </header >
