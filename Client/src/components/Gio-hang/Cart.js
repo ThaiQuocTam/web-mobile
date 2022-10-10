@@ -102,7 +102,7 @@ const Cart = () => {
                                         className="mt-1 p-2 h-44 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
                                     />
                                 </div>
-                                <Link to='/Client/OrderDetail'>
+                                <Link to='/OrderDetail'>
                                     <div className="mt-4">
                                         <input
                                             type="submit"
