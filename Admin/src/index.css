@@ -112,6 +112,10 @@
     top: -31px
   }
 
+  .active {
+    @apply text-red-500
+  }
+
   .text-red {
     color: red;
     font-weight: bold;
