@@ -1,4 +1,6 @@
-import HomeAdminPage from "page/HomeAdmin.page";
+import HomeAdminPage from 'page/HomeAdmin.page';
+import { Routes, Route } from 'react-router-dom'
+
 
 function App() {
   return (

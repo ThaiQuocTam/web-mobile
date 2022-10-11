@@ -1,5 +1,5 @@
-import HomeAdmin from "components/Home-Admin/HomeAdmin"
-
+import HomeAdmin from 'components/HomeAdmin/HomeAdmin'
+import React from 'react'
 
 const HomeAdminPage = () => {
     return (
