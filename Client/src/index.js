@@ -9,29 +9,23 @@ import Footer from 'layout/Footer';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga'
-// import reducers from 'redux/reducers';
 import reducers from 'redux/reducers';
 import mySaga from 'redux/saga';
 
 const sagaMiddleware = createSagaMiddleware()
-
-try {
-  const store = createStore(reducers, applyMiddleware(sagaMiddleware))
-} catch (e) {
-  console.log('loix', e);
-}
-// sagaMiddleware.run(mySaga)
+const store = createStore(reducers, applyMiddleware(sagaMiddleware))
+sagaMiddleware.run(mySaga)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
-    <BrowserRouter>
-      <Header />
-      <App />
-      <Footer />
-    </BrowserRouter>
-    {/* </Provider> */}
+    <Provider store={store}>
+      <BrowserRouter>
+        <Header />
+        <App />
+        <Footer />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 

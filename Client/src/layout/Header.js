@@ -6,7 +6,9 @@ const Header = () => {
 
     const [mouseSmartphone, setMouseSmartphone] = useState('')
     const [mouseTablet, setMouseTablet] = useState('')
+    const [hidden, setHidden] = useState(false)
 
+    let email = localStorage.getItem("User")
 
     return (
         <>
@@ -42,14 +44,40 @@ const Header = () => {
                                 </div>
                             </Link>
                         </li>
-                        <li className='inline-block mr-10 hover:opacity-50'>
+                        {/* <li className='inline-block mr-10 hover:opacity-50'>
                             <Link to='/SignIn'>
                                 <div className='cursor-pointer'>
                                     <i className="bi bi-person-fill text-6 pr-2 text-green-700"></i>
                                     <span className='font-semibold text-3.5' >Đăng nhập</span>
                                 </div>
                             </Link>
-                        </li>
+                        </li> */}
+                        {
+                            email ?
+                                <li onMouseEnter={() => setHidden(true)} onMouseLeave={() => setHidden(false)} className='inline-block mr-10'>
+                                    <div className='cursor-pointer relative'>
+                                        <i className="bi bi-person-fill text-6 pr-2 text-green-700"></i>
+                                        <span className='font-semibold text-3.5' >{email}</span>
+                                    </div>
+                                    {
+                                        hidden && <a to='/' onClick={() => localStorage.removeItem('User')} className='absolute bg-slate-500 w-28 h-8 leading-8 text-center rounded-2 right-7 cursor-pointer hover:opacity-75 animate-modalForm'>
+                                            <span className='text-white text-3.5'>Đăng xuất</span>
+                                            <i class="bi bi-caret-up-fill absolute position-top_-19 left-1 text-slate-500"></i>
+                                        </a>
+                                    }
+
+                                </li>
+
+                                :
+                                <li className='inline-block mr-10 hover:opacity-50'>
+                                    <Link to='/SignIn'>
+                                        <div className='cursor-pointer'>
+                                            <i className="bi bi-person-fill text-6 pr-2 text-green-700"></i>
+                                            <span className='font-semibold text-3.5 left-4 right ' >Đăng nhập</span>
+                                        </div>
+                                    </Link>
+                                </li>
+                        }
                     </ul>
                 </div >
                 <div className='mt-5 mr-28 ml-4 p-1 bg-green-200 rounded-2'>

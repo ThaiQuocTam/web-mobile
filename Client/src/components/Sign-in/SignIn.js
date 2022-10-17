@@ -1,12 +1,46 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import './SignIn.css';
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../redux/actions'
+import { signInSelector } from 'redux/selector';
+import { useForm } from 'react-hook-form';
+
 const SignIn = () => {
 
+    const post = useSelector(signInSelector)
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
     const [hidePass, setHidePass] = useState(true)
+    const [message, setMessage] = useState('')
+
+    const { register, handleSubmit, formState: { errors }, getValues, setValue } = useForm({
+        mode: "onChange"
+    });
 
     const handleShowPass = () => {
         setHidePass(() => !hidePass)
+    }
+
+    const dataSubmit = (data) => {
+        dispatch(actions.signInAction.signInRequest(data))
+        console.log(post);
+        try {
+            if (post.errCode === 1) {
+                setMessage('Email không tồn tại')
+            }
+            if (post.errCode === 2) {
+                setMessage('Mật khẩu không chính xác')
+            }
+            if (post.errCode === 0) {
+                navigate('/')
+                localStorage.setItem("User", data.Email)
+            }
+        }
+        catch (e) {
+            console.log('Lỗi : ', e);
+        }
     }
 
     return (
@@ -15,30 +49,44 @@ const SignIn = () => {
                 <div className="w-1/4 mr-3 image">
                 </div>
                 <div className="w-1/3 mt-10 p-3 bg-white">
-                    <form className="border border-gray-500 rounded-[12px]">
+                    <form onSubmit={handleSubmit(dataSubmit)} className="border border-gray-500 rounded-[12px]">
                         <div className="p-4">
                             <h1 className="text-lg border-b border-gray-500 text-center font-medium text-5"> Đăng nhập</h1>
                             <div className="mt-4">
-                                <label>Tài khoản</label>
+                                <label>Email</label>
                                 <input
+                                    {...register('Email', { required: true })}
                                     type="text"
-                                    name="tentaikhoan"
-                                    placeholder="Tên tài khoản"
+                                    placeholder="Nhập Email"
                                     className="mt-1 p-2 pr-12 bg-gray-200 focus:outline-none rounded border border-gray-400 w-full"
                                 />
+                                {
+                                    errors.Email &&
+                                    <div className='mt-3'>
+                                        <p className='text-3 italic text-red-500'>Không được để trống</p>
+                                    </div>
+                                }
                             </div>
                             <div className="mt-4">
                                 <label>Mật khẩu</label>
                                 <input
+                                    {...register('Mat_khau', { required: true })}
                                     type={hidePass ? 'password' : 'text'}
-                                    name="password"
-                                    placeholder="Mật khẩu"
+                                    placeholder="Nhập mật khẩu"
                                     className="mt-1 p-2 pr-12 bg-gray-200 focus:outline-none rounded border border-gray-400 w-full"
                                 />
                                 {
                                     hidePass ? <span className='relative right-4 float-right top-17px cursor-pointer' onClick={handleShowPass}><i class="bi bi-eye-slash-fill"></i></span> : <span className='relative right-4 float-right top-17px cursor-pointer line-through' onClick={handleShowPass}><i class="bi bi-eye-fill"></i></span>
                                 }
-
+                                {
+                                    errors.Mat_khau &&
+                                    <div className='mt-3'>
+                                        <p className='text-3 italic text-red-500'>Không được để trống</p>
+                                    </div>
+                                }
+                            </div>
+                            <div className='mt-3'>
+                                <p className='text-3.5 text-red-500'>{message}</p>
                             </div>
                             <div className='flex'>
                                 <div className="mt-4 w-1/2">

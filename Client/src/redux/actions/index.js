@@ -5,7 +5,7 @@ export const getType = (reduxAction) => {
 }
 
 export const signInAction = createActions({
-    signInRequest: undefined,
+    signInRequest: (payload) => payload,
     signInSuccess: (payload) => payload,
     signInFailure: (err) => err
 })

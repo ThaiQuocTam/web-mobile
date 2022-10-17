@@ -1,10 +1,16 @@
-import { takeLatest, call } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
 import * as actions from '../actions'
 import * as api from '../../Api'
 
-function* handleSignInAction(actions) {
-    const post = yield call(api.apiSignIn)
-    console.log('API : ', post);
+function* handleSignInAction(action) {
+    try {
+        const post = yield call(api.apiSignIn, action.payload)
+        console.log('APIs : ', post.data);
+        yield put(actions.signInAction.signInSuccess(post.data))
+    } catch (e) {
+        console.log('loi API : ', post);
+        yield put(actions.signInAction.signInFailure)
+    }
 }
 
 function* mySaga() {
