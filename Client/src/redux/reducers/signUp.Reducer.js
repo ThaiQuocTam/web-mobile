@@ -1,21 +1,20 @@
-import { getType, signInAction } from "redux/actions";
-import { INIT_STATE_SIGN_IN } from "redux/constants/constants";
+import { getType, signUpAction } from "redux/actions";
+import { INIT_STATE_SIGN_UP } from "redux/constants/constants";
 
-export default function signInReducer(state = INIT_STATE_SIGN_IN, action) {
-    console.log(state);
+export default function signUpReducer(state = INIT_STATE_SIGN_UP, action) {
     switch (action.type) {
-        case getType(signInAction.signInRequest):
+        case getType(signUpAction.signUpRequest):
             return {
                 ...state,
                 isLoading: true,
             }
-        case getType(signInAction.signInSuccess):
+        case getType(signUpAction.signUpSuccess):
             return {
                 ...state,
                 isLoading: false,
                 data: action.payload
             }
-        case getType(signInAction.signInFailure):
+        case getType(signUpAction.signUpFailure):
             return {
                 ...state,
                 isLoading: false

@@ -62,12 +62,12 @@ const getHomePage = async (req, res) => {
 
 // }
 
-// const editNguoiDung = async (req, res) => {
-//     let data = req.body;
-//     // console.log(data.id);
-//     await updateUser(data)
-//     return res.send('done')
-// }
+const editNguoiDung = async (req, res) => {
+    let data = req.body;
+    console.log('asdas', data);
+    // await updateUser(data)
+    return res.send('done')
+}
 
 // const deleteNguoiDung = async (req, res) => {
 //     let idUser = req.query.id;
@@ -82,5 +82,5 @@ const getHomePage = async (req, res) => {
 
 
 
-export { getHomePage, }
-// getCrud, postCrud, getNguoiDung, getEditNguoiDung, editNguoiDung, deleteNguoiDung getAboutPage
+export { getHomePage, editNguoiDung }
+// getCrud, postCrud, getNguoiDung, getEditNguoiDung, , deleteNguoiDung getAboutPage

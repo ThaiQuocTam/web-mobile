@@ -1,5 +1,6 @@
 import SignUp from 'components/Sign-up/SignUp'
-import React from 'react'
+import { signUpSelector } from 'redux/selector';
+// const signUpData = useSelector(signUpSelector)
 
 const SignUpPage = () => {
     return (

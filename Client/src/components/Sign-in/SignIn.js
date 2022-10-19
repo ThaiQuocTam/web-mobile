@@ -8,14 +8,14 @@ import { useForm } from 'react-hook-form';
 
 const SignIn = () => {
 
-    const post = useSelector(signInSelector)
+    const signData = useSelector(signInSelector)
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
     const [hidePass, setHidePass] = useState(true)
     const [message, setMessage] = useState('')
 
-    const { register, handleSubmit, formState: { errors }, getValues, setValue } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onChange"
     });
 
@@ -23,24 +23,23 @@ const SignIn = () => {
         setHidePass(() => !hidePass)
     }
 
-    const dataSubmit = (data) => {
-        dispatch(actions.signInAction.signInRequest(data))
-        console.log(post);
+    useEffect(() => {
         try {
-            if (post.errCode === 1) {
-                setMessage('Email không tồn tại')
+            if (signData.errCode !== 0) {
+                setMessage(signData.message)
             }
-            if (post.errCode === 2) {
-                setMessage('Mật khẩu không chính xác')
-            }
-            if (post.errCode === 0) {
+            if (signData.errCode === 0) {
                 navigate('/')
-                localStorage.setItem("User", data.Email)
+                localStorage.setItem("User", signData.user.Email)
             }
         }
         catch (e) {
             console.log('Lỗi : ', e);
         }
+    }, [signData])
+
+    const dataSubmit = (data) => {
+        dispatch(actions.signInAction.signInRequest(data))
     }
 
     return (
@@ -98,13 +97,12 @@ const SignIn = () => {
                                 </div>
 
                                 <div className="mt-4 w-1/2">
-                                    <Link to='/SignUp'>
+                                    <a href='/SignUp'>
                                         <input
-                                            type="submit"
                                             value="Đăng ký"
                                             className="mt-1 hover:bg-purple-800 w-28 p-2 float-right border border-gray-400 rounded cursor-pointer bg-purple-600 text-white"
                                         />
-                                    </Link>
+                                    </a>
                                 </div>
                             </div>
                         </div>

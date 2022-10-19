@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import image from '../Assets/images/picwish.jpg'
 
@@ -70,12 +70,12 @@ const Header = () => {
 
                                 :
                                 <li className='inline-block mr-10 hover:opacity-50'>
-                                    <Link to='/SignIn'>
+                                    <a href='/SignIn'>
                                         <div className='cursor-pointer'>
                                             <i className="bi bi-person-fill text-6 pr-2 text-green-700"></i>
                                             <span className='font-semibold text-3.5 left-4 right ' >Đăng nhập</span>
                                         </div>
-                                    </Link>
+                                    </a>
                                 </li>
                         }
                     </ul>

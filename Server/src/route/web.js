@@ -12,11 +12,11 @@ const initWebRoutes = (app) => {
     // router.get('/get-nguoi-dung', getNguoiDung);
 
     // router.get('/edit-nguoi-dung', getEditNguoiDung)
-    // router.post('/put-nguoi-dung', editNguoiDung)
+    router.post('/put-nguoi-dung', editNguoiDung)
     // router.get('/delete-nguoi-dung', deleteNguoiDung)
 
     router.post('/api/signIn', userController.handleSignIn)
-    router.post('api/signUp',)
+    router.post('/api/signUp', userController.handleSignUp)
 
     return app.use("/", router);
 }

@@ -9,3 +9,9 @@ export const signInAction = createActions({
     signInSuccess: (payload) => payload,
     signInFailure: (err) => err
 })
+
+export const signUpAction = createActions({
+    signUpRequest: (payload) => payload,
+    signUpSuccess: (payload) => payload,
+    signUpFailure: (err) => err
+})
