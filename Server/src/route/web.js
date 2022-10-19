@@ -20,6 +20,7 @@ const initWebRoutes = (app) => {
     router.post('/api/signUp', userController.handleSignUp)
 
     router.get('/api/top-Smartphone', topProductsController.handleTopSmartphone)
+    router.get('/api/top-TableLet', topProductsController.handleTopTablet)
 
     return app.use("/", router);
 }
