@@ -1,3 +1,4 @@
+import ModalThemSP from 'components/Ql-san-pham/ModalThemSP';
 import HomeAdminPage from 'page/HomeAdmin.page';
 import QlHoaDonPage from 'page/QlHoaDon.page';
 import QlSanPhamPage from 'page/QlSanPham.page';
@@ -14,6 +15,7 @@ function App() {
           <Route path='/QlHoaDon' element={<QlHoaDonPage />} />
           <Route path='/QlSanPham' element={<QlSanPhamPage />} />
           <Route path='/QlThanhVien' element={<QlThanhVienPage />} />
+          <Route path='/ThemSP' element={<ModalThemSP />} />
         </Routes>
       </div >
     </>

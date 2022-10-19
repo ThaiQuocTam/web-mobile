@@ -112,6 +112,10 @@
     top: -31px
   }
 
+  .ml-30rem {
+    margin-left: 33rem;
+  }
+
   .active {
     @apply text-red-500
   }
