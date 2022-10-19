@@ -2,7 +2,6 @@ import { getType, signInAction } from "redux/actions";
 import { INIT_STATE_SIGN_IN } from "redux/constants/constants";
 
 export default function signInReducer(state = INIT_STATE_SIGN_IN, action) {
-    console.log(state);
     switch (action.type) {
         case getType(signInAction.signInRequest):
             return {

@@ -23,8 +23,8 @@ const TopTablet = () => {
     return (
         <>
             <div className='pl-24 mt-8 mb-5'>
-                <div className='bg-green-950 max-w-54 p-1 pl-5 border-l-25 border-green-200 rounded-1'>
-                    <span className='text-4 font-semibold text-white'>TOP TABLET </span>
+                <div className='bg-green-950 max-w-75 p-1 pl-5 border-l-25 border-green-200 rounded-1'>
+                    <span className='text-4 font-semibold text-white uppercase'>TOP máy tính bảng bán chạy </span>
                 </div>
             </div>
             <div className='px-24 shadow-soft-xxs bg-green-150'>

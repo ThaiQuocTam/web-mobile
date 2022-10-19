@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         Thong_tin_bao_hanh: DataTypes.TEXT,
         Ghi_chu: DataTypes.TEXT,
         Id_loai_SP: DataTypes.INTEGER,
+        Id_nhom_SP: DataTypes.INTEGER
     }, {
         sequelize,
         modelName: 'san_pham',
