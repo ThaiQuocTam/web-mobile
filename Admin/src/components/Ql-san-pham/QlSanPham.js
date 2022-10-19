@@ -2,7 +2,7 @@ import React from 'react'
 
 const QlSanPham = () => {
     return (
-        <div>QlSanPham</div>
+        <div>QlSanPhaádasdm</div>
     )
 }
 
