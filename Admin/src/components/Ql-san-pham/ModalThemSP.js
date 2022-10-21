@@ -3,7 +3,8 @@ import FileBase64 from 'react-file-base64'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions/actions'
-import { listProductTypeSelector, listProductGroupSelector } from 'redux/selector/selector';
+import { listProductTypeSelector, listProductGroupSelector, messageCreateProductSelector } from 'redux/selector/selector';
+import AddSuccess from './AddSuccess';
 
 
 const ModalThemSP = ({ isClose }) => {
@@ -11,22 +12,28 @@ const ModalThemSP = ({ isClose }) => {
     const dispatch = useDispatch()
     const dataListProDuctType = useSelector(listProductTypeSelector)
     const dataListProDuctGroup = useSelector(listProductGroupSelector)
+    const messageCreateProduct = useSelector(messageCreateProductSelector)
 
     const [stateDataProductType, setStateDataProductType] = useState([])
     const [stateDataProductGroup, setStateDataProductGroup] = useState([])
     const [state, setState] = useState()
+    const [message, setMessage] = useState('')
+    const [showSuccess, setShowSuccess] = useState(false)
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onChange"
     });
 
-    const convertBase64 = (file) => {
-        const reader = new FileReader()
-        reader.onloadend = () => {
-            setState(reader.result.toString())
-        }
-        reader.readAsDataURL(file)
-    }
+    // const convertBase64 = (file) => {
+    //     let fileString = ''
+    //     const reader = new FileReader()
+    //     reader.onloadend = () => {
+    //         fileString = reader.result.toString()
+    //         setState(fileString)
+
+    //     }
+    //     reader.readAsDataURL(file)
+    // }
 
     useEffect(() => {
         dispatch(actions.getListProductTypeAction.getListProductTypeRequest())
@@ -54,31 +61,48 @@ const ModalThemSP = ({ isClose }) => {
     }, [dataListProDuctGroup])
 
     const dataSubmit = (data) => {
-        convertBase64(data.Hinh_anh[0])
-        if (state) {
-
+        let image = ''
+        const reader = new FileReader()
+        reader.onloadend = () => {
+            image = reader.result.toString()
+            let dataReturn = {
+                Ten_san_pham: data.Ten_san_pham,
+                Hinh_anh: image,
+                So_luong_SP: data.So_luong_SP,
+                Gia_san_pham: data.Gia_san_pham,
+                Thong_tin_bao_hanh: data.Thong_tin_bao_hanh,
+                Ghi_chu: data.Ghi_chu,
+                Id_loai_SP: data.Id_loai_SP,
+                Id_nhom_SP: data.Id_nhom_SP
+            }
+            dispatch(actions.postCreateProductAction.postCreateProductRequest(dataReturn))
         }
-        // let image = new Buffer(data.Hinh_anh, 'base64').toString('binary')
-        let dataReturn = {
-            Ten_san_pham: data.Ten_san_pham,
-            Hinh_anh: state,
-            So_luong_SP: data.So_luong_SP,
-            Gia_san_pham: data.Gia_san_pham,
-            Thong_tin_bao_hanh: data.Thong_tin_bao_hanh,
-            Ghi_chu: data.Ghi_chu,
-            Id_loai_SP: data.Id_loai_SP,
-            Id_nhom_SP: data.Id_nhom_SP
-        }
-        // dispatch(actions.postCreateProductAction.postCreateProductRequest(dataReturn))
-        console.log(dataReturn);
+        reader.readAsDataURL(data.Hinh_anh[0])
     }
 
-    console.log(state);
+    useEffect(() => {
+        try {
+            if (messageCreateProduct) {
+                if (messageCreateProduct.errCode === '0') {
+                    setMessage('Thêm thành công')
+                    setShowSuccess(true)
+                }
+                else {
+                    setMessage(messageCreateProduct.message)
+                    setShowSuccess(true)
+                }
+            }
+        } catch (e) {
+            console.log('Lỗi', e);
+        }
+    }, [messageCreateProduct || message])
+
+    const showMessage = () => {
+        setShowSuccess(false)
+    }
 
     return (
         <>
-            <div>
-            </div>
             <div className=''>
                 <form onSubmit={handleSubmit(dataSubmit)}>
                     <div className='bg-white w-180-em animate-modalForm'>
@@ -177,11 +201,18 @@ const ModalThemSP = ({ isClose }) => {
                                 <div className='px-2 w-full mb-5'>
                                     <button className='w-full bg-gradient-dark-gray text-white py-1 rounded-2 hover:opacity-90'> Lưu</button>
                                 </div>
+                                <div className='text-center'>
+                                    <span className="text-red-500 text-4 italic">{message} </span>
+                                </div>
                             </div>
                         </div>
                     </div >
                 </form >
             </div >
+
+            {
+                showSuccess && (<AddSuccess show={showMessage} Mes={message} />)
+            }
         </>
     )
 }

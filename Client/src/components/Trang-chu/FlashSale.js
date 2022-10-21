@@ -14,7 +14,6 @@ const FlashSale = () => {
     const dispatch = useDispatch(useDispatch)
     const listTopSmartphone = useSelector(listTopSmartphoneSelector)
     const [listSmartphone, setListSmartphone] = useState([])
-    const [image, setImage] = useState('')
 
     const settings = {
         className: "center",
@@ -44,10 +43,9 @@ const FlashSale = () => {
         try {
             if (listSmartphone) {
                 let image = ''
-                // image = new Buffer(listSmartphone[0].Hinh_anh, 'base64').toString('binary')
-                const base64String = btoa(String.fromCharCode(...new Uint8Array(listSmartphone[0].Hinh_anh)));
+                const base64String = btoa(String.fromCharCode(...new Uint8Array(listSmartphone[4].Hinh_anh.data)));
                 console.log(base64String);
-                setImage(base64String)
+                console.log(listSmartphone[4].Hinh_anh);
             }
             else {
                 console.log('Khong có');
@@ -57,13 +55,8 @@ const FlashSale = () => {
         }
     }, [listSmartphone])
 
-    // console.log(image);
-
-
     return (
         <>
-            {/* <img src={`data:image/png;base64,${image}`} alt="" /> */}
-
             <div className='px-24 shadow-soft-xxs bg-green-150'>
                 <Slider {...settings}>
                     {
@@ -74,14 +67,13 @@ const FlashSale = () => {
 
                                 }
                                 <div className=''>
-                                    <div className=''>
-                                        {/* <img className='mx-auto' src={item.Hinh_anh} /> */}
-                                        <img className='w-30' src={`data:image/png;base64,${image}`} alt="" />
+                                    <div className='w-full '>
+                                        <img className='mx-auto w-10/12' src={item.Hinh_anh} />
                                     </div>
                                 </div>
                                 <div className='text-center h-20 mb-2'>
                                     <div className='pt-2 pb-1'>
-                                        <span className='text-3.5 font-semibold text-black'>{item.Ten_san_pham}</span>
+                                        <span className='text-3.5 font-semibold text-black'>{item.Ten_san_pham} - Chính hãng</span>
                                     </div>
                                     <div className='pb-2'>
                                         <span className='text-red-600 text-3.5 mr-5 font-semibold'>{item.Gia_san_pham.toLocaleString()} ₫</span>

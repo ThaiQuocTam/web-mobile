@@ -112,6 +112,10 @@
     top: -31px
   }
 
+  .left-position-640 {
+    left: 640px;
+  }
+
   .text-red {
     color: red;
     font-weight: bold;

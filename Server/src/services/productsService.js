@@ -7,7 +7,7 @@ const addProduct = (data) => {
             let check = await checkNameProduct(data.Ten_san_pham)
             if (check) {
                 addProductMessage.errCode = '1'
-                addProductMessage.message = 'Tên sản phẩm đã tồn tạo, kiểm tra lại !'
+                addProductMessage.message = 'Tên đã tồn tại!'
             }
             else {
                 await db.san_pham.create({
