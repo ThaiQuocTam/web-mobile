@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import FileBase64 from 'react-file-base64'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions/actions'
@@ -18,11 +19,16 @@ const ModalThemSP = ({ isClose }) => {
         mode: "onChange"
     });
 
-    useEffect(() => {
-        dispatch(actions.getListProductTypeAction.getListProductTypeRequest())
-    }, [])
+    const convertBase64 = (file) => {
+        const reader = new FileReader()
+        reader.onloadend = () => {
+            setState(reader.result.toString())
+        }
+        reader.readAsDataURL(file)
+    }
 
     useEffect(() => {
+        dispatch(actions.getListProductTypeAction.getListProductTypeRequest())
         dispatch(actions.getListProductGroupAction.getListProductGroupRequest())
     }, [])
 
@@ -46,20 +52,30 @@ const ModalThemSP = ({ isClose }) => {
         }
     }, [dataListProDuctGroup])
 
-
     const dataSubmit = (data) => {
-        const ata = {
-            Ten_san_pham: data.Ten_san_pham,
-            Hinh_anh: data.Hinh_anh[0].name,
-            Gia_san_pham: data.Gia_san_pham,
-            So_luong_SP: data.So_luong_SP,
-            Thong_tin_bao_hanh: data.Thong_tin_bao_hanh,
-            Ghi_chu: data.Ghi_chu,
-            Id_loai_SP: data.Id_loai_SP,
-            Id_nhom_SP: data.Id_nhom_SP
-        }
-        console.log(ata);
+        const haha = data.Hinh_anh[0].toString()
+        // if (state) {
+        //     let dataReturn = {
+        //         Ten_san_pham: data.Ten_san_pham,
+        //         Hinh_anh: state,
+        //         So_luong_SP: data.So_luong_SP,
+        //         Gia_san_pham: data.Gia_san_pham,
+        //         Thong_tin_bao_hanh: data.Thong_tin_bao_hanh,
+        //         Ghi_chu: data.Ghi_chu,
+        //         Id_loai_SP: data.Id_loai_SP,
+        //         Id_nhom_SP: data.Id_nhom_SP
+        //     }
+        //     dispatch(actions.postCreateProductAction.postCreateProductRequest(dataReturn))
+        // }
+        // else {
+        //     console.log('chưa có');
+        // }
+
+        console.log(haha);
     }
+
+    console.log(state);
+
 
     return (
         <>
@@ -113,10 +129,17 @@ const ModalThemSP = ({ isClose }) => {
                                 <div className='px-2 pb-3'>
                                     <label className="mb-2 text-gray-900 text-3.5 font-semibold">Hình ảnh : </label>
 
-                                    <input
+                                    {/* <input
                                         type="file"
                                         className="block w-3/5 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                                         {...register('Hinh_anh', { required: true })}
+                                    /> */}
+                                    <FileBase64
+                                        accept='image/*'
+                                        multiple={false}
+                                        type='file'
+                                        value={state}
+                                        onDone={({ base64 }) => setState({ base64 })}
                                     />
                                 </div>
                                 <div className='px-2 pb-3 mt-1'>
@@ -155,7 +178,7 @@ const ModalThemSP = ({ isClose }) => {
                                     <label className='mb-2 text-gray-900 text-3.5 font-semibold'>Ghi chú : </label>
                                     <textarea
                                         className='w-full py-2 text-3.5 border-2 hover:border-slate-200 rounded-2 h-15 focus:outline-none focus:border-red-200 border-slate-100 pl-5 text-slate-800 font-medium'
-                                        {...register('Gh_chu', { required: false })}
+                                        {...register('Ghi_chu', { required: false })}
                                     />
                                 </div>
                                 <div className='px-2 w-full mb-5'>

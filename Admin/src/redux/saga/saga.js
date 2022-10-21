@@ -25,7 +25,7 @@ function* handlePostCreateProductAction(action) {
     try {
         const messageAddProduct = yield call(api.apiPostCreateProduct, action.payload)
         console.log('Message : ', messageAddProduct);
-        // yield put(actions.getListProductGroupAction.getListProductGroupSuccess(listProductGroup.data))
+        yield put(actions.getListProductGroupAction.getListProductGroupSuccess(listProductGroup.data))
 
     } catch (e) {
         yield put(actions.postCreateProductAction.postCreateProductFailure)

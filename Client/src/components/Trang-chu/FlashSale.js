@@ -53,7 +53,7 @@ const FlashSale = () => {
                                 }
                                 <div className=''>
                                     <div className=''>
-                                        <img className='mx-auto' src='https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/08/02/combo-product-reno8-z-gold.png' />
+                                        <img className='mx-auto' src={item.Hinh_anh} />
                                     </div>
                                 </div>
                                 <div className='text-center h-20 mb-2'>
