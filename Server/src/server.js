@@ -11,8 +11,12 @@ app.use(cors({ credentials: true, origin: ['http://localhost:3000', 'http://loca
 
 //config app
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(bodyParser.json({ limit: '50mb' }));
+// app.use(bodyParser.urlencoded({ limit: '50bm', extended: true }))
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, parameterLimit: 100000, limit: "500mb" }))
 
 viewEngine(app)
 initWebRoutes(app)

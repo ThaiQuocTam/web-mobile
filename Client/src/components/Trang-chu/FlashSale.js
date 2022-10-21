@@ -14,7 +14,7 @@ const FlashSale = () => {
     const dispatch = useDispatch(useDispatch)
     const listTopSmartphone = useSelector(listTopSmartphoneSelector)
     const [listSmartphone, setListSmartphone] = useState([])
-    const [discount, setDiscount] = useState()
+    const [image, setImage] = useState('')
 
     const settings = {
         className: "center",
@@ -34,13 +34,35 @@ const FlashSale = () => {
     useEffect(() => {
         try {
             setListSmartphone(listTopSmartphone.listProductSmartphone)
+            console.log(listTopSmartphone.listProductSmartphone[0].Hinh_anh);
         } catch (e) {
 
         }
     }, [listTopSmartphone])
 
+    useEffect(() => {
+        try {
+            if (listSmartphone) {
+                let image = ''
+                // image = new Buffer(listSmartphone[0].Hinh_anh, 'base64').toString('binary')
+                const base64String = btoa(String.fromCharCode(...new Uint8Array(listSmartphone[0].Hinh_anh)));
+                console.log(base64String);
+                setImage(base64String)
+            }
+            else {
+                console.log('Khong có');
+            }
+        } catch (e) {
+            console.log('Lỗi kết nói :', e);
+        }
+    }, [listSmartphone])
+
+    // console.log(image);
+
+
     return (
         <>
+            {/* <img src={`data:image/png;base64,${image}`} alt="" /> */}
 
             <div className='px-24 shadow-soft-xxs bg-green-150'>
                 <Slider {...settings}>
@@ -53,7 +75,8 @@ const FlashSale = () => {
                                 }
                                 <div className=''>
                                     <div className=''>
-                                        <img className='mx-auto' src={item.Hinh_anh} />
+                                        {/* <img className='mx-auto' src={item.Hinh_anh} /> */}
+                                        <img className='w-30' src={`data:image/png;base64,${image}`} alt="" />
                                     </div>
                                 </div>
                                 <div className='text-center h-20 mb-2'>
