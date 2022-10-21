@@ -2,6 +2,7 @@ import express from "express";
 import { getAboutPage, getCrud, getHomePage, postCrud, getNguoiDung, getEditNguoiDung, editNguoiDung, deleteNguoiDung } from "../controllers/homeController";
 import userController from "../controllers/userController";
 import topProductsController from "../controllers/topProductsController"
+import productsController from "../controllers/productsController"
 
 const router = express.Router();
 
@@ -21,6 +22,9 @@ const initWebRoutes = (app) => {
 
     router.get('/api/top-Smartphone', topProductsController.handleTopSmartphone)
     router.get('/api/top-TableLet', topProductsController.handleTopTablet)
+    router.post('/api/add-Product', productsController.handleAddProduct)
+    router.get('/api/get-list-product-type', productsController.handleGetProductType)
+    router.get('/api/get-list-product-group', productsController.handleGetProductGroup)
 
     return app.use("/", router);
 }

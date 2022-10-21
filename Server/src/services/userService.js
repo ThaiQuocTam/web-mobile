@@ -79,8 +79,6 @@ const handleRegister = (data) => {
                 where: { Dien_thoai: data.Dien_thoai }
             })
             if (checkEmail) {
-                console.log(data.Email);
-                console.log(checkEmail);
                 signUpMessage.errCode = '2'
                 signUpMessage.message = 'Email đã tồn tại'
             } else {

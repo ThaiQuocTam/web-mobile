@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     loai_sp.init({
-        Id_nhom_SP: DataTypes.INTEGER,
         Ten_loai_SP: DataTypes.INTEGER,
     }, {
         sequelize,

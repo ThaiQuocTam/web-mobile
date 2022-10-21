@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import ModalThemSP from './ModalThemSP'
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../redux/actions/actions'
 
 const QlSanPham = () => {
+
+    const dispatch = useDispatch()
 
     const [show, setShow] = useState(false)
 
