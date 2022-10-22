@@ -22,4 +22,10 @@ export const postCreateProductAction = createActions({
     postCreateProductFailure: (err) => err
 })
 
+export const getProductAction = createActions({
+    getProductRequest: (payload) => payload,
+    getProductSuccess: (payload) => payload,
+    getProductFailure: (err) => err
+})
+
 

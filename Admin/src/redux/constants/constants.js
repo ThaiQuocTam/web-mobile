@@ -18,3 +18,10 @@ export const INIT_STATE_MESSAGE = {
         data: []
     }
 }
+
+export const INIT_STATE_PRODUCT = {
+    state_Product: {
+        isLoading: false,
+        data: []
+    }
+}

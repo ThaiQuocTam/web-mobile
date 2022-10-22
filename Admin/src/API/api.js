@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = 'http://localhost:9000'
+const URL = 'http://localhost:7001'
 
 export const apiGetListProductType = () => axios.get(`${URL}/api/get-list-product-type`)
 export const apiGetListProductGroup = () => axios.get(`${URL}/api/get-list-product-group`)
@@ -14,3 +14,4 @@ export const apiPostCreateProduct = (payload) => axios.post(`${URL}/api/add-Prod
     Id_loai_SP: payload.Id_loai_SP,
     Id_nhom_SP: payload.Id_nhom_SP
 })
+export const apiGetProduct = () => axios.get(`${URL}/api/get-list-product`)

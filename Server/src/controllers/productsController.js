@@ -46,8 +46,20 @@ const handleGetProductGroup = async (req, res) => {
     }
 }
 
+const handleGetProduct = async (req, res) => {
+    try {
+        let lisProProduct = await db.san_pham.findAll({
+            raw: true
+        })
+        return res.status(200).json(lisProProduct)
+    } catch (e) {
+
+    }
+}
+
 module.exports = {
     handleAddProduct: handleAddProduct,
     handleGetProductGroup: handleGetProductGroup,
-    handleGetProductType: handleGetProductType
+    handleGetProductType: handleGetProductType,
+    handleGetProduct: handleGetProduct
 }

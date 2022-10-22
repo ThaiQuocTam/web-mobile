@@ -1,17 +1,44 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ModalThemSP from './ModalThemSP'
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions/actions'
+import { listProductSelector, listProductTypeSelector, listProductGroupSelector } from 'redux/selector/selector';
+
 
 const QlSanPham = () => {
 
     const dispatch = useDispatch()
+    const listProduct = useSelector(listProductSelector)
+    const dataListProDuctType = useSelector(listProductTypeSelector)
+    const dataListProDuctGroup = useSelector(listProductGroupSelector)
 
     const [show, setShow] = useState(false)
+    const [stateListProduct, setStateListProduct] = useState([])
+    const [stateDataProductType, setStateDataProductType] = useState([])
+    const [stateDataProductGroup, setStateDataProductGroup] = useState([])
 
     const hideModal = () => {
         setShow(false)
     }
+
+    useEffect(() => {
+        dispatch(actions.getProductAction.getProductRequest())
+        dispatch(actions.getListProductTypeAction.getListProductTypeRequest())
+        dispatch(actions.getListProductGroupAction.getListProductGroupRequest())
+    }, [])
+
+
+    useEffect(() => {
+        if (listProduct) {
+            setStateListProduct(listProduct)
+        }
+        if (dataListProDuctType) {
+            setStateDataProductType(dataListProDuctType)
+        }
+        if (dataListProDuctGroup) {
+            setStateDataProductGroup(dataListProDuctGroup)
+        }
+    }, [listProduct])
 
     return (
         <>
@@ -69,42 +96,55 @@ const QlSanPham = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                                        <td className="whitespace-nowrap text-center text-3.5 text-sm font-medium text-gray-900 px-2 py-2">
-                                            1
-                                        </td>
-                                        <td className="whitespace-nowrap text-center text-sm text-3.5 font-medium text-gray-900 px-2 py-2">
-                                            Điện thoại di động Samsung Galaxy S22 Plus - 8GB/128GB
-                                        </td>
-                                        <td className="text-sm text-gray-900 font-light whitespace-nowrap text-center">
-                                            <img className="mx-3 my-2 w-24" src='https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/09/08/1111.png' />
-                                        </td>
-                                        <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
-                                            33.000.000 vnđ
-                                        </td>
-                                        <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
-                                            30
-                                        </td>
-                                        <td className="text-sm text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
-                                            Iphone
-                                        </td>
-                                        <td className="text-sm text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
-                                            Điện thoại
-                                        </td>
-                                        <td className="text-sm text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
-                                            Bảo hành 12 tháng
-                                        </td>
-                                        <td className="text-sm text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap text-center">
-                                            Chỉ đổi khi sản phẩm không bị tổn thương nặng
-                                        </td>
-                                        <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                            <a href="#" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</a>
-                                        </td>
-                                        <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                            <a href="#" className="px-4 py-1 text-sm text-black border-black font-semibold hover:bg-slate-600 hover:text-white hover:border-white border-2 rounded">Sửa</a>
-                                        </td>
+                                    {
+                                        stateListProduct.map((item, index) => (
+                                            <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                                                <td className="whitespace-nowrap text-center text-3.5 text-sm font-medium text-gray-900 px-2 py-2">
+                                                    {index}
+                                                </td>
+                                                <td className="whitespace-nowrap text-center text-sm text-3.5 font-medium text-gray-900 px-2 py-2">
+                                                    {item.Ten_san_pham}
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light whitespace-nowrap text-center">
+                                                    <img className="mx-3 my-2 w-24" src={item.Hinh_anh} />
+                                                </td>
+                                                <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
+                                                    {item.Gia_san_pham}
+                                                </td>
+                                                <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
+                                                    {item.So_luong_SP}
+                                                </td>
+                                                <td className="text-sm text-center text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
+                                                    {
+                                                        stateDataProductType.map((item2) => (
+                                                            item.Id_loai_SP === item2.id ? item2.Ten_loai_SP : ''
+                                                        ))
+                                                    }
+                                                </td>
+                                                <td className="text-sm text-center text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
+                                                    {
+                                                        stateDataProductGroup.map((item2) => (
+                                                            item.Id_nhom_SP === item2.id ? item2.Ten_nhom : ''
+                                                        ))
+                                                    }
+                                                </td>
+                                                <td className="text-sm text-center text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
+                                                    {item.Thong_tin_bao_hanh}
+                                                </td>
+                                                <td className="text-sm text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                    {item.Ghi_chu}
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                    <a href="#" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</a>
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                    <a href="#" className="px-4 py-1 text-sm text-black border-black font-semibold hover:bg-slate-600 hover:text-white hover:border-white border-2 rounded">Sửa</a>
+                                                </td>
 
-                                    </tr>
+                                            </tr>
+                                        ))
+                                    }
+
                                 </tbody>
                             </table>
                         </div>

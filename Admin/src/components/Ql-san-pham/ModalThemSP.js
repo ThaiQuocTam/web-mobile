@@ -87,7 +87,7 @@ const ModalThemSP = ({ isClose }) => {
                     setMessage('Thêm thành công')
                     setShowSuccess(true)
                 }
-                else {
+                if (messageCreateProduct.errCode === '1') {
                     setMessage(messageCreateProduct.message)
                     setShowSuccess(true)
                 }
@@ -95,10 +95,11 @@ const ModalThemSP = ({ isClose }) => {
         } catch (e) {
             console.log('Lỗi', e);
         }
-    }, [messageCreateProduct || message])
+    }, [messageCreateProduct])
 
     const showMessage = () => {
         setShowSuccess(false)
+        messageCreateProduct.errCode = ''
     }
 
     return (
@@ -200,9 +201,6 @@ const ModalThemSP = ({ isClose }) => {
                                 </div>
                                 <div className='px-2 w-full mb-5'>
                                     <button className='w-full bg-gradient-dark-gray text-white py-1 rounded-2 hover:opacity-90'> Lưu</button>
-                                </div>
-                                <div className='text-center'>
-                                    <span className="text-red-500 text-4 italic">{message} </span>
                                 </div>
                             </div>
                         </div>

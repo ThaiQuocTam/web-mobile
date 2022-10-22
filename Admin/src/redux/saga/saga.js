@@ -31,10 +31,22 @@ function* handlePostCreateProductAction(action) {
     }
 }
 
+function* handleGetProductAction(action) {
+    try {
+        const listProduct = yield call(api.apiGetProduct)
+        console.log('List product : ', listProduct);
+        yield put(actions.getProductAction.getProductSuccess(listProduct.data))
+
+    } catch (e) {
+        yield put(actions.getProductAction.getProductFailure)
+    }
+}
+
 function* mySaga() {
     yield takeLatest(actions.getListProductTypeAction.getListProductTypeRequest, handleGetListProductTypeAction)
     yield takeLatest(actions.getListProductGroupAction.getListProductGroupRequest, handleGetListProductGroupAction)
     yield takeLatest(actions.postCreateProductAction.postCreateProductRequest, handlePostCreateProductAction)
+    yield takeLatest(actions.getProductAction.getProductRequest, handleGetProductAction)
 }
 
 export default mySaga
