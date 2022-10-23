@@ -7,21 +7,32 @@ const addProduct = (data) => {
             let check = await checkNameProduct(data.Ten_san_pham)
             if (check) {
                 addProductMessage.errCode = '1'
-                addProductMessage.message = 'Tên đã tồn tại!'
+                addProductMessage.message = 'Tên sản phẩm đã tồn tại đã tồn tại!'
             }
             else {
-                await db.san_pham.create({
-                    Ten_san_pham: data.Ten_san_pham,
-                    Hinh_anh: data.Hinh_anh,
-                    Gia_san_pham: data.Gia_san_pham,
-                    So_luong_SP: data.So_luong_SP,
-                    Thong_tin_bao_hanh: data.Thong_tin_bao_hanh,
-                    Ghi_chu: data.Ghi_chu,
-                    Id_loai_SP: data.Id_loai_SP,
-                    Id_nhom_SP: data.Id_nhom_SP
-                })
-                addProductMessage.errCode = '0'
-                addProductMessage.message = 'Thêm sản phẩm thành công'
+                if (data.Gia_san_pham.length > 10) {
+                    addProductMessage.errCode = '3'
+                    addProductMessage.message = 'Giá sản phẩm không hợp lệ'
+                } else {
+                    if (data.So_luong_SP.length >= 7) {
+                        addProductMessage.errCode = '4'
+                        addProductMessage.message = 'Số lượng sản phẩm không hợp lệ'
+                    }
+                    else {
+                        await db.san_pham.create({
+                            Ten_san_pham: data.Ten_san_pham,
+                            Hinh_anh: data.Hinh_anh,
+                            Gia_san_pham: data.Gia_san_pham,
+                            So_luong_SP: data.So_luong_SP,
+                            Thong_tin_bao_hanh: data.Thong_tin_bao_hanh,
+                            Ghi_chu: data.Ghi_chu,
+                            Id_loai_SP: data.Id_loai_SP,
+                            Id_nhom_SP: data.Id_nhom_SP
+                        })
+                        addProductMessage.errCode = '0'
+                        addProductMessage.message = 'Thêm sản phẩm thành công'
+                    }
+                }
             }
             resolve(addProductMessage)
         } catch (e) {
@@ -49,6 +60,71 @@ const checkNameProduct = async (name) => {
     })
 }
 
+const GetInfoProduct = (idProduct) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let infoProduct = {}
+            console.log(idProduct);
+            if (idProduct) {
+                let data = await db.san_pham.findOne({
+                    where: { id: idProduct },
+                    raw: true
+                })
+                if (data) {
+                    infoProduct.errCode = '0'
+                    infoProduct.data = data
+                } else {
+                    infoProduct.errCode = '3'
+                    infoProduct.message = 'Sản phẩm không tồn tại'
+                }
+            }
+            else {
+                infoProduct.errCode = '1'
+                infoProduct.message = 'Id không tồn tại'
+            }
+            resolve(infoProduct)
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
+const PostEditInfoProduct = async (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let messageEditProduct = {}
+            let idProductEdit = await db.san_pham.findOne({
+                where: { id: data.id },
+                raw: true
+            })
+            if (idProductEdit) {
+                idProductEdit.Ten_san_pham = data.Ten_san_pham
+                idProductEdit.Hinh_anh = data.Hinh_anh
+                idProductEdit.Gia_san_pham = data.Gia_san_pham
+                idProductEdit.So_luong_SP - data.So_luong_SP
+                idProductEdit.Thong_tin_bao_hanh = data.Thong_tin_bao_hanh
+                idProductEdit.Ghi_chu = data.Ghi_chu
+                idProductEdit.Id_loai_SP = data.Id_loai_SP
+                idProductEdit.Id_nhom_SP = data.Id_nhom_SP
+
+                await san_pham.save()
+                messageEditProduct.errCode = '0'
+                messageEditProduct.message = 'Chửa sửa thành công'
+
+            } else {
+                messageEditProduct.errCode = '2'
+                messageEditProduct.message = 'Id sản phẩm không tồn tại'
+            }
+
+            resolve(messageEditProduct)
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
 module.exports = {
-    addProduct: addProduct
+    addProduct: addProduct,
+    GetInfoProduct: GetInfoProduct,
+    PostEditInfoProduct: PostEditInfoProduct
 }

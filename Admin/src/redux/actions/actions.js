@@ -28,4 +28,10 @@ export const getProductAction = createActions({
     getProductFailure: (err) => err
 })
 
+export const getInfoProductAction = createActions({
+    getInfoProductRequest: (payload) => payload,
+    getInfoProductSuccess: (payload) => payload,
+    getInfoProductFailure: (err) => err
+})
+
 

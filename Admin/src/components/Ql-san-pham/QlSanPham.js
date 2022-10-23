@@ -3,6 +3,9 @@ import ModalThemSP from './ModalThemSP'
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions/actions'
 import { listProductSelector, listProductTypeSelector, listProductGroupSelector } from 'redux/selector/selector';
+import { Link } from 'react-router-dom';
+import { logDOM } from '@testing-library/react';
+import EditInfoProduct from './EditInfoProduct';
 
 
 const QlSanPham = () => {
@@ -12,13 +15,18 @@ const QlSanPham = () => {
     const dataListProDuctType = useSelector(listProductTypeSelector)
     const dataListProDuctGroup = useSelector(listProductGroupSelector)
 
-    const [show, setShow] = useState(false)
+    const [showModalAddProduct, setShowModalAddProduct] = useState(false)
+    const [showModalEditInfoProduct, setShowModalEditInfoProduct] = useState(false)
     const [stateListProduct, setStateListProduct] = useState([])
     const [stateDataProductType, setStateDataProductType] = useState([])
     const [stateDataProductGroup, setStateDataProductGroup] = useState([])
 
-    const hideModal = () => {
-        setShow(false)
+    const hideModalAddProduct = () => {
+        setShowModalAddProduct(false)
+    }
+
+    const hideModalEditInfoProduct = () => {
+        setShowModalEditInfoProduct(false)
     }
 
     useEffect(() => {
@@ -49,7 +57,7 @@ const QlSanPham = () => {
                     <input className='border focus:outline-none border-green-700 text-3.5 hover:border-green-900 focus:border placeholder:text-3 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-96 mr-3 px-5' type={'text'} placeholder='Nhập sản phẩm cần tìm...' />
                     <a className='inline-block h-10 leading-10' href='#'><i className="bi bi-search text-gray-600 h-10 inline-block hover:text-black text-5 cursor-pointer leading-10"></i></a>
                 </div>
-                <div className="leading-9 h-9 mb-5 inline-block ml-30rem" onClick={() => setShow(true)}>
+                <div className="leading-9 h-9 mb-5 inline-block ml-30rem" onClick={() => setShowModalAddProduct(true)}>
                     <strong className='text-3.5 text-black border-gray-500 border-2 px-3 pr-5 py-3 ml-2 rounded-2 cursor-pointer hover:bg-slate-600 hover:text-white'> + &ensp; Thêm Sản Phẩm</strong>
                 </div>
             </div>
@@ -100,7 +108,7 @@ const QlSanPham = () => {
                                         stateListProduct.map((item, index) => (
                                             <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
                                                 <td className="whitespace-nowrap text-center text-3.5 text-sm font-medium text-gray-900 px-2 py-2">
-                                                    {index}
+                                                    {index + 1}
                                                 </td>
                                                 <td className="whitespace-nowrap text-center text-sm text-3.5 font-medium text-gray-900 px-2 py-2">
                                                     {item.Ten_san_pham}
@@ -109,7 +117,7 @@ const QlSanPham = () => {
                                                     <img className="mx-3 my-2 w-24" src={item.Hinh_anh} />
                                                 </td>
                                                 <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
-                                                    {item.Gia_san_pham}
+                                                    {item.Gia_san_pham.toLocaleString()} ₫
                                                 </td>
                                                 <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
                                                     {item.So_luong_SP}
@@ -138,7 +146,7 @@ const QlSanPham = () => {
                                                     <a href="#" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</a>
                                                 </td>
                                                 <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                    <a href="#" className="px-4 py-1 text-sm text-black border-black font-semibold hover:bg-slate-600 hover:text-white hover:border-white border-2 rounded">Sửa</a>
+                                                    <button onClick={() => { dispatch(actions.getInfoProductAction.getInfoProductRequest(item.id)); setShowModalEditInfoProduct(true) }} className="px-4 py-1 text-sm text-black border-black font-semibold hover:bg-slate-600 hover:text-white hover:border-white border-2 rounded">Sửa</button>
                                                 </td>
 
                                             </tr>
@@ -152,9 +160,15 @@ const QlSanPham = () => {
                 </div>
             </div>
             {
-                show &&
+                showModalAddProduct &&
                 <div className='fixed flex z-sticky items-center bg-slate-250 justify-center left-0 top-0 right-0 bottom-0'>
-                    <ModalThemSP isClose={hideModal} />
+                    <ModalThemSP isClose={hideModalAddProduct} />
+                </div>
+            }
+            {
+                showModalEditInfoProduct &&
+                <div className='fixed flex z-sticky items-center bg-slate-250 justify-center left-0 top-0 right-0 bottom-0'>
+                    <EditInfoProduct isClose={hideModalEditInfoProduct} />
                 </div>
             }
         </>

@@ -15,3 +15,4 @@ export const apiPostCreateProduct = (payload) => axios.post(`${URL}/api/add-Prod
     Id_nhom_SP: payload.Id_nhom_SP
 })
 export const apiGetProduct = () => axios.get(`${URL}/api/get-list-product`)
+export const apiGetInfoProduct = (payload) => axios.get(`${URL}/api/get-info-product?id=${payload}`)

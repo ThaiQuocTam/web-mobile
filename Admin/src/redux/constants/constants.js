@@ -25,3 +25,10 @@ export const INIT_STATE_PRODUCT = {
         data: []
     }
 }
+
+export const INIT_STATE_INFO_PRODUCT = {
+    state_Info_Product: {
+        isLoading: false,
+        data: []
+    }
+}

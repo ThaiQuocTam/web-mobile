@@ -1,3 +1,4 @@
+import e from 'express'
 import db from '../models/index'
 import productsService from '../services/productsService'
 
@@ -57,9 +58,53 @@ const handleGetProduct = async (req, res) => {
     }
 }
 
+const handleGetInfoProduct = async (req, res) => {
+    try {
+        let infoProduct = await productsService.GetInfoProduct(req.query.id)
+        return res.status(200).json({
+            errCode: infoProduct.errCode,
+            message: infoProduct.message,
+            data: infoProduct.data ? infoProduct.data : {}
+        })
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const handlePostEditInfoProduct = async (req, res) => {
+    try {
+        let Ten_san_pham = req.body.Ten_san_pham
+        let Hinh_anh = req.body.Hinh_anh
+        let Gia_san_pham = req.body.Gia_san_pham
+        let So_luong_SP = req.body.So_luong_SP
+        let Thong_tin_bao_hanh = req.body.Thong_tin_bao_hanh
+        let Ghi_chu = req.body.Ghi_chu
+        let Id_loai_SP = req.body.Id_loai_SP
+        let Id_nhom_SP = req.body.Id_nhom_SP
+
+        if (!Ten_san_pham || !Hinh_anh || !Gia_san_pham || !So_luong_SP || !Id_loai_SP || !Id_nhom_SP) {
+            let messageEditInfoProduct = await productsService.PostEditInfoProduct(req.body)
+            return res.status(200).json({
+                errCode: messageEditInfoProduct.errCode,
+                message: messageEditInfoProduct.message
+            })
+        } else {
+            return res.status(500).json({
+                errCode: '1',
+                message: 'Vui lòng nhập đầy đủ thông tin'
+            })
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 module.exports = {
     handleAddProduct: handleAddProduct,
     handleGetProductGroup: handleGetProductGroup,
     handleGetProductType: handleGetProductType,
-    handleGetProduct: handleGetProduct
+    handleGetProduct: handleGetProduct,
+    handleGetInfoProduct: handleGetInfoProduct,
+    handlePostEditInfoProduct: handlePostEditInfoProduct
+
 }

@@ -61,9 +61,9 @@ const FlashSale = () => {
                 <Slider {...settings}>
                     {
                         listSmartphone.map((item) => (
-                            <div className='p-5 mx-5 h-90 box-shadow relative rounded-2 bg-white'>
+                            <div className='p-5 mx-5 h-96 box-shadow relative rounded-2 bg-white'>
                                 {
-                                    item.So_luong_SP <= 5 ? <LimitProduct /> : ''
+                                    item.So_luong_SP <= 5 ? <LimitProduct soLuong={item.So_luong_SP} /> : ''
 
                                 }
                                 <div className=''>
@@ -80,7 +80,7 @@ const FlashSale = () => {
                                         <span className='line-through text-3'>{(item.Gia_san_pham + (item.Gia_san_pham * (10 / 100))).toLocaleString()}  ₫</span>
                                     </div>
                                 </div>
-                                <div className='bg-red-600 hover:bg-red-800 text-center p-1 rounded-1 shadow-soft-2xl'>
+                                <div className='bg-red-600 mt-8 hover:bg-red-800 text-center p-1 rounded-1 shadow-soft-2xl'>
                                     <Link to='#'>
                                         <div>
                                             <button className='text-3.5 font-semibold text-white'>Xem chi tiết</button>
