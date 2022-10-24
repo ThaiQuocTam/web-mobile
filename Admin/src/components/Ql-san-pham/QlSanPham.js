@@ -23,11 +23,15 @@ const QlSanPham = () => {
 
     const hideModalAddProduct = () => {
         setShowModalAddProduct(false)
+        window.location.reload(false)
     }
 
     const hideModalEditInfoProduct = () => {
         setShowModalEditInfoProduct(false)
+        window.location.reload(false)
     }
+
+
 
     useEffect(() => {
         dispatch(actions.getProductAction.getProductRequest())

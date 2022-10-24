@@ -44,11 +44,21 @@ function* handleGetProductAction(action) {
 function* handleGetInfoProductAction(action) {
     try {
         const infoProduct = yield call(api.apiGetInfoProduct, action.payload)
-        console.log('Info product : ', infoProduct.data);
         yield put(actions.getInfoProductAction.getInfoProductSuccess(infoProduct.data.data))
 
     } catch (e) {
         yield put(actions.getInfoProductAction.getInfoProductFailure)
+    }
+}
+
+function* handlePostEditInfoProductAction(action) {
+    try {
+        const messagePostEditProduct = yield call(api.apiPostEditInfoProduct, action.payload)
+        console.log('message', messagePostEditProduct.data);
+        yield put(actions.postEditInfoProductAction.postEditInfoProductSuccess(messagePostEditProduct.data))
+
+    } catch (e) {
+        yield put(actions.postEditInfoProductAction.postEditInfoProductFailure)
     }
 }
 
@@ -58,6 +68,7 @@ function* mySaga() {
     yield takeLatest(actions.postCreateProductAction.postCreateProductRequest, handlePostCreateProductAction)
     yield takeLatest(actions.getProductAction.getProductRequest, handleGetProductAction)
     yield takeLatest(actions.getInfoProductAction.getInfoProductRequest, handleGetInfoProductAction)
+    yield takeLatest(actions.postEditInfoProductAction.postEditInfoProductRequest, handlePostEditInfoProductAction)
 }
 
 export default mySaga

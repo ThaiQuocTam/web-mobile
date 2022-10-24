@@ -28,6 +28,7 @@ const initWebRoutes = (app) => {
     router.get('/api/get-list-product', productsController.handleGetProduct)
     router.get('/api/get-info-product', productsController.handleGetInfoProduct)
     router.post('/api/post-edit-info-product', productsController.handlePostEditInfoProduct)
+    router.post('/api/post-search-product', productsController.handlePostSearchProduct)
 
     return app.use("/", router);
 }

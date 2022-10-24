@@ -98,18 +98,31 @@ const PostEditInfoProduct = async (data) => {
                 raw: true
             })
             if (idProductEdit) {
-                idProductEdit.Ten_san_pham = data.Ten_san_pham
-                idProductEdit.Hinh_anh = data.Hinh_anh
-                idProductEdit.Gia_san_pham = data.Gia_san_pham
-                idProductEdit.So_luong_SP - data.So_luong_SP
-                idProductEdit.Thong_tin_bao_hanh = data.Thong_tin_bao_hanh
-                idProductEdit.Ghi_chu = data.Ghi_chu
-                idProductEdit.Id_loai_SP = data.Id_loai_SP
-                idProductEdit.Id_nhom_SP = data.Id_nhom_SP
-
-                await san_pham.save()
-                messageEditProduct.errCode = '0'
-                messageEditProduct.message = 'Chửa sửa thành công'
+                if (data.Gia_san_pham.length > 10) {
+                    messageEditProduct.errCode = '3'
+                    messageEditProduct.message = 'Giá sản phẩm không hợp lệ'
+                } else {
+                    if (data.So_luong_SP.length >= 7) {
+                        messageEditProduct.errCode = '4'
+                        messageEditProduct.message = 'Số lượng sản phẩm không hợp lệ'
+                    }
+                    else {
+                        await db.san_pham.update({
+                            Ten_san_pham: data.Ten_san_pham,
+                            Hinh_anh: data.Hinh_anh,
+                            Gia_san_pham: data.Gia_san_pham,
+                            So_luong_SP: data.So_luong_SP,
+                            Thong_tin_bao_hanh: data.Thong_tin_bao_hanh,
+                            Ghi_chu: data.Ghi_chu,
+                            Id_loai_SP: data.Id_loai_SP,
+                            Id_nhom_SP: data.Id_nhom_SP,
+                        }, {
+                            where: { id: data.id }
+                        })
+                        messageEditProduct.errCode = '0'
+                        messageEditProduct.message = 'Chửa sửa thành công'
+                    }
+                }
 
             } else {
                 messageEditProduct.errCode = '2'

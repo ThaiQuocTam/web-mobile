@@ -13,7 +13,7 @@ const handleAddProduct = async (req, res) => {
     let Id_nhom_SP = req.body.Id_nhom_SP
 
     if (!Ten_san_pham || !Hinh_anh || !Gia_san_pham || !So_luong_SP || !Id_loai_SP || !Id_nhom_SP) {
-        return res.status(500).json({
+        return res.status(200).json({
             errCode: '2',
             message: 'Vui lòng nhập đầy đủ thông tin'
         })
@@ -50,6 +50,9 @@ const handleGetProductGroup = async (req, res) => {
 const handleGetProduct = async (req, res) => {
     try {
         let lisProProduct = await db.san_pham.findAll({
+            order: [
+                ['updatedAt', 'DESC']
+            ],
             raw: true
         })
         return res.status(200).json(lisProProduct)
@@ -73,6 +76,8 @@ const handleGetInfoProduct = async (req, res) => {
 
 const handlePostEditInfoProduct = async (req, res) => {
     try {
+        console.log(req.body);
+        let id = req.body.id
         let Ten_san_pham = req.body.Ten_san_pham
         let Hinh_anh = req.body.Hinh_anh
         let Gia_san_pham = req.body.Gia_san_pham
@@ -82,21 +87,25 @@ const handlePostEditInfoProduct = async (req, res) => {
         let Id_loai_SP = req.body.Id_loai_SP
         let Id_nhom_SP = req.body.Id_nhom_SP
 
-        if (!Ten_san_pham || !Hinh_anh || !Gia_san_pham || !So_luong_SP || !Id_loai_SP || !Id_nhom_SP) {
+        if (!id || !Ten_san_pham || !Hinh_anh || !Gia_san_pham || !So_luong_SP || !Id_loai_SP || !Id_nhom_SP) {
+            return res.status(500).json({
+                errCode: '1',
+                message: 'Vui lòng nhập đầy đủ thông tin'
+            })
+        } else {
             let messageEditInfoProduct = await productsService.PostEditInfoProduct(req.body)
             return res.status(200).json({
                 errCode: messageEditInfoProduct.errCode,
                 message: messageEditInfoProduct.message
             })
-        } else {
-            return res.status(500).json({
-                errCode: '1',
-                message: 'Vui lòng nhập đầy đủ thông tin'
-            })
         }
     } catch (e) {
         console.log(e);
     }
+}
+
+const handlePostSearchProduct = async (req, res) => {
+
 }
 
 module.exports = {
@@ -105,6 +114,7 @@ module.exports = {
     handleGetProductType: handleGetProductType,
     handleGetProduct: handleGetProduct,
     handleGetInfoProduct: handleGetInfoProduct,
-    handlePostEditInfoProduct: handlePostEditInfoProduct
+    handlePostEditInfoProduct: handlePostEditInfoProduct,
+    handlePostSearchProduct: handlePostSearchProduct
 
 }

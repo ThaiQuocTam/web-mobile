@@ -3,3 +3,4 @@ export const listProductGroupSelector = (state) => state.getListProductGroupRedu
 export const messageCreateProductSelector = (state) => state.postCreateProductReducer.data
 export const listProductSelector = (state) => state.getProductReducer.data
 export const infoProductSelector = (state) => state.getInfoProductReducer.data
+export const messageEditInfoProductSelector = (state) => state.postEditInfoProductReducer.data

@@ -16,9 +16,9 @@ const ModalThemSP = ({ isClose }) => {
 
     const [stateDataProductType, setStateDataProductType] = useState([])
     const [stateDataProductGroup, setStateDataProductGroup] = useState([])
-    const [state, setState] = useState()
     const [message, setMessage] = useState('')
     const [showSuccess, setShowSuccess] = useState(false)
+    const [state, setState] = useState()
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onChange"
@@ -102,6 +102,15 @@ const ModalThemSP = ({ isClose }) => {
         messageCreateProduct.errCode = ''
     }
 
+    useEffect(() => {
+        if (showSuccess) {
+            const timer = setTimeout(() => {
+                setShowSuccess(false)
+                return () => clearTimeout(timer);
+            }, 5000);
+        }
+    }, [showSuccess]);
+
     return (
         <>
             <div className=''>
@@ -162,7 +171,7 @@ const ModalThemSP = ({ isClose }) => {
                                 <div className='px-2 pb-3 mt-1'>
                                     <input
                                         className='w-full shadow-soft-xxs placeholder:text-gray-500 text-3.5 border-2 rounded-2  focus:outline-none focus:border-red-200 hover:border-slate-200 border-slate-100 pl-5 py-2 text-slate-800 font-medium' placeholder='Thông tin bảo hành'
-                                        {...register('Thong_tin_bao_hanh', { required: true })}
+                                        {...register('Thong_tin_bao_hanh', { required: false })}
                                     />
                                 </div>
                                 <div className='px-2 pb-3 mt-1'>
@@ -195,7 +204,7 @@ const ModalThemSP = ({ isClose }) => {
                                     <textarea
                                         placeholder='Ghi chú...'
                                         className='w-full py-2  text-3.5 border-2 hover:border-slate-200 rounded-2 h-15 focus:outline-none focus:border-red-200 border-slate-100 pl-5 text-slate-800 font-medium'
-                                        {...register('Ghi_chu', { required: true })}
+                                        {...register('Ghi_chu', { required: false })}
                                     />
                                 </div>
                                 <div className='px-2 w-full mb-5'>

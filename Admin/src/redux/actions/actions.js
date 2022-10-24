@@ -34,4 +34,10 @@ export const getInfoProductAction = createActions({
     getInfoProductFailure: (err) => err
 })
 
+export const postEditInfoProductAction = createActions({
+    postEditInfoProductRequest: (payload) => payload,
+    postEditInfoProductSuccess: (payload) => payload,
+    postEditInfoProductFailure: (err) => err
+})
+
 

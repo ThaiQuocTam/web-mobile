@@ -2,7 +2,6 @@ import { getType, getInfoProductAction } from "../actions/actions"
 import { INIT_STATE_INFO_PRODUCT } from "redux/constants/constants";
 
 export default function getInfoProductReducer(state = INIT_STATE_INFO_PRODUCT, action) {
-    console.log(state);
     switch (action.type) {
         case getType(getInfoProductAction.getInfoProductRequest):
             return {

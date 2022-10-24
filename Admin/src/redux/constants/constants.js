@@ -32,3 +32,10 @@ export const INIT_STATE_INFO_PRODUCT = {
         data: []
     }
 }
+
+export const INIT_STATE_MESSAGE_EDIT_PRODUCT = {
+    state_Message_Edit_Product: {
+        isLoading: false,
+        data: []
+    }
+}
