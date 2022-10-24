@@ -18,7 +18,6 @@ const ModalThemSP = ({ isClose }) => {
     const [stateDataProductGroup, setStateDataProductGroup] = useState([])
     const [message, setMessage] = useState('')
     const [showSuccess, setShowSuccess] = useState(false)
-    const [state, setState] = useState()
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onChange"

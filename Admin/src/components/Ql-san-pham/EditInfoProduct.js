@@ -1,5 +1,5 @@
 import React, { useEffect, useState, lazy } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../redux/actions/actions'
 import { listProductTypeSelector, listProductGroupSelector, messageCreateProductSelector, infoProductSelector, messageEditInfoProductSelector } from 'redux/selector/selector';
@@ -102,24 +102,19 @@ const EditInfoProduct = (props) => {
         }
     }, [messageEditInfoProduct])
 
-    // useEffect(() => {
-    //     try {
-    //         if (dataMessage.errCode === '0') {
-    //             setMessageModal('Chỉnh sửa thành công')
-    //         } else {
-    //             setShowSuccess(true)
-    //         }
-    //     } catch (e) {
-
-    //     }
-    // }, [dataMessage])
-
     const handleHideModal = () => {
         setShowSuccess(false)
         messageEditInfoProduct.errCode = ''
     }
 
-    console.log(state);
+    useEffect(() => {
+        if (showSuccess) {
+            const timer = setTimeout(() => {
+                setShowSuccess(false)
+                return () => clearTimeout(timer);
+            }, 3000);
+        }
+    }, [showSuccess]);
 
     return (
         <>
@@ -223,7 +218,7 @@ const EditInfoProduct = (props) => {
                                     />
                                 </div>
                                 <div className='px-2 w-full text-center mb-5'>
-                                    <Link to='#' onClick={handleSubmitEdtProduct} className='w-full block bg-gradient-dark-gray text-white py-1 rounded-2 hover:opacity-90'> Lưu</Link>
+                                    <Link to='/QlSanPham' onClick={handleSubmitEdtProduct} className='w-full block bg-gradient-dark-gray text-white py-1 rounded-2 hover:opacity-90'> Lưu</Link>
                                 </div>
                             </div>
                         </div>

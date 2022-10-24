@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react'
 import ModalThemSP from './ModalThemSP'
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions/actions'
-import { listProductSelector, listProductTypeSelector, listProductGroupSelector } from 'redux/selector/selector';
-import { Link } from 'react-router-dom';
-import { logDOM } from '@testing-library/react';
+import { listProductSelector, listProductTypeSelector, listProductGroupSelector, messageEditInfoProductSelector } from 'redux/selector/selector';
 import EditInfoProduct from './EditInfoProduct';
 
 
@@ -14,6 +12,7 @@ const QlSanPham = () => {
     const listProduct = useSelector(listProductSelector)
     const dataListProDuctType = useSelector(listProductTypeSelector)
     const dataListProDuctGroup = useSelector(listProductGroupSelector)
+    const messageEditInfoProduct = useSelector(messageEditInfoProductSelector)
 
     const [showModalAddProduct, setShowModalAddProduct] = useState(false)
     const [showModalEditInfoProduct, setShowModalEditInfoProduct] = useState(false)
@@ -22,13 +21,13 @@ const QlSanPham = () => {
     const [stateDataProductGroup, setStateDataProductGroup] = useState([])
 
     const hideModalAddProduct = () => {
+        location.reload()
         setShowModalAddProduct(false)
-        window.location.reload(false)
     }
 
     const hideModalEditInfoProduct = () => {
+        location.reload()
         setShowModalEditInfoProduct(false)
-        window.location.reload(false)
     }
 
 

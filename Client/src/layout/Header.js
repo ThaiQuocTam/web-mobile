@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import image from '../Assets/images/picwish.jpg'
 
 const Header = () => {
@@ -7,8 +7,13 @@ const Header = () => {
     const [mouseSmartphone, setMouseSmartphone] = useState('')
     const [mouseTablet, setMouseTablet] = useState('')
     const [hidden, setHidden] = useState(false)
+    const navigate = useNavigate();
 
     let email = localStorage.getItem("User")
+
+    const refreshPage = () => {
+        navigate(0);
+    }
 
     return (
         <>
