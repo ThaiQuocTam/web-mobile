@@ -104,7 +104,7 @@ const Header = () => {
                                 }
                                 onMouseLeave={() => setMouseTablet('')}
                                 className='inline-block mr-14 overflow-hidden cursor-pointer'
-                                onClick={() => setActive()}>
+                                >
                                 <span className='font-medium mr-1'>Máy tính bảng</span>
                                 <i className="bi bi-tablet-landscape-fill text-5 text-green-700"></i>
                                 <div className='h-2px'>
