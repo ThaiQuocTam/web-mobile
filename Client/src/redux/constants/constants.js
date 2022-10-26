@@ -17,3 +17,10 @@ export const INIT_STATE_TOP_SMARTPHONE = {
         data: []
     }
 }
+
+export const INIT_STATE_INFO_PRODUCT = {
+    stateGetInfoProduct: {
+        isLoading: false,
+        data: []
+    }
+}

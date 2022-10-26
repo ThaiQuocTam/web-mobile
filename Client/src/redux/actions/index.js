@@ -21,3 +21,8 @@ export const topSmartphoneAction = createActions({
     topSmartphoneSuccess: (payload) => payload,
     topSmartphoneFailure: (err) => err
 })
+export const getInfoProductAction = createActions({
+    getInfoProductRequest: (payload) => payload,
+    getInfoProductSuccess: (payload) => payload,
+    getInfoProductFailure: (err) => err
+})

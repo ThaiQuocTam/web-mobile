@@ -33,7 +33,6 @@ const FlashSale = () => {
     useEffect(() => {
         try {
             setListSmartphone(listTopSmartphone.listProductSmartphone)
-            console.log(listTopSmartphone.listProductSmartphone[0].Hinh_anh);
         } catch (e) {
 
         }
@@ -44,8 +43,6 @@ const FlashSale = () => {
             if (listSmartphone) {
                 let image = ''
                 const base64String = btoa(String.fromCharCode(...new Uint8Array(listSmartphone[4].Hinh_anh.data)));
-                console.log(base64String);
-                console.log(listSmartphone[4].Hinh_anh);
             }
             else {
                 console.log('Khong có');

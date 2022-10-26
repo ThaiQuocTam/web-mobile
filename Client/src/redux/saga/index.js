@@ -29,11 +29,23 @@ function* handleTopSmartphoneAction() {
         yield put(actions.topSmartphoneAction.topSmartphoneFailure)
     }
 }
+function* handleGetInfoProductAction(action) {
+    try {
+        const infoProduct = yield call(api.apiGetInfoProduct, action.payload)
+        console.log(infoProduct.data);
+        yield put(actions.getInfoProductAction.getInfoProductSuccess(infoProduct.data))
+    } catch (e) {
+        console.log('loi API : ', e);
+        yield put(actions.getInfoProductAction.getInfoProductFailure)
+    }
+}
 
 function* mySaga() {
     yield takeLatest(actions.signInAction.signInRequest, handleSignInAction)
     yield takeLatest(actions.signUpAction.signUpRequest, handleSignUpAction)
     yield takeLatest(actions.topSmartphoneAction.topSmartphoneRequest, handleTopSmartphoneAction)
+    yield takeLatest(actions.getInfoProductAction.getInfoProductRequest, handleGetInfoProductAction)
 }
+
 
 export default mySaga
