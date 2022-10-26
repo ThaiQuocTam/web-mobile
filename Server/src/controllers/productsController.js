@@ -105,7 +105,13 @@ const handlePostEditInfoProduct = async (req, res) => {
 }
 
 const handlePostSearchProduct = async (req, res) => {
+    try {
+        console.log(req.query);
+        let data = await productsService.SearchProduct(req.query)
+        return res.status(200).json(data)
+    } catch (e) {
 
+    }
 }
 
 module.exports = {

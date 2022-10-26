@@ -136,8 +136,32 @@ const PostEditInfoProduct = async (data) => {
     })
 }
 
+const SearchProduct = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            console.log(data);
+            if (data) {
+                let check = await db.san_pham.find({
+                    '$or': [
+                        { 'Ten_san_pham': { $regex: data } }
+                    ]
+                })
+                console.log(check);
+                resolve(check)
+            }
+            else {
+                console.log('nooo');
+            }
+        } catch (e) {
+
+        }
+
+    })
+}
+
 module.exports = {
     addProduct: addProduct,
     GetInfoProduct: GetInfoProduct,
-    PostEditInfoProduct: PostEditInfoProduct
+    PostEditInfoProduct: PostEditInfoProduct,
+    SearchProduct: SearchProduct
 }
