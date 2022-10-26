@@ -136,8 +136,37 @@ const PostEditInfoProduct = async (data) => {
     })
 }
 
+const getInfoOderDetail= async (data)=>{
+    return new Promise(async(resolve, reject)=>{
+        try { 
+            let messageGetOrderDetail = {}
+            if(data)
+            {
+                let infoOderDetail = await db.hoa_don.findOne({
+                    where: {
+                        So_dien_thoai: data
+                    }
+                })
+                if(infoOderDetail)
+                {
+                    messageGetOrderDetail.errCode = '0'
+                    messageGetOrderDetail.message = 'Đã tìm thấy'
+                    messageGetOrderDetail.infoOderDetail = infoOderDetail
+                }
+                else{
+                    messageGetOrderDetail.errCode = '1'
+                    messageGetOrderDetail.message = 'Kh tìm thấy'
+                }
+            }
+            resolve(messageGetOrderDetail)
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
 module.exports = {
     addProduct: addProduct,
     GetInfoProduct: GetInfoProduct,
-    PostEditInfoProduct: PostEditInfoProduct
+    PostEditInfoProduct: PostEditInfoProduct,
+    getInfoOderDetail: getInfoOderDetail
 }

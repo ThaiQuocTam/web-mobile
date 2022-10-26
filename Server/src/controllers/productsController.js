@@ -1,4 +1,4 @@
-import e from 'express'
+import e, { query } from 'express'
 import db from '../models/index'
 import productsService from '../services/productsService'
 
@@ -108,6 +108,21 @@ const handlePostSearchProduct = async (req, res) => {
 
 }
 
+const handleGetInfoOderDetail =async (req, res) => {
+    try{
+        let data = await productsService.getInfoOderDetail(req.query.So_dien_thoai)
+        console.log(data);
+        return res.status(200).json({
+            errCode: data.errCode,
+            message: data.message,
+            infoOderDetail: data.infoOderDetail
+        })
+    }catch(e)
+    {
+        console.log(e);
+    }
+}
+
 module.exports = {
     handleAddProduct: handleAddProduct,
     handleGetProductGroup: handleGetProductGroup,
@@ -115,6 +130,7 @@ module.exports = {
     handleGetProduct: handleGetProduct,
     handleGetInfoProduct: handleGetInfoProduct,
     handlePostEditInfoProduct: handlePostEditInfoProduct,
-    handlePostSearchProduct: handlePostSearchProduct
+    handlePostSearchProduct: handlePostSearchProduct,
+    handleGetInfoOderDetail: handleGetInfoOderDetail
 
 }

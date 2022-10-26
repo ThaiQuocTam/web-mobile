@@ -1,14 +1,17 @@
 import BackHome from 'components/Trang-chu/BackHome'
-import React from 'react'
+import OrderDetail from 'components/Thong-tin-don-hang/OrderDetail'
+import { useState } from 'react'
 
 const OrderLookup = () => {
+
+    const [showOrderDetail,setShowOderDetail]=useState(false)
     return (
         <>
             <div>
                 <BackHome />
             </div>
 
-            <div class="flex flex-col mx-auto w-10/12">
+            <div class="flex flex-col mx-auto w-10/12 mb-10">
                 <div className='text-center'>
                     <i class="bi bi-check2-circle text-16 leading-4-em block text-green-900"></i>
                 </div>
@@ -25,6 +28,13 @@ const OrderLookup = () => {
                 <div className='text-center mt-9'>
                     <button className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 w-1/4 rounded'>Tra cứu</button>
                 </div>
+            </div>
+
+            <div>
+                {
+showOrderDetail &&
+                <OrderDetail/>
+                }
             </div>
         </>
     )

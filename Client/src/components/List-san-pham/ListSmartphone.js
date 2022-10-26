@@ -41,7 +41,7 @@ const ListSmartphone = () => {
 
                     </div>
 
-                ))}
+                ))}z
             </div>
         </>
     )

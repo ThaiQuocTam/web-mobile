@@ -4,9 +4,6 @@ import React from 'react'
 const OrderDetail = () => {
     return (
         <>
-            <div>
-                <BackHome />
-            </div>
             <div >
                 <div class="flex flex-col mx-auto w-10/12">
                     <div className='text-center'>
