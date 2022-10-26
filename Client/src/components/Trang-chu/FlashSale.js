@@ -2,7 +2,7 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Home.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react'
 import * as actions from '../../redux/actions'
@@ -14,6 +14,7 @@ const FlashSale = () => {
     const dispatch = useDispatch(useDispatch)
     const listTopSmartphone = useSelector(listTopSmartphoneSelector)
     const [listSmartphone, setListSmartphone] = useState([])
+    const navigate = useNavigate()
 
     const settings = {
         className: "center",
@@ -76,12 +77,13 @@ const FlashSale = () => {
                                         <span className='line-through text-3'>{(item.Gia_san_pham + (item.Gia_san_pham * (10 / 100))).toLocaleString()}  ₫</span>
                                     </div>
                                 </div>
-                                <div className='bg-red-600 mt-8 hover:bg-red-800 text-center p-1 rounded-1 shadow-soft-2xl'>
-                                    <Link to='#'>
-                                        <div>
-                                            <button className='text-3.5 font-semibold text-white'>Xem chi tiết</button>
-                                        </div>
-                                    </Link>
+                                <div onClick={() => {
+                                    navigate('/DetailProduct');
+                                    dispatch(actions.getInfoProductAction.getInfoProductRequest(item.id))
+                                }} className='bg-red-600 mt-8 hover:bg-red-800 text-center p-1 rounded-1 shadow-soft-2xl'>
+                                    <div>
+                                        <button className='text-3.5 font-semibold text-white'>Xem chi tiết</button>
+                                    </div>
                                 </div>
                             </div>
                         ))
