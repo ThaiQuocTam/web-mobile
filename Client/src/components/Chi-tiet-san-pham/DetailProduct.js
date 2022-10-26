@@ -4,6 +4,7 @@ import { Products } from "models/DetailProduct.model"
 import { useEffect, useState } from "react"
 import { infoProductSelector } from '../../redux/selector'
 import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom"
 
 const DetailProduct = () => {
 
@@ -78,7 +79,12 @@ const DetailProduct = () => {
   return (
     <>
       <div>
-        <BackHome />
+        <div className='overflow-auto w-full pl-32'>
+          <Link className="relative float-left leading-9 h-9 mb-5 block text-green-900 hover:text-green-600" to="/ListSmartphone">
+            <i className="bi bi-arrow-left-circle icon text-8  mr-2 " />
+            <strong className='text-4  '>Quay lại</strong>
+          </Link  >
+        </div>
       </div>
       <div className='mx-34'>
         <div className='w-full'>
@@ -116,7 +122,7 @@ const DetailProduct = () => {
               <div className="pl-5 leading-9"><span className="italic text-3.5 font-normal">Giá đã bao gồm 10% VAT</span></div>
             </div>
             <div className="pl-10">
-              <span className="text-4 font-semibold">Điện thoại di động TECNO POVA 3 6GB/128GB - Pin 7000 mAh - Chính hãng</span>
+              <span className="text-4 font-semibold">{stateInfoProduct.Ten_san_pham} - Chính hãng</span>
             </div>
             <div className="pl-10 mt-2">
               <div className="bg-green-950 pt-1 w-full text-center rounded-3">

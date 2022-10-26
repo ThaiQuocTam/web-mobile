@@ -114,6 +114,17 @@ const handlePostSearchProduct = async (req, res) => {
     }
 }
 
+const handleGetSmartphone = async (req, res) => {
+    try {
+        let data = await db.san_pham.findAll({
+            where: { Id_nhom_SP: req.query.id }
+        })
+        return res.status(200).json(data)
+    } catch (e) {
+
+    }
+}
+
 module.exports = {
     handleAddProduct: handleAddProduct,
     handleGetProductGroup: handleGetProductGroup,
@@ -121,6 +132,6 @@ module.exports = {
     handleGetProduct: handleGetProduct,
     handleGetInfoProduct: handleGetInfoProduct,
     handlePostEditInfoProduct: handlePostEditInfoProduct,
-    handlePostSearchProduct: handlePostSearchProduct
-
+    handlePostSearchProduct: handlePostSearchProduct,
+    handleGetSmartphone: handleGetSmartphone
 }

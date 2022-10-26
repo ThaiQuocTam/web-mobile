@@ -21,8 +21,21 @@ export const topSmartphoneAction = createActions({
     topSmartphoneSuccess: (payload) => payload,
     topSmartphoneFailure: (err) => err
 })
+
 export const getInfoProductAction = createActions({
     getInfoProductRequest: (payload) => payload,
     getInfoProductSuccess: (payload) => payload,
     getInfoProductFailure: (err) => err
+})
+
+export const getListSmartphoneAction = createActions({
+    getListSmartphoneRequest: (payload) => payload,
+    getListSmartphoneSuccess: (payload) => payload,
+    getListSmartphoneFailure: (err) => err
+})
+
+export const getListTopTabletAction = createActions({
+    getListTopTabletRequest: (payload) => payload,
+    getListTopTabletSuccess: (payload) => payload,
+    getListTopTabletFailure: (err) => err
 })

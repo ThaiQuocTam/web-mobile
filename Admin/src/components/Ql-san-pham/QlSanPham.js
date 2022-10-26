@@ -164,7 +164,7 @@ const QlSanPham = () => {
             </div>
             {
                 showModalAddProduct &&
-                <div className='fixed flex z-sticky items-center bg-slate-250 justify-center left-0 top-0 right-0 bottom-0'>
+                <div className='fixed flex z-sticky  bg-slate-250 justify-center left-0 top-0 right-0 bottom-0'>
                     <ModalThemSP isClose={hideModalAddProduct} />
                 </div>
             }

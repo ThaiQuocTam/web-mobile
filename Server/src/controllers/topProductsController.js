@@ -4,7 +4,7 @@ import db from '../models/index'
 const handleTopSmartphone = async (req, res) => {
 
     let listProductSmartphone = await db.san_pham.findAll({
-        where: { id_nhom_SP: 1 },
+        where: { Id_nhom_SP: req.query.Id_nhom_SP },
         order: [
             ['So_luong_SP', 'ASC']
         ],

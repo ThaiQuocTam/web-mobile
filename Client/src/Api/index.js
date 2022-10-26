@@ -15,6 +15,10 @@ export const apiSignUp = (payload) => axios.post(`${URL}/api/signUp`, {
     Dien_thoai: payload.Dien_thoai
 })
 
-export const apiTopSmartphone = () => axios.get(`${URL}/api/top-smartphone`)
+export const apiTopSmartphone = (payload) => axios.get(`${URL}/api/top-smartphone?Id_nhom_SP=${payload}`)
+
+export const apiTopTablet = (payload) => axios.get(`${URL}/api/top-smartphone?Id_nhom_SP=${payload}`)
 
 export const apiGetInfoProduct = (payload) => axios.get(`${URL}/api/get-info-product?id=${payload}`)
+
+export const apiGetListSmartphone = (payload) => axios.get(`${URL}/api/get-smartphone?id=${payload}`)

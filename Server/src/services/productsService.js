@@ -139,7 +139,6 @@ const PostEditInfoProduct = async (data) => {
 const SearchProduct = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            console.log(data);
             if (data) {
                 let check = await db.san_pham.find({
                     '$or': [

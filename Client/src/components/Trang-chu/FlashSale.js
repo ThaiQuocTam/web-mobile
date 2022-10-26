@@ -27,7 +27,7 @@ const FlashSale = () => {
     };
 
     useEffect(() => {
-        dispatch(actions.topSmartphoneAction.topSmartphoneRequest())
+        dispatch(actions.topSmartphoneAction.topSmartphoneRequest(1))
     }, [])
 
     useEffect(() => {
@@ -41,8 +41,7 @@ const FlashSale = () => {
     useEffect(() => {
         try {
             if (listSmartphone) {
-                let image = ''
-                const base64String = btoa(String.fromCharCode(...new Uint8Array(listSmartphone[4].Hinh_anh.data)));
+
             }
             else {
                 console.log('Khong có');
@@ -69,7 +68,7 @@ const FlashSale = () => {
                                     </div>
                                 </div>
                                 <div className='text-center h-20 mb-2'>
-                                    <div className='pt-2 pb-1'>
+                                    <div className='pt-2 pb-1  max-h-16 h-16 overflow-hidden'>
                                         <span className='text-3.5 font-semibold text-black'>{item.Ten_san_pham} - Chính hãng</span>
                                     </div>
                                     <div className='pb-2'>
