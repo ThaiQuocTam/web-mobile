@@ -16,3 +16,5 @@ export const apiSignUp = (payload) => axios.post(`${URL}/api/signUp`, {
 })
 
 export const apiTopSmartphone = () => axios.get(`${URL}/api/top-smartphone`)
+
+export const apiGetInfoProduct = (payload) => axios.get(`${URL}/api/get-info-product?id=${payload}`)

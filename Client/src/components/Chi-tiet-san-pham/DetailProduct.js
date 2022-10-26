@@ -2,11 +2,20 @@ import BackHome from "components/Trang-chu/BackHome"
 import FlashSale from "components/Trang-chu/FlashSale"
 import { Products } from "models/DetailProduct.model"
 import { useEffect, useState } from "react"
+import { infoProductSelector } from '../../redux/selector'
+import { useSelector } from 'react-redux';
 
 const DetailProduct = () => {
 
   const [index, setIndex] = useState(0)
   const [animation, setAnimation] = useState('')
+  const infoProduct = useSelector(infoProductSelector)
+  const [stateInfoProduct, setStateInfoProduct] = useState({
+    Ten_san_pham: '',
+    Gia_san_pham: '',
+    Thong_tin_khuyen_mai: '',
+    Hinh_anh: ''
+  })
 
   const product = Products.map(items => items.images.length)
 
@@ -47,6 +56,25 @@ const DetailProduct = () => {
     return () => clearTimeout(timerId)
   }, [index])
 
+  useEffect(() => {
+    try {
+      if (infoProduct) {
+        setStateInfoProduct({
+          ...stateInfoProduct,
+          Ten_san_pham: infoProduct.data.Ten_san_pham,
+          Gia_san_pham: infoProduct.data.Gia_san_pham,
+          Thong_tin_bao_hanh: infoProduct.data.Thong_tin_bao_hanh,
+          Hinh_anh: infoProduct.data.Hinh_anh
+        })
+        console.log(infoProduct);
+      } else {
+        console.log('đéo có');
+      }
+    } catch (e) {
+
+    }
+  }, [infoProduct])
+
   return (
     <>
       <div>
@@ -54,7 +82,7 @@ const DetailProduct = () => {
       </div>
       <div className='mx-34'>
         <div className='w-full'>
-          <span className='text-5 font-extrabold '>Điện thoại di động TECNO POVA 3 6GB/128GB - Pin 7000 mAh - Chính hãng</span>
+          <span className='text-5 font-extrabold '>{stateInfoProduct.Ten_san_pham} - Chính hãng</span>
         </div>
         <div className="flex w-full">
           <div className='w-1/2'>
@@ -66,17 +94,15 @@ const DetailProduct = () => {
                 </ul> */}
                 <div className="slider-wrapper">
                   <div className="slider-main w-96 p-5  border-slate-100 shadow-soft-3D">
-                    {Products.map(item => (
-                      <div className={animation} style={{ width: '100%' }}>
-                        <div className="slider-item">
-                          <img
-                            className="block max-w-full"
-                            src={item.images[index]}
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                    ))}
+                    {/* <div className={animation} style={{ width: '100%' }}> */}
+                    <div className="slider-item">
+                      <img
+                        className="block max-w-full"
+                        src={stateInfoProduct.Hinh_anh}
+                        alt=""
+                      />
+                    </div>
+                    {/* </div> */}
                   </div>
                 </div>
                 <i onClick={handleNext} className="bi bi-caret-right-fill h-7 mr-28 w-7 text-4 slider-next border-2 border-gray-200 hover:bg-slate-100"></i>
@@ -85,8 +111,8 @@ const DetailProduct = () => {
           </div>
           <div className="w-1/2 pt-8">
             <div className="flex p-5">
-              <div><span className="text-5 text-red-600 font-extrabold mr-5 ml-5">4,290,000 ₫</span></div>
-              <div className="leading-9"><span className="text-3.5 line-through italic pr-5 border-r border-r-black">4,990,000 ₫</span></div>
+              <div><span className="text-5 text-red-600 font-extrabold mr-5 ml-5">{stateInfoProduct.Gia_san_pham.toLocaleString()} ₫</span></div>
+              <div className="leading-9"><span className="text-3.5 line-through italic pr-5 border-r border-r-black">{(stateInfoProduct.Gia_san_pham + (stateInfoProduct.Gia_san_pham * (10 / 100))).toLocaleString()} ₫</span></div>
               <div className="pl-5 leading-9"><span className="italic text-3.5 font-normal">Giá đã bao gồm 10% VAT</span></div>
             </div>
             <div className="pl-10">
@@ -100,10 +126,10 @@ const DetailProduct = () => {
             </div>
             <div className="pl-10 mt-5">
               <div className="mb-2">
-                <span className="text-3.5 font-bold">THÔNG TIN KHUYẾN MÃI </span>
+                <span className="text-3.5 font-bold">THÔNG TIN BẢO HÀNH </span>
               </div>
               <div>
-                <span className="w-full border borer-slate-100 block rounded-3 h-24 p-3 focus:outline-none">Mua 1 tặng 1t</span>
+                <span className="w-full border borer-slate-100 block rounded-3 h-24 p-3 focus:outline-none">{stateInfoProduct.Thong_tin_bao_hanh}</span>
               </div>
             </div>
             <div className="flex pl-10 mt-7">
