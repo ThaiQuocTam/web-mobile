@@ -1,3 +1,4 @@
+import { raw } from 'body-parser'
 import e, { query } from 'express'
 import db from '../models/index'
 import productsService from '../services/productsService'
@@ -108,15 +109,39 @@ const handlePostSearchProduct = async (req, res) => {
 
 }
 
-const handleGetInfoOderDetail =async (req, res) => {
+const handleGetInfoBill =async (req, res) => {
     try{
-        let data = await productsService.getInfoOderDetail(req.query.So_dien_thoai)
-        console.log(data);
-        return res.status(200).json({
-            errCode: data.errCode,
-            message: data.message,
-            infoOderDetail: data.infoOderDetail
+        let data = await productsService.getInfoBill(req.query.So_dien_thoai)
+        if(data){
+            console.log(data);
+            return res.status(200).json(data)
+        }else{
+            return res.status(500).json({
+                errCode: '1',
+                message: 'Không tìm thấy Bill'
+            })
+        }
+        
+    }catch(e)
+    {
+        console.log(e);
+    }
+}
+
+const handleGetInfoOderDetail = async(req, res)=>{
+    try{
+        let data = await db.chi_tiet_hd.findOne({
+            where: {Id_HD: req.query.Id_HD},
+            raw: true
         })
+        if(data){
+            return res.status(200).json(data)
+        }else{
+            return res.status(500).json({
+                errCode: '1',
+                message: 'Không tìm thấy'
+            })
+        }
     }catch(e)
     {
         console.log(e);
@@ -131,6 +156,7 @@ module.exports = {
     handleGetInfoProduct: handleGetInfoProduct,
     handlePostEditInfoProduct: handlePostEditInfoProduct,
     handlePostSearchProduct: handlePostSearchProduct,
+    handleGetInfoBill: handleGetInfoBill,
     handleGetInfoOderDetail: handleGetInfoOderDetail
 
 }

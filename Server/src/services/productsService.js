@@ -136,7 +136,7 @@ const PostEditInfoProduct = async (data) => {
     })
 }
 
-const getInfoOderDetail= async (data)=>{
+const getInfoBill= async (data)=>{
     return new Promise(async(resolve, reject)=>{
         try { 
             let messageGetOrderDetail = {}
@@ -144,8 +144,10 @@ const getInfoOderDetail= async (data)=>{
             {
                 let infoOderDetail = await db.hoa_don.findOne({
                     where: {
-                        So_dien_thoai: data
-                    }
+                        So_dien_thoai: data,
+                    },
+                    raw: true
+
                 })
                 if(infoOderDetail)
                 {
@@ -168,5 +170,5 @@ module.exports = {
     addProduct: addProduct,
     GetInfoProduct: GetInfoProduct,
     PostEditInfoProduct: PostEditInfoProduct,
-    getInfoOderDetail: getInfoOderDetail
+    getInfoBill: getInfoBill
 }

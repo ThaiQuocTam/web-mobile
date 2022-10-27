@@ -17,3 +17,17 @@ export const INIT_STATE_TOP_SMARTPHONE = {
         data: []
     }
 }
+
+export const INIT_STATE_ODERDETAIL = {
+    stateOderDetail: {
+        isLoading: false,
+        data: []
+    }
+}
+
+export const INIT_STATE_BILL = {
+    stateBill: {
+        isLoading: false,
+        data: []
+    }
+}
