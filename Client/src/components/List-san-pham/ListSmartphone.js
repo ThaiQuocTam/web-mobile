@@ -57,7 +57,7 @@ const ListSmartphone = () => {
                             </div>
                         </div>
                         {
-                            ID === item.id ? <ShowButton Id={item.id} /> : ''
+                            ID === item.id ? <ShowButton Id={item.id} nameProduct={item.Ten_san_pham} /> : ''
                         }
 
                     </div>

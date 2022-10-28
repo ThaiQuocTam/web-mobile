@@ -3,10 +3,13 @@ import FlashSale from "components/Trang-chu/FlashSale"
 import { Products } from "models/DetailProduct.model"
 import { useEffect, useState } from "react"
 import { infoProductSelector } from '../../redux/selector'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actions from '../../redux/actions'
 import { Link } from "react-router-dom"
 
 const DetailProduct = () => {
+
+  const dispatch = useDispatch()
 
   const [index, setIndex] = useState(0)
   const [animation, setAnimation] = useState('')
@@ -19,6 +22,7 @@ const DetailProduct = () => {
   })
 
   const product = Products.map(items => items.images.length)
+  const idProductStore = localStorage.getItem('idProduct')
 
   const handlePre = () => {
     if (index <= 0) {
@@ -59,6 +63,16 @@ const DetailProduct = () => {
 
   useEffect(() => {
     try {
+      if (idProductStore) {
+        dispatch(actions.getInfoProductAction.getInfoProductRequest(idProductStore))
+      }
+    } catch (e) {
+
+    }
+  }, [idProductStore])
+
+  useEffect(() => {
+    try {
       if (infoProduct) {
         setStateInfoProduct({
           ...stateInfoProduct,
@@ -67,14 +81,15 @@ const DetailProduct = () => {
           Thong_tin_bao_hanh: infoProduct.data.Thong_tin_bao_hanh,
           Hinh_anh: infoProduct.data.Hinh_anh
         })
-        console.log(infoProduct);
       } else {
-        console.log('đéo có');
       }
     } catch (e) {
 
     }
   }, [infoProduct])
+
+  // console.log(localStorage.getItem('idProduct'));
+
 
   return (
     <>

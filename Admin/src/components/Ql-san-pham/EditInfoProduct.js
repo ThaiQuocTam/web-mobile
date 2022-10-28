@@ -122,9 +122,9 @@ const EditInfoProduct = (props) => {
                 <form>
                     <div className='bg-white w-180-em animate-modalForm'>
                         <div className='h-10 leading-10 bg-blue-450 border-b border-slate-200' >
-                            <span className='text-5 font-semibold text-white ml-4'> {stateDataSubmit.Ten_san_pham} </span>
+                            <span className='text-5 font-semibold text-white ml-4   inline-block h-10 overflow-hidden w-85pc '> {stateDataSubmit.Ten_san_pham} </span>
                             <div className='float-right '>
-                                <span>
+                                <span className=''>
                                     <i onClick={props.isClose} className="bi cursor-pointer bi-x-circle-fill text-slate-50 text-6 mr-5 hover:text-slate-900"></i>
                                 </span>
                             </div>

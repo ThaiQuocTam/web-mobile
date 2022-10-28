@@ -39,3 +39,21 @@ export const getListTopTabletAction = createActions({
     getListTopTabletSuccess: (payload) => payload,
     getListTopTabletFailure: (err) => err
 })
+
+export const getInfoUserAction = createActions({
+    getInfoUserRequest: (payload) => payload,
+    getInfoUserSuccess: (payload) => payload,
+    getInfoUserFailure: (err) => err
+})
+
+export const getOderDetailAction = createActions({
+    getOderDetailRequest: (payload) => payload,
+    getOderDetailSuccess: (payload) => payload,
+    getOderDetailFailure: (err) => err
+})
+
+export const getBillAction = createActions({
+    getBillRequest: (payload) => payload,
+    getBillSuccess: (payload) => payload,
+    getBillFailure: (err) => err
+})

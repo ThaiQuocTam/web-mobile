@@ -7,18 +7,19 @@ const ShowButton = (props) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const handleOnClick = () => {
-        navigate('/DetailProduct')
-        dispatch(actions.getInfoProductAction.getInfoProductRequest(props.Id))
+        if (props.Id) {
+            localStorage.setItem("idProduct", props.Id)
+        }
     }
     return (
         <>
-            <Link to='/DetailProduct' onClick={handleOnClick}>
+            <a href={`/DetailProduct?Ten_san_pham=${props.nameProduct}`} onClick={handleOnClick}>
                 <div className='bg-red-600 text-center p-1 rounded-1 shadow-soft-2xl hover:bg-red-800 animate-modalForm'>
                     <div>
-                        <Link className='text-3.5 font-semibold text-white'>Xem chi tiết</Link>
+                        <button className='text-3.5 font-semibold text-white'>Xem chi tiết</button>
                     </div>
                 </div>
-            </Link>
+            </a>
 
         </>
     )

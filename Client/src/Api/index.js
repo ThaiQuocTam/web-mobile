@@ -22,3 +22,9 @@ export const apiTopTablet = (payload) => axios.get(`${URL}/api/top-smartphone?Id
 export const apiGetInfoProduct = (payload) => axios.get(`${URL}/api/get-info-product?id=${payload}`)
 
 export const apiGetListSmartphone = (payload) => axios.get(`${URL}/api/get-smartphone?id=${payload}`)
+
+export const apiGetInfoUser = (payload) => axios.get(`${URL}/api/get-info-user?Email=${payload}`)
+
+export const apiGetBill = (payload) => axios.get(`${URL}/api/get-info-bill?So_dien_thoai=${payload}`)
+
+export const apiGetOderDetail = (payload) => axios.get(`${URL}/api/get-info-oderDetail?Id_HD=${payload}`)

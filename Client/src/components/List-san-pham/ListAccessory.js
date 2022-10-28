@@ -40,12 +40,12 @@ const ListAccessory = () => {
             </div>
             <div className="overflow-hidden w-full ml-14" >
                 {stateListAccessory.map((item, index) => (
-                    <div onMouseEnter={() => { const exist = idProduct.includes(item.id); exist ? setID(item.id) : '' }} className='p-5 mx-5 my-5 w-60 h-25em box-shadow rounded-2 bg-white float-left'>
+                    <div onMouseEnter={() => { const exist = idProduct.includes(item.id); exist ? setID(item.id) : '' }} className='p-5 mx-5 my-5 w-60 h-25.5em box-shadow rounded-2 bg-white float-left'>
                         <div className=''>
                             <img className='mx-auto border-b pb-4 border-gray-300' src={item.Hinh_anh} />
                         </div>
                         <div className='text-center h-24 mb-2'>
-                            <div className='pt-2 pb-1 max-h-16 h-16 overflow-hidden'>
+                            <div className='pt-2 pb-1 max-h-20 h-20 overflow-hidden'>
                                 <span className='text-3.5 font-semibold text-black'>{item.Ten_san_pham} - Chính hãng</span>
                             </div>
                             <div className='pb-2'>
@@ -54,7 +54,7 @@ const ListAccessory = () => {
                             </div>
                         </div>
                         {
-                            ID === item.id ? <ShowButton Id={item.id} /> : ''
+                            ID === item.id ? <div className="mt-4"> <ShowButton Id={item.id} nameProduct={item.Ten_san_pham} /></div> : ''
                         }
 
                     </div>

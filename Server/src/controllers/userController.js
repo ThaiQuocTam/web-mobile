@@ -1,3 +1,4 @@
+import db from "../models"
 import { handleUserLogin, handleRegister } from "../services/userService"
 const express = require('express')
 
@@ -43,7 +44,26 @@ const handleSignUp = async (req, res) => {
     }
 }
 
+const handleGetInfoUser = async (req, res) => {
+    try {
+        let infoUser = await db.nguoi_dung.findOne({
+            where: { Email: req.query.Email }
+        })
+        if (infoUser) {
+            return res.status(200).json(infoUser)
+        } else {
+            return res.status(500).json({
+                errCode: '1',
+                message: 'Không tìm thấy người dùng'
+            })
+        }
+    } catch (e) {
+
+    }
+}
+
 module.exports = {
     handleSignIn: handleSignIn,
-    handleSignUp: handleSignUp
+    handleSignUp: handleSignUp,
+    handleGetInfoUser: handleGetInfoUser
 }

@@ -1,9 +1,43 @@
 import BackHome from 'components/Trang-chu/BackHome'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import './Cart.css'
+import { useDispatch, useSelector } from 'react-redux'
+import * as actions from '../../redux/actions'
+import { getInfoUserSelector } from '../../redux/selector'
 
 const Cart = () => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const infoUser = useSelector(getInfoUserSelector)
+
+    const [stateEmail, setStateEmail] = useState()
+    const [stateInfoUser, setStateInfoUser] = useState({})
+
+    let email = localStorage.getItem("User")
+
+    useEffect(() => {
+        setStateEmail(email)
+        if (email) {
+            dispatch(actions.getInfoUserAction.getInfoUserRequest(email))
+        }
+    }, [email])
+
+    useEffect(() => {
+        try {
+            if (infoUser) {
+                setStateInfoUser(infoUser)
+            }
+        } catch (e) {
+
+        }
+    }, [infoUser])
+
+    const refreshPage = () => {
+        navigate(0);
+    }
+
     return (
         <>
             <div>
@@ -61,9 +95,10 @@ const Cart = () => {
                                 <div className="mt-4">
                                     <label>Họ và Tên</label>
                                     <input
+                                        value={stateInfoUser.Ho_ten}
+                                        readOnly={email ? true : false}
                                         type="text"
                                         name="hovaten"
-                                        placeholder="VD: Trần Văn A"
                                         className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
                                     />
                                 </div>
@@ -72,7 +107,8 @@ const Cart = () => {
                                     <input
                                         type="number"
                                         name="sdt"
-                                        placeholder="VD: 09883748374"
+                                        readOnly={email ? true : false}
+                                        value={stateInfoUser.Dien_thoai}
                                         className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
                                     />
                                 </div>
@@ -81,16 +117,16 @@ const Cart = () => {
                                     <input
                                         type="text"
                                         name="diachinhanhang"
-                                        placeholder="VD: Tổ 60, KV 7, p.Nhơn Bình, tp.Quy Nhơn, t.Bình Định"
                                         className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
                                     />
                                 </div>
                                 <div className="mt-4">
                                     <label>Email</label>
                                     <input
+                                        value={stateInfoUser.Email}
+                                        readOnly={email ? true : false}
                                         type="email"
                                         name="email"
-                                        placeholder="VD: tranvana@gmail.com"
                                         className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
                                     />
                                 </div>
@@ -102,15 +138,29 @@ const Cart = () => {
                                         className="mt-1 p-2 h-44 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
                                     />
                                 </div>
-                                <Link to='/OrderDetail'>
-                                    <div className="mt-4">
-                                        <input
-                                            type="submit"
-                                            value="Xác nhận đặt hàng"
-                                            className="mt-1 p-2 w-full hover:bg-purple-800 border focus:outline-none border-gray-400 rounded cursor-pointer bg-purple-600 text-white"
-                                        />
-                                    </div>
-                                </Link>
+                                {
+                                    stateEmail ?
+
+                                        <Link to='/OrderDetail'>
+                                            <div className="mt-4">
+                                                <input
+                                                    type="submit"
+                                                    value="Xác nhận đặt hàng"
+                                                    className="mt-1 p-2 w-full hover:bg-purple-800 border focus:outline-none border-gray-400 rounded cursor-pointer bg-purple-600 text-white"
+                                                />
+                                            </div>
+                                        </Link> :
+                                        <Link to='/SignIn'>
+                                            <div className="mt-4">
+                                                <input
+                                                    type="submit"
+                                                    value="Vui lòng đăng nhập"
+                                                    className="mt-1 p-2 w-full hover:bg-purple-800 border focus:outline-none border-gray-400 rounded cursor-pointer bg-purple-600 text-white"
+                                                />
+                                            </div>
+                                        </Link>
+                                }
+
                             </div>
                         </form>
                     </div>

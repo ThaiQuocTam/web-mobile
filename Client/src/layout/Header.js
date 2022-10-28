@@ -59,7 +59,7 @@ const Header = () => {
                                         <span className='font-semibold text-3.5' >{email}</span>
                                     </div>
                                     {
-                                        hidden && <a to='/' onClick={() => localStorage.removeItem('User')} className='absolute bg-slate-500 w-28 h-8 leading-8 text-center rounded-2 right-7 cursor-pointer hover:opacity-75 animate-modalForm'>
+                                        hidden && <a href='/' onClick={() => localStorage.removeItem('User')} className='absolute bg-slate-500 w-28 h-8 leading-8 text-center rounded-2 right-7 cursor-pointer hover:opacity-75 animate-modalForm'>
                                             <span className='text-white text-3.5'>Đăng xuất</span>
                                             <i class="bi bi-caret-up-fill absolute position-top_-19 left-1 text-slate-500"></i>
                                         </a>

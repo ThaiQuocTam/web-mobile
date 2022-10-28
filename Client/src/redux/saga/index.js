@@ -23,7 +23,6 @@ function* handleSignUpAction(action) {
 function* handleTopSmartphoneAction(action) {
     try {
         const getTopSmartphone = yield call(api.apiTopSmartphone, action.payload)
-        console.log(getTopSmartphone.data);
         yield put(actions.topSmartphoneAction.topSmartphoneSuccess(getTopSmartphone.data))
     } catch (e) {
         console.log(e);
@@ -34,7 +33,6 @@ function* handleTopSmartphoneAction(action) {
 function* handleGetInfoProductAction(action) {
     try {
         const infoProduct = yield call(api.apiGetInfoProduct, action.payload)
-        console.log(infoProduct.data);
         yield put(actions.getInfoProductAction.getInfoProductSuccess(infoProduct.data))
     } catch (e) {
         yield put(actions.getInfoProductAction.getInfoProductFailure)
@@ -43,9 +41,7 @@ function* handleGetInfoProductAction(action) {
 
 function* handleGetListSmartphoneAction(action) {
     try {
-        console.log(action.payload);
         const listSmartphone = yield call(api.apiGetListSmartphone, action.payload)
-        console.log(listSmartphone.data);
         yield put(actions.getListSmartphoneAction.getListSmartphoneSuccess(listSmartphone.data))
     } catch (e) {
         yield put(actions.getListSmartphoneAction.getListSmartphoneFailure)
@@ -56,10 +52,29 @@ function* handleGetListSmartphoneAction(action) {
 function* handleGetListTopTabletAction(action) {
     try {
         const listTablet = yield call(api.apiTopSmartphone, action.payload)
-        console.log(listTablet.data);
         yield put(actions.getListTopTabletAction.getListTopTabletSuccess(listTablet.data))
     } catch (e) {
         yield put(actions.getListTopTabletAction.getListTopTabletFailure)
+    }
+}
+
+function* handleGetInfoUserAction(action) {
+    try {
+        const infoUser = yield call(api.apiGetInfoUser, action.payload)
+        console.log(infoUser.data);
+        yield put(actions.getInfoUserAction.getInfoUserSuccess(infoUser.data))
+    } catch (e) {
+        yield put(actions.getInfoUserAction.getInfoUserFailure)
+    }
+}
+
+function* handleGetBillAction(action) {
+    try {
+        const getInfoBill = yield call(api.apiGetBill, action.payload)
+        yield put(actions.getBillAction.getBillSuccess(getInfoBill.data))
+    } catch (e) {
+        console.log('loi API : ', e);
+        yield put(actions.getBillAction.getBillFailure)
     }
 }
 
@@ -70,6 +85,8 @@ function* mySaga() {
     yield takeLatest(actions.getInfoProductAction.getInfoProductRequest, handleGetInfoProductAction)
     yield takeLatest(actions.getListSmartphoneAction.getListSmartphoneRequest, handleGetListSmartphoneAction)
     yield takeLatest(actions.getListTopTabletAction.getListTopTabletRequest, handleGetListTopTabletAction)
+    yield takeLatest(actions.getInfoUserAction.getInfoUserRequest, handleGetInfoUserAction)
+    yield takeLatest(actions.getBillAction.getBillRequest, handleGetBillAction)
 }
 
 

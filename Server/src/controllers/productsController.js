@@ -87,7 +87,7 @@ const handlePostEditInfoProduct = async (req, res) => {
         let Id_loai_SP = req.body.Id_loai_SP
         let Id_nhom_SP = req.body.Id_nhom_SP
 
-        if (!id || !Ten_san_pham || !Hinh_anh || !Gia_san_pham || !So_luong_SP || !Id_loai_SP || !Id_nhom_SP) {
+        if (!id || !Ten_san_pham || !Hinh_anh || !Gia_san_pham || !So_luong_SP < 0 || !Id_loai_SP || !Id_nhom_SP) {
             return res.status(500).json({
                 errCode: '1',
                 message: 'Vui lòng nhập đầy đủ thông tin'
@@ -125,6 +125,43 @@ const handleGetSmartphone = async (req, res) => {
     }
 }
 
+const handleGetInfoBill = async (req, res) => {
+    try {
+        let data = await productsService.getInfoBill(req.query.So_dien_thoai)
+        if (data) {
+            console.log(data);
+            return res.status(200).json(data)
+        } else {
+            return res.status(500).json({
+                errCode: '1',
+                message: 'Không tìm thấy Bill'
+            })
+        }
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const handleGetInfoOderDetail = async (req, res) => {
+    try {
+        let data = await db.chi_tiet_hd.findOne({
+            where: { Id_HD: req.query.Id_HD },
+            raw: true
+        })
+        if (data) {
+            return res.status(200).json(data)
+        } else {
+            return res.status(500).json({
+                errCode: '1',
+                message: 'Không tìm thấy'
+            })
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 module.exports = {
     handleAddProduct: handleAddProduct,
     handleGetProductGroup: handleGetProductGroup,
@@ -133,5 +170,7 @@ module.exports = {
     handleGetInfoProduct: handleGetInfoProduct,
     handlePostEditInfoProduct: handlePostEditInfoProduct,
     handlePostSearchProduct: handlePostSearchProduct,
-    handleGetSmartphone: handleGetSmartphone
+    handleGetSmartphone: handleGetSmartphone,
+    handleGetInfoBill: handleGetInfoBill,
+    handleGetInfoOderDetail: handleGetInfoOderDetail
 }

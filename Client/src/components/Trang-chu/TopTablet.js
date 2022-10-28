@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import * as actions from '../../redux/actions'
 import { listTopTabletReducer } from 'redux/selector';
 import LimitProduct from './LimitProduct';
+import ShowButton from 'components/List-san-pham/ShowButton';
 
 const TopTablet = () => {
 
@@ -61,7 +62,7 @@ const TopTablet = () => {
                 <Slider {...settings}>
                     {
                         stateListTablet.map((item, index) => (
-                            <div className='p-5 mx-5 h-26em box-shadow relative rounded-2 bg-white'>
+                            <div className='p-5 mx-5 h-27em box-shadow relative rounded-2 bg-white'>
                                 {
                                     item.So_luong_SP <= 5 ? <LimitProduct soLuong={item.So_luong_SP} /> : ''
 
@@ -72,7 +73,7 @@ const TopTablet = () => {
                                     </div>
                                 </div>
                                 <div className='text-center h-24 mb-2'>
-                                    <div className='pt-2 pb-1 max-h-16 h-16 overflow-hidden'>
+                                    <div className='pt-2 mb-1 max-h-20 h-20 overflow-hidden'>
                                         <span className='text-3.5 font-semibold text-black'>{item.Ten_san_pham}</span>
                                     </div>
                                     <div className='pb-2'>
@@ -80,13 +81,16 @@ const TopTablet = () => {
                                         <span className='line-through text-3'>{(item.Gia_san_pham + (item.Gia_san_pham * (10 / 100))).toLocaleString()}<span className='ml-1'>₫</span></span>
                                     </div>
                                 </div>
-                                <div onClick={() => {
+                                {/* <div onClick={() => {
                                     navigate('/DetailProduct');
                                     dispatch(actions.getInfoProductAction.getInfoProductRequest(item.id))
                                 }} className='bg-red-600 cursor-pointer hover:bg-red-800 text-center p-1 rounded-1 shadow-soft-2xl'>
                                     <div>
                                         <button className='text-3.5 font-semibold text-white'>Xem chi tiết</button>
                                     </div>
+                                </div> */}
+                                <div className='mt-5'>
+                                    <ShowButton Id={item.id} nameProduct={item.Ten_san_pham} />
                                 </div>
                             </div>
                         ))

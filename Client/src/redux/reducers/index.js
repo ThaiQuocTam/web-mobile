@@ -5,6 +5,9 @@ import topSmartphoneReducer from './topSmartphoneReducer'
 import getInfoProductReducer from './getInfoProductReducer'
 import getListSmartphoneReducer from './getListSmartphoneReducer'
 import getListTopTabletReducer from './getListTopTabletReducer'
+import getInfoUserReducer from './getInfoUserReducer'
+import getBillReducer from './getBillReducer'
+import getOderDetailReducer from './getOderDetailReducer'
 
 export default combineReducers({
     signInReducer,
@@ -12,5 +15,8 @@ export default combineReducers({
     topSmartphoneReducer,
     getInfoProductReducer,
     getListSmartphoneReducer,
-    getListTopTabletReducer
+    getListTopTabletReducer,
+    getInfoUserReducer,
+    getBillReducer,
+    getOderDetailReducer
 })

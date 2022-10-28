@@ -15,9 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     };
     hoa_don.init({
         Ho_ten: DataTypes.STRING,
+        So_dien_thoai: DataTypes.STRING,
+        Email: DataTypes.STRING,
         Dia_chi_nhan_hang: DataTypes.STRING,
+        Ghi_chu: DataTypes.STRING,
         Tong_tien: DataTypes.INTEGER,
-        Trang_thai: DataTypes.STRING,
+        Trang_thai: DataTypes.INTEGER,
         Id_nguoi_dung: DataTypes.INTEGER,
     }, {
         sequelize,
