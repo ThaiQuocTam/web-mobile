@@ -63,3 +63,9 @@ export const getListProductGroupAction = createActions({
     getListProductGroupSuccess: (payload) => payload,
     getListProductGroupFailure: (err) => err
 })
+
+export const postPaymentAction = createActions({
+    postPaymentRequest: (payload) => payload,
+    postPaymentSuccess: (payload) => payload,
+    postPaymentFailure: (err) => err
+})

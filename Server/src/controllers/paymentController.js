@@ -5,34 +5,41 @@ const express = require('express')
 
 const handlePostPayment = async (req, res) => {
     try {
-        let Ho_ten = req.body.Ho_ten
-        let Email = req.body.Email
-        let So_dien_thoai = req.body.So_dien_thoai
-        let Dia_chi_nhan_hang = req.body.Dia_chi_nhan_hang
-        let Tong_tien = req.body.Tong_tien
-        let Id_nguoi_dung = req.body.Id_nguoi_dung
-        let Ten_san_pham = req.body.Ten_san_pham
-        let Gia_san_pham = req.body.Gia_san_pham
-        let So_luong = req.body.So_luong
-        let Id_HD = req.body.Id_HD
-        if (!Ho_ten || !Email || !So_dien_thoai || !Dia_chi_nhan_hang || !Tong_tien || !Id_nguoi_dung) {
+        let payment = {
+            order: req.body.order,
+            orderDetail: req.body.orderDetail
+        }
+
+        if (!payment) {
             return res.status(500).json({
                 errCode: '1',
                 message: 'Chưa đủ thông tin'
             })
         } else {
-            let messagePayment = await paymentService.postPaymentServicer(req.body)
-            if (messagePayment) {
-                console.log(messagePayment.infoBill.dataValues.id);
+            let messagePostOrder = await paymentService.postPaymentServicer(payment)
+            console.log(messagePostOrder.errCode);
+            if (messagePostOrder) {
+                payment.orderDetail.map((item) => {
+                    item.Id_HD = messagePostOrder.infoOrder.dataValues.id
+                })
+                let messagePostOrderDetail = await paymentService.postOrderDetail(payment.orderDetail)
             }
-            return res.status(200).json({
-                errCode: messagePayment.errCode,
-                message: messagePayment.message
-            })
         }
+        return res.status(200).json({
+            errCode: '0',
+            message: 'Đặt hàng thành công'
+        })
     } catch (e) {
         console.log(e);
     }
+}
+
+const handlePostOrderDetail = async (req, res) => {
+    try {
+        if (req.body) {
+
+        }
+    } catch (e) { }
 }
 
 module.exports = {

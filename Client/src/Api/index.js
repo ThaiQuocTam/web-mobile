@@ -30,3 +30,8 @@ export const apiGetBill = (payload) => axios.get(`${URL}/api/get-info-bill?So_di
 export const apiGetOderDetail = (payload) => axios.get(`${URL}/api/get-info-oderDetail?Id_HD=${payload}`)
 
 export const apiGetListProductGroup = () => axios.get(`${URL}/api/get-list-product-group`)
+
+export const apiPostPayment = (payload) => axios.post(`${URL}/api/post-payment`, {
+    order: payload.order,
+    orderDetail: payload.orderDetail
+})

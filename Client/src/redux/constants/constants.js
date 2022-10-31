@@ -66,3 +66,10 @@ export const INIT_STATE_LIST_PRODUCT_GROUP = {
         data: []
     }
 }
+
+export const INIT_STATE_PAYMENT = {
+    state_Payment: {
+        isLoading: false,
+        data: []
+    }
+}
