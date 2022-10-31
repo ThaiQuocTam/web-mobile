@@ -8,6 +8,7 @@ import getListTopTabletReducer from './getListTopTabletReducer'
 import getInfoUserReducer from './getInfoUserReducer'
 import getBillReducer from './getBillReducer'
 import getOderDetailReducer from './getOderDetailReducer'
+import getListProductGroupReducer from './getListProductGroupReducer'
 
 export default combineReducers({
     signInReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
     getListTopTabletReducer,
     getInfoUserReducer,
     getBillReducer,
-    getOderDetailReducer
+    getOderDetailReducer,
+    getListProductGroupReducer
 })

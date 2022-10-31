@@ -1,5 +1,5 @@
 
-const litmitProduct = (props) => {
+const LimitProduct = (props) => {
 
     return (
         <>
@@ -10,4 +10,4 @@ const litmitProduct = (props) => {
     )
 }
 
-export default litmitProduct
+export default LimitProduct

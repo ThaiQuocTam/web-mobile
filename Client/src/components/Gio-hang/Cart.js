@@ -1,6 +1,6 @@
 import BackHome from 'components/Trang-chu/BackHome'
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { json, Link, useNavigate } from 'react-router-dom'
 import './Cart.css'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../redux/actions'
@@ -34,9 +34,30 @@ const Cart = () => {
         }
     }, [infoUser])
 
+    const product = localStorage.getItem('product')
+    const [state, setState] = useState({
+        product: {
+            Ten_san_pham: ''
+        }
+    })
+
     const refreshPage = () => {
         navigate(0);
     }
+
+    useEffect(() => {
+        if (product) {
+            let infoProduct = JSON.parse(product)
+            setState({
+                ...state,
+                product: {
+                    ...product,
+                    Ten_san_pham: infoProduct.product.Ten_san_pham
+                }
+            })
+            console.log(state);
+        }
+    }, [product])
 
     return (
         <>
@@ -53,23 +74,7 @@ const Cart = () => {
                                 <div className='flex'>
                                     <img className="mx-2 my-1" src='https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/09/08/1111.png' />
                                     <div>
-                                        <p className="mt-8 ">Tên điện thoại: Iphone 14 Pro Max</p>
-                                        <p className="mt-4 ">Giá điện thoại: 33.324.000$</p>
-                                        <div className='my-4 text-center flex'>
-                                            <p className="mt-2 ">Số lượng:</p>
-                                            <input className="minus is-form  hover:text-red-500" type="button" onClick="tru()" value="-" />
-                                            <input aria-label="quantity" className="input-qty" max="10" min="1" name="" type="number" value="1" id="textbox" />
-                                            <input className="plus is-form  hover:text-red-500" type="button" onClick="cong()" value="+" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <form className="border border-gray-500 rounded-[12px] mt-4">
-                                <i className="bi bi-backspace-fill float-right hover:text-red-500 " />
-                                <div className='flex'>
-                                    <img className="mx-2 my-1" src='https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/09/08/1111.png' />
-                                    <div>
-                                        <p className="mt-8 ">Tên điện thoại: Iphone 14 Pro Max</p>
+                                        <p className="mt-8 ">Tên điện thoại: {state.product.Ten_san_pham}</p>
                                         <p className="mt-4 ">Giá điện thoại: 33.324.000$</p>
                                         <div className='my-4 text-center flex'>
                                             <p className="mt-2 ">Số lượng:</p>

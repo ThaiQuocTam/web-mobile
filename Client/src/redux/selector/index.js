@@ -6,3 +6,4 @@ export const listProductSelector = (state) => state.getListSmartphoneReducer.dat
 export const getInfoUserSelector = (state) => state.getInfoUserReducer.data
 export const listTopTabletReducer = (state) => state.getListTopTabletReducer.data
 export const infoBilSelector = (state) => state.getBillReducer.data
+export const listProductGroupSelector = (state) => state.getListProductGroupReducer.data

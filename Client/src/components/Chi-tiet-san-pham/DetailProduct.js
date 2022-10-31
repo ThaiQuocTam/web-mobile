@@ -1,15 +1,15 @@
-import BackHome from "components/Trang-chu/BackHome"
 import FlashSale from "components/Trang-chu/FlashSale"
 import { Products } from "models/DetailProduct.model"
 import { useEffect, useState } from "react"
 import { infoProductSelector } from '../../redux/selector'
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../redux/actions'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const DetailProduct = () => {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [index, setIndex] = useState(0)
   const [animation, setAnimation] = useState('')
@@ -22,6 +22,7 @@ const DetailProduct = () => {
   })
 
   const product = Products.map(items => items.images.length)
+  let email = localStorage.getItem("User")
   const idProductStore = localStorage.getItem('idProduct')
 
   const handlePre = () => {
@@ -57,7 +58,6 @@ const DetailProduct = () => {
         animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
       }
     }, 3000);
-
     return () => clearTimeout(timerId)
   }, [index])
 
@@ -67,7 +67,6 @@ const DetailProduct = () => {
         dispatch(actions.getInfoProductAction.getInfoProductRequest(idProductStore))
       }
     } catch (e) {
-
     }
   }, [idProductStore])
 
@@ -88,14 +87,19 @@ const DetailProduct = () => {
     }
   }, [infoProduct])
 
-  // console.log(localStorage.getItem('idProduct'));
+  const handleOnclickAddCart = () => {
+    if (stateInfoProduct) {
+      localStorage.setItem('product', JSON.stringify({ product: stateInfoProduct }))
+    } else {
 
+    }
+  }
 
   return (
     <>
       <div>
         <div className='overflow-auto w-full pl-32'>
-          <Link className="relative float-left leading-9 h-9 mb-5 block text-green-900 hover:text-green-600" to="/ListSmartphone">
+          <Link className="relative float-left leading-9 h-9 mb-5 block text-green-900 hover:text-green-600" to="/ListProduct">
             <i className="bi bi-arrow-left-circle icon text-8  mr-2 " />
             <strong className='text-4  '>Quay lại</strong>
           </Link  >
@@ -110,12 +114,8 @@ const DetailProduct = () => {
             <div className=' w-full overflow-hidden pl-20'>
               <div className="slider max-w-90 float-left">
                 <i onClick={handlePre} className="bi bi-caret-left-fill ml-28 h-7 w-7 slider-prev border-2 border-gray-200 hover:bg-slate-100 text-4"></i>
-                {/* <ul className="slider-dots" >
-                  <li className="slider-dot-item"></li>
-                </ul> */}
                 <div className="slider-wrapper">
                   <div className="slider-main w-96 p-5  border-slate-100 shadow-soft-3D">
-                    {/* <div className={animation} style={{ width: '100%' }}> */}
                     <div className="slider-item">
                       <img
                         className="block max-w-full"
@@ -123,7 +123,6 @@ const DetailProduct = () => {
                         alt=""
                       />
                     </div>
-                    {/* </div> */}
                   </div>
                 </div>
                 <i onClick={handleNext} className="bi bi-caret-right-fill h-7 mr-28 w-7 text-4 slider-next border-2 border-gray-200 hover:bg-slate-100"></i>
@@ -158,10 +157,21 @@ const DetailProduct = () => {
                 <button className="text-white text-3 font-bold">MUA NGAY</button>
               </div>
               <div className="w-1/3 pl-2">
-                <div className="bg-yellow-600 rounded-3 text-center cursor-pointer hover:bg-yellow-800">
-                  <i class="bi bi-cart-plus-fill text-6 text-white"></i>
-                  <button className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
-                </div>
+                {
+                  email ?
+                    <div className="bg-yellow-600 rounded-3 text-center cursor-pointer hover:bg-yellow-800">
+                      <i class="bi bi-cart-plus-fill text-6 text-white"></i>
+                      <button onClick={handleOnclickAddCart} className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
+                    </div>
+                    :
+                    <Link to='/SignIn'>
+                      <div className="bg-yellow-600 rounded-3 text-center cursor-pointer hover:bg-yellow-800">
+                        <i class="bi bi-cart-plus-fill text-6 text-white"></i>
+                        <button onClick={handleOnclickAddCart} className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
+                      </div>
+                    </Link>
+                }
+
               </div>
             </div>
           </div>

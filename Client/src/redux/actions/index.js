@@ -57,3 +57,9 @@ export const getBillAction = createActions({
     getBillSuccess: (payload) => payload,
     getBillFailure: (err) => err
 })
+
+export const getListProductGroupAction = createActions({
+    getListProductGroupRequest: (payload) => payload,
+    getListProductGroupSuccess: (payload) => payload,
+    getListProductGroupFailure: (err) => err
+})

@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import image from '../Assets/images/picwish.jpg'
+import image from '../Assets/images/logo.jpg'
+import { listProductGroupSelector } from '../redux/selector/index'
+import { useSelector, useDispatch } from 'react-redux';
+import * as actions from '../redux/actions'
 
 const Header = () => {
 
-    const [mouseSmartphone, setMouseSmartphone] = useState('')
-    const [mouseTablet, setMouseTablet] = useState('')
-    const [mouseAccessory, setMouseAccessory] = useState('')
-    const [mouseLaptop, setMouseLaptop] = useState('')
-    const [hidden, setHidden] = useState(false)
+
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const listProductGroup = useSelector(listProductGroupSelector)
+
+    const [hidden, setHidden] = useState(false)
+    const [stateProductGroup, setStateProductGroup] = useState([])
 
     let email = localStorage.getItem("User")
 
@@ -17,12 +21,26 @@ const Header = () => {
         navigate(0);
     }
 
+    useEffect(() => {
+        dispatch(actions.getListProductGroupAction.getListProductGroupRequest())
+    }, [])
+
+    useEffect(() => {
+        try {
+            if (listProductGroup) {
+                setStateProductGroup(listProductGroup)
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }, [listProductGroup])
+
     return (
         <>
-            <header className='h-200 p-5 pl-30 z-10'>
-                <div className=''>
-                    <div className='float-left h-40 w-40 relative position-top mr-10'>
-                        <Link to='/' className='block w-full h-full'>
+            <header className='h-200 px-5 z-10 mb-10 bg-white'>
+                <div className='flex items-center pl-24'>
+                    <div className='w-15pc h-15pc'>
+                        <Link to='/' className='w-full h-full block'>
                             <img className='w-full h-full' src={image} />
                         </Link>
                     </div>
@@ -30,14 +48,14 @@ const Header = () => {
                         <li className='inline-block mr-24'>
                             <div>
                                 <input className='border focus:outline-none border-green-700 hover:border-green-900 focus:border placeholder:text-3.5 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-120 mr-3 pl-5' type={'text'} placeholder='Nhập sản phẩm cần tìm...' />
-                                <a href='#'><i className="bi bi-search text-7 cursor-pointer leading-6-em block float-right"></i></a>
+                                <a href='#' className='inline-block'><i className="bi bi-search text-7 cursor-pointer text-gray-700"></i></a>
                             </div>
                         </li>
                         <Link to='/Cart'>
                             <li className='inline-block mr-14 text-6 hover:opacity-50'>
                                 <a className='inline-block' href='#'>
                                     <i className="bi bi-cart2 inline-block text-green-900 text-7 pr-1"></i>
-                                    <span className='w-7 h-7 text-center text-white text-3.5 p-1 pb-1 bg-orange-500 rounded-2 block float-right'>
+                                    <span className='w-7 h-7 text-center inline-block text-white text-3.5 p-1 bg-orange-500 rounded-2'>
                                         0
                                     </span>
                                 </a>
@@ -79,7 +97,7 @@ const Header = () => {
                         }
                     </ul>
                 </div >
-                <div className='mt-5 mr-28 ml-4 p-1 bg-green-300 rounded-2'>
+                {/* <div className='mt-5 mr-28 ml-4 p-1 bg-green-300 flex rounded-2'>
                     <ul className=''>
                         <Link to='/ListSmartphone'>
                             <li
@@ -145,6 +163,24 @@ const Header = () => {
                             </li>
                         </Link>
                     </ul >
+                    <div>
+                        <Link>
+                            Điện thoại
+                        </Link>
+                    </div>
+                </div > */}
+                <div className='px-32 mt-2 '>
+                    <div className='w-full flex justify-center leading-12 items-center bg-green-300 rounded-2 '>
+                        {
+                            stateProductGroup.map((item) => (
+                                <>
+                                    <Link onClick={() => { localStorage.setItem("idProductGroup", item.id); localStorage.setItem("nameProductGroup", item.Ten_nhom) }} to={`/ListProduct?${item.Ten_nhom}`} className='font-semibold hover:bg-green-950 hover:text-white px-2 inline-block h-12 text-gray-900 uppercase text-4 mr-14'>
+                                        {item.Ten_nhom}
+                                    </Link>
+                                </>
+                            ))
+                        }
+                    </div>
                 </div >
             </header >
         </>

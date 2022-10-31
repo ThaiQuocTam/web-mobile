@@ -59,3 +59,10 @@ export const INIT_STATE_BILL = {
         data: []
     }
 }
+
+export const INIT_STATE_LIST_PRODUCT_GROUP = {
+    state_Product_Group: {
+        isLoading: false,
+        data: []
+    }
+}

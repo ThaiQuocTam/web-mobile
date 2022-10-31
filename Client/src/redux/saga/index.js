@@ -61,7 +61,6 @@ function* handleGetListTopTabletAction(action) {
 function* handleGetInfoUserAction(action) {
     try {
         const infoUser = yield call(api.apiGetInfoUser, action.payload)
-        console.log(infoUser.data);
         yield put(actions.getInfoUserAction.getInfoUserSuccess(infoUser.data))
     } catch (e) {
         yield put(actions.getInfoUserAction.getInfoUserFailure)
@@ -78,6 +77,16 @@ function* handleGetBillAction(action) {
     }
 }
 
+function* handleGetListProductGroupAction() {
+    try {
+        const listProductGroup = yield call(api.apiGetListProductGroup)
+        yield put(actions.getListProductGroupAction.getListProductGroupSuccess(listProductGroup.data))
+
+    } catch (e) {
+        yield put(actions.getListProductGroupAction.getListProductGroupFailure)
+    }
+}
+
 function* mySaga() {
     yield takeLatest(actions.signInAction.signInRequest, handleSignInAction)
     yield takeLatest(actions.signUpAction.signUpRequest, handleSignUpAction)
@@ -87,6 +96,7 @@ function* mySaga() {
     yield takeLatest(actions.getListTopTabletAction.getListTopTabletRequest, handleGetListTopTabletAction)
     yield takeLatest(actions.getInfoUserAction.getInfoUserRequest, handleGetInfoUserAction)
     yield takeLatest(actions.getBillAction.getBillRequest, handleGetBillAction)
+    yield takeLatest(actions.getListProductGroupAction.getListProductGroupRequest, handleGetListProductGroupAction)
 }
 
 

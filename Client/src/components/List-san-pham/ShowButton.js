@@ -14,7 +14,7 @@ const ShowButton = (props) => {
     return (
         <>
             <a href={`/DetailProduct?Ten_san_pham=${props.nameProduct}`} onClick={handleOnClick}>
-                <div className='bg-red-600 text-center p-1 rounded-1 shadow-soft-2xl hover:bg-red-800 animate-modalForm'>
+                <div className='bg-red-600 text-center p-1 shadow-soft-xxs rounded-1 shadow-soft-2xl hover:bg-red-800 animate-modalForm'>
                     <div>
                         <button className='text-3.5 font-semibold text-white'>Xem chi tiết</button>
                     </div>
