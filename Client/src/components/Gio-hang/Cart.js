@@ -71,17 +71,12 @@ const Cart = () => {
             Ten_san_pham: 'Dien thoai nokia',
             Gia_san_pham: 500000,
             So_luong: 2,
-        }
-        // {
-        //     Ten_san_pham: 'Dien thoai samsung',
-        //     Gia_san_pham: 6000000,
-        //     So_luong: 3,
-        // },
-        // {
-        //     Ten_san_pham: 'Dien thoai RedMi',
-        //     Gia_san_pham: 700000,
-        //     So_luong: 4,
-        // }
+        },
+        {
+            Ten_san_pham: 'Dien thoai samsung',
+            Gia_san_pham: 6000000,
+            So_luong: 3,
+        },
     ]
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onChange"
@@ -112,95 +107,107 @@ const Cart = () => {
             </div>
             <div>
                 <form onSubmit={handleSubmit(submitData)} class="flex flex-row pl-60">
-                    <div class="basis-1/2 ">
+                    <div class="basis-1/2">
                         <div class="flex flex-col mt-10 p-3 bg-white">
-                            <h2> GIỎ HÀNG</h2>
-                            <div>
-                                <div className="border border-gray-500 rounded-[12px] mt-4">
-                                    <i className="bi bi-backspace-fill float-right hover:text-red-500 " />
-                                    {
-                                        products.map((item) => (
-                                            <div className='flex'>
-                                                <img className="mx-2 my-1" src='https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/09/08/1111.png' />
-                                                <div>
-                                                    <p className="mt-8 " >Ten san pham : {item.Ten_san_pham}</p>
-                                                    <input
+                            <div className='flex items-center justify-center'>
+                                <i className='bi bi-check2-circle text-12 mr-2 text-green-900'></i>
+                                <span className='text-center text-7 text-green-950 font-semibold'> GIỎ HÀNG</span>
+                            </div>
+                            <div className='p-10 px-20'>
+                                {
+                                    products.map((item) => (
+                                        <div className="border border-gray-200 rounded-[12px]  shadow-soft-xxs mb-4">
+                                            <i class="bi bi-dash-circle-fill text-6 hover:text-red-600 cursor-pointer mr-2 text-red-500 float-right"></i>
+                                            <div className=''>
+                                                <div className='w-full p-5 text-center'>
+                                                    <img className="mx-auto my-1 zoom-image hover:zoom-image-hover" src='https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/09/08/1111.png' />
+                                                </div>
+                                                <div className='text-center'>
+                                                    <p className="text-3.5 font-semibold" >{item.Ten_san_pham}</p>
+                                                    <p className='text-3.5 text-red-500 font-semibold inline-block mr-4'>{item.Gia_san_pham.toLocaleString()}  ₫</p>
+                                                    <p className='text-3 text-red-500 inline-block line-through'>{(item.Gia_san_pham + (item.Gia_san_pham * (10 / 100))).toLocaleString()}  ₫</p>
+                                                    {/* <input
                                                         value={item.Ten_san_pham}
                                                         // onChange={() => { setSateData({ ...stateData, Ten_san_pham: item.Ten_san_pham }) }}
                                                         {...register('Gia_san_pham', { required: true })}
-                                                    />
-                                                    <p
+                                                    /> */}
+                                                    {/* <p
                                                         {...register('Gia_san_pham', { required: true })}
-                                                        className="mt-4 ">{item.Gia_san_pham}</p>
-                                                    <div className='my-4 text-center flex'>
-                                                        <p
+                                                        className="mt-4 ">{item.Gia_san_pham}</p> */}
+
+                                                    <div className='my-4 text-center'>
+                                                        {/* <p
                                                             {...register('So_luong', { required: true })}
-                                                            className="mt-2 ">{item.So_luong}</p>
-                                                        <input className="minus is-form  hover:text-red-500" type="button" onClick="tru()" value="-" />
-                                                        <input aria-label="quantity" className="input-qty" max="10" min="1" name="" type="number" value="1" id="textbox" />
-                                                        <input className="plus is-form  hover:text-red-500" type="button" onClick="cong()" value="+" />
+                                                            className="mt-2 ">{item.So_luong}</p> */}
+                                                        <input className="minus is-form  hover:text-red-500 cursor-pointer" type="button" onClick="tru()" value="-" />
+                                                        <input aria-label="quantity" readOnly className="input-qty outline-none" max="10" min="1" name="" type="number" value={item.So_luong} id="textbox" />
+                                                        <input className="plus is-form  hover:text-red-500 cursor-pointer" type="button" onClick="cong()" value="+" />
                                                     </div>
                                                 </div>
                                             </div>
-                                        ))
-                                    }
-                                </div>
+
+                                        </div>
+                                    ))
+                                }
                                 <div className='flex'>
                                     <p className='mt-4 font-bold'>Tổng thanh toán: </p>
                                     <p className='mt-4 mx-2 text-red-600 font-bold'>33.324.000$</p>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                     <div class="basis-1/3">
                         <div className="mt-14 p-3 bg-white">
-                            <h2> Thông tin đặt hàng</h2>
-                            <div className="border border-gray-500 rounded-[12px]">
+                            <div className='text-center pt-2'>
+                                <span className='text-5 uppercase text-green-950 font-semibold'> Thông tin đặt hàng</span>
+                            </div>
+                            <div className=" rounded-[12px] mt-8">
                                 <div className="p-4">
                                     <div className="mt-4">
-                                        <label>Họ và Tên</label>
                                         <input
+                                            placeholder='Họ và tên'
                                             value={stateInfoUser.Ho_ten}
                                             readOnly={email ? true : false}
                                             type="text"
                                             name="hovaten"
-                                            className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
+                                            className="mt-1 p-2 pl-5 text-3.5 text-gray-800 font-semibold focus:outline-none bg-slate-50 rounded-5 border border-gray-400 w-full"
                                         />
                                     </div>
                                     <div className="mt-4">
-                                        <label>Số điện thoại</label>
                                         <input
+                                            placeholder='Số điện thoại'
                                             type="number"
                                             name="sdt"
                                             readOnly={email ? true : false}
                                             value={stateInfoUser.Dien_thoai}
-                                            className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
+                                            className="mt-1 p-2 pl-5 text-3.5 text-gray-800 font-semibold focus:outline-none bg-slate-50 rounded-5 border border-gray-400 w-full"
                                         />
                                     </div>
                                     <div className="mt-4">
-                                        <label>Địa chỉ nhận hàng</label>
                                         <input
+                                            placeholder='Địa chỉ nhận hàng'
                                             type="text"
                                             name="diachinhanhang"
-                                            className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
+                                            className="mt-1 p-2 pl-5 text-3.5 text-gray-800 font-semibold focus:outline-none bg-slate-50 rounded-5 border border-gray-400 w-full"
                                         />
                                     </div>
                                     <div className="mt-4">
-                                        <label>Email</label>
                                         <input
+                                            placeholder='Email'
                                             value={stateInfoUser.Email}
                                             readOnly={email ? true : false}
                                             type="email"
                                             name="email"
-                                            className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
+                                            className="mt-1 p-2 pl-5 text-3.5 text-gray-800 font-semibold focus:outline-none bg-slate-50 rounded-5 border border-gray-400 w-full"
                                         />
                                     </div>
                                     <div className="mt-4">
-                                        <label>Ghi chú</label>
                                         <textarea
+                                            placeholder='Ghi chú'
                                             type="text"
                                             name="ghichu"
-                                            className="mt-1 p-2 h-44 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
+                                            className="mt-1 p-2 pl-5 text-3.5 text-gray-800 font-medium h-44 focus:outline-none bg-slate-50 rounded-5 border border-gray-400 w-full"
                                         />
                                     </div>
                                     {
@@ -208,19 +215,16 @@ const Cart = () => {
 
                                             <Link to='#' onClick={handleOnClickPayment}>
                                                 <div className="mt-4">
-                                                    <input
-                                                        value="Xác nhận đặt hàng"
-                                                        className="mt-1 p-2 w-full hover:bg-purple-800 border focus:outline-none border-gray-400 rounded cursor-pointer bg-purple-600 text-white"
-                                                    />
+                                                    <button
+                                                        className="mt-1 p-2 text-center w-full hover:bg-green-950 border focus:outline-none rounded-2 cursor-pointer bg-green-800 text-white"
+                                                    >Xác nhận đặt hàng</button>
                                                 </div>
                                             </Link> :
                                             <Link to='/SignIn'>
                                                 <div className="mt-4">
-                                                    <input
-                                                        type="submit"
-                                                        value="Vui lòng đăng nhập"
-                                                        className="mt-1 p-2 w-full hover:bg-purple-800 border focus:outline-none border-gray-400 rounded cursor-pointer bg-purple-600 text-white"
-                                                    />
+                                                    <button
+                                                        className="mt-1 text-center p-2 w-full hover:bg-green-950 border focus:outline-none rounded-2 cursor-pointer bg-green-800 text-white"
+                                                    >Vui lòng đăng nhập</button>
                                                 </div>
                                             </Link>
                                     }

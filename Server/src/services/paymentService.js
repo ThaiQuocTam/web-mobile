@@ -16,16 +16,9 @@ const postPaymentServicer = (data) => {
             }
             )
             messageOrder.infoOrder = infoOrder
-            // if (infoOrder) {
-            //     await db.chi_tiet_hd.bulkCreate(data.orderDetail)
-            // }
             messageOrder.errCode = '0'
-            messageOrder.message = 'Tạo thành công'
+            messageOrder.message = 'Thêm hóa đơn thành công'
             resolve(messageOrder)
-            // if (postBill) {
-            //     let postOderDetail =
-            //        
-            // }
         } catch (e) {
             reject(e)
         }
@@ -35,10 +28,16 @@ const postPaymentServicer = (data) => {
 const postOrderDetail = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
+            let messagePostOrderDetail = {}
             if (data) {
                 await db.chi_tiet_hd.bulkCreate(data)
+                messagePostOrderDetail.errCode = '0'
+                messagePostOrderDetail.message = 'Thêm chi tiết thành công'
             }
-        } catch (e) { }
+            resolve(messagePostOrderDetail)
+        } catch (e) {
+            reject(e)
+        }
     })
 }
 

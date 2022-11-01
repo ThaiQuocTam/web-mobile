@@ -11,7 +11,7 @@ let handleUserLogin = (email, password) => {
             let isExist = await checkUserEmail(email)
             if (isExist) {
                 let user = await db.nguoi_dung.findOne({
-                    attributes: ['Email', 'Id_phan_quyen', 'Mat_khau'],
+                    attributes: ['id', 'Email', 'Id_phan_quyen', 'Mat_khau'],
                     where: { Email: email },
                     raw: true
                 })

@@ -57,8 +57,8 @@ const ListSmartphone = () => {
                             item.So_luong_SP <= 5 ? <LimitProduct soLuong={item.So_luong_SP} /> : ''
 
                         }
-                        <div className='shadow-soft-xs rounded-2'>
-                            <img className='mx-auto pb-4 border-gray-300' src={item.Hinh_anh} />
+                        <div className='shadow-soft-xs h-60 rounded-2'>
+                            <img className='zoom-image hover:zoom-image-hover' src={item.Hinh_anh} />
                         </div>
                         <div className='text-center h-24 mb-2'>
                             <div className='pt-2 pb-1max-h-20 h-20 overflow-hidden'>

@@ -17,18 +17,24 @@ const handlePostPayment = async (req, res) => {
             })
         } else {
             let messagePostOrder = await paymentService.postPaymentServicer(payment)
-            console.log(messagePostOrder.errCode);
             if (messagePostOrder) {
                 payment.orderDetail.map((item) => {
                     item.Id_HD = messagePostOrder.infoOrder.dataValues.id
                 })
                 let messagePostOrderDetail = await paymentService.postOrderDetail(payment.orderDetail)
+                if (messagePostOrder) {
+                    return res.status(200).json({
+                        errCode: '0',
+                        message: 'Đặt hàng thành công'
+                    })
+                }
+            }
+            else {
+                console.log('Lỗi order detail');
             }
         }
-        return res.status(200).json({
-            errCode: '0',
-            message: 'Đặt hàng thành công'
-        })
+
+
     } catch (e) {
         console.log(e);
     }

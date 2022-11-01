@@ -73,3 +73,10 @@ export const INIT_STATE_PAYMENT = {
         data: []
     }
 }
+
+export const INIT_STATE_MESSAGE_REVIEW = {
+    state_Message_review: {
+        isLoading: false,
+        data: []
+    }
+}

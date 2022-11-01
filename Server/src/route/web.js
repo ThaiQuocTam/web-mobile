@@ -4,6 +4,7 @@ import userController from "../controllers/userController";
 import topProductsController from "../controllers/topProductsController"
 import productsController from "../controllers/productsController"
 import paymentController from "../controllers/paymentController"
+import reviewController from "../controllers/reviewController"
 
 const router = express.Router();
 
@@ -35,6 +36,8 @@ const initWebRoutes = (app) => {
     router.get('/api/get-info-bill', productsController.handleGetInfoBill)
     router.get('/api/get-info-oderDetail', productsController.handleGetInfoOderDetail)
     router.post('/api/post-payment', paymentController.handlePostPayment)
+    router.post('/api/post-review', reviewController.handlePostReview)
+    router.get('/api/get-show-review', reviewController.handleShowReview)
 
     return app.use("/", router);
 }

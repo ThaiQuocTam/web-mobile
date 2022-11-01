@@ -31,10 +31,11 @@ const SignIn = () => {
             if (signData.errCode === 0) {
                 navigate('/')
                 localStorage.setItem("User", signData.user.Email)
+                localStorage.setItem('idUser', signData.user.id)
+                console.log(signData);
             }
         }
         catch (e) {
-            console.log('Lỗi : ', e);
         }
     }, [signData])
 

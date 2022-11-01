@@ -1,4 +1,3 @@
-import e from 'express'
 import db from '../models/index'
 import productsService from '../services/productsService'
 

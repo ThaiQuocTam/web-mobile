@@ -1,20 +1,20 @@
-import { getType, postPaymentAction } from "redux/actions";
-import { INIT_STATE_PAYMENT } from "redux/constants/constants";
+import { getType, postReviewAction } from "redux/actions";
+import { INIT_STATE_MESSAGE_REVIEW } from "redux/constants/constants";
 
-export default function postPaymentReducer(state = INIT_STATE_PAYMENT, action) {
+export default function postReviewReducer(state = INIT_STATE_MESSAGE_REVIEW, action) {
     switch (action.type) {
-        case getType(postPaymentAction.postPaymentRequest):
+        case getType(postReviewAction.postReviewRequest):
             return {
                 ...state,
                 isLoading: true,
             }
-        case getType(postPaymentAction.postPaymentSuccess):
+        case getType(postReviewAction.postReviewSuccess):
             return {
                 ...state,
                 isLoading: false,
                 data: action.payload
             }
-        case getType(postPaymentAction.postPaymentFailure):
+        case getType(postReviewAction.postReviewFailure):
             return {
                 ...state,
                 isLoading: false
@@ -24,4 +24,3 @@ export default function postPaymentReducer(state = INIT_STATE_PAYMENT, action) {
             return state
     }
 }
-

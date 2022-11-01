@@ -10,6 +10,7 @@ import getBillReducer from './getBillReducer'
 import getOderDetailReducer from './getOderDetailReducer'
 import getListProductGroupReducer from './getListProductGroupReducer'
 import postPaymentReducer from './postPaymentReducer'
+import postReviewReducer from './postReviewReducer'
 
 export default combineReducers({
     signInReducer,
@@ -22,5 +23,6 @@ export default combineReducers({
     getBillReducer,
     getOderDetailReducer,
     getListProductGroupReducer,
-    postPaymentReducer
+    postPaymentReducer,
+    postReviewReducer
 })

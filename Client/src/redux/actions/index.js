@@ -69,3 +69,9 @@ export const postPaymentAction = createActions({
     postPaymentSuccess: (payload) => payload,
     postPaymentFailure: (err) => err
 })
+
+export const postReviewAction = createActions({
+    postReviewRequest: (payload) => payload,
+    postReviewSuccess: (payload) => payload,
+    postReviewFailure: (err) => err
+})

@@ -5,6 +5,8 @@ import { infoProductSelector } from '../../redux/selector'
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../redux/actions'
 import { Link, useNavigate } from "react-router-dom"
+import ReviewProduct from "components/Review-product/ReviewProduct";
+import ShowReviewProduct from "components/Review-product/ShowReviewProduct";
 
 const DetailProduct = () => {
 
@@ -227,6 +229,12 @@ const DetailProduct = () => {
         </div>
         <div>
           <FlashSale />
+        </div>
+      </div>
+      <div className='px-32 bg-slate-50'>
+        <div className='bg-white w-full p-8 px-20 rounded-5'>
+          <ReviewProduct product={stateInfoProduct} />
+          <ShowReviewProduct />
         </div>
       </div>
     </>

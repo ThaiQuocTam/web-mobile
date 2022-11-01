@@ -90,11 +90,22 @@ function* handleGetListProductGroupAction() {
 function* handlePostPaymentAction(action) {
     try {
         const messagePayment = yield call(api.apiPostPayment, action.payload)
-        console.log(messagePayment.data);
+        console.log(messagePayment);
         // yield put(actions.getListProductGroupAction.getListProductGroupSuccess(listProductGroup.data))
 
     } catch (e) {
         // yield put(actions.getListProductGroupAction.getListProductGroupFailure)
+    }
+}
+
+function* handlePostReviewAction(action) {
+    try {
+        const mesPostReview = yield call(api.apiPostReview, action.payload)
+        console.log(mesPostReview.data);
+        yield put(actions.postReviewAction.postReviewSuccess(mesPostReview.data))
+
+    } catch (e) {
+        yield put(actions.postReviewAction.postReviewFailure)
     }
 }
 
@@ -109,6 +120,7 @@ function* mySaga() {
     yield takeLatest(actions.getBillAction.getBillRequest, handleGetBillAction)
     yield takeLatest(actions.getListProductGroupAction.getListProductGroupRequest, handleGetListProductGroupAction)
     yield takeLatest(actions.postPaymentAction.postPaymentRequest, handlePostPaymentAction)
+    yield takeLatest(actions.postReviewAction.postReviewRequest, handlePostReviewAction)
 }
 
 

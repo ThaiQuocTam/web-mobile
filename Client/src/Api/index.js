@@ -35,3 +35,6 @@ export const apiPostPayment = (payload) => axios.post(`${URL}/api/post-payment`,
     order: payload.order,
     orderDetail: payload.orderDetail
 })
+
+export const apiPostReview = (payload) => axios.post(`${URL}/api/post-review`, payload)
+
