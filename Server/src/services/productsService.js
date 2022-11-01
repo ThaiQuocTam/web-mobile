@@ -64,7 +64,6 @@ const GetInfoProduct = (idProduct) => {
     return new Promise(async (resolve, reject) => {
         try {
             let infoProduct = {}
-            console.log(idProduct);
             if (idProduct) {
                 let data = await db.san_pham.findOne({
                     where: { id: idProduct },

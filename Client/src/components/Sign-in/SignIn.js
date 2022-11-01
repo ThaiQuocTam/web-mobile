@@ -31,8 +31,7 @@ const SignIn = () => {
             if (signData.errCode === 0) {
                 navigate('/')
                 localStorage.setItem("User", signData.user.Email)
-                localStorage.setItem('idUser', signData.user.id)
-                console.log(signData);
+                localStorage.setItem('Quyen', signData.user.Id_phan_quyen)
             }
         }
         catch (e) {

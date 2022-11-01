@@ -75,3 +75,15 @@ export const postReviewAction = createActions({
     postReviewSuccess: (payload) => payload,
     postReviewFailure: (err) => err
 })
+
+export const getShowReviewUserAction = createActions({
+    getShowReviewUserRequest: (payload) => payload,
+    getShowReviewUserSuccess: (payload) => payload,
+    getShowReviewUserFailure: (err) => err
+})
+
+export const getShowReviewAdminAction = createActions({
+    getShowReviewAdminRequest: (payload) => payload,
+    getShowReviewAdminSuccess: (payload) => payload,
+    getShowReviewAdminFailure: (err) => err
+})

@@ -101,11 +101,30 @@ function* handlePostPaymentAction(action) {
 function* handlePostReviewAction(action) {
     try {
         const mesPostReview = yield call(api.apiPostReview, action.payload)
-        console.log(mesPostReview.data);
         yield put(actions.postReviewAction.postReviewSuccess(mesPostReview.data))
 
     } catch (e) {
         yield put(actions.postReviewAction.postReviewFailure)
+    }
+}
+
+function* handleGetShowReviewUserAction(action) {
+    try {
+        const listReviewUser = yield call(api.apiShowReviewReview, action.payload)
+        yield put(actions.getShowReviewUserAction.getShowReviewUserSuccess(listReviewUser.data))
+
+    } catch (e) {
+        yield put(actions.getShowReviewUserAction.getShowReviewUserFailure)
+    }
+}
+
+function* handleGetShowReviewAdminAction(action) {
+    try {
+        const listReviewAdmin = yield call(api.apiShowReviewReview, action.payload)
+        yield put(actions.getShowReviewAdminAction.getShowReviewAdminSuccess(listReviewAdmin.data))
+
+    } catch (e) {
+        yield put(actions.getShowReviewAdminAction.getShowReviewAdminFailure)
     }
 }
 
@@ -121,7 +140,7 @@ function* mySaga() {
     yield takeLatest(actions.getListProductGroupAction.getListProductGroupRequest, handleGetListProductGroupAction)
     yield takeLatest(actions.postPaymentAction.postPaymentRequest, handlePostPaymentAction)
     yield takeLatest(actions.postReviewAction.postReviewRequest, handlePostReviewAction)
+    yield takeLatest(actions.getShowReviewUserAction.getShowReviewUserRequest, handleGetShowReviewUserAction)
+    yield takeLatest(actions.getShowReviewAdminAction.getShowReviewAdminRequest, handleGetShowReviewAdminAction)
 }
-
-
 export default mySaga

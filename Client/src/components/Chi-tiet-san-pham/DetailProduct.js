@@ -77,6 +77,7 @@ const DetailProduct = () => {
       if (infoProduct) {
         setStateInfoProduct({
           ...stateInfoProduct,
+          id: infoProduct.data.id,
           Ten_san_pham: infoProduct.data.Ten_san_pham,
           Gia_san_pham: infoProduct.data.Gia_san_pham,
           Thong_tin_bao_hanh: infoProduct.data.Thong_tin_bao_hanh,
@@ -234,7 +235,7 @@ const DetailProduct = () => {
       <div className='px-32 bg-slate-50'>
         <div className='bg-white w-full p-8 px-20 rounded-5'>
           <ReviewProduct product={stateInfoProduct} />
-          <ShowReviewProduct />
+          <ShowReviewProduct product={stateInfoProduct} />
         </div>
       </div>
     </>

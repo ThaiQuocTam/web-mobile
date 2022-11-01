@@ -80,3 +80,17 @@ export const INIT_STATE_MESSAGE_REVIEW = {
         data: []
     }
 }
+
+export const INIT_STATE_REVIEW_USER = {
+    state_REVIEW_USER: {
+        isLoading: false,
+        data: [],
+    }
+}
+
+export const INIT_STATE_REVIEW_ADMIN = {
+    state_REVIEW_ADMIN: {
+        isLoading: false,
+        data: [],
+    }
+}

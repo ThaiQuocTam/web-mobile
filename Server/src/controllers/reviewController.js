@@ -4,6 +4,7 @@ import reviewService from '../services/reviewService'
 const handlePostReview = async (req, res) => {
     try {
         if (req.body) {
+            console.log('1');
             let mesPostReview = await reviewService.postReview(req.body)
             if (mesPostReview) {
                 return res.status(200).json({
@@ -22,20 +23,25 @@ const handlePostReview = async (req, res) => {
 
 const handleShowReview = async (req, res) => {
     try {
-        if (req.query.idProduct) {
+        if (req.query.idProduct && req.query.quyen) {
             let idProduct = req.query.idProduct
+            let quyen = req.query.quyen
             let data = await db.review.findAll({
-                where: { Id_san_pham: idProduct },
+                where: { Id_san_pham: idProduct, Quyen: quyen },
+                order: [
+                    ['createdAt', 'DESC']
+                ],
                 raw: true
             })
-            if (data) {
-                return res.status(200).json(data)
+            if (data.length === 0) {
+                return res.status(200).json({
+                    errCode: '1',
+                    message: 'Không tìm thấy sản phẩm'
+                })
             }
             else {
-                return res.status(400).json({
-                    errCode: '1',
-                    message: 'Không tìm thấy id sản phẩm'
-                })
+                return res.status(200).json(data)
+
             }
         }
     } catch (e) { }
