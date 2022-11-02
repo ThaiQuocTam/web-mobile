@@ -16,8 +16,10 @@ module.exports = (sequelize, DataTypes) => {
     review.init({
         Ten_nguoi_dung: DataTypes.STRING,
         Noi_dung: DataTypes.TEXT,
-        Quyen: DataTypes.INTEGER,
+        Loai: DataTypes.INTEGER,
         Id_nguoi_dung: DataTypes.INTEGER,
+        Id_phan_quyen: DataTypes.INTEGER,
+        Id_review_user: DataTypes.INTEGER,
         Id_san_pham: DataTypes.INTEGER
     }, {
         sequelize,

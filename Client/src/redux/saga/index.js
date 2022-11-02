@@ -100,7 +100,9 @@ function* handlePostPaymentAction(action) {
 
 function* handlePostReviewAction(action) {
     try {
+        console.log(action.payload);
         const mesPostReview = yield call(api.apiPostReview, action.payload)
+        console.log(mesPostReview.data);
         yield put(actions.postReviewAction.postReviewSuccess(mesPostReview.data))
 
     } catch (e) {

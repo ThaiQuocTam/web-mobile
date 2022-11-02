@@ -14,8 +14,20 @@ const Header = () => {
 
     const [hidden, setHidden] = useState(false)
     const [stateProductGroup, setStateProductGroup] = useState([])
+    const [stateSoluong, setStateSoluong] = useState(0)
 
     let email = localStorage.getItem("User")
+    let listProductCartLocal = JSON.parse(localStorage.getItem('arrProduct'))
+
+    useEffect(() => {
+        let soLuong = 0
+        if (listProductCartLocal) {
+            listProductCartLocal.map((item) => {
+                soLuong = soLuong + item.So_luong
+            })
+        }
+        setStateSoluong(soLuong)
+    }, [listProductCartLocal])
 
     const refreshPage = () => {
         navigate(0);
@@ -56,7 +68,7 @@ const Header = () => {
                                 <a className='inline-block' href='#'>
                                     <i className="bi bi-cart2 inline-block text-green-900 text-7 pr-1"></i>
                                     <span className='w-7 h-7 text-center inline-block text-white text-3.5 p-1 bg-orange-500 rounded-2'>
-                                        0
+                                        {stateSoluong || 0}
                                     </span>
                                 </a>
                             </li>

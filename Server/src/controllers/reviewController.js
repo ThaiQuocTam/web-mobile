@@ -23,11 +23,11 @@ const handlePostReview = async (req, res) => {
 
 const handleShowReview = async (req, res) => {
     try {
-        if (req.query.idProduct && req.query.quyen) {
+        if (req.query.idProduct && req.query.type) {
             let idProduct = req.query.idProduct
-            let quyen = req.query.quyen
+            let type = req.query.type
             let data = await db.review.findAll({
-                where: { Id_san_pham: idProduct, Quyen: quyen },
+                where: { Id_san_pham: idProduct, Loai: type },
                 order: [
                     ['createdAt', 'DESC']
                 ],

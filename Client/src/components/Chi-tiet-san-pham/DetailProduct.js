@@ -7,14 +7,16 @@ import * as actions from '../../redux/actions'
 import { Link, useNavigate } from "react-router-dom"
 import ReviewProduct from "components/Review-product/ReviewProduct";
 import ShowReviewProduct from "components/Review-product/ShowReviewProduct";
+import AddCartMes from "./AddCartMes";
 
 const DetailProduct = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [index, setIndex] = useState(0)
-  const [animation, setAnimation] = useState('')
+  // const [index, setIndex] = useState(0)
+  const [hideAddCartMes, setHideAddCartMes] = useState(false)
+  // const [animation, setAnimation] = useState('')
   const infoProduct = useSelector(infoProductSelector)
   const [stateInfoProduct, setStateInfoProduct] = useState({
     Ten_san_pham: '',
@@ -27,41 +29,48 @@ const DetailProduct = () => {
   let email = localStorage.getItem("User")
   const idProductStore = localStorage.getItem('idProduct')
 
-  const handlePre = () => {
-    if (index <= 0) {
-      setIndex(product - 1)
-      animation === 'animate-aniLeft1' ? setAnimation('animate-aniLeft2') : setAnimation('animate-aniLeft1')
-    }
-    else {
-      setIndex(pre => pre - 1)
-      animation === 'animate-aniLeft1' ? setAnimation('animate-aniLeft2') : setAnimation('animate-aniLeft1')
-    }
-  }
+  // const handlePre = () => {
+  //   if (index <= 0) {
+  //     setIndex(product - 1)
+  //     animation === 'animate-aniLeft1' ? setAnimation('animate-aniLeft2') : setAnimation('animate-aniLeft1')
+  //   }
+  //   else {
+  //     setIndex(pre => pre - 1)
+  //     animation === 'animate-aniLeft1' ? setAnimation('animate-aniLeft2') : setAnimation('animate-aniLeft1')
+  //   }
+  // }
 
-  const handleNext = () => {
-    if (index >= product - 1) {
-      setIndex(0)
-      animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
-    }
-    else {
-      setIndex(pre => pre + 1)
-      animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
-    }
-  }
+  // const handleNext = () => {
+  //   if (index >= product - 1) {
+  //     setIndex(0)
+  //     animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
+  //   }
+  //   else {
+  //     setIndex(pre => pre + 1)
+  //     animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   const timerId = setTimeout(() => {
+  //     if (index >= product - 1) {
+  //       setIndex(0)
+  //       animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
+  //     }
+  //     else {
+  //       setIndex(pre => pre + 1)
+  //       animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
+  //     }
+  //   }, 3000);
+  //   return () => clearTimeout(timerId)
+  // }, [index])
 
   useEffect(() => {
     const timerId = setTimeout(() => {
-      if (index >= product - 1) {
-        setIndex(0)
-        animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
-      }
-      else {
-        setIndex(pre => pre + 1)
-        animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
-      }
-    }, 3000);
+      setHideAddCartMes(false)
+    }, 3000)
     return () => clearTimeout(timerId)
-  }, [index])
+  }, [hideAddCartMes])
 
   useEffect(() => {
     try {
@@ -90,12 +99,46 @@ const DetailProduct = () => {
     }
   }, [infoProduct])
 
+  const addProduct = (product) => {
+    let arr
+    let storage = localStorage.getItem('arrProduct')
+    arr = JSON.parse(storage)
+    console.log(arr);
+    if (storage) {
+      let arrNew = []
+      let check = arr.find(item => item.id === product.id)
+      if (check) {
+        arr.map((item) => {
+          if (item.id === product.id) {
+            item.So_luong += 1
+          }
+          arrNew.push(item)
+        })
+        localStorage.setItem('arrProduct', JSON.stringify([...arrNew]))
+      }
+      else {
+        product.So_luong = 1
+        localStorage.setItem('arrProduct', JSON.stringify([...arr, product]))
+      }
+    }
+    else {
+      product.So_luong = 1
+      localStorage.setItem('arrProduct', JSON.stringify([product]))
+    }
+  }
+
   const handleOnclickAddCart = () => {
+    setHideAddCartMes(true)
+    navigate(`/DetailProduct?Ten_san_pham=${stateInfoProduct.Ten_san_pham}`)
     if (stateInfoProduct) {
-      localStorage.setItem('product', JSON.stringify({ product: stateInfoProduct }))
+      let arr = addProduct(stateInfoProduct)
     } else {
 
     }
+  }
+
+  const handleCloseMes = () => {
+    setHideAddCartMes(false)
   }
 
   return (
@@ -116,7 +159,7 @@ const DetailProduct = () => {
           <div className='w-1/2'>
             <div className=' w-full overflow-hidden pl-20'>
               <div className="slider max-w-90 float-left">
-                <i onClick={handlePre} className="bi bi-caret-left-fill ml-28 h-7 w-7 slider-prev border-2 border-gray-200 hover:bg-slate-100 text-4"></i>
+                <i className="bi bi-caret-left-fill ml-28 h-7 w-7 slider-prev border-2 border-gray-200 hover:bg-slate-100 text-4"></i>
                 <div className="slider-wrapper">
                   <div className="slider-main w-96 p-5  border-slate-100 shadow-soft-3D">
                     <div className="slider-item">
@@ -128,7 +171,7 @@ const DetailProduct = () => {
                     </div>
                   </div>
                 </div>
-                <i onClick={handleNext} className="bi bi-caret-right-fill h-7 mr-28 w-7 text-4 slider-next border-2 border-gray-200 hover:bg-slate-100"></i>
+                <i className="bi bi-caret-right-fill h-7 mr-28 w-7 text-4 slider-next border-2 border-gray-200 hover:bg-slate-100"></i>
               </div>
             </div>
           </div>
@@ -162,15 +205,15 @@ const DetailProduct = () => {
               <div className="w-1/3 pl-2">
                 {
                   email ?
-                    <div className="bg-yellow-600 rounded-3 text-center cursor-pointer hover:bg-yellow-800">
+                    <div onClick={handleOnclickAddCart} className="bg-yellow-600 rounded-3 text-center cursor-pointer hover:bg-yellow-800">
                       <i class="bi bi-cart-plus-fill text-6 text-white"></i>
-                      <button onClick={handleOnclickAddCart} className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
+                      <button className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
                     </div>
                     :
                     <Link to='/SignIn'>
                       <div className="bg-yellow-600 rounded-3 text-center cursor-pointer hover:bg-yellow-800">
                         <i class="bi bi-cart-plus-fill text-6 text-white"></i>
-                        <button onClick={handleOnclickAddCart} className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
+                        <button className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
                       </div>
                     </Link>
                 }
@@ -237,6 +280,12 @@ const DetailProduct = () => {
           <ReviewProduct product={stateInfoProduct} />
           <ShowReviewProduct product={stateInfoProduct} />
         </div>
+      </div>
+      <div>
+        {
+
+          hideAddCartMes && <AddCartMes isClose={handleCloseMes} />
+        }
       </div>
     </>
   )

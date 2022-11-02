@@ -15,8 +15,24 @@ const Cart = () => {
 
     const [stateEmail, setStateEmail] = useState()
     const [stateInfoUser, setStateInfoUser] = useState({})
+    const [sumPayment, setSumPayment] = useState(0)
 
     let email = localStorage.getItem("User")
+    let listProductCartLocal = JSON.parse(localStorage.getItem('arrProduct'))
+
+    useEffect(() => {
+        if (listProductCartLocal) {
+            let sum = 0
+            listProductCartLocal.map((item) => {
+                sum = sum + (item.Gia_san_pham * item.So_luong)
+            })
+            setSumPayment(sum)
+        }
+    }, [listProductCartLocal])
+
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        mode: "onChange"
+    });
 
     useEffect(() => {
         setStateEmail(email)
@@ -35,70 +51,32 @@ const Cart = () => {
         }
     }, [infoUser])
 
-    const product = localStorage.getItem('product')
-    const [state, setState] = useState({
-        product: {
-            Ten_san_pham: ''
-        }
-    })
-
-    const refreshPage = () => {
-        navigate(0);
-    }
-
-    useEffect(() => {
-        if (product) {
-            let infoProduct = JSON.parse(product)
-            setState({
-                ...state,
-                product: {
-                    ...product,
-                    Ten_san_pham: infoProduct.product.Ten_san_pham
-                }
-            })
-            console.log(state);
-        }
-    }, [product])
-
-    const [stateData, setSateData] = useState({
-        Ten_san_pham: '',
-        Gia_san_pham: '',
-        So_luong: 0
-    })
-
-    const products = [
-        {
-            Ten_san_pham: 'Dien thoai nokia',
-            Gia_san_pham: 500000,
-            So_luong: 2,
-        },
-        {
-            Ten_san_pham: 'Dien thoai samsung',
-            Gia_san_pham: 6000000,
-            So_luong: 3,
-        },
-    ]
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        mode: "onChange"
-    });
-
     const submitData = (data) => {
         console.log(data)
     }
 
-    const handleOnClickPayment = () => {
-        dispatch(actions.postPaymentAction.postPaymentRequest({
-            order: {
-                Ho_ten: 'Thái Quốc Tâm',
-                Email: 'thaiquoctam123@gmail.com',
-                So_dien_thoai: '0356091734',
-                Dia_chi_nhan_hang: 'Quảng Nam',
-                Tong_tien: 500000,
-                Id_nguoi_dung: 47
-            },
-            orderDetail: products
-        }))
+    const handleOnClickPayment = (data) => {
+        if (listProductCartLocal && stateInfoUser) {
+            listProductCartLocal.length !== 0 ?
+                dispatch(actions.postPaymentAction.postPaymentRequest({
+                    order: {
+                        Ho_ten: stateInfoUser.Ho_ten,
+                        Email: stateInfoUser.Email,
+                        So_dien_thoai: stateInfoUser.So_dien_thoai,
+                        Dia_chi_nhan_hang: data.Dia_chi_nhan_hang,
+                        Tong_tien: sumPayment,
+                        Id_nguoi_dung: stateInfoUser.Id_nguoi_dung
+                    },
+                    orderDetail: listProductCartLocal
+                }))
+                : ''
+        }
+
     }
+
+    // useEffect(() => {
+    //     console.log(arrProduct);
+    // }, [arrProduct])
 
     return (
         <>
@@ -115,43 +93,102 @@ const Cart = () => {
                             </div>
                             <div className='p-10 px-20'>
                                 {
-                                    products.map((item) => (
-                                        <div className="border border-gray-200 rounded-[12px]  shadow-soft-xxs mb-4">
-                                            <i class="bi bi-dash-circle-fill text-6 hover:text-red-600 cursor-pointer mr-2 text-red-500 float-right"></i>
-                                            <div className=''>
-                                                <div className='w-full p-5 text-center'>
-                                                    <img className="mx-auto my-1 zoom-image hover:zoom-image-hover" src='https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2022/09/08/1111.png' />
-                                                </div>
-                                                <div className='text-center'>
-                                                    <p className="text-3.5 font-semibold" >{item.Ten_san_pham}</p>
-                                                    <p className='text-3.5 text-red-500 font-semibold inline-block mr-4'>{item.Gia_san_pham.toLocaleString()}  ₫</p>
-                                                    <p className='text-3 text-red-500 inline-block line-through'>{(item.Gia_san_pham + (item.Gia_san_pham * (10 / 100))).toLocaleString()}  ₫</p>
-                                                    {/* <input
+                                    listProductCartLocal ?
+                                        listProductCartLocal.length !== 0 ?
+                                            listProductCartLocal.map((item) => (
+                                                <div className="border border-gray-200 rounded-[12px]  shadow-soft-xxs mb-4">
+                                                    <i onClick={() => {
+                                                        let cart
+                                                        let storage = localStorage.getItem('arrProduct')
+                                                        if (storage) {
+                                                            cart = JSON.parse(storage)
+                                                            cart = cart.filter(itemCart => itemCart.id !== item.id)
+                                                            localStorage.setItem('arrProduct', JSON.stringify(cart))
+                                                        }
+                                                        navigate('/Cart')
+                                                    }}
+                                                        class="bi bi-dash-circle-fill text-6 hover:text-red-600 cursor-pointer mr-2 text-red-500 float-right"></i>
+                                                    <div className=''>
+                                                        <div className='w-full p-5 text-center'>
+                                                            <img className="mx-auto my-1 zoom-image hover:zoom-image-hover" src={item.Hinh_anh} />
+                                                        </div>
+                                                        <div className='text-center'>
+                                                            <p className="text-3.5 font-semibold" >{item.Ten_san_pham}</p>
+                                                            <p className='text-3.5 text-red-500 font-semibold inline-block mr-4'>{item.Gia_san_pham.toLocaleString() || ''}  ₫</p>
+                                                            <p className='text-3 text-red-500 inline-block line-through'>{(item.Gia_san_pham + (item.Gia_san_pham * (10 / 100))).toLocaleString() || ''}  ₫</p>
+                                                            {/* <input
                                                         value={item.Ten_san_pham}
                                                         // onChange={() => { setSateData({ ...stateData, Ten_san_pham: item.Ten_san_pham }) }}
                                                         {...register('Gia_san_pham', { required: true })}
                                                     /> */}
-                                                    {/* <p
+                                                            {/* <p
                                                         {...register('Gia_san_pham', { required: true })}
                                                         className="mt-4 ">{item.Gia_san_pham}</p> */}
 
-                                                    <div className='my-4 text-center'>
-                                                        {/* <p
+                                                            <div className='my-4 text-center'>
+                                                                {/* <p
                                                             {...register('So_luong', { required: true })}
                                                             className="mt-2 ">{item.So_luong}</p> */}
-                                                        <input className="minus is-form  hover:text-red-500 cursor-pointer" type="button" onClick="tru()" value="-" />
-                                                        <input aria-label="quantity" readOnly className="input-qty outline-none" max="10" min="1" name="" type="number" value={item.So_luong} id="textbox" />
-                                                        <input className="plus is-form  hover:text-red-500 cursor-pointer" type="button" onClick="cong()" value="+" />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                                <input
+                                                                    onClick={() => {
+                                                                        let storage = localStorage.getItem('arrProduct')
+                                                                        if (storage) {
+                                                                            let cart = JSON.parse(storage)
+                                                                            // cart = cart.filter(itemCart => itemCart.id !== item.id)
+                                                                            cart.map((itemStorage) => {
+                                                                                //    cart = storage.filter((itemFilter) => )
+                                                                                if (itemStorage.id === item.id) {
+                                                                                    if (itemStorage.So_luong !== 0) {
+                                                                                        itemStorage.So_luong -= 1
+                                                                                        localStorage.setItem('arrProduct', JSON.stringify([...cart]))
+                                                                                        navigate('/Cart')
+                                                                                    }
+                                                                                    if (itemStorage.So_luong === 0) {
+                                                                                        cart = cart.filter(itemCart => itemCart.id !== item.id)
+                                                                                        localStorage.setItem('arrProduct', JSON.stringify(cart))
+                                                                                        navigate('/Cart')
+                                                                                    }
 
-                                        </div>
-                                    ))
+                                                                                } else {
+
+                                                                                }
+                                                                            })
+                                                                        }
+                                                                    }}
+                                                                    className="minus is-form  hover:text-red-500 cursor-pointer" type="button" value="-" />
+                                                                <input aria-label="quantity" readOnly className="input-qty outline-none" max="10" min="1" name="" type="number" value={item.So_luong || 0} id="textbox" />
+                                                                <input
+                                                                    onClick={() => {
+                                                                        let storage = localStorage.getItem('arrProduct')
+                                                                        if (storage) {
+                                                                            let cart = JSON.parse(storage)
+                                                                            // cart = cart.filter(itemCart => itemCart.id !== item.id)
+                                                                            cart.map((itemStorage) => {
+                                                                                //    cart = storage.filter((itemFilter) => )
+                                                                                if (itemStorage.id === item.id) {
+                                                                                    itemStorage.So_luong += 1
+                                                                                    localStorage.setItem('arrProduct', JSON.stringify([...cart]))
+                                                                                    navigate('/Cart')
+                                                                                }
+                                                                            })
+                                                                        }
+                                                                    }}
+                                                                    className="plus is-form  hover:text-red-500 cursor-pointer" type="button" value="+" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            ))
+                                            :
+                                            <div className='mb-2 border border-gray-500 p-2 rounded-3 text-center'><span className='text-5 text-red-800'>Chưa có sản phẩm trong giỏ hàng</span></div>
+                                        :
+                                        <div className='mb-2 border border-gray-500'><span className='text-5 text-red-800 font-semibold'>Chưa có sản phẩm trong giỏ hàng</span></div>
+
                                 }
                                 <div className='flex'>
                                     <p className='mt-4 font-bold'>Tổng thanh toán: </p>
-                                    <p className='mt-4 mx-2 text-red-600 font-bold'>33.324.000$</p>
+                                    <p className='mt-4 mx-2 text-red-600 font-bold'>{sumPayment.toLocaleString()} ₫</p>
                                 </div>
 
                             </div>
@@ -186,9 +223,9 @@ const Cart = () => {
                                     </div>
                                     <div className="mt-4">
                                         <input
+                                            {...register('Dia_chi_nhan_hang', { require: true })}
                                             placeholder='Địa chỉ nhận hàng'
                                             type="text"
-                                            name="diachinhanhang"
                                             className="mt-1 p-2 pl-5 text-3.5 text-gray-800 font-semibold focus:outline-none bg-slate-50 rounded-5 border border-gray-400 w-full"
                                         />
                                     </div>
