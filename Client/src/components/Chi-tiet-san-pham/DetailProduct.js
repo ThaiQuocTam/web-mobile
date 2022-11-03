@@ -85,7 +85,7 @@ const DetailProduct = () => {
 
   useEffect(() => {
     try {
-      if (infoProduct && email) {
+      if (infoProduct) {
         setStateInfoProduct({
           ...stateInfoProduct,
           id_Product: infoProduct.data.id,
