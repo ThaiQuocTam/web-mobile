@@ -99,7 +99,6 @@ const handlePostEditInfoProduct = async (req, res) => {
             })
         }
     } catch (e) {
-        console.log(e);
     }
 }
 
@@ -128,7 +127,6 @@ const handleGetInfoBill = async (req, res) => {
     try {
         let data = await productsService.getInfoBill(req.query.So_dien_thoai)
         if (data) {
-            console.log(data);
             return res.status(200).json(data)
         } else {
             return res.status(500).json({
@@ -138,7 +136,6 @@ const handleGetInfoBill = async (req, res) => {
         }
 
     } catch (e) {
-        console.log(e);
     }
 }
 
@@ -157,7 +154,6 @@ const handleGetInfoOderDetail = async (req, res) => {
             })
         }
     } catch (e) {
-        console.log(e);
     }
 }
 

@@ -23,7 +23,8 @@ const DetailProduct = () => {
     Gia_san_pham: '',
     Thong_tin_khuyen_mai: '',
     Hinh_anh: '',
-    email: ''
+    email: '',
+    id_Product: ''
   })
 
   const product = Products.map(items => items.images.length)
@@ -105,13 +106,13 @@ const DetailProduct = () => {
     let arr
     let storage = localStorage.getItem('arrProduct')
     arr = JSON.parse(storage)
-    console.log(arr);
-    if (storage) {
+    if (storage && arr.length !== 0) {
       let arrNew = []
-      let check = arr.find(item => item.id_Product === product.id)
+      let check = arr.find(item => item.id_Product === product.id_Product)
       if (check) {
+        console.log(check);
         arr.map((item) => {
-          if (item.id_Product === product.id) {
+          if (item.id_Product === product.id_Product) {
             item.So_luong += 1
           }
           arrNew.push(item)
@@ -133,7 +134,7 @@ const DetailProduct = () => {
     setHideAddCartMes(true)
     navigate(`/DetailProduct?Ten_san_pham=${stateInfoProduct.Ten_san_pham}`)
     if (stateInfoProduct) {
-      let arr = addProduct(stateInfoProduct)
+      addProduct(stateInfoProduct)
     } else {
 
     }

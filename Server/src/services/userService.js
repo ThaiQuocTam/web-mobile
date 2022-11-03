@@ -53,15 +53,12 @@ const checkUserEmail = (userEmail) => {
                 where: { Email: userEmail }
             })
             if (user) {
-                console.log('có nhé');
                 resolve(true)
             }
             else {
-                console.log('không có nhé');
                 resolve(false)
             }
         } catch (e) {
-            console.log('Lỗi ròi');
             reject(e)
         }
     })

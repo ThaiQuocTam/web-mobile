@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 const AddCartMes = (props) => {
     return (
         <>
-            <div>
-                <div className={`rounded-2 p-2 bg-white fixed top-120 animate-modalForm`} style={{ left: '640px' }}>
+            <div className='border border-gray-700'>
+                <div className={`rounded-2 p-2 bg-slate-50 shadow-soft-xs fixed bottom-3 animate-modalForm`} style={{ left: '640px' }}>
                     <div className='w-full overflow-hidden'>
                         <div className='float-right'>
                             <i onClick={props.isClose} className=" bi bi-x-octagon-fill hover:text-slate-700 cursor-pointer text-red-500 text-4 mr-2"></i>

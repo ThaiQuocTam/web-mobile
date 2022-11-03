@@ -5,17 +5,23 @@ import { useForm } from 'react-hook-form'
 import './Cart.css'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../redux/actions'
-import { getInfoUserSelector } from '../../redux/selector'
+import { getInfoUserSelector, mesPostPaymentSelector } from '../../redux/selector'
+import loading from '../../Assets/Reload-1s-200px.gif'
+import MesPayment from './MesPayment'
 
 const Cart = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const infoUser = useSelector(getInfoUserSelector)
+    const mesPayment = useSelector(mesPostPaymentSelector)
 
     const [stateEmail, setStateEmail] = useState()
     const [stateInfoUser, setStateInfoUser] = useState({})
     const [sumPayment, setSumPayment] = useState(0)
+    const [stateLoading, setStateLoading] = useState(false)
+    const [stateMes, setStateMes] = useState()
+    const [showModalMesPayment, setShowModalMesPayment] = useState(false)
 
     let email = localStorage.getItem("User")
     let listProductCartLocal = JSON.parse(localStorage.getItem('arrProduct'))
@@ -30,7 +36,7 @@ const Cart = () => {
         }
     }, [listProductCartLocal])
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         mode: "onChange"
     });
 
@@ -52,9 +58,8 @@ const Cart = () => {
     }, [infoUser])
 
     const submitData = (data) => {
-        console.log(data);
         if (listProductCartLocal && Object.keys(stateInfoUser).length !== 0) {
-            listProductCartLocal.length !== 0 ?
+            if (listProductCartLocal.length !== 0) {
                 dispatch(actions.postPaymentAction.postPaymentRequest({
                     order: {
                         Ho_ten: stateInfoUser.Ho_ten,
@@ -67,21 +72,50 @@ const Cart = () => {
                     },
                     orderDetail: listProductCartLocal
                 }))
-                : ''
+                setStateLoading(true)
+
+            }
         }
     }
-    const refreshPage = () => {
-        navigate(0);
+
+    useEffect(() => {
+        try {
+            if (mesPayment) {
+                setStateMes(mesPayment)
+                if (mesPayment.errCode === '0') {
+                    const timerId = setTimeout(() => {
+                        mesPayment.errCode = ''
+                        setStateLoading(false)
+                        dispatch(actions.getBillAction.getBillRequest(stateInfoUser.Dien_thoai))
+                        navigate('/OrderDetail')
+                        localStorage.removeItem('arrProduct')
+                    }, 3000)
+                    return () => clearTimeout(timerId)
+                }
+                if (mesPayment.errCode === '4' || mesPayment.errCode === '5' || mesPayment.errCode === '6') {
+                    mesPayment.errCode = ''
+                    const timerId = setTimeout(() => {
+                        setStateLoading(false)
+                        setShowModalMesPayment(true)
+                    }, 3000)
+                    return () => clearTimeout(timerId)
+                }
+            }
+        } catch (e) { }
+    }, [mesPayment])
+
+    useEffect(() => {
+        if (showModalMesPayment) {
+            let timerId = setTimeout(() => {
+                setShowModalMesPayment(false)
+            }, 4000)
+            return () => clearTimeout(timerId)
+        }
+    }, [showModalMesPayment])
+
+    const handleCloseMes = () => {
+        setShowModalMesPayment(false)
     }
-
-    const handleOnClickPayment = (data) => {
-
-
-    }
-
-    // useEffect(() => {
-    //     console.log(arrProduct);
-    // }, [arrProduct])
 
     return (
         <>
@@ -91,6 +125,7 @@ const Cart = () => {
             <div>
                 <form onSubmit={handleSubmit(submitData)} class="flex flex-row pl-60">
                     <div class="basis-1/2">
+
                         <div class="flex flex-col mt-10 p-3 bg-white">
                             <div className='flex items-center justify-center'>
                                 <i className='bi bi-check2-circle text-12 mr-2 text-green-900'></i>
@@ -149,13 +184,12 @@ const Cart = () => {
                                                                                             navigate('/Cart')
                                                                                         }
                                                                                         if (itemStorage.So_luong === 0) {
-                                                                                            cart = cart.filter(itemCart => itemCart.id !== item.id_Product)
+                                                                                            cart = cart.filter(itemCart => itemCart.id_Product !== item.id_Product)
                                                                                             localStorage.setItem('arrProduct', JSON.stringify(cart))
                                                                                             navigate('/Cart')
                                                                                         }
 
                                                                                     } else {
-
                                                                                     }
                                                                                 })
                                                                             }
@@ -167,15 +201,13 @@ const Cart = () => {
                                                                             let storage = localStorage.getItem('arrProduct')
                                                                             if (storage) {
                                                                                 let cart = JSON.parse(storage)
-                                                                                // cart = cart.filter(itemCart => itemCart.id !== item.id_Product)
                                                                                 cart.map((itemStorage) => {
-                                                                                    console.log(itemStorage);
-                                                                                    //    cart = storage.filter((itemFilter) => )
                                                                                     if (itemStorage.id_Product === item.id_Product) {
-                                                                                        itemStorage.So_luong += 1
-                                                                                        localStorage.setItem('arrProduct', JSON.stringify([...cart]))
-                                                                                        // navigate(0)
-                                                                                        navigate('/Cart')
+                                                                                        if (itemStorage.So_luong < 30) {
+                                                                                            itemStorage.So_luong += 1
+                                                                                            localStorage.setItem('arrProduct', JSON.stringify([...cart]))
+                                                                                            navigate('/Cart')
+                                                                                        }
                                                                                     }
                                                                                 })
                                                                             }
@@ -188,10 +220,9 @@ const Cart = () => {
                                                     </div> : ''
                                             ))
                                             :
-                                            <div className='mb-2 border border-gray-500 p-2 rounded-3 text-center'><span className='text-5 text-red-800'>Chưa có sản phẩm trong giỏ hàng</span></div>
+                                            <div className='mb-2 border border-gray-300 p-3 rounded-3 text-center'><span className='text-5 text-red-800'>Chưa có sản phẩm trong giỏ hàng</span></div>
                                         :
-                                        <div className='mb-2 border border-gray-500'><span className='text-5 text-red-800 font-semibold'>Chưa có sản phẩm trong giỏ hàng</span></div>
-
+                                        <div className='mb-2 border rounded-3 p-2 text-center border-gray-300'><span className='text-5 text-red-800 font-semibold'>Chưa có sản phẩm trong giỏ hàng</span></div>
                                 }
                                 <div className='flex'>
                                     <p className='mt-4 font-bold'>Tổng thanh toán: </p>
@@ -260,12 +291,24 @@ const Cart = () => {
                                     </div>
                                     {
                                         stateEmail ?
-
-                                            <div className="mt-4">
-                                                <button
-                                                    className="mt-1 p-2 text-center w-full hover:bg-green-950 border focus:outline-none rounded-2 cursor-pointer bg-green-800 text-white"
-                                                >Xác nhận đặt hàng</button>
-                                            </div>
+                                            <>
+                                                {
+                                                    stateLoading ? (<div className="mt-4">
+                                                        <div
+                                                            className="mt-1 p-2 text-center w-full  border font-semibold focus:outline-none rounded-2 cursor-pointer bg-gray-950 text-black"
+                                                        >Đang đặt hàng...
+                                                            <div className='w-6 h-6 inline-block pt-1 ml-2'>
+                                                                <img className='w-full' src={loading} />
+                                                            </div>
+                                                        </div>
+                                                    </div>) : <div className="mt-4">
+                                                        <button
+                                                            className="mt-1 p-2 text-center w-full hover:bg-green-950 border focus:outline-none rounded-2 cursor-pointer bg-green-800 text-white"
+                                                        >Xác nhận đặt hàng
+                                                        </button>
+                                                    </div>
+                                                }
+                                            </>
                                             :
                                             <Link to='/SignIn'>
                                                 <div className="mt-4">
@@ -282,6 +325,12 @@ const Cart = () => {
                 </form>
             </div>
 
+            <div>
+                {
+
+                    showModalMesPayment && <MesPayment mesProps={stateMes} isClose={handleCloseMes} />
+                }
+            </div>
         </>
     )
 }

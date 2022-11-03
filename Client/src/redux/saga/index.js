@@ -89,19 +89,18 @@ function* handleGetListProductGroupAction() {
 
 function* handlePostPaymentAction(action) {
     try {
+
         const messagePayment = yield call(api.apiPostPayment, action.payload)
-        // yield put(actions.getListProductGroupAction.getListProductGroupSuccess(listProductGroup.data))
+        yield put(actions.postPaymentAction.postPaymentSuccess(messagePayment.data))
 
     } catch (e) {
-        // yield put(actions.getListProductGroupAction.getListProductGroupFailure)
+        yield put(actions.postPaymentAction.postPaymentFailure)
     }
 }
 
 function* handlePostReviewAction(action) {
     try {
-        console.log(action.payload);
         const mesPostReview = yield call(api.apiPostReview, action.payload)
-        console.log(mesPostReview.data);
         yield put(actions.postReviewAction.postReviewSuccess(mesPostReview.data))
 
     } catch (e) {

@@ -43,7 +43,7 @@ const ReviewProduct = (props) => {
                 Id_phan_quyen: stateInfoUser.Id_phan_quyen,
                 Id_nguoi_dung: stateInfoUser.id,
                 Id_review_user: 0,
-                Id_san_pham: props.product.id
+                Id_san_pham: props.product.id_Product
             }))
             setValue('Noi_dung', '')
         } else {

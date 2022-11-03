@@ -8,5 +8,6 @@ export const listTopTabletReducer = (state) => state.getListTopTabletReducer.dat
 export const infoBilSelector = (state) => state.getBillReducer.data
 export const listProductGroupSelector = (state) => state.getListProductGroupReducer.data
 export const mesPostReviewSelector = (state) => state.postReviewReducer.data
+export const mesPostPaymentSelector = (state) => state.postPaymentReducer.data
 export const listReviewUserSelector = (state) => state.getShowReviewUserReducer.data
 export const listReviewAdminSelector = (state) => state.getShowReviewAdminReducer.data 

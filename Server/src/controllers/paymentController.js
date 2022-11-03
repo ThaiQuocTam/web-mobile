@@ -9,7 +9,6 @@ const handlePostPayment = async (req, res) => {
             order: req.body.order,
             orderDetail: req.body.orderDetail
         }
-
         if (!payment) {
             return res.status(500).json({
                 errCode: '1',
@@ -22,21 +21,23 @@ const handlePostPayment = async (req, res) => {
                     item.Id_HD = messagePostOrder.infoOrder.dataValues.id
                 })
                 let messagePostOrderDetail = await paymentService.postOrderDetail(payment.orderDetail)
-                if (messagePostOrder) {
+                if (messagePostOrder && messagePostOrderDetail) {
                     return res.status(200).json({
-                        errCode: '0',
-                        message: 'Đặt hàng thành công'
+                        errCode: messagePostOrderDetail.errCode,
+                        message: messagePostOrderDetail.message
                     })
                 }
             }
             else {
-                console.log('Lỗi order detail');
+                return res.status(500).json({
+                    errCode: '6',
+                    message: 'Đặt hàng không thành công'
+                })
             }
         }
 
 
     } catch (e) {
-        console.log(e);
     }
 }
 

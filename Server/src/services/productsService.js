@@ -162,7 +162,7 @@ const getInfoBill = async (data) => {
         try {
             let messageGetOrderDetail = {}
             if (data) {
-                let infoOderDetail = await db.hoa_don.findOne({
+                let infoOderDetail = await db.hoa_don.findAll({
                     where: {
                         So_dien_thoai: data,
                     },

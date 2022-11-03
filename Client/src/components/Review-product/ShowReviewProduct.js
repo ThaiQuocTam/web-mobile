@@ -11,7 +11,7 @@ const ShowReviewProduct = (props) => {
     const listInfoReviewAdmin = useSelector(listReviewAdminSelector)
     const mesPostReview = useSelector(mesPostReviewSelector)
     const infoUser = useSelector(getInfoUserSelector)
-    const idProduct = props.product.id
+    const idProduct = props.product.id_Product
 
     const [stateListInfoReviewUser, setStateListInfoReviewUser] = useState([])
     const [stateListInfoReviewAdmin, setStateListInfoReviewAdmin] = useState([])
@@ -94,7 +94,7 @@ const ShowReviewProduct = (props) => {
                                                     Id_nguoi_dung: stateInfoAdmin.id,
                                                     Id_phan_quyen: stateInfoAdmin.Id_phan_quyen,
                                                     Id_review_user: item.id,
-                                                    Id_san_pham: props.product.id
+                                                    Id_san_pham: props.product.id_Product
                                                 }))
                                                 setValue('Noi_dung', '')
                                             }
