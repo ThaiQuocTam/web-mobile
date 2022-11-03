@@ -22,7 +22,8 @@ const DetailProduct = () => {
     Ten_san_pham: '',
     Gia_san_pham: '',
     Thong_tin_khuyen_mai: '',
-    Hinh_anh: ''
+    Hinh_anh: '',
+    email: ''
   })
 
   const product = Products.map(items => items.images.length)
@@ -83,14 +84,15 @@ const DetailProduct = () => {
 
   useEffect(() => {
     try {
-      if (infoProduct) {
+      if (infoProduct && email) {
         setStateInfoProduct({
           ...stateInfoProduct,
-          id: infoProduct.data.id,
+          id_Product: infoProduct.data.id,
           Ten_san_pham: infoProduct.data.Ten_san_pham,
           Gia_san_pham: infoProduct.data.Gia_san_pham,
           Thong_tin_bao_hanh: infoProduct.data.Thong_tin_bao_hanh,
-          Hinh_anh: infoProduct.data.Hinh_anh
+          Hinh_anh: infoProduct.data.Hinh_anh,
+          email: email
         })
       } else {
       }
@@ -106,10 +108,10 @@ const DetailProduct = () => {
     console.log(arr);
     if (storage) {
       let arrNew = []
-      let check = arr.find(item => item.id === product.id)
+      let check = arr.find(item => item.id_Product === product.id)
       if (check) {
         arr.map((item) => {
-          if (item.id === product.id) {
+          if (item.id_Product === product.id) {
             item.So_luong += 1
           }
           arrNew.push(item)

@@ -21,9 +21,9 @@ const Header = () => {
 
     useEffect(() => {
         let soLuong = 0
-        if (listProductCartLocal) {
+        if (listProductCartLocal && email) {
             listProductCartLocal.map((item) => {
-                soLuong = soLuong + item.So_luong
+                item.email === email ? soLuong = soLuong + item.So_luong : ''
             })
         }
         setStateSoluong(soLuong)

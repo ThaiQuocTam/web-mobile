@@ -52,25 +52,30 @@ const Cart = () => {
     }, [infoUser])
 
     const submitData = (data) => {
-        console.log(data)
-    }
-
-    const handleOnClickPayment = (data) => {
-        if (listProductCartLocal && stateInfoUser) {
+        console.log(data);
+        if (listProductCartLocal && Object.keys(stateInfoUser).length !== 0) {
             listProductCartLocal.length !== 0 ?
                 dispatch(actions.postPaymentAction.postPaymentRequest({
                     order: {
                         Ho_ten: stateInfoUser.Ho_ten,
                         Email: stateInfoUser.Email,
-                        So_dien_thoai: stateInfoUser.So_dien_thoai,
+                        So_dien_thoai: stateInfoUser.Dien_thoai,
                         Dia_chi_nhan_hang: data.Dia_chi_nhan_hang,
                         Tong_tien: sumPayment,
-                        Id_nguoi_dung: stateInfoUser.Id_nguoi_dung
+                        Ghi_chu: data.Ghi_chu,
+                        Id_nguoi_dung: stateInfoUser.id
                     },
                     orderDetail: listProductCartLocal
                 }))
                 : ''
         }
+    }
+    const refreshPage = () => {
+        navigate(0);
+    }
+
+    const handleOnClickPayment = (data) => {
+
 
     }
 
@@ -96,89 +101,91 @@ const Cart = () => {
                                     listProductCartLocal ?
                                         listProductCartLocal.length !== 0 ?
                                             listProductCartLocal.map((item) => (
-                                                <div className="border border-gray-200 rounded-[12px]  shadow-soft-xxs mb-4">
-                                                    <i onClick={() => {
-                                                        let cart
-                                                        let storage = localStorage.getItem('arrProduct')
-                                                        if (storage) {
-                                                            cart = JSON.parse(storage)
-                                                            cart = cart.filter(itemCart => itemCart.id !== item.id)
-                                                            localStorage.setItem('arrProduct', JSON.stringify(cart))
-                                                        }
-                                                        navigate('/Cart')
-                                                    }}
-                                                        class="bi bi-dash-circle-fill text-6 hover:text-red-600 cursor-pointer mr-2 text-red-500 float-right"></i>
-                                                    <div className=''>
-                                                        <div className='w-full p-5 text-center'>
-                                                            <img className="mx-auto my-1 zoom-image hover:zoom-image-hover" src={item.Hinh_anh} />
-                                                        </div>
-                                                        <div className='text-center'>
-                                                            <p className="text-3.5 font-semibold" >{item.Ten_san_pham}</p>
-                                                            <p className='text-3.5 text-red-500 font-semibold inline-block mr-4'>{item.Gia_san_pham.toLocaleString() || ''}  ₫</p>
-                                                            <p className='text-3 text-red-500 inline-block line-through'>{(item.Gia_san_pham + (item.Gia_san_pham * (10 / 100))).toLocaleString() || ''}  ₫</p>
-                                                            {/* <input
+                                                item.email === email ?
+                                                    <div className="border border-gray-200 rounded-[12px]  shadow-soft-xxs mb-4">
+                                                        <i onClick={() => {
+                                                            let cart
+                                                            let storage = localStorage.getItem('arrProduct')
+                                                            if (storage) {
+                                                                cart = JSON.parse(storage)
+                                                                cart = cart.filter(itemCart => itemCart.id_Product !== item.id_Product)
+                                                                localStorage.setItem('arrProduct', JSON.stringify(cart))
+                                                            }
+                                                            navigate('/Cart')
+                                                        }}
+                                                            class="bi bi-dash-circle-fill text-6 hover:text-red-600 cursor-pointer mr-2 text-red-500 float-right"></i>
+                                                        <div className=''>
+                                                            <div className='w-full p-5 text-center'>
+                                                                <img className="mx-auto my-1 zoom-image hover:zoom-image-hover" src={item.Hinh_anh} />
+                                                            </div>
+                                                            <div className='text-center'>
+                                                                <p className="text-3.5 font-semibold" >{item.Ten_san_pham}</p>
+                                                                <p className='text-3.5 text-red-500 font-semibold inline-block mr-4'>{item.Gia_san_pham.toLocaleString() || ''}  ₫</p>
+                                                                <p className='text-3 text-red-500 inline-block line-through'>{(item.Gia_san_pham + (item.Gia_san_pham * (10 / 100))).toLocaleString() || ''}  ₫</p>
+                                                                {/* <input
                                                         value={item.Ten_san_pham}
                                                         // onChange={() => { setSateData({ ...stateData, Ten_san_pham: item.Ten_san_pham }) }}
                                                         {...register('Gia_san_pham', { required: true })}
                                                     /> */}
-                                                            {/* <p
+                                                                {/* <p
                                                         {...register('Gia_san_pham', { required: true })}
                                                         className="mt-4 ">{item.Gia_san_pham}</p> */}
 
-                                                            <div className='my-4 text-center'>
-                                                                {/* <p
+                                                                <div className='my-4 text-center'>
+                                                                    {/* <p
                                                             {...register('So_luong', { required: true })}
                                                             className="mt-2 ">{item.So_luong}</p> */}
-                                                                <input
-                                                                    onClick={() => {
-                                                                        let storage = localStorage.getItem('arrProduct')
-                                                                        if (storage) {
-                                                                            let cart = JSON.parse(storage)
-                                                                            // cart = cart.filter(itemCart => itemCart.id !== item.id)
-                                                                            cart.map((itemStorage) => {
-                                                                                //    cart = storage.filter((itemFilter) => )
-                                                                                if (itemStorage.id === item.id) {
-                                                                                    if (itemStorage.So_luong !== 0) {
-                                                                                        itemStorage.So_luong -= 1
+                                                                    <input
+                                                                        onClick={() => {
+                                                                            let storage = localStorage.getItem('arrProduct')
+                                                                            if (storage) {
+                                                                                let cart = JSON.parse(storage)
+                                                                                // cart = cart.filter(itemCart => itemCart.id !== item.id_Product)
+                                                                                cart.map((itemStorage) => {
+                                                                                    if (itemStorage.id_Product === item.id_Product) {
+                                                                                        if (itemStorage.So_luong !== 0) {
+                                                                                            itemStorage.So_luong -= 1
+                                                                                            localStorage.setItem('arrProduct', JSON.stringify([...cart]))
+                                                                                            navigate('/Cart')
+                                                                                        }
+                                                                                        if (itemStorage.So_luong === 0) {
+                                                                                            cart = cart.filter(itemCart => itemCart.id !== item.id_Product)
+                                                                                            localStorage.setItem('arrProduct', JSON.stringify(cart))
+                                                                                            navigate('/Cart')
+                                                                                        }
+
+                                                                                    } else {
+
+                                                                                    }
+                                                                                })
+                                                                            }
+                                                                        }}
+                                                                        className="minus is-form  hover:text-red-500 cursor-pointer" type="button" value="-" />
+                                                                    <input aria-label="quantity" readOnly className="input-qty outline-none" max="10" min="1" name="" type="number" value={item.So_luong || 0} id="textbox" />
+                                                                    <input
+                                                                        onClick={() => {
+                                                                            let storage = localStorage.getItem('arrProduct')
+                                                                            if (storage) {
+                                                                                let cart = JSON.parse(storage)
+                                                                                // cart = cart.filter(itemCart => itemCart.id !== item.id_Product)
+                                                                                cart.map((itemStorage) => {
+                                                                                    console.log(itemStorage);
+                                                                                    //    cart = storage.filter((itemFilter) => )
+                                                                                    if (itemStorage.id_Product === item.id_Product) {
+                                                                                        itemStorage.So_luong += 1
                                                                                         localStorage.setItem('arrProduct', JSON.stringify([...cart]))
+                                                                                        // navigate(0)
                                                                                         navigate('/Cart')
                                                                                     }
-                                                                                    if (itemStorage.So_luong === 0) {
-                                                                                        cart = cart.filter(itemCart => itemCart.id !== item.id)
-                                                                                        localStorage.setItem('arrProduct', JSON.stringify(cart))
-                                                                                        navigate('/Cart')
-                                                                                    }
-
-                                                                                } else {
-
-                                                                                }
-                                                                            })
-                                                                        }
-                                                                    }}
-                                                                    className="minus is-form  hover:text-red-500 cursor-pointer" type="button" value="-" />
-                                                                <input aria-label="quantity" readOnly className="input-qty outline-none" max="10" min="1" name="" type="number" value={item.So_luong || 0} id="textbox" />
-                                                                <input
-                                                                    onClick={() => {
-                                                                        let storage = localStorage.getItem('arrProduct')
-                                                                        if (storage) {
-                                                                            let cart = JSON.parse(storage)
-                                                                            // cart = cart.filter(itemCart => itemCart.id !== item.id)
-                                                                            cart.map((itemStorage) => {
-                                                                                //    cart = storage.filter((itemFilter) => )
-                                                                                if (itemStorage.id === item.id) {
-                                                                                    itemStorage.So_luong += 1
-                                                                                    localStorage.setItem('arrProduct', JSON.stringify([...cart]))
-                                                                                    navigate('/Cart')
-                                                                                }
-                                                                            })
-                                                                        }
-                                                                    }}
-                                                                    className="plus is-form  hover:text-red-500 cursor-pointer" type="button" value="+" />
+                                                                                })
+                                                                            }
+                                                                        }}
+                                                                        className="plus is-form  hover:text-red-500 cursor-pointer" type="button" value="+" />
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
-                                                </div>
+                                                    </div> : ''
                                             ))
                                             :
                                             <div className='mb-2 border border-gray-500 p-2 rounded-3 text-center'><span className='text-5 text-red-800'>Chưa có sản phẩm trong giỏ hàng</span></div>
@@ -223,11 +230,17 @@ const Cart = () => {
                                     </div>
                                     <div className="mt-4">
                                         <input
-                                            {...register('Dia_chi_nhan_hang', { require: true })}
+                                            {...register('Dia_chi_nhan_hang', { required: true })}
                                             placeholder='Địa chỉ nhận hàng'
                                             type="text"
                                             className="mt-1 p-2 pl-5 text-3.5 text-gray-800 font-semibold focus:outline-none bg-slate-50 rounded-5 border border-gray-400 w-full"
                                         />
+                                        {
+                                            errors.Dia_chi_nhan_hang &&
+                                            <div className='mt-3'>
+                                                <p className='text-3 italic text-red-500'>Vui lòng nhập địa chỉ nhận hàng</p>
+                                            </div>
+                                        }
                                     </div>
                                     <div className="mt-4">
                                         <input
@@ -235,28 +248,25 @@ const Cart = () => {
                                             value={stateInfoUser.Email}
                                             readOnly={email ? true : false}
                                             type="email"
-                                            name="email"
                                             className="mt-1 p-2 pl-5 text-3.5 text-gray-800 font-semibold focus:outline-none bg-slate-50 rounded-5 border border-gray-400 w-full"
                                         />
                                     </div>
                                     <div className="mt-4">
                                         <textarea
-                                            placeholder='Ghi chú'
+                                            {...register('Ghi_chu', { required: false })}
                                             type="text"
-                                            name="ghichu"
                                             className="mt-1 p-2 pl-5 text-3.5 text-gray-800 font-medium h-44 focus:outline-none bg-slate-50 rounded-5 border border-gray-400 w-full"
                                         />
                                     </div>
                                     {
                                         stateEmail ?
 
-                                            <Link to='#' onClick={handleOnClickPayment}>
-                                                <div className="mt-4">
-                                                    <button
-                                                        className="mt-1 p-2 text-center w-full hover:bg-green-950 border focus:outline-none rounded-2 cursor-pointer bg-green-800 text-white"
-                                                    >Xác nhận đặt hàng</button>
-                                                </div>
-                                            </Link> :
+                                            <div className="mt-4">
+                                                <button
+                                                    className="mt-1 p-2 text-center w-full hover:bg-green-950 border focus:outline-none rounded-2 cursor-pointer bg-green-800 text-white"
+                                                >Xác nhận đặt hàng</button>
+                                            </div>
+                                            :
                                             <Link to='/SignIn'>
                                                 <div className="mt-4">
                                                     <button

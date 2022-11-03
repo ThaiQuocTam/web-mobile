@@ -90,7 +90,6 @@ function* handleGetListProductGroupAction() {
 function* handlePostPaymentAction(action) {
     try {
         const messagePayment = yield call(api.apiPostPayment, action.payload)
-        console.log(messagePayment);
         // yield put(actions.getListProductGroupAction.getListProductGroupSuccess(listProductGroup.data))
 
     } catch (e) {
