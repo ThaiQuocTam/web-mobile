@@ -46,7 +46,7 @@ export const INIT_STATE_INFO_USER = {
     }
 }
 
-export const INIT_STATE_ODERDETAIL = {
+export const INIT_STATE_ODER_DETAIL = {
     stateOderDetail: {
         isLoading: false,
         data: []

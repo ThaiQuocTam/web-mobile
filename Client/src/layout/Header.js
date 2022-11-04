@@ -74,7 +74,7 @@ const Header = () => {
                             </li>
                         </Link>
                         <li className='inline-block mr-14 hover:opacity-50'>
-                            <Link to='/OderLookup'>
+                            <Link to='/OrderLookup'>
                                 <div className='cursor-pointer'>
                                     <i className="bi bi-clock-history text-6 pr-2 text-green-700"></i>
                                     <span className='inline-block pb-2 text-3.5 font-semibold'>Tra cứu đơn hàng</span>

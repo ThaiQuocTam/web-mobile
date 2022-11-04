@@ -7,7 +7,7 @@ import getListSmartphoneReducer from './getListSmartphoneReducer'
 import getListTopTabletReducer from './getListTopTabletReducer'
 import getInfoUserReducer from './getInfoUserReducer'
 import getBillReducer from './getBillReducer'
-import getOderDetailReducer from './getOderDetailReducer'
+import getOrderDetailReducer from './getOrderDetailReducer'
 import getListProductGroupReducer from './getListProductGroupReducer'
 import postPaymentReducer from './postPaymentReducer'
 import postReviewReducer from './postReviewReducer'
@@ -23,7 +23,7 @@ export default combineReducers({
     getListTopTabletReducer,
     getInfoUserReducer,
     getBillReducer,
-    getOderDetailReducer,
+    getOrderDetailReducer,
     getListProductGroupReducer,
     postPaymentReducer,
     postReviewReducer,

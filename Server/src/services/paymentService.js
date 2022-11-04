@@ -30,42 +30,56 @@ const postOrderDetail = async (data) => {
         try {
             let messagePostOrderDetail = {}
             if (data) {
+                let newData = []
                 for (let i = 0; i <= data.length; i++) {
                     let check = await checkQuantity(data[i])
-                    console.log(check.So_luong_SP);
                     if (check) {
+                        if (check.errCode === '0') {
+                            data[i].id_Product === check.product.id ?
+                                newData.push(data[i]) : ''
+                        }
                         if ((check.errCode === '2')) {
+                            newData = []
                             messagePostOrderDetail.errCode = '4'
                             messagePostOrderDetail.message = `${data[i].Ten_san_pham} đã hết`
                             break;
                         }
                         if ((check.errCode === '3')) {
+                            newData = []
                             messagePostOrderDetail.errCode = '5'
                             messagePostOrderDetail.message = `${data[i].Ten_san_pham} chỉ còn ${check.product.So_luong_SP} chiếc`
                             break;
                         }
-                        if (check.errCode === '0') {
-                            await db.chi_tiet_hd.bulkCreate(data)
-                            messagePostOrderDetail.errCode = '0'
-                            messagePostOrderDetail.message = 'Thêm chi tiết thành công'
-                        }
                     }
-
                 }
-                // data.map(async (item) => {
-                //     let check = await checkQuantity(item)
-                //     if (check && check.errCode === '0' && check.errCode !== '2' && check.errCode !== '3') {
-                //         await db.chi_tiet_hd.bulkCreate(data)
-                //     }
-                //     else {
-                //         console.log('Không thể thêm giỏ hàng');
-                //     }
-                // })
-
-
+                if (newData.length !== 0) {
+                    let newQuantity = 0
+                    for (let i = 0; i < newData.length; i++) {
+                        let product = await db.san_pham.findOne({
+                            where: { id: data[i].id_Product },
+                            raw: true
+                        })
+                        newQuantity = newQuantity + (product.So_luong_SP - data[i].So_luong)
+                        await db.san_pham.upsert({
+                            id: product.id,
+                            Ten_san_pham: product.Ten_san_pham,
+                            Hinh_anh: product.Hinh_anh,
+                            Gia_san_pham: product.Gia_san_pham,
+                            So_luong_SP: newQuantity,
+                            Thong_tin_bao_hanh: product.Thong_tin_bao_hanh,
+                            Ghi_chu: product.Ghi_chu,
+                            Id_loai_SP: product.Id_loai_SP,
+                            Id_nhom_SP: product.Id_nhom_SP
+                        });
+                    }
+                    await db.chi_tiet_hd.bulkCreate(newData)
+                    messagePostOrderDetail.errCode = '0'
+                    messagePostOrderDetail.message = 'Thêm chi tiết thành công'
+                }
             }
             resolve(messagePostOrderDetail)
         } catch (e) {
+            console.log('Lỗi', e);
             reject(e)
         }
     })
@@ -91,24 +105,10 @@ const checkQuantity = async (data) => {
                             mes.errCode = '3'
                             mes.product = product
                         } else {
-                            console.log('0');
-                            let newQuantity = 0
-                            newQuantity = newQuantity + (product.So_luong_SP - data.So_luong)
-                            await db.san_pham.upsert({
-                                id: product.id,
-                                Ten_san_pham: product.Ten_san_pham,
-                                Hinh_anh: product.Hinh_anh,
-                                Gia_san_pham: product.Gia_san_pham,
-                                So_luong_SP: newQuantity,
-                                Thong_tin_bao_hanh: product.Thong_tin_bao_hanh,
-                                Ghi_chu: product.Ghi_chu,
-                                Id_loai_SP: product.Id_loai_SP,
-                                Id_nhom_SP: product.Id_nhom_SP
-                            });
                             mes.errCode = '0'
+                            mes.product = product
                         }
                     }
-
                 }
             }
             resolve(mes)

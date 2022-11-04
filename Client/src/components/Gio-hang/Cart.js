@@ -73,7 +73,6 @@ const Cart = () => {
                     orderDetail: listProductCartLocal
                 }))
                 setStateLoading(true)
-
             }
         }
     }
@@ -137,7 +136,7 @@ const Cart = () => {
                                         listProductCartLocal.length !== 0 ?
                                             listProductCartLocal.map((item) => (
                                                 item.email === email ?
-                                                    <div className="border border-gray-200 rounded-[12px]  shadow-soft-xxs mb-4">
+                                                    <div className="border border-gray-200 rounded-[12px] px-2 shadow-soft-xxs mb-4">
                                                         <i onClick={() => {
                                                             let cart
                                                             let storage = localStorage.getItem('arrProduct')
@@ -324,10 +323,8 @@ const Cart = () => {
                     </div>
                 </form>
             </div>
-
             <div>
                 {
-
                     showModalMesPayment && <MesPayment mesProps={stateMes} isClose={handleCloseMes} />
                 }
             </div>

@@ -75,7 +75,6 @@ const handleGetInfoProduct = async (req, res) => {
 
 const handlePostEditInfoProduct = async (req, res) => {
     try {
-        console.log(req.body);
         let id = req.body.id
         let Ten_san_pham = req.body.Ten_san_pham
         let Hinh_anh = req.body.Hinh_anh
@@ -104,7 +103,6 @@ const handlePostEditInfoProduct = async (req, res) => {
 
 const handlePostSearchProduct = async (req, res) => {
     try {
-        console.log(req.query);
         let data = await productsService.SearchProduct(req.query)
         return res.status(200).json(data)
     } catch (e) {
@@ -141,17 +139,26 @@ const handleGetInfoBill = async (req, res) => {
 
 const handleGetInfoOderDetail = async (req, res) => {
     try {
-        let data = await db.chi_tiet_hd.findOne({
-            where: { Id_HD: req.query.Id_HD },
-            raw: true
-        })
-        if (data) {
-            return res.status(200).json(data)
-        } else {
-            return res.status(500).json({
-                errCode: '1',
-                message: 'Không tìm thấy'
-            })
+
+        let arrIdOrder = []
+        let arr = req.body.arrIdOrder
+        if (arr) {
+            arrIdOrder = [...req.body.arrIdOrder]
+        }
+        if (arrIdOrder.length !== 0) {
+            let listInfoOrderDetail = await productsService.getListOrderDetail(arrIdOrder)
+            if (listInfoOrderDetail) {
+                return res.status(200).json(listInfoOrderDetail)
+            }
+            else {
+                return res.status(500).json({
+                    errCode: '1',
+                    message: 'Loi'
+                })
+            }
+        }
+        else {
+            console.log('nope');
         }
     } catch (e) {
     }

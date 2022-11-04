@@ -89,8 +89,9 @@ function* handleGetListProductGroupAction() {
 
 function* handlePostPaymentAction(action) {
     try {
-
+        console.log('haha');
         const messagePayment = yield call(api.apiPostPayment, action.payload)
+        console.log(messagePayment.data);
         yield put(actions.postPaymentAction.postPaymentSuccess(messagePayment.data))
 
     } catch (e) {
@@ -128,6 +129,15 @@ function* handleGetShowReviewAdminAction(action) {
     }
 }
 
+function* handleGetOrderDetailAction(action) {
+    try {
+        const listInfoOderDetail = yield call(api.apiGetOderDetail, action.payload)
+        yield put(actions.getOrderDetailAction.getOrderDetailSuccess(listInfoOderDetail.data))
+    } catch (e) {
+        yield put(actions.getOrderDetailAction.getOrderDetailFailure)
+    }
+}
+
 function* mySaga() {
     yield takeLatest(actions.signInAction.signInRequest, handleSignInAction)
     yield takeLatest(actions.signUpAction.signUpRequest, handleSignUpAction)
@@ -142,5 +152,7 @@ function* mySaga() {
     yield takeLatest(actions.postReviewAction.postReviewRequest, handlePostReviewAction)
     yield takeLatest(actions.getShowReviewUserAction.getShowReviewUserRequest, handleGetShowReviewUserAction)
     yield takeLatest(actions.getShowReviewAdminAction.getShowReviewAdminRequest, handleGetShowReviewAdminAction)
+    yield takeLatest(actions.getOrderDetailAction.getOrderDetailRequest, handleGetOrderDetailAction)
 }
 export default mySaga
+actions.getOrderDetailAction.getOrderDetailRequest

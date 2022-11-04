@@ -46,10 +46,10 @@ export const getInfoUserAction = createActions({
     getInfoUserFailure: (err) => err
 })
 
-export const getOderDetailAction = createActions({
-    getOderDetailRequest: (payload) => payload,
-    getOderDetailSuccess: (payload) => payload,
-    getOderDetailFailure: (err) => err
+export const getOrderDetailAction = createActions({
+    getOrderDetailRequest: (payload) => payload,
+    getOrderDetailSuccess: (payload) => payload,
+    getOrderDetailFailure: (err) => err
 })
 
 export const getBillAction = createActions({

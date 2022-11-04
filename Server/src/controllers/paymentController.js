@@ -1,3 +1,5 @@
+import { raw } from "body-parser"
+import e from "express"
 import db from "../models"
 import paymentService from '../services/paymentService'
 
@@ -21,7 +23,16 @@ const handlePostPayment = async (req, res) => {
                     item.Id_HD = messagePostOrder.infoOrder.dataValues.id
                 })
                 let messagePostOrderDetail = await paymentService.postOrderDetail(payment.orderDetail)
-                if (messagePostOrder && messagePostOrderDetail) {
+                if (messagePostOrderDetail && messagePostOrderDetail.errCode !== '0') {
+                    await db.hoa_don.destroy({
+                        where: { id: messagePostOrder.infoOrder.dataValues.id }
+                    })
+                    return res.status(200).json({
+                        errCode: messagePostOrderDetail.errCode,
+                        message: messagePostOrderDetail.message
+                    })
+                }
+                else {
                     return res.status(200).json({
                         errCode: messagePostOrderDetail.errCode,
                         message: messagePostOrderDetail.message

@@ -186,10 +186,33 @@ const getInfoBill = async (data) => {
     })
 }
 
+const getListOrderDetail = async (arrId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const listArr = arrId
+            if (listArr) {
+                let listInfoOrder = []
+                for (let i = 0; i < listArr.length; i++) {
+                    let data = await db.chi_tiet_hd.findAll({
+                        where: { Id_HD: listArr[i] },
+                        raw: true
+                    })
+                    data ?
+                        data.map((item) => listInfoOrder.push(item)) : ''
+                }
+                resolve(listInfoOrder)
+            }
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
 module.exports = {
     addProduct: addProduct,
     GetInfoProduct: GetInfoProduct,
     PostEditInfoProduct: PostEditInfoProduct,
     SearchProduct: SearchProduct,
-    getInfoBill: getInfoBill
+    getInfoBill: getInfoBill,
+    getListOrderDetail: getListOrderDetail
 }
