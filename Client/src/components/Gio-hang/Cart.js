@@ -8,6 +8,7 @@ import * as actions from '../../redux/actions'
 import { getInfoUserSelector, mesPostPaymentSelector } from '../../redux/selector'
 import loading from '../../Assets/Reload-1s-200px.gif'
 import MesPayment from './MesPayment'
+import SignIn from 'components/Sign-in/SignIn'
 
 const Cart = () => {
 
@@ -22,6 +23,7 @@ const Cart = () => {
     const [stateLoading, setStateLoading] = useState(false)
     const [stateMes, setStateMes] = useState()
     const [showModalMesPayment, setShowModalMesPayment] = useState(false)
+    const [showModalSignIn, setShowModalSignIn] = useState(false)
 
     let email = localStorage.getItem("User")
     let listProductCartLocal = JSON.parse(localStorage.getItem('arrProduct'))
@@ -114,6 +116,10 @@ const Cart = () => {
 
     const handleCloseMes = () => {
         setShowModalMesPayment(false)
+    }
+
+    const handleCloseModal = () => {
+        setShowModalSignIn(false)
     }
 
     return (
@@ -309,13 +315,11 @@ const Cart = () => {
                                                 }
                                             </>
                                             :
-                                            <Link to='/SignIn'>
-                                                <div className="mt-4">
-                                                    <button
-                                                        className="mt-1 text-center p-2 w-full hover:bg-green-950 border focus:outline-none rounded-2 cursor-pointer bg-green-800 text-white"
-                                                    >Vui lòng đăng nhập</button>
-                                                </div>
-                                            </Link>
+                                            <div className="mt-4" onClick={() => setShowModalSignIn(true)}>
+                                                <button
+                                                    className="mt-1 text-center p-2 w-full hover:bg-green-950 border focus:outline-none rounded-2 cursor-pointer bg-green-800 text-white"
+                                                >Vui lòng đăng nhập</button>
+                                            </div>
                                     }
                                 </div>
                             </div>
@@ -327,6 +331,11 @@ const Cart = () => {
                 {
                     showModalMesPayment && <MesPayment mesProps={stateMes} isClose={handleCloseMes} />
                 }
+            </div>
+            <div>
+                {showModalSignIn && <div className='fixed flex z-sticky items-center bg-slate-950 justify-center left-0 top-0 right-0 bottom-0'>
+                    <SignIn isClose={handleCloseModal} />
+                </div>}
             </div>
         </>
     )

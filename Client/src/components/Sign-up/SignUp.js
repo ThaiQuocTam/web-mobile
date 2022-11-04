@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import './SignUp.css';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions'
 import { signUpSelector } from 'redux/selector';
 import { useForm } from 'react-hook-form';
+import imageSignUp from '../../Assets/images/dki.png'
 
 const SignUp = () => {
 
@@ -55,9 +55,10 @@ const SignUp = () => {
   }
   return (
     <div className="flex">
-      <div className="w-1/4 mr-3 image">
+      <div className="mr-3 bg-blue-100 h-full rounded-5 h-full pt-20 px-8">
+        <img className='w-full' src={imageSignUp} />
       </div>
-      <div className="w-1/3 mt-10 p-3 bg-white">
+      <div className="p-3 w-60pc px-16 justify-center ">
         <form onSubmit={handleSubmit(dataSubmit)} className="border border-gray-500 rounded-[12px]">
           <div className="p-4">
             <h1 className="text-lg border-b border-gray-500"> Đăng ký tài khoản</h1>

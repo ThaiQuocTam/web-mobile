@@ -4,6 +4,7 @@ import image from '../Assets/images/logo.jpg'
 import { listProductGroupSelector } from '../redux/selector/index'
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../redux/actions'
+import SignIn from 'components/Sign-in/SignIn';
 
 const Header = () => {
 
@@ -15,6 +16,7 @@ const Header = () => {
     const [hidden, setHidden] = useState(false)
     const [stateProductGroup, setStateProductGroup] = useState([])
     const [stateSoluong, setStateSoluong] = useState(0)
+    const [showModalSignIn, setShowModalSignIn] = useState(false)
 
     let email = localStorage.getItem("User")
     let listProductCartLocal = JSON.parse(localStorage.getItem('arrProduct'))
@@ -46,6 +48,10 @@ const Header = () => {
             console.log(e);
         }
     }, [listProductGroup])
+
+    const handleCloseModal = () => {
+        setShowModalSignIn(false)
+    }
 
     return (
         <>
@@ -99,12 +105,10 @@ const Header = () => {
 
                                 :
                                 <li className='inline-block mr-10 hover:opacity-50'>
-                                    <a href='/SignIn'>
-                                        <div className='cursor-pointer'>
-                                            <i className="bi bi-person-fill text-6 pr-2 text-green-700"></i>
-                                            <span className='font-semibold text-3.5 left-4 right ' >Đăng nhập</span>
-                                        </div>
-                                    </a>
+                                    <div onClick={() => setShowModalSignIn(true)} className='cursor-pointer'>
+                                        <i className="bi bi-person-fill text-6 pr-2 text-green-700"></i>
+                                        <span className='font-semibold text-3.5 left-4 right ' >Đăng nhập</span>
+                                    </div>
                                 </li>
                         }
                     </ul>
@@ -195,6 +199,11 @@ const Header = () => {
                     </div>
                 </div >
             </header >
+            <div>
+                {showModalSignIn && <div className='fixed flex z-sticky items-center bg-slate-950 justify-center left-0 top-0 right-0 bottom-0'>
+                    <SignIn isClose={handleCloseModal} />
+                </div>}
+            </div>
         </>
 
     )

@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom"
 import ReviewProduct from "components/Review-product/ReviewProduct";
 import ShowReviewProduct from "components/Review-product/ShowReviewProduct";
 import AddCartMes from "./AddCartMes";
+import SignIn from "components/Sign-in/SignIn";
 
 const DetailProduct = () => {
 
@@ -16,6 +17,7 @@ const DetailProduct = () => {
 
   // const [index, setIndex] = useState(0)
   const [hideAddCartMes, setHideAddCartMes] = useState(false)
+  const [showModalSignIn, setShowModalSignIn] = useState(false)
   // const [animation, setAnimation] = useState('')
   const infoProduct = useSelector(infoProductSelector)
   const [stateInfoProduct, setStateInfoProduct] = useState({
@@ -144,6 +146,10 @@ const DetailProduct = () => {
     setHideAddCartMes(false)
   }
 
+  const handleCloseModal = () => {
+    setShowModalSignIn(false)
+  }
+
   return (
     <>
       <div>
@@ -213,12 +219,10 @@ const DetailProduct = () => {
                       <button className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
                     </div>
                     :
-                    <Link to='/SignIn'>
-                      <div className="bg-yellow-600 rounded-3 text-center cursor-pointer hover:bg-yellow-800">
-                        <i class="bi bi-cart-plus-fill text-6 text-white"></i>
-                        <button className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
-                      </div>
-                    </Link>
+                    <div onClick={() => setShowModalSignIn(true)} className="bg-yellow-600 rounded-3 text-center cursor-pointer hover:bg-yellow-800">
+                      <i class="bi bi-cart-plus-fill text-6 text-white"></i>
+                      <button className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
+                    </div>
                 }
 
               </div>
@@ -286,9 +290,13 @@ const DetailProduct = () => {
       </div>
       <div>
         {
-
           hideAddCartMes && <AddCartMes isClose={handleCloseMes} />
         }
+      </div>
+      <div>
+        {showModalSignIn && <div className='fixed flex z-sticky items-center bg-slate-950 justify-center left-0 top-0 right-0 bottom-0'>
+          <SignIn isClose={handleCloseModal} mes={'Vui lòng đăng nhập để thêm giỏ hàng'} />
+        </div>}
       </div>
     </>
   )
