@@ -65,11 +65,10 @@ const TopTablet = () => {
                             <div className='p-5 mx-5 h-27em box-shadow relative rounded-2 bg-white'>
                                 {
                                     item.So_luong_SP <= 5 ? <LimitProduct soLuong={item.So_luong_SP} /> : ''
-
                                 }
-                                <div className=''>
+                                <div className='mb-10 shadow-soft-xxs text-center'>
                                     <div className=''>
-                                        <img className='mx-auto w-full' src={item.Hinh_anh} />
+                                        <img className='zoom-image hover:zoom-image-hover mx-auto' src={item.Hinh_anh} />
                                     </div>
                                 </div>
                                 <div className='text-center h-24 mb-2'>
@@ -81,14 +80,6 @@ const TopTablet = () => {
                                         <span className='line-through text-3'>{(item.Gia_san_pham + (item.Gia_san_pham * (10 / 100))).toLocaleString()}<span className='ml-1'>₫</span></span>
                                     </div>
                                 </div>
-                                {/* <div onClick={() => {
-                                    navigate('/DetailProduct');
-                                    dispatch(actions.getInfoProductAction.getInfoProductRequest(item.id))
-                                }} className='bg-red-600 cursor-pointer hover:bg-red-800 text-center p-1 rounded-1 shadow-soft-2xl'>
-                                    <div>
-                                        <button className='text-3.5 font-semibold text-white'>Xem chi tiết</button>
-                                    </div>
-                                </div> */}
                                 <div className='mt-5'>
                                     <ShowButton Id={item.id} nameProduct={item.Ten_san_pham} />
                                 </div>

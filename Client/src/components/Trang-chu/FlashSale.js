@@ -66,7 +66,7 @@ const FlashSale = () => {
                                 }
                                 <div className=''>
                                     <div className='w-full '>
-                                        <img className='mx-auto w-10/12' src={item.Hinh_anh} />
+                                        <img className='zoom-image hover:zoom-image-hover' src={item.Hinh_anh} />
                                     </div>
                                 </div>
                                 <div className='text-center h-20 mb-2'>
@@ -78,14 +78,6 @@ const FlashSale = () => {
                                         <span className='line-through text-3'>{(item.Gia_san_pham + (item.Gia_san_pham * (10 / 100))).toLocaleString()}  ₫</span>
                                     </div>
                                 </div>
-                                {/* <div onClick={() => {
-                                    navigate(`/DetailProduct?Ten_san_pham=${item.Ten_san_pham}`);
-                                    dispatch(actions.getInfoProductAction.getInfoProductRequest(item.id))
-                                }} className='bg-red-600 mt-8 hover:bg-red-800 text-center p-1 rounded-1 shadow-soft-2xl'>
-                                    <div>
-                                        <button className='text-3.5 font-semibold text-white'>Xem chi tiết</button>
-                                    </div>
-                                </div> */}
                                 <div className='mt-8'>
                                     <ShowButton Id={item.id} nameProduct={item.Ten_san_pham} />
                                 </div>

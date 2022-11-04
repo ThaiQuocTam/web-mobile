@@ -166,6 +166,9 @@ const getInfoBill = async (data) => {
                     where: {
                         So_dien_thoai: data,
                     },
+                    order: [
+                        ['updatedAt', 'DESC']
+                    ],
                     raw: true
 
                 })
