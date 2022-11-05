@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import image from '../Assets/images/logo.jpg'
-import { listProductGroupSelector } from '../redux/selector/index'
+import { listProductGroupSelector, signInSelector } from '../redux/selector/index'
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../redux/actions'
 import SignIn from 'components/Sign-in/SignIn';
@@ -12,13 +12,15 @@ const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const listProductGroup = useSelector(listProductGroupSelector)
+    const signData = useSelector(signInSelector)
 
     const [hidden, setHidden] = useState(false)
     const [stateProductGroup, setStateProductGroup] = useState([])
     const [stateSoluong, setStateSoluong] = useState(0)
     const [showModalSignIn, setShowModalSignIn] = useState(false)
+    const [email, setEmail] = useState()
 
-    let email = localStorage.getItem("User")
+    let emailLocal = localStorage.getItem("User")
     let listProductCartLocal = JSON.parse(localStorage.getItem('arrProduct'))
 
     useEffect(() => {
@@ -30,10 +32,6 @@ const Header = () => {
         }
         setStateSoluong(soLuong)
     }, [listProductCartLocal])
-
-    const refreshPage = () => {
-        navigate(0);
-    }
 
     useEffect(() => {
         dispatch(actions.getListProductGroupAction.getListProductGroupRequest())
@@ -52,6 +50,12 @@ const Header = () => {
     const handleCloseModal = () => {
         setShowModalSignIn(false)
     }
+
+    useEffect(() => {
+        if (emailLocal || signData) {
+            setEmail(emailLocal)
+        }
+    }, [emailLocal || signData])
 
     return (
         <>

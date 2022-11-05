@@ -3,7 +3,7 @@ import * as actions from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form';
 import { getInfoUserSelector } from '../../redux/selector'
-import MesComment from './MesComment';
+import SignIn from 'components/Sign-in/SignIn';
 
 
 const ReviewProduct = (props) => {
@@ -15,6 +15,7 @@ const ReviewProduct = (props) => {
     const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm();
     const [stateInfoUser, setStateInfoUser] = useState()
     const [hideMesComment, setHideMesComment] = useState(false)
+    const [showModalSignIn, setShowModalSignIn] = useState(false)
 
     useEffect(() => {
         try {
@@ -47,12 +48,16 @@ const ReviewProduct = (props) => {
             }))
             setValue('Noi_dung', '')
         } else {
-            setHideMesComment(true)
+            setShowModalSignIn(true)
         }
     }
 
     const hideMes = () => {
         setHideMesComment(false)
+    }
+
+    const handleCloseModalSingIn = () => {
+        setShowModalSignIn(false)
     }
 
     return (
@@ -77,9 +82,9 @@ const ReviewProduct = (props) => {
                 </div>
             </form>
             <div>
-                {
-                    hideMesComment && <MesComment isClose={hideMes} />
-                }
+                {showModalSignIn && <div className='fixed flex z-sticky items-center bg-slate-950 justify-center left-0 top-0 right-0 bottom-0'>
+                    <SignIn isClose={handleCloseModalSingIn} mes={'Vui lòng đăng nhập để bình luận'} />
+                </div>}
             </div>
         </>
     )

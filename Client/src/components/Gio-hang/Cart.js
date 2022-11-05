@@ -35,6 +35,8 @@ const Cart = () => {
                 sum = sum + (item.Gia_san_pham * item.So_luong)
             })
             setSumPayment(sum)
+
+            console.log('có nhé');
         }
     }, [listProductCartLocal])
 

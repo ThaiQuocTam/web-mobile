@@ -148,6 +148,7 @@ const DetailProduct = () => {
 
   const handleCloseModal = () => {
     setShowModalSignIn(false)
+    navigate(0)
   }
 
   return (

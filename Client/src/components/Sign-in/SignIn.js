@@ -16,6 +16,7 @@ const SignIn = (props) => {
     const [hidePass, setHidePass] = useState(true)
     const [message, setMessage] = useState('')
     const [showModalSignUp, setShowModalSignUp] = useState(false)
+    const [hidden, setHidden] = useState('flex')
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onChange"
@@ -31,7 +32,7 @@ const SignIn = (props) => {
                 setMessage(signData.message)
             }
             if (signData.errCode === 0) {
-                navigate('/')
+                props.isClose()
                 localStorage.setItem("User", signData.user.Email)
             }
         }
@@ -43,9 +44,14 @@ const SignIn = (props) => {
         dispatch(actions.signInAction.signInRequest(data))
     }
 
+    const handleCloseModalSignUp = () => {
+        setShowModalSignUp(false)
+        setHidden('flex')
+    }
+
     return (
         <>
-            <div className="flex items-center bg-slate-50 w-70pc h-70pc rounded-5 relative animate-modalForm">
+            <div className={`${hidden} items-center bg-slate-50 w-70pc h-70pc rounded-5 relative animate-modalForm`}>
                 <div className="mr-3 bg-blue-100 h-full rounded-5 pt-20 px-8">
                     <img className='w-full' src={imageSignIn} />
                 </div>
@@ -55,11 +61,11 @@ const SignIn = (props) => {
                         <div className="">
                             {
                                 props.mes ?
-                                    <h1 className="text-red text-center text-4"> {props.mes}</h1>
-
-                                    :
-                                    <h1 className="text-black text-center font-semibold text-9"> Đăng nhập</h1>
+                                    <h1 className="text-red text-center text-3.5 italic"> {props.mes}</h1>
+                                    : ''
                             }
+                            <h1 className="text-black text-center font-semibold text-9"> Đăng nhập</h1>
+
                             <div className="mt-4">
                                 <label className='font-semibold text-4'>Email</label>
                                 <input
@@ -104,11 +110,11 @@ const SignIn = (props) => {
                                     />
                                 </div>
 
-                                <div onClick={() => { setShowModalSignUp(true) }} className="w-full">
+                                <div onClick={() => { setShowModalSignUp(true); setHidden('hidden') }} className="w-full">
                                     <input
-                                        type="submit"
+                                        type='text'
                                         value="ĐĂNG KÍ"
-                                        className="mt-2 p-2  border-2  hover:border-green-500 font-semibold w-full border-green-950 rounded cursor-pointer  text-black"
+                                        className="mt-2 p-2 text-center border-2  hover:border-green-500 font-semibold w-full border-green-950 rounded cursor-pointer  text-black"
                                     />
                                 </div>
                             </div>
@@ -119,12 +125,11 @@ const SignIn = (props) => {
 
             {
                 <div>
-                    {showModalSignUp && <div className='fixed flex z-sticky items-center bg-slate-900 justify-center left-0 top-0 right-0 bottom-0'>
-                        <SignUp />
+                    {showModalSignUp && <div className='fixed flex z-sticky items-center bg-slate-950 justify-center left-0 top-0 right-0 bottom-0'>
+                        <SignUp isClose={handleCloseModalSignUp} />
                     </div>}
                 </div>
             }
-
         </>
     )
 }
