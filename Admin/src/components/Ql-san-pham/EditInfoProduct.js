@@ -35,21 +35,13 @@ const EditInfoProduct = (props) => {
 
     useEffect(() => {
         try {
-            if (dataListProDuctType) {
+            if (dataListProDuctType || dataListProDuctGroup) {
                 setStateDataProductType(dataListProDuctType)
-            }
-        } catch (e) {
-        }
-    }, [dataListProDuctType])
-
-    useEffect(() => {
-        try {
-            if (dataListProDuctGroup) {
                 setStateDataProductGroup(dataListProDuctGroup)
             }
         } catch (e) {
         }
-    }, [dataListProDuctGroup])
+    }, [dataListProDuctType || dataListProDuctGroup])
 
     useEffect(() => {
         try {

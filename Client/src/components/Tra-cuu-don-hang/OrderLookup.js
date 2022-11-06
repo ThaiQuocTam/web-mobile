@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react'
 import * as actions from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { infoBilSelector } from 'redux/selector'
+import OrderDetail from 'components/Thong-tin-don-hang/OrderDetail'
 
 const OrderLookup = () => {
 
     const [showOrderDetail, setShowOderDetail] = useState(false)
     const [state, setState] = useState(false)
-    const [dienDthoai, setDienThoai] = useState()
+    const [stateSmartphone, setStateSmartphone] = useState()
     const dispatch = useDispatch()
     const infoBill = useSelector(infoBilSelector)
 
@@ -23,43 +24,44 @@ const OrderLookup = () => {
     })
 
     const handleOnchange = (e) => {
-        setDienThoai(e.target.value)
+        setStateSmartphone(e.target.value)
     }
 
-    useEffect(() => {
-        try {
-            if (infoBill) {
-                if (infoBill.errCode === '0') {
-                    setShowOderDetail(true)
-                    setState(false)
-                    setStateInfoBill({
-                        ...stateInfoBill,
-                        Ho_ten: infoBill.infoOderDetail.Ho_ten,
-                        Dia_chi_nhan_hang: infoBill.infoOderDetail.Dia_chi_nhan_hang,
-                        So_dien_thoai: infoBill.infoOderDetail.So_dien_thoai,
-                        Tong_tien: infoBill.infoOderDetail.Tong_tien,
-                        Email: infoBill.infoOderDetail.Email,
-                        Trang_thai: infoBill.infoOderDetail.Trang_thai
-                    })
-                }
-                else {
-                    setState(true)
-                    setShowOderDetail(false)
-                }
-            } else {
-                console.log('Không tìm thấy');
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }, [infoBill])
+    // useEffect(() => {
+    //     try {
+    //         if (infoBill) {
+    //             if (infoBill.errCode === '0') {
+    //                 setShowOderDetail(true)
+    //                 setState(false)
+    //                 setStateInfoBill({
+    //                     ...stateInfoBill,
+    //                     Ho_ten: infoBill.infoOderDetail.Ho_ten,
+    //                     Dia_chi_nhan_hang: infoBill.infoOderDetail.Dia_chi_nhan_hang,
+    //                     So_dien_thoai: infoBill.infoOderDetail.So_dien_thoai,
+    //                     Tong_tien: infoBill.infoOderDetail.Tong_tien,
+    //                     Email: infoBill.infoOderDetail.Email,
+    //                     Trang_thai: infoBill.infoOderDetail.Trang_thai
+    //                 })
+    //             }
+    //             else {
+    //                 setState(true)
+    //                 setShowOderDetail(false)
+    //             }
+    //         } else {
+    //             console.log('Không tìm thấy');
+    //         }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }, [infoBill])
+
     return (
         <>
             <div>
                 <BackHome />
             </div>
 
-            <div class="flex flex-col mx-auto w-10/12">
+            <div class="flex flex-col mx-auto w-10/12 pb-10 border-b-2 border-gray-500 mb-5">
                 <div className='text-center'>
                     <i class="bi bi-check2-circle text-16 leading-4-em block text-green-900"></i>
                 </div>
@@ -69,18 +71,18 @@ const OrderLookup = () => {
                 <div className="w-2/2 flex justify-start items-center relative text-center w-1/3 mx-auto mt-3 ">
                     <i className="bi bi-search absolute ml-2 w-10"></i>
                     <input
-                        value={dienDthoai}
+                        value={stateSmartphone}
                         onChange={handleOnchange}
                         placeholder="Nhập số điện thoại của bạn"
                         class="border border-gray-500 rounded-lg focus:outline-none  p-4 w-full pl-10"
                     />
                 </div>
                 <div className='text-center mt-9'>
-                    <button onClick={() => dispatch(actions.getBillAction.getBillRequest(dienDthoai))} className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 w-1/4 rounded'>Tra cứu</button>
+                    <button onClick={() => dispatch(actions.getBillAction.getBillRequest(stateSmartphone))} className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 w-1/4 rounded'>Tra cứu</button>
                 </div>
             </div>
 
-            <div className='mt-10'>
+            {/* <div className='mt-10'>
                 {
                     showOrderDetail &&
                     <div>
@@ -169,7 +171,20 @@ const OrderLookup = () => {
                     </div>
                 }
 
-            </div>
+            </div> */}
+            {
+                infoBill ?
+                    infoBill.errCode !== '0' ?
+                        <div className="mt-4">
+                            <span className='text-center block text-7 italic font-semibold text-red-500 '>Không tìm thấy đơn hàng...</span>
+                        </div>
+                        :
+                        <div>
+                            <OrderDetail />
+                        </div>
+                    : ''
+
+            }
         </>
     )
 }

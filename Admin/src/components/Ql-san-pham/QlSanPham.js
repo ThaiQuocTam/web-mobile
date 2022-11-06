@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 import ModalThemSP from './ModalThemSP'
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions/actions'
 import { listProductSelector, listProductTypeSelector, listProductGroupSelector, messageEditInfoProductSelector } from 'redux/selector/selector';
 import EditInfoProduct from './EditInfoProduct';
+import axios from 'axios';
+import ModalAddProductDetail from './ModalAddProductDetail';
 
 
 const QlSanPham = () => {
@@ -12,13 +15,14 @@ const QlSanPham = () => {
     const listProduct = useSelector(listProductSelector)
     const dataListProDuctType = useSelector(listProductTypeSelector)
     const dataListProDuctGroup = useSelector(listProductGroupSelector)
-    const messageEditInfoProduct = useSelector(messageEditInfoProductSelector)
 
     const [showModalAddProduct, setShowModalAddProduct] = useState(false)
+    const [showModalAddProductDetail, setShowModalAddProductDetail] = useState(false)
     const [showModalEditInfoProduct, setShowModalEditInfoProduct] = useState(false)
     const [stateListProduct, setStateListProduct] = useState([])
     const [stateDataProductType, setStateDataProductType] = useState([])
     const [stateDataProductGroup, setStateDataProductGroup] = useState([])
+    const [stateListProductDetail, setStateListProductDetail] = useState()
 
     const hideModalAddProduct = () => {
         location.reload()
@@ -30,8 +34,6 @@ const QlSanPham = () => {
         setShowModalEditInfoProduct(false)
     }
 
-
-
     useEffect(() => {
         dispatch(actions.getProductAction.getProductRequest())
         dispatch(actions.getListProductTypeAction.getListProductTypeRequest())
@@ -42,14 +44,30 @@ const QlSanPham = () => {
     useEffect(() => {
         if (listProduct) {
             setStateListProduct(listProduct)
+            axios.get(`http://localhost:7001/api/get-all-product-detail`)
+                .then(listProductDetail => listProductDetail.data.length !== 0 ? setStateListProductDetail(listProductDetail.data) : '')
+                .catch(e => console.log(e))
         }
         if (dataListProDuctType) {
             setStateDataProductType(dataListProDuctType)
         }
         if (dataListProDuctGroup) {
-            setStateDataProductGroup(dataListProDuctGroup)
+            if (dataListProDuctGroup.length !== 0) {
+                console.log('rỗng');
+            }
+            else {
+                console.log('có');
+            }
         }
     }, [listProduct])
+
+    useEffect(() => {
+        console.log(stateListProductDetail);
+    }, [stateListProductDetail])
+
+    const handleHideModalAddProductDetail = () => {
+        setShowModalAddProductDetail(false)
+    }
 
     return (
         <>
@@ -145,9 +163,31 @@ const QlSanPham = () => {
                                                 <td className="text-sm text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap text-center">
                                                     {item.Ghi_chu}
                                                 </td>
-                                                <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                    <a href="#" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</a>
-                                                </td>
+                                                {
+                                                    stateListProductDetail ?
+                                                        stateListProductDetail.filter((itemProductDetail) => itemProductDetail.Id_san_pham === item.id) ?
+                                                            <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                                <Link onClick={() => localStorage.setItem('Id_Product_Detail', item.id)} to="/ProductDetail" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</Link>
+                                                            </td> :
+                                                            <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                                <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm đã có ròi</button>
+                                                            </td>
+
+                                                        // stateListProductDetail.map((itemProductDetail) => (
+                                                        //     (itemProductDetail.Id_san_pham === item.id) ?
+                                                        //         <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                        //             <Link onClick={() => localStorage.setItem('Id_Product_Detail', item.id)} to="/ProductDetail" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</Link>
+                                                        //         </td> : ''
+
+                                                        // ))
+                                                        // (itemProductDetail.Id_san_pham !== item.id) ?
+                                                        // <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                        //     <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm đã có ròi</button>
+                                                        // </td> : ''
+                                                        : <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                            <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm chưa có</button>
+                                                        </td>
+                                                }
                                                 <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
                                                     <button onClick={() => { dispatch(actions.getInfoProductAction.getInfoProductRequest(item.id)); setShowModalEditInfoProduct(true) }} className="px-4 py-1 text-sm text-black border-black font-semibold hover:bg-slate-600 hover:text-white hover:border-white border-2 rounded">Sửa</button>
                                                 </td>
@@ -155,7 +195,6 @@ const QlSanPham = () => {
                                             </tr>
                                         ))
                                     }
-
                                 </tbody>
                             </table>
                         </div>
@@ -172,6 +211,12 @@ const QlSanPham = () => {
                 showModalEditInfoProduct &&
                 <div className='fixed flex z-sticky items-center bg-slate-250 justify-center left-0 top-0 right-0 bottom-0'>
                     <EditInfoProduct isClose={hideModalEditInfoProduct} />
+                </div>
+            }
+            {
+                showModalAddProductDetail &&
+                <div className='fixed flex z-sticky  items-center bg-slate-250 justify-center left-0 top-0 right-0 bottom-0'>
+                    <ModalAddProductDetail isClose={handleHideModalAddProductDetail} />
                 </div>
             }
         </>

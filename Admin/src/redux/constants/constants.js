@@ -39,3 +39,17 @@ export const INIT_STATE_MESSAGE_EDIT_PRODUCT = {
         data: []
     }
 }
+
+export const INIT_STATE_MES_ADD_PRODUCT_DETAIL = {
+    state_Message_Add_Product_Detail: {
+        isLoading: false,
+        data: []
+    }
+}
+
+export const INIT_STATE_INFO_PRODUCT_DETAIL = {
+    state_Info_Product_Detail: {
+        isLoading: false,
+        data: []
+    }
+}

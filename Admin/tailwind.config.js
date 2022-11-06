@@ -1060,7 +1060,7 @@ module.exports = {
       },
       modalForm: {
         from: {
-          transform: "translateY(25%)",
+          transform: "translateY(100%)",
           opacity: "0"
         },
         to: {

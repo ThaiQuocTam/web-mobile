@@ -83,7 +83,7 @@ const handleRegister = (data) => {
                     signUpMessage.errCode = '3'
                     signUpMessage.message = 'Số điện thoại này đã đăng kí'
                 } else {
-                    if (data.Dien_thoai.length > 12) {
+                    if (data.Dien_thoai.length > 12 || data.Dien_thoai.length < 10) {
                         signUpMessage.errCode = '4'
                         signUpMessage.message = 'Số điện thoại không hợp lệ'
                     } else {

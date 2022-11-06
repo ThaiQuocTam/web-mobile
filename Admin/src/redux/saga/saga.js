@@ -62,6 +62,29 @@ function* handlePostEditInfoProductAction(action) {
     }
 }
 
+function* handlePostAddProductDetail(action) {
+    try {
+        console.log(action.payload);
+        const mes = yield call(api.apiPostAddProductDetail, action.payload)
+        console.log('message', mes.data);
+        // yield put(actions.postAddProductDetailAction.postAddProductDetailSuccess(mes.data))
+
+    } catch (e) {
+        yield put(actions.postAddProductDetailAction.postAddProductDetailFailure)
+    }
+}
+
+function* handleGetInfoProductDetail(action) {
+    try {
+        const infoProductDetail = yield call(api.apiGetInfoProductDetail, action.payload)
+        yield put(actions.getInfoProductDetailAction.getInfoProductDetailSuccess(infoProductDetail.data))
+
+    } catch (e) {
+        yield put(actions.getInfoProductDetailAction.getInfoProductDetailFailure)
+    }
+}
+
+
 function* mySaga() {
     yield takeLatest(actions.getListProductTypeAction.getListProductTypeRequest, handleGetListProductTypeAction)
     yield takeLatest(actions.getListProductGroupAction.getListProductGroupRequest, handleGetListProductGroupAction)
@@ -69,6 +92,8 @@ function* mySaga() {
     yield takeLatest(actions.getProductAction.getProductRequest, handleGetProductAction)
     yield takeLatest(actions.getInfoProductAction.getInfoProductRequest, handleGetInfoProductAction)
     yield takeLatest(actions.postEditInfoProductAction.postEditInfoProductRequest, handlePostEditInfoProductAction)
+    yield takeLatest(actions.postAddProductDetailAction.postAddProductDetailRequest, handlePostAddProductDetail)
+    yield takeLatest(actions.getInfoProductDetailAction.getInfoProductDetailRequest, handleGetInfoProductDetail)
 }
 
 export default mySaga

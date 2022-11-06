@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         Bo_nho_ROM: DataTypes.STRING,
         RAM: DataTypes.STRING,
         Dung_luong_PIN: DataTypes.STRING,
+        Hinh_anh: DataTypes.TEXT('long'),
         Id_san_pham: DataTypes.INTEGER,
     }, {
         sequelize,

@@ -172,7 +172,7 @@ const getInfoBill = async (data) => {
                     raw: true
 
                 })
-                if (infoOderDetail) {
+                if (infoOderDetail.length !== 0) {
                     messageGetOrderDetail.errCode = '0'
                     messageGetOrderDetail.message = 'Đã tìm thấy'
                     messageGetOrderDetail.infoOderDetail = infoOderDetail
