@@ -41,13 +41,28 @@ const SignIn = (props) => {
     }, [signData])
 
     const dataSubmit = (data) => {
-        dispatch(actions.signInAction.signInRequest(data))
+        if (data.Email !== '' || data.Mat_khau !== '') {
+            dispatch(actions.signInAction.signInRequest(data))
+        } else {
+            console.log('kh có');
+            setMessage('Vui lòng nhập đủ thông tin')
+        }
     }
 
     const handleCloseModalSignUp = () => {
         setShowModalSignUp(false)
         setHidden('flex')
     }
+
+    useEffect(() => {
+        if (message) {
+            let timerId = setTimeout(() => {
+                setMessage(false)
+            }, 3000);
+
+            return () => clearTimeout(timerId)
+        }
+    }, [message])
 
     return (
         <>
@@ -69,54 +84,58 @@ const SignIn = (props) => {
                             <div className="mt-4">
                                 <label className='font-semibold text-4'>Email</label>
                                 <input
-                                    {...register('Email', { required: true })}
+                                    {...register('Email', { required: false })}
                                     type="text"
                                     pattern="[A-Za-z]{1-15}"
-                                    className="mt-1 p-2 pr-12 text-3.5 bg-gray-400 focus:outline-none rounded border border-gray-400 w-full"
+                                    className="mt-1 p-2 pr-12 text-3.5 bg-gray-200 focus:outline-none rounded border-b-2 border-gray-500 w-full"
                                 />
-                                {
+                                {/* {
                                     errors.Email &&
                                     <div className='mt-3'>
                                         <p className='text-3 italic text-red-500'>Không được để trống</p>
                                     </div>
-                                }
+                                } */}
                             </div>
                             <div className="mt-4">
                                 <label className='text-4 font-semibold'>Mật khẩu</label>
                                 <input
-                                    {...register('Mat_khau', { required: true })}
+                                    {...register('Mat_khau', { required: false })}
                                     type={hidePass ? 'password' : 'text'}
-                                    className="mt-1 p-2 pr-12 bg-gray-400 focus:outline-none rounded border border-gray-400 w-full"
+                                    className="mt-1 p-2 pr-12 bg-gray-200 focus:outline-none rounded border-b-2 border-gray-500 w-full"
                                 />
                                 {
                                     hidePass ? <span className='relative right-4 float-right top-17px cursor-pointer' onClick={handleShowPass}><i class="bi bi-eye-slash-fill"></i></span> : <span className='relative right-4 float-right top-17px cursor-pointer line-through' onClick={handleShowPass}><i class="bi bi-eye-fill"></i></span>
                                 }
-                                {
+                                {/* {
                                     errors.Mat_khau &&
                                     <div className='mt-3'>
                                         <p className='text-3 italic text-red-500'>Không được để trống</p>
-                                    </div>
-                                }
+                                    </div>} */}
+
                             </div>
                             <div className='mt-3'>
-                                <p className='text-3.5 text-red-500'>{message}</p>
-                            </div>
-                            <div className=''>
-                                <div className="w-full">
-                                    <input
-                                        type="submit"
-                                        value="ĐĂNG NHẬP"
-                                        className="mt-1 p-2 hover:opacity-90 border w-full  border-gray-400 rounded cursor-pointer bg-green-950 text-white"
-                                    />
-                                </div>
 
-                                <div onClick={() => { setShowModalSignUp(true); setHidden('hidden') }} className="w-full">
-                                    <input
-                                        type='text'
-                                        value="ĐĂNG KÍ"
-                                        className="mt-2 p-2 text-center border-2  hover:border-green-500 font-semibold w-full border-green-950 rounded cursor-pointer  text-black"
-                                    />
+                                <div className=''>
+                                    <div className="w-full">
+                                        <input
+                                            type="submit"
+                                            value="ĐĂNG NHẬP"
+                                            className="mt-1 p-2 hover:opacity-90 border w-full  border-gray-400 rounded cursor-pointer bg-green-950 text-white"
+                                        />
+                                    </div>
+
+                                    <div onClick={() => { setShowModalSignUp(true); setHidden('hidden') }} className="w-full">
+                                        <input
+                                            type='text'
+                                            value="ĐĂNG KÍ"
+                                            className="mt-2 p-2 text-center border-2  hover:border-green-500 font-semibold w-full border-green-950 rounded cursor-pointer  text-black"
+                                        />
+                                    </div>
+
                                 </div>
+                            </div>
+                            <div className='pt-5'>
+                                <p className='text-3.5 text-red-500 text-center italic'>{message}</p>
                             </div>
                         </div>
                     </form>

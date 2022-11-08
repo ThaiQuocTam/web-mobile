@@ -3,7 +3,14 @@ import ModalThemSP from './ModalThemSP'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions/actions'
-import { listProductSelector, listProductTypeSelector, listProductGroupSelector, messageEditInfoProductSelector } from 'redux/selector/selector';
+import {
+    listProductSelector,
+    listProductTypeSelector,
+    listProductGroupSelector,
+    mesAddProductDetailSelector,
+    messageCreateProductSelector,
+    messageEditInfoProductSelector
+} from 'redux/selector/selector';
 import EditInfoProduct from './EditInfoProduct';
 import axios from 'axios';
 import ModalAddProductDetail from './ModalAddProductDetail';
@@ -15,6 +22,8 @@ const QlSanPham = () => {
     const listProduct = useSelector(listProductSelector)
     const dataListProDuctType = useSelector(listProductTypeSelector)
     const dataListProDuctGroup = useSelector(listProductGroupSelector)
+    const mesAddProduct = useSelector(messageCreateProductSelector)
+    const mesEditInfoProduct = useSelector(messageEditInfoProductSelector)
 
     const [showModalAddProduct, setShowModalAddProduct] = useState(false)
     const [showModalAddProductDetail, setShowModalAddProductDetail] = useState(false)
@@ -25,12 +34,10 @@ const QlSanPham = () => {
     const [stateListProductDetail, setStateListProductDetail] = useState()
 
     const hideModalAddProduct = () => {
-        location.reload()
         setShowModalAddProduct(false)
     }
 
     const hideModalEditInfoProduct = () => {
-        location.reload()
         setShowModalEditInfoProduct(false)
     }
 
@@ -53,17 +60,23 @@ const QlSanPham = () => {
         }
         if (dataListProDuctGroup) {
             if (dataListProDuctGroup.length !== 0) {
-                console.log('rỗng');
+                setStateDataProductGroup(dataListProDuctGroup)
             }
             else {
-                console.log('có');
+                console.log(dataListProDuctGroup);
             }
         }
-    }, [listProduct])
-
-    useEffect(() => {
-        console.log(stateListProductDetail);
-    }, [stateListProductDetail])
+        if (mesEditInfoProduct) {
+            console.log('hahaah');
+        }
+    }, [
+        listProduct
+        || dataListProDuctGroup
+        || dataListProDuctType
+        || mesAddProductDetailSelector
+        || mesAddProduct
+        || mesEditInfoProduct
+    ])
 
     const handleHideModalAddProductDetail = () => {
         setShowModalAddProductDetail(false)
@@ -165,13 +178,21 @@ const QlSanPham = () => {
                                                 </td>
                                                 {
                                                     stateListProductDetail ?
-                                                        stateListProductDetail.filter((itemProductDetail) => itemProductDetail.Id_san_pham === item.id) ?
+                                                        stateListProductDetail.some((itemProductDetail) => itemProductDetail.Id_san_pham === item.id) ?
                                                             <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
                                                                 <Link onClick={() => localStorage.setItem('Id_Product_Detail', item.id)} to="/ProductDetail" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</Link>
                                                             </td> :
                                                             <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                                <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm đã có ròi</button>
+                                                                <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-gray-700 border-gray-700 font-semibold hover:bg-gray-700 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm</button>
                                                             </td>
+                                                        // stateListProductDetail ?
+                                                        //     stateListProductDetail.filter((itemProductDetail) => itemProductDetail.Id_san_pham === item.id) ?
+                                                        //         <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                        //             <Link onClick={() => localStorage.setItem('Id_Product_Detail', item.id)} to="/ProductDetail" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</Link>
+                                                        //         </td> :
+                                                        //         <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                        //             <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm đã có ròi</button>
+                                                        //         </td>
 
                                                         // stateListProductDetail.map((itemProductDetail) => (
                                                         //     (itemProductDetail.Id_san_pham === item.id) ?

@@ -64,10 +64,8 @@ function* handlePostEditInfoProductAction(action) {
 
 function* handlePostAddProductDetail(action) {
     try {
-        console.log(action.payload);
         const mes = yield call(api.apiPostAddProductDetail, action.payload)
-        console.log('message', mes.data);
-        // yield put(actions.postAddProductDetailAction.postAddProductDetailSuccess(mes.data))
+        yield put(actions.postAddProductDetailAction.postAddProductDetailSuccess(mes.data))
 
     } catch (e) {
         yield put(actions.postAddProductDetailAction.postAddProductDetailFailure)

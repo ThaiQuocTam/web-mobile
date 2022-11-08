@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions/actions'
-import { listProductTypeSelector, listProductGroupSelector, messageCreateProductSelector } from 'redux/selector/selector';
+import { mesAddProductDetailSelector } from 'redux/selector/selector';
+import AddSuccess from './AddSuccess';
 
 const ModalAddProductDetail = (props) => {
 
     const dispatch = useDispatch()
+    const mesAddProductDetail = useSelector(mesAddProductDetailSelector)
+    const [showAddSuccess, setShowAddSuccess] = useState(false)
     const [id, setId] = useState()
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -44,6 +47,18 @@ const ModalAddProductDetail = (props) => {
         }
     }
 
+    useEffect(() => {
+        if (mesAddProductDetail) {
+            console.log(mesAddProductDetail);
+            setShowAddSuccess(true)
+        }
+    }, [mesAddProductDetail])
+
+    const handleHideModalAddSuccess = () => {
+        setShowAddSuccess(false)
+        props.isClose()
+    }
+
     return (
         <>
             <div className=''>
@@ -70,7 +85,7 @@ const ModalAddProductDetail = (props) => {
                                 <div className='px-2'>
                                     <div className=" pb-3">
                                         <input
-                                            type='number'
+                                            type='text'
                                             className='w-full placeholder:text-gray-500  text-3.5 border-2 rounded-2  focus:outline-none focus:border-red-200 hover:border-slate-200 border-slate-100 pl-5 py-2 text-slate-800 font-medium'
                                             placeholder='Độ phân giải'
                                             {...register('Do_phan_giai', { required: true })}
@@ -142,6 +157,12 @@ const ModalAddProductDetail = (props) => {
                     </div >
                 </form >
             </div >
+
+            {
+                showAddSuccess && <div>
+                    <AddSuccess show={handleHideModalAddSuccess} Mes={mesAddProductDetail ? mesAddProductDetail.errCode === '0' ? 'Thêm thành công' : '' : ''} />
+                </div>
+            }
         </>
     )
 }
