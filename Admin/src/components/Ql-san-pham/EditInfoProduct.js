@@ -8,6 +8,7 @@ import EditSuccess from './EditSuccess';
 const EditInfoProduct = (props) => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const messageEditInfoProduct = useSelector(messageEditInfoProductSelector)
     const infoProduct = useSelector(infoProductSelector)
     const dataListProDuctType = useSelector(listProductTypeSelector)

@@ -83,8 +83,61 @@ const checkIdProductDetail = async (id) => {
     }
 }
 
+const handleEditInfoProductDetail = async (req, res) => {
+    try {
+        if (req.body) {
+            let data = req.body
+            let idInfoProductDetail = await db.mo_ta_ct.findOne({
+                where: { id: data.id },
+                raw: true
+            })
+            if (idInfoProductDetail) {
+                if (idInfoProductDetail.Id_san_pham === data.Id_san_pham) {
+                    await db.mo_ta_ct.update({
+                        Cong_nghe_man_hinh: data.Cong_nghe_man_hinh,
+                        Do_phan_giai: data.Do_phan_giai,
+                        He_dieu_hanh: data.He_dieu_hanh,
+                        Chip_xu_ly: data.Chip_xu_ly,
+                        Bo_nho_ROM: data.Bo_nho_ROM,
+                        RAM: data.RAM,
+                        Dung_luong_PIN: data.Dung_luong_PIN,
+                        Hinh_anh: data.Hinh_anh,
+                        Id_san_pham: data.Id_san_pham
+                    },
+                        { where: { id: data.id } }
+                    )
+
+                    return res.status(200).json({
+                        errCode: '0',
+                        message: 'Chỉnh sửa thành công'
+                    })
+                }
+                else {
+                    return res.status(200).json({
+                        errCode: '3',
+                        message: 'Id_san_pham no defined'
+                    })
+                }
+            }
+            else {
+                return res.status(200).json({
+                    errCode: '1',
+                    message: 'Không tìm thấy sản phẩm'
+                })
+            }
+        }
+        else {
+            return res.status(200).json({
+                errCode: '2',
+                message: 'Chưa nhập đủ dữ liệu'
+            })
+        }
+    } catch (e) { console.log(e); }
+}
+
 module.exports = {
     handlePostAddProductDetail: handlePostAddProductDetail,
     handleGetInfoProductDetail: handleGetInfoProductDetail,
-    handleGetAllProductDetail: handleGetAllProductDetail
+    handleGetAllProductDetail: handleGetAllProductDetail,
+    handleEditInfoProductDetail: handleEditInfoProductDetail
 }

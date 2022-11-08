@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import ModalThemSP from './ModalThemSP'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions/actions'
 import {
@@ -19,6 +19,7 @@ import ModalAddProductDetail from './ModalAddProductDetail';
 const QlSanPham = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const listProduct = useSelector(listProductSelector)
     const dataListProDuctType = useSelector(listProductTypeSelector)
     const dataListProDuctGroup = useSelector(listProductGroupSelector)
@@ -34,10 +35,12 @@ const QlSanPham = () => {
     const [stateListProductDetail, setStateListProductDetail] = useState()
 
     const hideModalAddProduct = () => {
+        navigate(0)
         setShowModalAddProduct(false)
     }
 
     const hideModalEditInfoProduct = () => {
+        navigate(0)
         setShowModalEditInfoProduct(false)
     }
 
