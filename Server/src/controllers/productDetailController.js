@@ -43,6 +43,7 @@ const handlePostAddProductDetail = async (req, res) => {
 
 const handleGetInfoProductDetail = async (req, res) => {
     try {
+        console.log(req.body);
         if (req.query.Id_san_pham) {
             let data = await db.mo_ta_ct.findOne({
                 where: { Id_san_pham: req.query.Id_san_pham },
@@ -85,7 +86,21 @@ const checkIdProductDetail = async (id) => {
 
 const handleEditInfoProductDetail = async (req, res) => {
     try {
-        if (req.body) {
+        let Cong_nghe_man_hinh = req.body.Cong_nghe_man_hinh
+        let Do_phan_giai = req.body.Do_phan_giai
+        let He_dieu_hanh = req.body.He_dieu_hanh
+        let Chip_xu_ly = req.body.Chip_xu_ly
+        let Bo_nho_ROM = req.body.Bo_nho_ROM
+        let RAM = req.body.RAM
+        let Dung_luong_PIN = req.body.Dung_luong_PIN
+        let Hinh_anh = req.body.Hinh_anh
+        if (!Cong_nghe_man_hinh || !Do_phan_giai || !He_dieu_hanh || !Chip_xu_ly || !Bo_nho_ROM || !RAM || !Dung_luong_PIN || !Hinh_anh) {
+            return res.status(200).json({
+                errCode: '2',
+                message: 'Vui lòng nhập đầy đủ dữ liệu'
+            })
+        }
+        else {
             let data = req.body
             let idInfoProductDetail = await db.mo_ta_ct.findOne({
                 where: { id: data.id },
@@ -125,12 +140,6 @@ const handleEditInfoProductDetail = async (req, res) => {
                     message: 'Không tìm thấy sản phẩm'
                 })
             }
-        }
-        else {
-            return res.status(200).json({
-                errCode: '2',
-                message: 'Chưa nhập đủ dữ liệu'
-            })
         }
     } catch (e) { console.log(e); }
 }

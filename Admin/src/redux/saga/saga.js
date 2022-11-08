@@ -82,6 +82,16 @@ function* handleGetInfoProductDetail(action) {
     }
 }
 
+function* handlePostEditInfoProductDetail(action) {
+    try {
+        const mes = yield call(api.apiPostEditInfoProductDetail, action.payload)
+        yield put(actions.postEditInfoProductDetailAction.postEditInfoProductDetailSuccess(mes.data))
+
+    } catch (e) {
+        yield put(actions.postEditInfoProductDetailAction.postEditInfoProductDetailFailure)
+    }
+}
+
 
 function* mySaga() {
     yield takeLatest(actions.getListProductTypeAction.getListProductTypeRequest, handleGetListProductTypeAction)
@@ -92,6 +102,7 @@ function* mySaga() {
     yield takeLatest(actions.postEditInfoProductAction.postEditInfoProductRequest, handlePostEditInfoProductAction)
     yield takeLatest(actions.postAddProductDetailAction.postAddProductDetailRequest, handlePostAddProductDetail)
     yield takeLatest(actions.getInfoProductDetailAction.getInfoProductDetailRequest, handleGetInfoProductDetail)
+    yield takeLatest(actions.postEditInfoProductDetailAction.postEditInfoProductDetailRequest, handlePostEditInfoProductDetail)
 }
 
 export default mySaga

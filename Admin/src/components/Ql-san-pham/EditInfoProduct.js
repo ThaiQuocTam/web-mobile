@@ -14,7 +14,6 @@ const EditInfoProduct = (props) => {
     const dataListProDuctType = useSelector(listProductTypeSelector)
     const dataListProDuctGroup = useSelector(listProductGroupSelector)
     const [showSuccess, setShowSuccess] = useState(false)
-    const [state, setState] = useState()
     const [messageModal, setMessageModal] = useState('')
     const [stateDataSubmit, setStateDataSubmit] = useState({
         id: 0,

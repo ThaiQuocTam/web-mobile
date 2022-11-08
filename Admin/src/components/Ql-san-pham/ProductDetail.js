@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react'
 import * as actions from '../../redux/actions/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import { infoProductDetailSelector } from 'redux/selector/selector'
-import { Link } from 'react-router-dom'
+import { infoProductDetailSelector, mesEditInfoProductDetailSelector } from 'redux/selector/selector'
+import { Link, useNavigate } from 'react-router-dom'
+import ModalEditInfoProductDetail from './ModalEditInfoProductDetail'
 
 const ProductDetail = () => {
 
     const infoProductDetail = useSelector(infoProductDetailSelector)
+    const mesEditInfoProductDetail = useSelector(mesEditInfoProductDetailSelector)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [stateInfoProductDetail, setStateInfoProductDetail] = useState()
+    const [showModalEditInfoProductDetail, setShowModalEditInfoProductDetail] = useState(false)
 
     const id_Product = localStorage.getItem('Id_Product_Detail')
 
@@ -21,11 +25,16 @@ const ProductDetail = () => {
         } catch (e) {
             console.log(e);
         }
-    }, [id_Product])
+    }, [id_Product || mesEditInfoProductDetail])
 
     useEffect(() => {
         setStateInfoProductDetail(infoProductDetail)
-    }, [infoProductDetail])
+    }, [infoProductDetail || mesEditInfoProductDetail])
+
+    const handleHideModalEditInfoProductDetail = () => {
+        setShowModalEditInfoProductDetail(false)
+        navigate(0)
+    }
 
     return (
         <>
@@ -37,7 +46,7 @@ const ProductDetail = () => {
             </div>
             <div className='font-bold text-3xl pb-3'>Thông số sản phẩm</div>
             <div>
-                <button className='text-3.5 text-black border-gray-500 border-2 px-3 pr-5 py-3 font-semibold rounded-2 cursor-pointer hover:bg-slate-600 hover:text-white' >Chỉnh sửa thông tin</button>
+                <button onClick={() => setShowModalEditInfoProductDetail(true)} className='text-3.5 text-black border-gray-500 border-2 px-3 pr-5 py-3 font-semibold rounded-2 cursor-pointer hover:bg-slate-600 hover:text-white' >Chỉnh sửa thông tin</button>
             </div>
             <div className='px-5 pt-2 rounded-4'>
                 <div className='flex my-5 border-b border-gray-400 pb-2'>
@@ -104,6 +113,14 @@ const ProductDetail = () => {
                         <img className='w-full' src={stateInfoProductDetail ? stateInfoProductDetail.Hinh_anh : ''} />
                     </div>
                 </div>
+            </div>
+            <div>
+                {
+                    showModalEditInfoProductDetail && <div className='fixed flex z-sticky  items-center bg-slate-250 justify-center left-0 top-0 right-0 bottom-0'>
+                        <ModalEditInfoProductDetail isClose={handleHideModalEditInfoProductDetail} />
+                    </div>
+                }
+
             </div>
         </>
     )

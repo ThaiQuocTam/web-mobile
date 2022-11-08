@@ -4,6 +4,7 @@ const AddSuccess = (props) => {
 
     const [background, setBackground] = useState('')
     const [text, setTex] = useState('')
+    const [mesEditInfoProductDetail, setMesEditInfoProductDetail] = useState()
 
     useEffect(() => {
         if (props.Mes === 'Thêm thành công') {
@@ -11,6 +12,16 @@ const AddSuccess = (props) => {
             setTex('bi bi-check-circle')
         }
         else {
+            setBackground(`bg-red-500 w-80`)
+            setTex('bi bi-x-octagon-fill')
+        }
+        if (props.mesEditInfo.errCode === '0') {
+            setMesEditInfoProductDetail(props.mesEditInfo)
+            setBackground('bg-green-600 w-60')
+            setTex('bi bi-check-circle')
+        }
+        else {
+            setMesEditInfoProductDetail(props.mesEditInfo)
             setBackground(`bg-red-500 w-80`)
             setTex('bi bi-x-octagon-fill')
         }
@@ -29,7 +40,7 @@ const AddSuccess = (props) => {
                                 <i className={` ${text} text-8 text-white`} ></i>
                             </div>
                             <div className='leading-12 pl-2'>
-                                <span className='text-3.5 font-semibold text-white'>{props.Mes}</span>
+                                <span className='text-3.5 font-semibold text-white'>{props.Mes || mesEditInfoProductDetail ? mesEditInfoProductDetail.message : ''}</span>
                             </div>
                         </div>
                     </div>

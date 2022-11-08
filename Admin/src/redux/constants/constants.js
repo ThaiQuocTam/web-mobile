@@ -53,3 +53,10 @@ export const INIT_STATE_INFO_PRODUCT_DETAIL = {
         data: []
     }
 }
+
+export const INIT_STATE_MES_EDIT_INFO_PRODUCT_DETAIL = {
+    state_Mes_Edit_Info_Product_Detail: {
+        isLoading: false,
+        data: []
+    }
+}
