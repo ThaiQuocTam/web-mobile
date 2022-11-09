@@ -69,9 +69,6 @@ const QlSanPham = () => {
                 console.log(dataListProDuctGroup);
             }
         }
-        if (mesEditInfoProduct) {
-            console.log('hahaah');
-        }
     }, [
         listProduct
         || dataListProDuctGroup
@@ -82,6 +79,7 @@ const QlSanPham = () => {
     ])
 
     const handleHideModalAddProductDetail = () => {
+        navigate(0)
         setShowModalAddProductDetail(false)
     }
 
