@@ -9,7 +9,8 @@ import {
     listProductGroupSelector,
     mesAddProductDetailSelector,
     messageCreateProductSelector,
-    messageEditInfoProductSelector
+    messageEditInfoProductSelector,
+    infoProductSearchedSelector
 } from 'redux/selector/selector';
 import EditInfoProduct from './EditInfoProduct';
 import axios from 'axios';
@@ -25,6 +26,7 @@ const QlSanPham = () => {
     const dataListProDuctGroup = useSelector(listProductGroupSelector)
     const mesAddProduct = useSelector(messageCreateProductSelector)
     const mesEditInfoProduct = useSelector(messageEditInfoProductSelector)
+    const infoProduct = useSelector(infoProductSearchedSelector)
 
     const [showModalAddProduct, setShowModalAddProduct] = useState(false)
     const [showModalAddProductDetail, setShowModalAddProductDetail] = useState(false)
@@ -33,6 +35,9 @@ const QlSanPham = () => {
     const [stateDataProductType, setStateDataProductType] = useState([])
     const [stateDataProductGroup, setStateDataProductGroup] = useState([])
     const [stateListProductDetail, setStateListProductDetail] = useState()
+    const [stateValueSearchProduct, setStateValueSearchProduct] = useState({
+        Ten_san_pham: ''
+    })
 
     const hideModalAddProduct = () => {
         navigate(0)
@@ -50,6 +55,14 @@ const QlSanPham = () => {
         dispatch(actions.getListProductGroupAction.getListProductGroupRequest())
     }, [])
 
+    // useEffect(() => {
+    //     if (stateValueSearchProduct.Ten_san_pham !== '') {
+    //         dispatch(actions.getSearchProductAction.getSearchProductRequest(stateValueSearchProduct.Ten_san_pham))
+    //     }
+    //     else {
+
+    //     }
+    // }, [stateValueSearchProduct])
 
     useEffect(() => {
         if (listProduct) {
@@ -69,27 +82,42 @@ const QlSanPham = () => {
                 console.log(dataListProDuctGroup);
             }
         }
-    }, [
-        listProduct
-        || dataListProDuctGroup
-        || dataListProDuctType
-        || mesAddProductDetailSelector
-        || mesAddProduct
-        || mesEditInfoProduct
-    ])
+    }, [infoProduct || listProduct])
 
     const handleHideModalAddProductDetail = () => {
         navigate(0)
         setShowModalAddProductDetail(false)
     }
 
+
+
+    // useEffect(() => {
+    //     if (stateValueSearchProduct) {
+    //         if (infoProduct && stateValueSearchProduct.Ten_san_pham !== '') {
+    //             setStateListProduct(infoProduct)
+    //         }
+    //         else {
+    //             if (listProduct) {
+    //                 setStateListProduct(listProduct)
+    //                 axios.get(`http://localhost:7001/api/get-all-product-detail`)
+    //                     .then(listProductDetail => listProductDetail.data.length !== 0 ? setStateListProductDetail(listProductDetail.data) : '')
+    //                     .catch(e => console.log(e))
+    //             }
+    //         }
+    //     }
+
+    // }, [infoProduct])
+
     return (
         <>
-
             <div className='font-bold text-3xl pb-3 border-b border-slate-200'>Danh sách sản phẩm</div>
             <div className='w-full mt-4'>
-                <div className='inline-block'>
-                    <input className='border focus:outline-none border-green-700 text-3.5 hover:border-green-900 focus:border placeholder:text-3 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-96 mr-3 px-5' type={'text'} placeholder='Nhập sản phẩm cần tìm...' />
+                <div className='inline-block relative'>
+                    <input
+                        value={stateValueSearchProduct.Ten_san_pham}
+                        onChange={(e) => { setStateValueSearchProduct({ Ten_san_pham: e.target.value }) }
+                        }
+                        className='border focus:outline-none border-green-700 text-3.5 hover:border-green-900 focus:border placeholder:text-3 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-96 mr-3 px-5' type={'text'} placeholder='Nhập sản phẩm cần tìm...' />
                     <a className='inline-block h-10 leading-10' href='#'><i className="bi bi-search text-gray-600 h-10 inline-block hover:text-black text-5 cursor-pointer leading-10"></i></a>
                 </div>
                 <div className="leading-9 h-9 mb-5 inline-block ml-30rem" onClick={() => setShowModalAddProduct(true)}>

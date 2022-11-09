@@ -40,5 +40,8 @@ export const apiPostReview = (payload) => axios.post(`${URL}/api/post-review`, p
 
 export const apiShowReviewReview = (payload) => axios.get(`${URL}/api/get-show-review?idProduct=${payload.id}&&type=${payload.Loai}`)
 
+export const apiGetInfoProductDetail = (payload) => axios.get(`${URL}/api/get-info-product-detail?Id_san_pham=${payload}`)
+
+
 
 

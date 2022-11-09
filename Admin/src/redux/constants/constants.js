@@ -60,3 +60,10 @@ export const INIT_STATE_MES_EDIT_INFO_PRODUCT_DETAIL = {
         data: []
     }
 }
+
+export const INIT_STATE_SEARCH_PRODUCT = {
+    state_Search_Product: {
+        isLoading: false,
+        data: []
+    }
+}

@@ -87,3 +87,9 @@ export const getShowReviewAdminAction = createActions({
     getShowReviewAdminSuccess: (payload) => payload,
     getShowReviewAdminFailure: (err) => err
 })
+
+export const getInfoProductDetailAction = createActions({
+    getInfoProductDetailRequest: (payload) => payload,
+    getInfoProductDetailSuccess: (payload) => payload,
+    getInfoProductDetailFailure: (err) => err
+})

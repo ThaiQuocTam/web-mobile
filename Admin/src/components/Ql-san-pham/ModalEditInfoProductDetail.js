@@ -45,16 +45,16 @@ const ModalAddProductDetail = (props) => {
         if (infoProductDetail) {
             setStateInfoProductDetailEdit({
                 ...stateInfoProductDetailEdit,
-                id: infoProductDetail.id,
-                Cong_nghe_man_hinh: infoProductDetail.Cong_nghe_man_hinh,
-                Do_phan_giai: infoProductDetail.Do_phan_giai,
-                He_dieu_hanh: infoProductDetail.He_dieu_hanh,
-                Chip_xu_ly: infoProductDetail.Chip_xu_ly,
-                Bo_nho_ROM: infoProductDetail.Bo_nho_ROM,
-                RAM: infoProductDetail.RAM,
-                Dung_luong_PIN: infoProductDetail.Dung_luong_PIN,
-                Hinh_anh: infoProductDetail.Hinh_anh,
-                Id_san_pham: infoProductDetail.Id_san_pham
+                id: infoProductDetail.info.id,
+                Cong_nghe_man_hinh: infoProductDetail.info.Cong_nghe_man_hinh,
+                Do_phan_giai: infoProductDetail.info.Do_phan_giai,
+                He_dieu_hanh: infoProductDetail.info.He_dieu_hanh,
+                Chip_xu_ly: infoProductDetail.info.Chip_xu_ly,
+                Bo_nho_ROM: infoProductDetail.info.Bo_nho_ROM,
+                RAM: infoProductDetail.info.RAM,
+                Dung_luong_PIN: infoProductDetail.info.Dung_luong_PIN,
+                Hinh_anh: infoProductDetail.info.Hinh_anh,
+                Id_san_pham: infoProductDetail.info.Id_san_pham
             })
         }
     }, [infoProductDetail])
@@ -77,6 +77,7 @@ const ModalAddProductDetail = (props) => {
         if (mesEditInfoProductDetail) {
             setStateMesEdit(mesEditInfoProductDetail)
             setShowAddSuccess(true)
+            console.log(mesEditInfoProductDetail);
         }
     }, [mesEditInfoProductDetail])
 

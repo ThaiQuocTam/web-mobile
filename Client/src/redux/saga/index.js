@@ -138,6 +138,16 @@ function* handleGetOrderDetailAction(action) {
     }
 }
 
+function* handleGetInfoProductDetail(action) {
+    try {
+        const infoProductDetail = yield call(api.apiGetInfoProductDetail, action.payload)
+        yield put(actions.getInfoProductDetailAction.getInfoProductDetailSuccess(infoProductDetail.data))
+
+    } catch (e) {
+        yield put(actions.getInfoProductDetailAction.getInfoProductDetailFailure)
+    }
+}
+
 function* mySaga() {
     yield takeLatest(actions.signInAction.signInRequest, handleSignInAction)
     yield takeLatest(actions.signUpAction.signUpRequest, handleSignUpAction)
@@ -153,6 +163,8 @@ function* mySaga() {
     yield takeLatest(actions.getShowReviewUserAction.getShowReviewUserRequest, handleGetShowReviewUserAction)
     yield takeLatest(actions.getShowReviewAdminAction.getShowReviewAdminRequest, handleGetShowReviewAdminAction)
     yield takeLatest(actions.getOrderDetailAction.getOrderDetailRequest, handleGetOrderDetailAction)
+    yield takeLatest(actions.getInfoProductDetailAction.getInfoProductDetailRequest, handleGetInfoProductDetail)
+
 }
 export default mySaga
 actions.getOrderDetailAction.getOrderDetailRequest

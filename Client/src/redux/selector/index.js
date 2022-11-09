@@ -11,4 +11,6 @@ export const listProductGroupSelector = (state) => state.getListProductGroupRedu
 export const mesPostReviewSelector = (state) => state.postReviewReducer.data
 export const mesPostPaymentSelector = (state) => state.postPaymentReducer.data
 export const listReviewUserSelector = (state) => state.getShowReviewUserReducer.data
-export const listReviewAdminSelector = (state) => state.getShowReviewAdminReducer.data 
+export const listReviewAdminSelector = (state) => state.getShowReviewAdminReducer.data
+export const infoProductDetailSelector = (state) => state.getInfoProductDetailReducer.data
+

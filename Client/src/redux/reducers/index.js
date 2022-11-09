@@ -13,6 +13,7 @@ import postPaymentReducer from './postPaymentReducer'
 import postReviewReducer from './postReviewReducer'
 import getShowReviewUserReducer from './getReviewUserReducer'
 import getShowReviewAdminReducer from './getReviewAdminReducer'
+import getInfoProductDetailReducer from './getInfoProductDetailReducer'
 
 export default combineReducers({
     signInReducer,
@@ -28,5 +29,6 @@ export default combineReducers({
     postPaymentReducer,
     postReviewReducer,
     getShowReviewUserReducer,
-    getShowReviewAdminReducer
+    getShowReviewAdminReducer,
+    getInfoProductDetailReducer
 })

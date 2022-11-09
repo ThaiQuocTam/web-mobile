@@ -58,4 +58,10 @@ export const postEditInfoProductDetailAction = createActions({
     postEditInfoProductDetailFailure: (err) => err
 })
 
+export const getSearchProductAction = createActions({
+    getSearchProductRequest: (payload) => payload,
+    getSearchProductSuccess: (payload) => payload,
+    getSearchProductFailure: (err) => err
+})
+
 

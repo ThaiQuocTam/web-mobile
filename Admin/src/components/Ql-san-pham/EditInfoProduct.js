@@ -210,7 +210,7 @@ const EditInfoProduct = (props) => {
                                     />
                                 </div>
                                 <div className='px-2 w-full text-center mb-5'>
-                                    <Link to='/QlSanPham' onClick={handleSubmitEdtProduct} className='w-full block bg-gradient-dark-gray text-white py-1 rounded-2 hover:opacity-90'> Lưu</Link>
+                                    <Link to='#' onClick={handleSubmitEdtProduct} className='w-full block bg-gradient-dark-gray text-white py-1 rounded-2 hover:opacity-90'> Lưu</Link>
                                 </div>
                             </div>
                         </div>

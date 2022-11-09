@@ -141,7 +141,7 @@ const SearchProduct = (data) => {
             if (data) {
                 let check = await db.san_pham.find({
                     '$or': [
-                        { 'Ten_san_pham': { $regex: data } }
+                        { 'Ten_san_pham': { $regex: data.Ten_san_pham } }
                     ]
                 })
                 console.log(check);

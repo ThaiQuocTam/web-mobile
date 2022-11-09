@@ -8,13 +8,16 @@ const EditSuccess = (props) => {
 
     useEffect(() => {
         if (props.mes === 'Chỉnh sửa thành công') {
+            console.log('hhi');
             setBackground('bg-green-600 w-60')
             setTex('bi bi-check-circle')
         }
         else {
+            console.log('hahah');
             setBackground(`bg-red-500 w-80`)
             setTex('bi bi-x-octagon-fill')
         }
+        console.log(props.mes);
     }, [props])
 
     return (

@@ -3,7 +3,6 @@ import db from "../models"
 
 const handlePostAddProductDetail = async (req, res) => {
     try {
-        console.log(req.body);
         if (req.body) {
             let checkId = await checkIdProductDetail(req.Id_san_pham)
             if (checkId) {
@@ -43,13 +42,12 @@ const handlePostAddProductDetail = async (req, res) => {
 
 const handleGetInfoProductDetail = async (req, res) => {
     try {
-        console.log(req.body);
         if (req.query.Id_san_pham) {
             let data = await db.mo_ta_ct.findOne({
                 where: { Id_san_pham: req.query.Id_san_pham },
                 raw: true
             })
-            data ? res.status(200).json(data) : res.status(200).json({ errCode: '2', message: 'Không tìm thấy sản phẩm' })
+            data ? res.status(200).json({ errCode: '0', info: data }) : res.status(200).json({ errCode: '2', message: 'Không tìm thấy sản phẩm' })
         } else {
             return res.status(200).json({
                 errCode: '1',

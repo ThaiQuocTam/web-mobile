@@ -94,3 +94,10 @@ export const INIT_STATE_REVIEW_ADMIN = {
         data: [],
     }
 }
+
+export const INIT_STATE_INFO_PRODUCT_DETAIL = {
+    state_Info_Product_Detail: {
+        isLoading: false,
+        data: []
+    }
+}

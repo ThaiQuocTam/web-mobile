@@ -70,7 +70,7 @@ const ReviewProduct = (props) => {
                     <textarea
                         type='text'
                         placeholder='Nhập nội dung...'
-                        className='w-full h-24 bg-slate-50 rounded-5 placeholder:text-3 text-3.5 p-5 outline-none focus:border focus:border-gray-500'
+                        className='w-full h-24 bg-blue-100 rounded-5 placeholder:text-3 placeholder:text-gray-900 text-3.5 p-5 outline-none focus:border focus:border-gray-500'
                         {...register('Noi_dung', { required: true })}
                     />
                     {/* {

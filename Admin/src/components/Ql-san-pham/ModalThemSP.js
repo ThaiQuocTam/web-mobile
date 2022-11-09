@@ -105,8 +105,8 @@ const ModalThemSP = ({ isClose }) => {
         if (showSuccess) {
             const timer = setTimeout(() => {
                 setShowSuccess(false)
-                return () => clearTimeout(timer);
-            }, 5000);
+            }, 3000);
+            return () => clearTimeout(timer);
         }
     }, [showSuccess]);
 

@@ -54,7 +54,7 @@ const ProductDetail = () => {
                         <span className='text-4 font-semibold text-gray-800'>Công nghệ màn hình</span>
                     </div>
                     <div className='w-80pc'>
-                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.Cong_nghe_man_hinh : ''}</span>
+                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.info.Cong_nghe_man_hinh : ''}</span>
                     </div>
                 </div>
                 <div className='flex my-5 border-b border-gray-400 pb-2'>
@@ -62,7 +62,7 @@ const ProductDetail = () => {
                         <span className='text-4 font-semibold text-gray-800'>Độ phân giải</span>
                     </div>
                     <div className='w-80pc'>
-                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.Do_phan_giai : ''}</span>
+                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.info.Do_phan_giai : ''}</span>
                     </div>
                 </div>
                 <div className='flex my-5 border-b border-gray-400 pb-2'>
@@ -70,7 +70,7 @@ const ProductDetail = () => {
                         <span className='text-4 font-semibold text-gray-800'>Hệ điều hành</span>
                     </div>
                     <div className='w-80pc'>
-                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.He_dieu_hanh : ''}</span>
+                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.info.He_dieu_hanh : ''}</span>
                     </div>
                 </div>
                 <div className='flex my-5 border-b border-gray-400 pb-2'>
@@ -78,7 +78,7 @@ const ProductDetail = () => {
                         <span className='text-4 font-semibold text-gray-800'>Chíp xử lý</span>
                     </div>
                     <div className='w-80pc'>
-                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.Chip_xu_ly : ''}</span>
+                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.info.Chip_xu_ly : ''}</span>
                     </div>
                 </div>
                 <div className='flex my-5 border-b border-gray-400 pb-2'>
@@ -86,7 +86,7 @@ const ProductDetail = () => {
                         <span className='text-4 font-semibold text-gray-800'>Bộ nhớ ROM</span>
                     </div>
                     <div className='w-80pc'>
-                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.Bo_nho_ROM : ''}</span>
+                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.info.Bo_nho_ROM : ''}</span>
                     </div>
                 </div>
                 <div className='flex my-5 border-b border-gray-400 pb-2'>
@@ -94,7 +94,7 @@ const ProductDetail = () => {
                         <span className='text-4 font-semibold text-gray-800'>RAM</span>
                     </div>
                     <div className='w-80pc'>
-                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.RAM : ''}</span>
+                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.info.RAM : ''}</span>
                     </div>
                 </div>
                 <div className='flex my-5 border-b border-gray-400 pb-2'>
@@ -102,7 +102,7 @@ const ProductDetail = () => {
                         <span className='text-4 font-semibold text-gray-800'>Dung lượng pin</span>
                     </div>
                     <div className='w-80pc'>
-                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.Dung_luong_PIN : ''}</span>
+                        <span className='text-4 text-gray-800'>{stateInfoProductDetail ? stateInfoProductDetail.info.Dung_luong_PIN : ''}</span>
                     </div>
                 </div>
                 <div className='flex'>
@@ -110,7 +110,7 @@ const ProductDetail = () => {
                         <span className='text-4 font-semibold text-gray-800'>Hình ảnh</span>
                     </div>
                     <div className='w-80pc mr-48 border border-gray-400 rounded-5 p-2'>
-                        <img className='w-full' src={stateInfoProductDetail ? stateInfoProductDetail.Hinh_anh : ''} />
+                        <img className='w-full' src={stateInfoProductDetail ? stateInfoProductDetail.info.Hinh_anh : ''} />
                     </div>
                 </div>
             </div>

@@ -65,7 +65,7 @@ const ShowReviewProduct = (props) => {
         <>
 
             {(stateListInfoReviewUser.length !== 0) ?
-                <div className='w-full border border-gray-200 bg-white rounded-2 mt-5 px-5 pb-5 '>
+                <div className='w-full border-t border-x border-gray-500 bg-white rounded-2 mt-5 px-5 pb-5 '>
                     {
                         stateListInfoReviewUser.map((item) => (
                             <div

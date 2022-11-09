@@ -20,3 +20,6 @@ export const apiPostEditInfoProduct = (payload) => axios.post(`${URL}/api/post-e
 export const apiPostAddProductDetail = (payload) => axios.post(`${URL}/api/post-add-product-detail`, payload)
 export const apiGetInfoProductDetail = (payload) => axios.get(`${URL}/api/get-info-product-detail?Id_san_pham=${payload}`)
 export const apiPostEditInfoProductDetail = (payload) => axios.post(`${URL}/api/post-edit-info-product-detail`, payload)
+export const apiGetSearchProduct = (payload) => axios.get(`${URL}/api/get-search-product?Ten_san_pham=${payload}`)
+
+

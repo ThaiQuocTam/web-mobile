@@ -8,6 +8,7 @@ import postEditInfoProductReducer from './postEditInfoProductReducer'
 import postAddProductDetailReducer from './postAddProductDetailReducer'
 import getInfoProductDetailReducer from './getInfoProductDetail'
 import postEditInfoProductDetailReducer from './postEditInfoProductDetailReducer'
+import getSearchProductReducer from './getSearchProduct'
 
 export default combineReducers({
     getListProductTypeReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
     postEditInfoProductReducer,
     postAddProductDetailReducer,
     getInfoProductDetailReducer,
-    postEditInfoProductDetailReducer
+    postEditInfoProductDetailReducer,
+    getSearchProductReducer
 })  

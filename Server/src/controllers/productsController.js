@@ -1,5 +1,7 @@
-import db from '../models/index'
+import e from 'express'
+import db, { Sequelize } from '../models/index'
 import productsService from '../services/productsService'
+const Op = Sequelize.Op
 
 const handleAddProduct = async (req, res) => {
     let Ten_san_pham = req.body.Ten_san_pham
@@ -85,8 +87,8 @@ const handlePostEditInfoProduct = async (req, res) => {
         let Id_loai_SP = req.body.Id_loai_SP
         let Id_nhom_SP = req.body.Id_nhom_SP
 
-        if (!id || !Ten_san_pham || !Hinh_anh || !Gia_san_pham || !So_luong_SP < 0 || !Id_loai_SP || !Id_nhom_SP) {
-            return res.status(500).json({
+        if (!id || !Ten_san_pham || !Hinh_anh || !Gia_san_pham || !So_luong_SP || So_luong_SP < 0 || !Id_loai_SP || !Id_nhom_SP) {
+            return res.status(200).json({
                 errCode: '1',
                 message: 'Vui lòng nhập đầy đủ thông tin'
             })
@@ -101,13 +103,33 @@ const handlePostEditInfoProduct = async (req, res) => {
     }
 }
 
-const handlePostSearchProduct = async (req, res) => {
+const handleGetSearchProduct = async (req, res) => {
     try {
-        let data = await productsService.SearchProduct(req.query)
-        return res.status(200).json(data)
-    } catch (e) {
+        if (req.query.Ten_san_pham) {
+            const data = await db.san_pham.findAll({
+                where: {
+                    Ten_san_pham: { [Op.like]: `%${req.query.Ten_san_pham}%` },
+                },
+                default: true,
+                order: [
+                    ['updatedAt', 'DESC']
+                ],
+                raw: true,
+            });
 
-    }
+            if (data) {
+                return res.status(200).json(data)
+            }
+            else {
+                return res.status(200).json({
+                    errCode: '1',
+                    data: data
+                })
+            }
+        }
+        else {
+        }
+    } catch (e) { console.log(e) }
 }
 
 const handleGetSmartphone = async (req, res) => {
@@ -172,7 +194,7 @@ module.exports = {
     handleGetProduct: handleGetProduct,
     handleGetInfoProduct: handleGetInfoProduct,
     handlePostEditInfoProduct: handlePostEditInfoProduct,
-    handlePostSearchProduct: handlePostSearchProduct,
+    handleGetSearchProduct: handleGetSearchProduct,
     handleGetSmartphone: handleGetSmartphone,
     handleGetInfoBill: handleGetInfoBill,
     handleGetInfoOderDetail: handleGetInfoOderDetail

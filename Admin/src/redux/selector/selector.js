@@ -7,3 +7,4 @@ export const messageEditInfoProductSelector = (state) => state.postEditInfoProdu
 export const mesAddProductDetailSelector = (state) => state.postAddProductDetailReducer.data
 export const infoProductDetailSelector = (state) => state.getInfoProductDetailReducer.data
 export const mesEditInfoProductDetailSelector = (state) => state.postEditInfoProductDetailReducer.data
+export const infoProductSearchedSelector = (state) => state.getSearchProductReducer.data

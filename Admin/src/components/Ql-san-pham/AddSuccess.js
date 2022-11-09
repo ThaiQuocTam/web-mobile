@@ -15,15 +15,17 @@ const AddSuccess = (props) => {
             setBackground(`bg-red-500 w-80`)
             setTex('bi bi-x-octagon-fill')
         }
-        if (props.mesEditInfo.errCode === '0') {
-            setMesEditInfoProductDetail(props.mesEditInfo)
-            setBackground('bg-green-600 w-60')
-            setTex('bi bi-check-circle')
-        }
-        else {
-            setMesEditInfoProductDetail(props.mesEditInfo)
-            setBackground(`bg-red-500 w-80`)
-            setTex('bi bi-x-octagon-fill')
+        if (props.mesEditInfo) {
+            if (props.mesEditInfo.errCode === '0') {
+                setMesEditInfoProductDetail(props.mesEditInfo)
+                setBackground('bg-green-600 w-60')
+                setTex('bi bi-check-circle')
+            }
+            else {
+                setMesEditInfoProductDetail(props.mesEditInfo)
+                setBackground(`bg-red-500 w-80`)
+                setTex('bi bi-x-octagon-fill')
+            }
         }
     }, [props])
 
@@ -40,7 +42,13 @@ const AddSuccess = (props) => {
                                 <i className={` ${text} text-8 text-white`} ></i>
                             </div>
                             <div className='leading-12 pl-2'>
-                                <span className='text-3.5 font-semibold text-white'>{props.Mes || mesEditInfoProductDetail ? mesEditInfoProductDetail.message : ''}</span>
+                                {
+                                    mesEditInfoProductDetail ?
+                                        <span className='text-3.5 font-semibold text-white'>{mesEditInfoProductDetail ? mesEditInfoProductDetail.message : ''}</span> : <span className='text-3.5 font-semibold text-white'>{props.Mes || ''}</span>
+                                }
+                                {/* {
+                                    <span className='text-3.5 font-semibold text-white'>{props.Mes || ''}</span>
+                                } */}
                             </div>
                         </div>
                     </div>
