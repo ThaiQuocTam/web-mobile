@@ -55,18 +55,28 @@ const QlSanPham = () => {
         dispatch(actions.getListProductGroupAction.getListProductGroupRequest())
     }, [])
 
-    // useEffect(() => {
-    //     if (stateValueSearchProduct.Ten_san_pham !== '') {
-    //         dispatch(actions.getSearchProductAction.getSearchProductRequest(stateValueSearchProduct.Ten_san_pham))
-    //     }
-    //     else {
+    useEffect(() => {
+        if (infoProduct) {
+            setStateListProduct(infoProduct)
+        }
+    }, [infoProduct])
 
-    //     }
-    // }, [stateValueSearchProduct])
+    useEffect(() => {
+        if (stateValueSearchProduct.Ten_san_pham !== '') {
+            dispatch(actions.getSearchProductAction.getSearchProductRequest(stateValueSearchProduct.Ten_san_pham))
+            setStateListProduct([])
+        }
+        else {
+            if (listProduct) {
+                setStateListProduct([])
+                setStateListProduct(listProduct)
+            }
+        }
+    }, [listProduct && stateValueSearchProduct])
 
     useEffect(() => {
         if (listProduct) {
-            setStateListProduct(listProduct)
+            // setStateListProduct(listProduct)
             axios.get(`http://localhost:7001/api/get-all-product-detail`)
                 .then(listProductDetail => listProductDetail.data.length !== 0 ? setStateListProductDetail(listProductDetail.data) : '')
                 .catch(e => console.log(e))
@@ -82,12 +92,14 @@ const QlSanPham = () => {
                 console.log(dataListProDuctGroup);
             }
         }
-    }, [infoProduct || listProduct])
+    }, [listProduct])
 
     const handleHideModalAddProductDetail = () => {
         navigate(0)
         setShowModalAddProductDetail(false)
     }
+
+
 
 
 

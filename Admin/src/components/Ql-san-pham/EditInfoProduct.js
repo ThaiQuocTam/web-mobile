@@ -27,6 +27,8 @@ const EditInfoProduct = (props) => {
         Id_nhom_SP: 0
     })
 
+    console.log(infoProduct);
+
     useEffect(() => {
         dispatch(actions.getListProductTypeAction.getListProductTypeRequest())
         dispatch(actions.getListProductGroupAction.getListProductGroupRequest())
