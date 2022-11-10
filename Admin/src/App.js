@@ -12,9 +12,10 @@ import { Routes, Route } from 'react-router-dom'
 function App() {
   return (
     <>
-      <div className='w-9/12 absolute right-0 p-5'>
+      <div className='w-80pc absolute right-0 p-5'>
         <Routes>
           <Route path='/' element={<HomeAdminPage />} />
+          <Route path='/Home' element={<HomeAdminPage />} />
           <Route path='/QlHoaDon' element={<QlHoaDonPage />} />
           <Route path='/QlSanPham' element={<QlSanPhamPage />} />
           <Route path='/QlThanhVien' element={<QlThanhVienPage />} />
