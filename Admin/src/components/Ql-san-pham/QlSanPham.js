@@ -161,7 +161,7 @@ const QlSanPham = () => {
                                     {
                                         stateListProduct.map((item, index) => (
                                             <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                                                <td className="whitespace-nowrap sticky left-0 text-center text-3.5 text-sm font-medium text-gray-900 px-2 py-2">
+                                                <td className="whitespace-nowrap text-center text-3.5 text-sm font-medium text-gray-900 px-2 py-2">
                                                     {index + 1}
                                                 </td>
                                                 <td className="whitespace-nowrap text-center text-sm text-3.5 font-medium text-gray-900 px-2 py-2">

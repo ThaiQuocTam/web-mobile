@@ -545,6 +545,7 @@ module.exports = {
       bounce: "bounce 1s infinite",
       "fade-up": "fade-up 1.5s both",
       modalForm: "modalForm 0.5s ease",
+      childNav: "childNav 0.5s ease",
       aniLeft1: "aniLeft1 0.8s ease",
       aniLeft2: "aniLeft2 0.8s ease",
       aniRight1: "aniRight1 0.8s ease",
@@ -1062,6 +1063,16 @@ module.exports = {
       modalForm: {
         from: {
           transform: "translateY(100%)",
+          opacity: "0"
+        },
+        to: {
+          opacity: "1"
+        }
+      },
+
+      childNav: {
+        from: {
+          transform: "translateY(-20px)",
           opacity: "0"
         },
         to: {

@@ -187,6 +187,40 @@ const handleGetInfoOderDetail = async (req, res) => {
     }
 }
 
+const handlePostAddProductGroup = async (req, res) => {
+    try {
+        if (req.body) {
+            let info = await db.nhom_sp.findAll({
+                where: { Ten_nhom: req.body.Ten_nhom }
+            })
+            if (info) {
+                return res.status(200).json({
+                    errCode: '2',
+                    message: 'Đã tồn tại tên nhóm'
+                })
+            }
+            else {
+                let mes = await db.nhom_sp.create({
+                    Ten_nhom: req.body.Ten_nhom
+                })
+
+                if (mes) {
+                    return res.status(200).json({
+                        errCode: '0',
+                        message: 'Thêm thành công'
+                    })
+                }
+                else {
+                    return res.status.json({
+                        errCode: '1',
+                        message: 'Thêm thất bại'
+                    })
+                }
+            }
+        }
+    } catch (e) { console.log(e) }
+}
+
 module.exports = {
     handleAddProduct: handleAddProduct,
     handleGetProductGroup: handleGetProductGroup,
@@ -197,5 +231,6 @@ module.exports = {
     handleGetSearchProduct: handleGetSearchProduct,
     handleGetSmartphone: handleGetSmartphone,
     handleGetInfoBill: handleGetInfoBill,
-    handleGetInfoOderDetail: handleGetInfoOderDetail
+    handleGetInfoOderDetail: handleGetInfoOderDetail,
+    handlePostAddProductGroup: handlePostAddProductGroup
 }

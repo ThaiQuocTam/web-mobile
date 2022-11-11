@@ -3,6 +3,8 @@ import ModalAddProductDetail from 'components/Ql-san-pham/ModalAddProductDetail'
 import ModalThemSP from 'components/Ql-san-pham/ModalThemSP';
 import HomeAdminPage from 'page/HomeAdmin.page';
 import ProductDetailPage from 'page/ProductDetail.page';
+import ProductGroupPage from 'page/ProductGroupPage';
+import ProductTypePage from 'page/ProductTypePage';
 import QlHoaDonPage from 'page/QlHoaDon.page';
 import QlSanPhamPage from 'page/QlSanPham.page';
 import QlThanhVienPage from 'page/QlThanhVien.page';
@@ -15,6 +17,8 @@ function App() {
       <div className='w-80pc absolute right-0 p-5'>
         <Routes>
           <Route path='/' element={<HomeAdminPage />} />
+          <Route path='/QlNhomSP' element={<ProductGroupPage />} />
+          <Route path='/QlLoaiSP' element={<ProductTypePage />} />
           <Route path='/Home' element={<HomeAdminPage />} />
           <Route path='/QlHoaDon' element={<QlHoaDonPage />} />
           <Route path='/QlSanPham' element={<QlSanPhamPage />} />
