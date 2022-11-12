@@ -189,7 +189,7 @@ const handleGetInfoOderDetail = async (req, res) => {
 
 const handlePostAddProductGroup = async (req, res) => {
     try {
-        if (req.body) {
+        if (req.body.Ten_nhom !== '') {
             let info = await db.nhom_sp.findOne({
                 where: { Ten_nhom: req.body.Ten_nhom }
             })
@@ -218,6 +218,116 @@ const handlePostAddProductGroup = async (req, res) => {
                 }
             }
         }
+        else {
+            return res.status(200).json({
+                errCode: '3',
+                message: 'Vui lòng nhập dữ liệu'
+            })
+        }
+    } catch (e) { console.log(e) }
+}
+
+const handlePostEditProductGroup = async (req, res) => {
+    try {
+        if (req.body && req.body.Ten_nhom !== '') {
+            let infoProductGroup = await db.nhom_sp.findOne({
+                where: { id: req.body.id_nhom },
+                raw: true
+            })
+
+            if (infoProductGroup) {
+                await db.nhom_sp.update(
+                    {
+                        Ten_nhom: req.body.Ten_nhom
+                    },
+                    {
+                        where: { id: req.body.id_nhom }
+                    }
+                )
+                return res.status(200).json({
+                    errCode: '0',
+                    message: 'Cập nhật thành công'
+                })
+            }
+        }
+        else {
+            return res.status(200).json({
+                errCode: '1',
+                message: 'Vui lòng nhập dữ liệu'
+            })
+        }
+    } catch (e) { console.log(e) }
+}
+
+const handlePostAddProductTye = async (req, res) => {
+    try {
+        if (req.body.Ten_loai_SP !== '') {
+            let info = await db.loai_sp.findOne({
+                where: { Ten_loai_SP: req.body.Ten_loai_SP }
+            })
+            if (info) {
+                return res.status(200).json({
+                    errCode: '2',
+                    message: 'Loại sản phẩm này đã tồn tại'
+                })
+            }
+            else {
+                let mes = await db.loai_sp.create({
+                    Ten_loai_SP: req.body.Ten_loai_SP
+                })
+
+                if (mes) {
+                    return res.status(200).json({
+                        errCode: '0',
+                        message: 'Thêm thành công'
+                    })
+                }
+                else {
+                    return res.status.json({
+                        errCode: '1',
+                        message: 'Thêm thất bại'
+                    })
+                }
+            }
+        }
+        else {
+            return res.status(200).json({
+                errCode: '3',
+                message: 'Vui lòng nhập dữ liệu'
+            })
+        }
+    } catch (e) { console.log(e) }
+}
+
+const handlePostEditProductType = async (req, res) => {
+    try {
+        if (req.body && req.body.Ten_loai_SP !== '') {
+            let infoProductType = await db.loai_sp.findOne({
+                where: { id: req.body.id_loai_SP },
+                raw: true
+            })
+
+            if (infoProductType) {
+                await db.loai_sp.update(
+                    {
+                        Ten_loai_SP: req.body.Ten_loai_SP
+                    },
+                    {
+                        where: { id: req.body.id_loai_SP }
+                    }
+                )
+                return res.status(200).json({
+                    errCode: '0',
+                    message: 'Cập nhật thành công'
+                })
+            }
+        }
+        else {
+            return res.status(200).json({
+                errCode: '1',
+                message: 'Vui lòng nhập dữ liệu'
+            })
+        }
     } catch (e) { console.log(e) }
 }
 
@@ -232,5 +342,8 @@ module.exports = {
     handleGetSmartphone: handleGetSmartphone,
     handleGetInfoBill: handleGetInfoBill,
     handleGetInfoOderDetail: handleGetInfoOderDetail,
-    handlePostAddProductGroup: handlePostAddProductGroup
+    handlePostAddProductGroup: handlePostAddProductGroup,
+    handlePostEditProductGroup: handlePostEditProductGroup,
+    handlePostAddProductTye: handlePostAddProductTye,
+    handlePostEditProductType: handlePostEditProductType
 }

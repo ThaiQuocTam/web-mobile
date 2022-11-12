@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path='/' element={<HomeAdminPage />} />
           <Route path='/QlNhomSP' element={<ProductGroupPage />} />
-          <Route path='/QlLoaiSP' element={<ProductTypePage />} />
+          <Route path='/QlLoaiSanPham' element={<ProductTypePage />} />
           <Route path='/Home' element={<HomeAdminPage />} />
           <Route path='/QlHoaDon' element={<QlHoaDonPage />} />
           <Route path='/QlSanPham' element={<QlSanPhamPage />} />

@@ -34,6 +34,12 @@ const initWebRoutes = (app) => {
     router.get('/api/get-all-product-detail', productDetailController.handleGetAllProductDetail)
     router.post('/api/post-edit-info-product-detail', productDetailController.handleEditInfoProductDetail)
     router.post('/api/post-add-product-group', productsController.handlePostAddProductGroup)
+    router.put('/api/put-edit-info-product-group', productsController.handlePostEditProductGroup)
+    router.post('/api/post-add-product-type', productsController.handlePostAddProductTye)
+    router.put('/api/put-edit-info-product-type', productsController.handlePostEditProductType)
+
+
+
 
     return app.use("/", router);
 }
