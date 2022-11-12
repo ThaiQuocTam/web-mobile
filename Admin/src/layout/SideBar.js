@@ -39,7 +39,7 @@ const SideBar = () => {
                                     </div>
                                     <span className='text-4 ml-2'>Sản phẩm</span>
                                 </NavLink>
-                                <i onClick={() => setShowChildNav(!showChildNav)} className='bi bi-caret-down-fill text-gray-600 absolute top-5     right-5 text-5 hover:text-sky-500'></i>
+                                <i onClick={() => setShowChildNav(!showChildNav)} className='bi cursor-pointer bi-caret-down-fill text-gray-600 absolute top-5     right-5 text-5 hover:text-sky-500'></i>
                             </div>
 
                         </li>

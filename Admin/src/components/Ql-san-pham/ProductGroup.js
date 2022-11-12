@@ -24,11 +24,11 @@ const ProductGroup = () => {
             setStateListProductGroup(listProductGroup)
         }
     }, [listProductGroup])
-
     const handleSubmit = () => {
         if (stateValue !== '') {
+            console.log(stateValue);
             axios.post(`http://localhost:7001/api/post-add-product-group`, { Ten_nhom: stateValue })
-                .then(messSuccess => ysetMessage(messSuccess.data))
+                .then(messSuccess => setMessage(messSuccess.data))
                 .catch(messErr => console.log(messErr))
         }
     }

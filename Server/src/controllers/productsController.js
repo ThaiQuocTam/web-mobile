@@ -190,7 +190,7 @@ const handleGetInfoOderDetail = async (req, res) => {
 const handlePostAddProductGroup = async (req, res) => {
     try {
         if (req.body) {
-            let info = await db.nhom_sp.findAll({
+            let info = await db.nhom_sp.findOne({
                 where: { Ten_nhom: req.body.Ten_nhom }
             })
             if (info) {
