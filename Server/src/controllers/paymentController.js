@@ -60,6 +60,35 @@ const handlePostOrderDetail = async (req, res) => {
     } catch (e) { }
 }
 
+const handleGetInfoOder = async ( req, res) =>{
+    try{
+        let data = await db.hoa_don.findAll({
+            raw: true
+        })
+        return res.status(200).json(data)
+    }catch(e)
+    {
+        console.log(e);
+    }
+}
+
+const handleGetInfoOrderDetail = async(req,res) => {
+    try{
+        if(req.query.Id_HD){
+            let data = await db.chi_tiet_hd.findAll({
+                where: {Id_HD: req.query.Id_HD},
+                raw: true
+            })
+
+            console.log(data);
+
+            data ? res.status(200).json(data) : res.status(200).json({errCode: '1', message: 'Không tìm thấy'})
+        }
+    }catch(e){console.log(e);}
+}
+
 module.exports = {
-    handlePostPayment: handlePostPayment
+    handlePostPayment: handlePostPayment,
+    handleGetInfoOder: handleGetInfoOder,
+    handleGetInfoOrderDetail : handleGetInfoOrderDetail 
 }
