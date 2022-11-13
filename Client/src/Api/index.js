@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = 'http://localhost:9000'
+const URL = 'http://localhost:7001'
 
 export const apiSignIn = (payload) => axios.post(`${URL}/api/signIn`, {
     Email: payload.Email,
@@ -14,3 +14,5 @@ export const apiSignUp = (payload) => axios.post(`${URL}/api/signUp`, {
     Gioi_tinh: payload.Gioi_tinh,
     Dien_thoai: payload.Dien_thoai
 })
+
+export const apiTopSmartphone = () => axios.get(`${URL}/api/top-smartphone`)

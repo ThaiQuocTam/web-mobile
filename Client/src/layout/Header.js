@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import image from '../Assets/images/picwish.jpg'
 
 const Header = () => {
@@ -7,8 +7,13 @@ const Header = () => {
     const [mouseSmartphone, setMouseSmartphone] = useState('')
     const [mouseTablet, setMouseTablet] = useState('')
     const [hidden, setHidden] = useState(false)
+    const navigate = useNavigate();
 
     let email = localStorage.getItem("User")
+
+    const refreshPage = () => {
+        navigate(0);
+    }
 
     return (
         <>
@@ -44,14 +49,6 @@ const Header = () => {
                                 </div>
                             </Link>
                         </li>
-                        {/* <li className='inline-block mr-10 hover:opacity-50'>
-                            <Link to='/SignIn'>
-                                <div className='cursor-pointer'>
-                                    <i className="bi bi-person-fill text-6 pr-2 text-green-700"></i>
-                                    <span className='font-semibold text-3.5' >Đăng nhập</span>
-                                </div>
-                            </Link>
-                        </li> */}
                         {
                             email ?
                                 <li onMouseEnter={() => setHidden(true)} onMouseLeave={() => setHidden(false)} className='inline-block mr-10'>

@@ -56,6 +56,7 @@ const SignIn = () => {
                                 <input
                                     {...register('Email', { required: true })}
                                     type="text"
+                                    pattern="[A-Za-z]{1-15}"
                                     placeholder="Nhập Email"
                                     className="mt-1 p-2 pr-12 bg-gray-200 focus:outline-none rounded border border-gray-400 w-full"
                                 />

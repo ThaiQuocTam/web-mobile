@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import signInReducer from './signIn.reducer'
-import signUpReducer from './signUp.Reducer'
+import signInReducer from './signInReducer'
+import signUpReducer from './signUpReducer'
+import topSmartphoneReducer from './topSmartphoneReducer'
 
 export default combineReducers({
     signInReducer,
     signUpReducer,
+    topSmartphoneReducer
 })

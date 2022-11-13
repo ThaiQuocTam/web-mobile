@@ -10,3 +10,10 @@ export const INIT_STATE_SIGN_UP = {
         data: []
     }
 }
+
+export const INIT_STATE_TOP_SMARTPHONE = {
+    stateTopSmartphone: {
+        isLoading: false,
+        data: []
+    }
+}

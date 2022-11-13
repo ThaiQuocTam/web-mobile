@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       firstName: {
-        type: Sequelize.STRING
+        type: Sequelize.BLOB('long')
       },
       lastName: {
         type: Sequelize.STRING

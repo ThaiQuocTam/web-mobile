@@ -15,3 +15,9 @@ export const signUpAction = createActions({
     signUpSuccess: (payload) => payload,
     signUpFailure: (err) => err
 })
+
+export const topSmartphoneAction = createActions({
+    topSmartphoneRequest: (payload) => payload,
+    topSmartphoneSuccess: (payload) => payload,
+    topSmartphoneFailure: (err) => err
+})
