@@ -102,6 +102,15 @@ function* handleGetSearchProductAction(action) {
         yield put(actions.getSearchProductAction.getSearchProductFailure)
     }
 }
+function* handlePostAddMemberAction(action) {
+    try {
+        const mes = yield call(api.apiPostAddMember, action.payload)
+        yield put(actions.postAddMemberAction.postAddMemberSuccess(mes.data))
+
+    } catch (e) {
+        yield put(actions.postAddMemberAction.postAddMemberFailure)
+    }
+}
 
 function* mySaga() {
     yield takeLatest(actions.getListProductTypeAction.getListProductTypeRequest, handleGetListProductTypeAction)
@@ -114,6 +123,7 @@ function* mySaga() {
     yield takeLatest(actions.getInfoProductDetailAction.getInfoProductDetailRequest, handleGetInfoProductDetail)
     yield takeLatest(actions.postEditInfoProductDetailAction.postEditInfoProductDetailRequest, handlePostEditInfoProductDetail)
     yield takeLatest(actions.getSearchProductAction.getSearchProductRequest, handleGetSearchProductAction)
+    yield takeLatest(actions.postAddMemberAction.postAddMemberRequest, handlePostAddMemberAction)
 
 }
 

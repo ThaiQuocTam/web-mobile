@@ -64,4 +64,10 @@ export const getSearchProductAction = createActions({
     getSearchProductFailure: (err) => err
 })
 
+export const postAddMemberAction = createActions({
+    postAddMemberRequest: (payload) => payload,
+    postAddMemberSuccess: (payload) => payload,
+    postAddMemberFailure: (err) => err
+})
+
 

@@ -8,3 +8,4 @@ export const mesAddProductDetailSelector = (state) => state.postAddProductDetail
 export const infoProductDetailSelector = (state) => state.getInfoProductDetailReducer.data
 export const mesEditInfoProductDetailSelector = (state) => state.postEditInfoProductDetailReducer.data
 export const infoProductSearchedSelector = (state) => state.getSearchProductReducer.data
+export const mesAddMemberSelector = (state) => state.postAddMemberReducer.data
