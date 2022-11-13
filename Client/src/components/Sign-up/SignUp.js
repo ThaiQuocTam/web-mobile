@@ -69,12 +69,36 @@ const SignUp = () => {
                 className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
                 {...register('Ho_ten', { required: true })}
               />
+<<<<<<< HEAD
               {
                 errors.Ho_ten &&
                 <div className='mt-3'>
                   <p className='text-3 italic text-red-500'>Không được để trống</p>
                 </div>
               }
+=======
+            </div>
+            <div className="mt-4">
+              <label>Mật khẩu</label>
+              <input
+                type="password"
+                name="password"
+
+                placeholder="Mật khẩu"
+                className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
+              />
+
+            </div>
+            <div className="mt-4">
+              <label>Nhập lại mật khẩu</label>
+              <input
+                type="password"
+                name="password2"
+
+                placeholder="Nhật lại mật khẩu"
+                className="mt-1 p-2 focus:outline-none bg-gray-200 rounded border border-gray-400 w-full"
+              />
+>>>>>>> dcd34c5f411f823f6cf1eaa18cbb6b921a7bdac9
             </div>
             <div className="mt-4">
               <label>Email</label>
@@ -179,6 +203,7 @@ const SignUp = () => {
       </div>
     </div>
   )
+  
 }
 
 export default SignUp
