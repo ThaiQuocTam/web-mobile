@@ -29,6 +29,8 @@ const handleSignUp = async (req, res) => {
     let Dien_thoai = req.body.Dien_thoai
     let Gioi_tinh = req.body.Gioi_tinh
 
+    console.log(req.body);
+
     if (!Ho_ten || !Email || !Mat_khau || !Dien_thoai || !Gioi_tinh) {
         return res.status(500).json({
             errCode: 5,
@@ -36,7 +38,7 @@ const handleSignUp = async (req, res) => {
         })
     } else {
         let signUpData = await handleRegister(req.body)
-        console.log(signUpData);
+        console.log('data', signUpData);
         return res.status(200).json({
             errCode: signUpData.errCode,
             message: signUpData.message
@@ -61,9 +63,31 @@ const handleGetInfoUser = async (req, res) => {
 
     }
 }
+const handleGetAllInfoUser = async (req, res) => {
+    try {
+        let infoUser = await db.nguoi_dung.findAll({
+            order: [
+                ['updatedAt', 'DESC']
+            ],
+            raw: true
+        })
+        if (infoUser) {
+            return res.status(200).json(infoUser)
+        } else {
+            return res.status(500).json({
+                errCode: '1',
+                message: 'Không tìm thấy người dùng'
+            })
+        }
+    } catch (e) {
+
+    }
+}
 
 module.exports = {
     handleSignIn: handleSignIn,
     handleSignUp: handleSignUp,
-    handleGetInfoUser: handleGetInfoUser
+    handleGetInfoUser: handleGetInfoUser,
+    handleGetAllInfoUser: handleGetAllInfoUser
 }
+

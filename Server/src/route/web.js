@@ -37,7 +37,8 @@ const initWebRoutes = (app) => {
     router.put('/api/put-edit-info-product-group', productsController.handlePostEditProductGroup)
     router.post('/api/post-add-product-type', productsController.handlePostAddProductTye)
     router.put('/api/put-edit-info-product-type', productsController.handlePostEditProductType)
-
+    router.get('/api/get-all-info-user', userController.handleGetAllInfoUser)
+    
 
 
 

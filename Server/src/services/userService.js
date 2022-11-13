@@ -95,7 +95,7 @@ const handleRegister = (data) => {
                             Dien_thoai: data.Dien_thoai,
                             Mat_khau: hashPasswordBcrypt,
                             Gioi_tinh: data.Gioi_tinh === '1' ? true : false,
-                            Id_phan_quyen: '6'
+                            Id_phan_quyen: data.Id_phan_quyen
                         })
                         signUpMessage.errCode = '0'
                         signUpMessage.message = 'Them thanh cong'

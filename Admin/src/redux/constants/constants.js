@@ -67,3 +67,10 @@ export const INIT_STATE_SEARCH_PRODUCT = {
         data: []
     }
 }
+
+export const INIT_STATE_MES_ADD_MEMBER = {
+    state_Mes_Add_Member: {
+        isLoading: false,
+        data: []
+    }
+}
