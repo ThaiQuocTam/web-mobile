@@ -177,7 +177,7 @@ const ModalThemSP = ({ isClose }) => {
                                     <label className='inline-block w-1/2 text-gray-900 text-3.5 font-semibold'>Loại sản phẩm : </label>
                                     <select
                                         className='w-1/2 px-7 shadow-soft-xxs text-3.5 border-2 py-2 outline-none text-slate-800 font-medium rounded-2'
-                                        {...register('Id_loai_SP', { required: true })}
+                                        {...register('Id_loai_SP', { required: false })}
                                     >
                                         {
                                             stateDataProductType.map((item) => (
@@ -203,12 +203,10 @@ const ModalThemSP = ({ isClose }) => {
                                     <textarea
                                         placeholder='Ghi chú...'
                                         className='w-full py-2  text-3.5 border-2 hover:border-slate-200 rounded-2 h-15 focus:outline-none focus:border-red-200 border-slate-100 pl-5 text-slate-800 font-medium'
-                                        {...register('Ghi_chu', { required: false })}
+                                        {...register('Ghi_chu', { required: true })}
                                     />
                                 </div>
-                                <div className='px-2 w-full mb-5'>
-                                    <button className='w-full bg-gradient-dark-gray text-white py-1 rounded-2 hover:opacity-90'> Lưu</button>
-                                </div>
+                                <button className='w-full bg-gradient-dark-gray text-white py-1 rounded-2 hover:opacity-90'> Lưu</button>
                             </div>
                         </div>
                     </div >

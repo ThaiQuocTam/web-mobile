@@ -76,7 +76,6 @@ const QlSanPham = () => {
 
     useEffect(() => {
         if (listProduct) {
-            // setStateListProduct(listProduct)
             axios.get(`http://localhost:7001/api/get-all-product-detail`)
                 .then(listProductDetail => listProductDetail.data.length !== 0 ? setStateListProductDetail(listProductDetail.data) : '')
                 .catch(e => console.log(e))
@@ -92,7 +91,7 @@ const QlSanPham = () => {
                 console.log(dataListProDuctGroup);
             }
         }
-    }, [listProduct])
+    }, [dataListProDuctType && dataListProDuctGroup])
 
     const handleHideModalAddProductDetail = () => {
         navigate(0)

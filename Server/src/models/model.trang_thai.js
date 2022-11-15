@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     trang_thai.init({
-        Ten_nhom: DataTypes.STRING
+        Ten_trang_thai: DataTypes.STRING
     }, {
         sequelize,
         modelName: 'trang_thai',

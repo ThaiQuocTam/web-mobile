@@ -69,8 +69,13 @@ const Header = () => {
                     <ul className=''>
                         <li className='inline-block mr-24'>
                             <div>
-                                <input className='border focus:outline-none border-green-700 hover:border-green-900 focus:border placeholder:text-3.5 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-120 mr-3 pl-5' type={'text'} placeholder='Nhập sản phẩm cần tìm...' />
+                                <input
+                                    className='border focus:outline-none border-green-700 hover:border-green-900 focus:border placeholder:text-3.5 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-120 mr-3 pl-5' type={'text'} placeholder='Nhập sản phẩm cần tìm...' />
                                 <a href='#' className='inline-block'><i className="bi bi-search text-7 cursor-pointer text-gray-700"></i></a>
+                            </div>
+
+                            <div>
+
                             </div>
                         </li>
                         <Link to='/Cart'>
@@ -117,78 +122,6 @@ const Header = () => {
                         }
                     </ul>
                 </div >
-                {/* <div className='mt-5 mr-28 ml-4 p-1 bg-green-300 flex rounded-2'>
-                    <ul className=''>
-                        <Link to='/ListSmartphone'>
-                            <li
-                                onMouseEnter={() => {
-                                    setMouseSmartphone('block w-86px h-2px bg-black animate-onMouseCss rounded-5');
-                                }}
-                                onMouseLeave={() => setMouseSmartphone('')}
-                                className='inline-block mr-32 mt-1 overflow-hidden cursor-pointer'>
-                                <span className='font-medium mr-1 uppercase'>Điện thoại</span>
-                                <i className="bi bi-phone-fill text-5 text-green-700"></i>
-                                <div className='h-2px'>
-                                    <span className={mouseSmartphone} ></span>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to='/ListLaptop'>
-                            <li
-                                onMouseEnter={
-                                    () => {
-                                        setMouseLaptop('block w-18 h-2px bg-black animate-onMouseCss rounded-5');
-                                    }
-                                }
-                                onMouseLeave={() => setMouseLaptop('')}
-                                className='inline-block mr-32 overflow-hidden cursor-pointer'>
-                                <span className='font-medium mr-1 uppercase text-3.5'>LAPTOP</span>
-                                <i className="bi bi-laptop text-5 text-green-900"></i>
-                                <div className='h-2px'>
-                                    <span className={mouseLaptop} ></span>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to='/ListAccessory'>
-                            <li
-                                onMouseEnter={
-                                    () => {
-                                        setMouseAccessory('block w-18 h-2px bg-black animate-onMouseCss rounded-5');
-                                    }
-                                }
-                                onMouseLeave={() => setMouseAccessory('')}
-                                className='inline-block mr-32 overflow-hidden cursor-pointer'>
-                                <span className='font-medium mr-1 uppercase'>Phụ kiện</span>
-                                <i className="bi bi-tablet-landscape-fill text-5 text-green-700"></i>
-                                <div className='h-2px'>
-                                    <span className={mouseAccessory}> </span>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to='/ListTablet'>
-                            <li
-                                onMouseEnter={
-                                    () => {
-                                        setMouseTablet('block w-28 h-2px bg-black animate-onMouseCss rounded-5');
-                                        setMouseSmartphone('')
-                                    }
-                                }
-                                onMouseLeave={() => setMouseTablet('')}
-                                className='inline-block mr-32 overflow-hidden cursor-pointer'>
-                                <span className='font-medium mr-1 uppercase'>Máy tính bảng</span>
-                                <i className="bi bi-tablet-landscape-fill text-5 text-green-700"></i>
-                                <div className='h-2px'>
-                                    <span className={mouseTablet} ></span>
-                                </div>
-                            </li>
-                        </Link>
-                    </ul >
-                    <div>
-                        <Link>
-                            Điện thoại
-                        </Link>
-                    </div>
-                </div > */}
                 <div className='px-32 mt-2 '>
                     <div className='w-full flex justify-center leading-12 items-center bg-green-300 rounded-2 '>
                         {
