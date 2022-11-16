@@ -26,15 +26,15 @@ const Header = () => {
     let emailLocal = localStorage.getItem("User")
     let listProductCartLocal = JSON.parse(localStorage.getItem('arrProduct'))
 
-    // useEffect(() => {
-    //     let soLuong = 0
-    //     if (listProductCartLocal && email) {
-    //         listProductCartLocal.map((item) => {
-    //             item.email === email ? soLuong = soLuong + item.So_luong : ''
-    //         })
-    //     }
-    //     setStateSoluong(soLuong)
-    // }, [listProductCartLocal])
+    useEffect(() => {
+        let soLuong = 0
+        if (listProductCartLocal && email) {
+            listProductCartLocal.map((item) => {
+                item.email === email ? soLuong = soLuong + item.So_luong : ''
+            })
+        }
+        setStateSoluong(soLuong)
+    }, [listProductCartLocal])
 
     useEffect(() => {
         dispatch(actions.getListProductGroupAction.getListProductGroupRequest())
@@ -91,10 +91,10 @@ const Header = () => {
                             </div>
                             {
                                 stateListSearchProduct ?
-                                    <div className='mt-1 absolute bg-slate-100 rounded-2 p-3 h-96 overflow-auto z-30 cursor-pointer' style={{ width: '525px' }}>
+                                    <div className='mt-1 absolute bg-slate-100 rounded-2 p-3 max-h-96 overflow-auto z-30 cursor-pointer' style={{ width: '525px' }}>
                                         {
                                             stateListSearchProduct.map((item) => (
-                                                <div onClick={() => { localStorage.setItem("idProduct", item.id); navigate('/DetailProduct'); setStateListSearchProduct() }} className='flex mb-3 hover:bg-slate-200'>
+                                                <div onClick={() => { localStorage.setItem("idProduct", item.id); navigate('/DetailProduct'); setStateListSearchProduct(); setStateValuSearch('') }} className='flex mb-3 hover:bg-slate-200 p-1'>
                                                     <div className="mt-1 w-16 mr-5">
                                                         <img className='w-full' src={item.Hinh_anh} />
                                                     </div>
@@ -124,12 +124,12 @@ const Header = () => {
                             </li>
                         </Link>
                         <li className='inline-block mr-14 hover:opacity-50'>
-                            <Link to='/OrderLookup'>
+                            <a href='/OrderLookup'>
                                 <div className='cursor-pointer'>
                                     <i className="bi bi-clock-history text-6 pr-2 text-green-700"></i>
                                     <span className='inline-block pb-2 text-3.5 font-semibold'>Tra cứu đơn hàng</span>
                                 </div>
-                            </Link>
+                            </a>
                         </li>
                         {
                             email ?
