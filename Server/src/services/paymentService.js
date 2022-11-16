@@ -11,7 +11,7 @@ const postPaymentServicer = (data) => {
                 Dia_chi_nhan_hang: data.order.Dia_chi_nhan_hang,
                 Ghi_chu: data.order.Ghi_chu,
                 Tong_tien: data.order.Tong_tien,
-                Trang_thai: 1,
+                Trang_thai: 4,
                 Id_nguoi_dung: data.order.Id_nguoi_dung,
             }
             )
@@ -54,6 +54,7 @@ const postOrderDetail = async (data) => {
                 }
                 if (newData.length !== 0) {
                     let newQuantity = 0
+                    console.log(newData);
                     for (let i = 0; i < newData.length; i++) {
                         let product = await db.san_pham.findOne({
                             where: { id: data[i].id_Product },

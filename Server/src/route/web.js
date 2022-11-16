@@ -40,9 +40,6 @@ const initWebRoutes = (app) => {
     router.get('/api/get-all-info-user', userController.handleGetAllInfoUser)
     router.get('/api/get-search-member', userController.handleGetSearchMember)
     
-
-
-
     return app.use("/", router);
 }
 

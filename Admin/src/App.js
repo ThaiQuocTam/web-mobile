@@ -2,6 +2,7 @@ import EditInfoProduct from 'components/Ql-san-pham/EditInfoProduct';
 import ModalAddProductDetail from 'components/Ql-san-pham/ModalAddProductDetail';
 import ModalThemSP from 'components/Ql-san-pham/ModalThemSP';
 import HomeAdminPage from 'page/HomeAdmin.page';
+import OrderDetailPage from 'page/OrderDetail.page';
 import ProductDetailPage from 'page/ProductDetail.page';
 import ProductGroupPage from 'page/ProductGroupPage';
 import ProductTypePage from 'page/ProductTypePage';
@@ -17,6 +18,7 @@ function App() {
       <div className='w-80pc absolute right-0 p-5'>
         <Routes>
           <Route path='/' element={<HomeAdminPage />} />
+          <Route path='/OrderDetail' element={<OrderDetailPage />} />
           <Route path='/QlNhomSP' element={<ProductGroupPage />} />
           <Route path='/QlLoaiSanPham' element={<ProductTypePage />} />
           <Route path='/Home' element={<HomeAdminPage />} />
