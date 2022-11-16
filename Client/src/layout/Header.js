@@ -5,6 +5,7 @@ import { listProductGroupSelector, signInSelector } from '../redux/selector/inde
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../redux/actions'
 import SignIn from 'components/Sign-in/SignIn';
+import axios from 'axios';
 
 const Header = () => {
 
@@ -19,19 +20,21 @@ const Header = () => {
     const [stateSoluong, setStateSoluong] = useState(0)
     const [showModalSignIn, setShowModalSignIn] = useState(false)
     const [email, setEmail] = useState()
+    const [stateValueSearch, setStateValuSearch] = useState('')
+    const [stateListSearchProduct, setStateListSearchProduct] = useState()
 
     let emailLocal = localStorage.getItem("User")
     let listProductCartLocal = JSON.parse(localStorage.getItem('arrProduct'))
 
-    useEffect(() => {
-        let soLuong = 0
-        if (listProductCartLocal && email) {
-            listProductCartLocal.map((item) => {
-                item.email === email ? soLuong = soLuong + item.So_luong : ''
-            })
-        }
-        setStateSoluong(soLuong)
-    }, [listProductCartLocal])
+    // useEffect(() => {
+    //     let soLuong = 0
+    //     if (listProductCartLocal && email) {
+    //         listProductCartLocal.map((item) => {
+    //             item.email === email ? soLuong = soLuong + item.So_luong : ''
+    //         })
+    //     }
+    //     setStateSoluong(soLuong)
+    // }, [listProductCartLocal])
 
     useEffect(() => {
         dispatch(actions.getListProductGroupAction.getListProductGroupRequest())
@@ -57,6 +60,17 @@ const Header = () => {
         }
     }, [emailLocal || signData])
 
+    useEffect(() => {
+        if (stateValueSearch !== '') {
+            axios.get(`http://localhost:7001/api/get-search-product?Ten_san_pham=${stateValueSearch}`)
+                .then(listProduct => setStateListSearchProduct(listProduct.data))
+                .catch(e => console.log(e))
+        }
+        else {
+            setStateListSearchProduct()
+        }
+    }, [stateValueSearch])
+
     return (
         <>
             <header className='h-200 px-5 z-10 mb-10 bg-white'>
@@ -68,10 +82,36 @@ const Header = () => {
                     </div>
                     <ul className=''>
                         <li className='inline-block mr-24'>
-                            <div>
-                                <input className='border focus:outline-none border-green-700 hover:border-green-900 focus:border placeholder:text-3.5 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-120 mr-3 pl-5' type={'text'} placeholder='Nhập sản phẩm cần tìm...' />
+                            <div className='relative'>
+                                <input
+                                    value={stateValueSearch}
+                                    onChange={(e) => setStateValuSearch(e.target.value)}
+                                    className='border focus:outline-none border-green-700 hover:border-green-900 focus:border placeholder:text-3.5 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-120 mr-3 pl-5' type={'text'} placeholder='Nhập sản phẩm cần tìm...' />
                                 <a href='#' className='inline-block'><i className="bi bi-search text-7 cursor-pointer text-gray-700"></i></a>
                             </div>
+                            {
+                                stateListSearchProduct ?
+                                    <div className='mt-1 absolute bg-slate-100 rounded-2 p-3 h-96 overflow-auto z-30 cursor-pointer' style={{ width: '525px' }}>
+                                        {
+                                            stateListSearchProduct.map((item) => (
+                                                <div onClick={() => { localStorage.setItem("idProduct", item.id); navigate('/DetailProduct'); setStateListSearchProduct() }} className='flex mb-3 hover:bg-slate-200'>
+                                                    <div className="mt-1 w-16 mr-5">
+                                                        <img className='w-full' src={item.Hinh_anh} />
+                                                    </div>
+                                                    <div className='mr-5 mt-5'>
+                                                        <span className='text-4 text-gray-800 font-semibold w-96 max-w-96 block overflow-hidden'>{item.Ten_san_pham}</span>
+                                                        <div className='mt-1'>
+                                                            <span className='mr-30 text-3.5 text-gray-700 font-semibold'>{item.Gia_san_pham.toLocaleString()}  ₫</span>
+                                                            <span className='text-3.2 text-red-800 line-through '>{(item.Gia_san_pham + (item.Gia_san_pham * (10 / 100))).toLocaleString()}  ₫</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        }
+                                    </div> : ''
+                            }
+
+
                         </li>
                         <Link to='/Cart'>
                             <li className='inline-block mr-14 text-6 hover:opacity-50'>
@@ -117,78 +157,7 @@ const Header = () => {
                         }
                     </ul>
                 </div >
-                {/* <div className='mt-5 mr-28 ml-4 p-1 bg-green-300 flex rounded-2'>
-                    <ul className=''>
-                        <Link to='/ListSmartphone'>
-                            <li
-                                onMouseEnter={() => {
-                                    setMouseSmartphone('block w-86px h-2px bg-black animate-onMouseCss rounded-5');
-                                }}
-                                onMouseLeave={() => setMouseSmartphone('')}
-                                className='inline-block mr-32 mt-1 overflow-hidden cursor-pointer'>
-                                <span className='font-medium mr-1 uppercase'>Điện thoại</span>
-                                <i className="bi bi-phone-fill text-5 text-green-700"></i>
-                                <div className='h-2px'>
-                                    <span className={mouseSmartphone} ></span>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to='/ListLaptop'>
-                            <li
-                                onMouseEnter={
-                                    () => {
-                                        setMouseLaptop('block w-18 h-2px bg-black animate-onMouseCss rounded-5');
-                                    }
-                                }
-                                onMouseLeave={() => setMouseLaptop('')}
-                                className='inline-block mr-32 overflow-hidden cursor-pointer'>
-                                <span className='font-medium mr-1 uppercase text-3.5'>LAPTOP</span>
-                                <i className="bi bi-laptop text-5 text-green-900"></i>
-                                <div className='h-2px'>
-                                    <span className={mouseLaptop} ></span>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to='/ListAccessory'>
-                            <li
-                                onMouseEnter={
-                                    () => {
-                                        setMouseAccessory('block w-18 h-2px bg-black animate-onMouseCss rounded-5');
-                                    }
-                                }
-                                onMouseLeave={() => setMouseAccessory('')}
-                                className='inline-block mr-32 overflow-hidden cursor-pointer'>
-                                <span className='font-medium mr-1 uppercase'>Phụ kiện</span>
-                                <i className="bi bi-tablet-landscape-fill text-5 text-green-700"></i>
-                                <div className='h-2px'>
-                                    <span className={mouseAccessory}> </span>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to='/ListTablet'>
-                            <li
-                                onMouseEnter={
-                                    () => {
-                                        setMouseTablet('block w-28 h-2px bg-black animate-onMouseCss rounded-5');
-                                        setMouseSmartphone('')
-                                    }
-                                }
-                                onMouseLeave={() => setMouseTablet('')}
-                                className='inline-block mr-32 overflow-hidden cursor-pointer'>
-                                <span className='font-medium mr-1 uppercase'>Máy tính bảng</span>
-                                <i className="bi bi-tablet-landscape-fill text-5 text-green-700"></i>
-                                <div className='h-2px'>
-                                    <span className={mouseTablet} ></span>
-                                </div>
-                            </li>
-                        </Link>
-                    </ul >
-                    <div>
-                        <Link>
-                            Điện thoại
-                        </Link>
-                    </div>
-                </div > */}
+
                 <div className='px-32 mt-2 '>
                     <div className='w-full flex justify-center leading-12 items-center bg-green-300 rounded-2 '>
                         {
