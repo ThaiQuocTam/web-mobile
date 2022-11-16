@@ -3,23 +3,40 @@ import ModalAddTV from './ModalAddTV';
 import axios from 'axios';
 import AddSuccess from 'components/Ql-san-pham/AddSuccess';
 import { useNavigate } from 'react-router-dom';
-import { mesAddMemberSelector } from 'redux/selector/selector';
-import { useSelector } from 'react-redux';
+import { mesAddMemberSelector, infoMemberSearchedSelector } from 'redux/selector/selector';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actions from '../../redux/actions/actions'
 
 const QlThanhVien = () => {
 
+    const dispatch = useDispatch()
+    const listInfoUser = useSelector(infoMemberSearchedSelector)
     const [stateListInfoUser, setStateListAllInfoUser] = useState()
     const [stateShowModal, setStateModal] = useState(false)
     const navigate = useNavigate()
     const mesAddMember = useSelector(mesAddMemberSelector)
+    const [stateValueSearchMember, setStateValueSearchMember] = useState({
+        Ho_ten: ''
+    })
 
     useEffect(() => {
-        axios.get('http://localhost:7001/api/get-all-info-user')
-            .then(listAllInfoUser => listAllInfoUser.data.length !== 0 ? setStateListAllInfoUser(listAllInfoUser.data) : '')
-            .catch(e => console.log(e))
+        if (stateValueSearchMember.Ho_ten !== '') {
+            dispatch(actions.getSearchMemberAction.getSearchMemberRequest(stateValueSearchMember.Ho_ten))
+        }
+        else {
+            axios.get('http://localhost:7001/api/get-all-info-user')
+                .then(listAllInfoUser => listAllInfoUser.data.length !== 0 ? setStateListAllInfoUser(listAllInfoUser.data) : '')
+                .catch(e => console.log(e))
+        }
+    }, [stateValueSearchMember])
 
-    }, [mesAddMember])
-
+    useEffect(() => {
+        if (listInfoUser) {
+            if (listInfoUser) {
+                setStateListAllInfoUser(listInfoUser)
+            }
+        }
+    }, [listInfoUser])
 
     const handleHideModalAddTV = () => {
         navigate(0)
@@ -31,7 +48,11 @@ const QlThanhVien = () => {
             <div className='font-bold text-3xl mb-3'>Danh sách thành viên</div>
             <div className='w-full mt-4'>
                 <div className='inline-block'>
-                    <input className='border focus:outline-none border-green-700 text-3.5 hover:border-green-900 focus:border placeholder:text-3 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-96 mr-3 px-5' type={'text'} placeholder='Nhập thành viên cần tìm...' />
+                    <input
+                        value={stateValueSearchMember.Ho_ten}
+                        onChange={(e) => { setStateValueSearchMember({ ...stateValueSearchMember, Ho_ten: e.target.value }) }
+                        }
+                        className='border focus:outline-none border-green-700 text-3.5 hover:border-green-900 focus:border placeholder:text-3 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-96 mr-3 px-5' type={'text'} placeholder='Nhập thành viên cần tìm...' />
                     <a className='inline-block h-10 leading-10' href='#'><i className="bi bi-search text-gray-600 h-10 inline-block hover:text-black text-5 cursor-pointer leading-10"></i></a>
                 </div>
                 <div className="leading-9 h-9 mb-5 inline-block ml-30rem" onClick={() => setStateModal(true)}>
@@ -85,7 +106,7 @@ const QlThanhVien = () => {
                                                         {item.Email}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                        {item.So_dien_thoai}
+                                                        {item.Dien_thoai}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                         {item.Gioi_tinh === 1 ? 'Nam' : 'Nữ'}

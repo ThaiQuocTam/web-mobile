@@ -1,4 +1,5 @@
-import db from "../models"
+import db, { Sequelize } from '../models/index'
+const Op = Sequelize.Op
 import { handleUserLogin, handleRegister } from "../services/userService"
 const express = require('express')
 
@@ -84,10 +85,41 @@ const handleGetAllInfoUser = async (req, res) => {
     }
 }
 
+const handleGetSearchMember = async (req, res) => {
+    try {
+        if (req.query.Ho_ten) {
+            console.log(req.query.Ho_ten);
+            const data = await db.nguoi_dung.findAll({
+                where: {
+                    Ho_ten: { [Op.like]: `%${req.query.Ho_ten}%` },
+                },
+                default: true,
+                order: [
+                    ['updatedAt', 'DESC']
+                ],
+                raw: true,
+            });
+
+            if (data) {
+                return res.status(200).json(data)
+            }
+            else {
+                return res.status(200).json({
+                    errCode: '1',
+                    data: data
+                })
+            }
+        }
+        else {
+        }
+    } catch (e) { console.log(e) }
+}
+
 module.exports = {
     handleSignIn: handleSignIn,
     handleSignUp: handleSignUp,
     handleGetInfoUser: handleGetInfoUser,
-    handleGetAllInfoUser: handleGetAllInfoUser
+    handleGetAllInfoUser: handleGetAllInfoUser,
+    handleGetSearchMember: handleGetSearchMember
 }
 

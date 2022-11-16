@@ -9,6 +9,7 @@ import postAddProductDetailReducer from './postAddProductDetailReducer'
 import getInfoProductDetailReducer from './getInfoProductDetail'
 import postEditInfoProductDetailReducer from './postEditInfoProductDetailReducer'
 import getSearchProductReducer from './getSearchProduct'
+import getSearchMemberReducer from './getSearchMember'
 import postAddMemberReducer from './postAddMemberReducers'
 
 export default combineReducers({
@@ -22,5 +23,6 @@ export default combineReducers({
     getInfoProductDetailReducer,
     postEditInfoProductDetailReducer,
     getSearchProductReducer,
+    getSearchMemberReducer,
     postAddMemberReducer
 })  

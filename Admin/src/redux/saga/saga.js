@@ -102,6 +102,17 @@ function* handleGetSearchProductAction(action) {
         yield put(actions.getSearchProductAction.getSearchProductFailure)
     }
 }
+
+function* handleGetSearchMemberAction(action) {
+    try {
+        const listMember = yield call(api.apiGetSearchMember, action.payload)
+        yield put(actions.getSearchMemberAction.getSearchMemberSuccess(listMember.data))
+
+    } catch (e) {
+        yield put(actions.getSearchMemberAction.getSearchMemberFailure)
+    }
+}
+
 function* handlePostAddMemberAction(action) {
     try {
         const mes = yield call(api.apiPostAddMember, action.payload)
@@ -123,6 +134,7 @@ function* mySaga() {
     yield takeLatest(actions.getInfoProductDetailAction.getInfoProductDetailRequest, handleGetInfoProductDetail)
     yield takeLatest(actions.postEditInfoProductDetailAction.postEditInfoProductDetailRequest, handlePostEditInfoProductDetail)
     yield takeLatest(actions.getSearchProductAction.getSearchProductRequest, handleGetSearchProductAction)
+    yield takeLatest(actions.getSearchMemberAction.getSearchMemberRequest, handleGetSearchMemberAction)
     yield takeLatest(actions.postAddMemberAction.postAddMemberRequest, handlePostAddMemberAction)
 
 }

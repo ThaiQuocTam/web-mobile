@@ -68,6 +68,13 @@ export const INIT_STATE_SEARCH_PRODUCT = {
     }
 }
 
+export const INIT_STATE_SEARCH_MEMBER = {
+    state_Search_Member: {
+        isLoading: false,
+        data: []
+    }
+}
+
 export const INIT_STATE_MES_ADD_MEMBER = {
     state_Mes_Add_Member: {
         isLoading: false,
