@@ -13,6 +13,8 @@ function* handleSignInAction(action) {
 
 function* handleSignUpAction(action) {
     try {
+        console.log('hahah');
+        console.log(action.payload);
         const post = yield call(api.apiSignUp, action.payload)
         yield put(actions.signUpAction.signUpSuccess(post.data))
     } catch (e) {

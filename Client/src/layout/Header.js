@@ -94,7 +94,7 @@ const Header = () => {
                                     <div className='mt-1 absolute bg-slate-100 rounded-2 p-3 max-h-96 overflow-auto z-30 cursor-pointer' style={{ width: '525px' }}>
                                         {
                                             stateListSearchProduct.map((item) => (
-                                                <div onClick={() => { localStorage.setItem("idProduct", item.id); navigate('/DetailProduct'); setStateListSearchProduct(); setStateValuSearch('') }} className='flex mb-3 hover:bg-slate-200 p-1'>
+                                                <div onClick={() => { localStorage.setItem("idProduct", item.id); navigate(`/DetailProduct?Ten_san_pham=${item.Ten_san_pham}`); setStateListSearchProduct(); setStateValuSearch('') }} className='flex mb-3 hover:bg-slate-200 p-1'>
                                                     <div className="mt-1 w-16 mr-5">
                                                         <img className='w-full' src={item.Hinh_anh} />
                                                     </div>

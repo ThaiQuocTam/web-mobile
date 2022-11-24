@@ -60,7 +60,14 @@ const SignUp = (props) => {
         setMessage('Mật khẩu không chính xác')
       }
       else {
-        dispatch(actions.signUpAction.signUpRequest(data))
+        dispatch(actions.signUpAction.signUpRequest({
+          Ho_ten: data.Ho_ten,
+          Email: data.Email,
+          Dien_thoai: data.Dien_thoai,
+          Mat_khau: data.Mat_khau,
+          Gioi_tinh: data.Gioi_tinh,
+          Id_phan_quyen: 6
+        }))
       }
     }
   }
