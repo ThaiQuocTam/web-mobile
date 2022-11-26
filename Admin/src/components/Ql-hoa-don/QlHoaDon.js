@@ -18,9 +18,6 @@ const QlHoaDon = () => {
             .catch(e => console.log(e))
     }, [])
 
-    console.log(stateStatus);
-    console.log(stateInfoOder);
-
     return (
         <>
             <div className='font-bold text-3xl text-gray-700 pb-3 border-b border-slate-200'>Danh sách hóa đơn</div>

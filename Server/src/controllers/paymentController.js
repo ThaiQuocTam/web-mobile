@@ -53,14 +53,6 @@ const handlePostPayment = async (req, res) => {
     }
 }
 
-const handlePostOrderDetail = async (req, res) => {
-    try {
-        if (req.body) {
-
-        }
-    } catch (e) { }
-}
-
 const handleGetInfoOder = async (req, res) => {
     try {
         let data = await db.hoa_don.findAll({
@@ -79,8 +71,6 @@ const handleGetInfoOrderDetail = async (req, res) => {
                 where: { Id_HD: req.query.Id_HD },
                 raw: true
             })
-
-            console.log(data);
 
             data ? res.status(200).json(data) : res.status(200).json({ errCode: '1', message: 'Không tìm thấy' })
         }

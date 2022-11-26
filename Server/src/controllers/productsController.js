@@ -113,6 +113,7 @@ const handleGetSearchProduct = async (req, res) => {
                 order: [
                     ['updatedAt', 'DESC']
                 ],
+                // limit: 3,
                 raw: true,
             });
 

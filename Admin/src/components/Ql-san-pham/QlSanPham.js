@@ -120,38 +120,38 @@ const QlSanPham = () => {
                         <div className="overflow-hidden">
                             <table className="w-full overflow-auto block h-36-rem">
                                 <thead className=" border-b">
-                                    <tr>
-                                        <th scope="col" className="text-sm sticky top-0 bg-gray-400 font-semibold py-2 px-2 text-4 text-black  text-center">
+                                    <tr className=''>
+                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400 font-semibold py-2 px-2 text-4 text-black  text-center">
                                             STT
                                         </th>
-                                        <th scope="col" className="text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
+                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             Tên sản phẩm
                                         </th>
-                                        <th scope="col" className="text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
+                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             Hình ảnh
                                         </th>
-                                        <th scope="col" className="text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
+                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             Giá sản phẩm
                                         </th>
-                                        <th scope="col" className="text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
+                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             Số lượng
                                         </th>
-                                        <th scope="col" className="text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
+                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             hãng
                                         </th>
-                                        <th scope="col" className="text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
+                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             Nhóm sản phẩm
                                         </th>
-                                        <th scope="col" className="text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
+                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             Thông tin bảo hành
                                         </th>
-                                        <th scope="col" className="text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
+                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             Ghi chú
                                         </th>
-                                        <th scope="col" className="text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
+                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
 
                                         </th>
-                                        <th scope="col" className="text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
+                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
 
                                         </th>
                                     </tr>

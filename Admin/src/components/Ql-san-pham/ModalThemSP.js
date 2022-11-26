@@ -203,7 +203,7 @@ const ModalThemSP = ({ isClose }) => {
                                     <textarea
                                         placeholder='Ghi chú...'
                                         className='w-full py-2  text-3.5 border-2 hover:border-slate-200 rounded-2 h-15 focus:outline-none focus:border-red-200 border-slate-100 pl-5 text-slate-800 font-medium'
-                                        {...register('Ghi_chu', { required: true })}
+                                        {...register('Ghi_chu', { required: false })}
                                     />
                                 </div>
                                 <button className='w-full bg-gradient-dark-gray text-white py-1 rounded-2 hover:opacity-90'> Lưu</button>

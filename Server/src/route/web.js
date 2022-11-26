@@ -5,7 +5,7 @@ import productsController from "../controllers/productsController"
 import paymentController from "../controllers/paymentController"
 import reviewController from "../controllers/reviewController"
 import productDetailController from "../controllers/productDetailController"
-
+import statusOrderController from "../controllers/statusOrderController"
 
 const router = express.Router();
 
@@ -39,7 +39,10 @@ const initWebRoutes = (app) => {
     router.put('/api/put-edit-info-product-type', productsController.handlePostEditProductType)
     router.get('/api/get-all-info-user', userController.handleGetAllInfoUser)
     router.get('/api/get-search-member', userController.handleGetSearchMember)
-    
+    router.get('/api/get-status-order', statusOrderController.handleGetAllStatusOrder)
+    router.get('/api/get-info-oder', paymentController.handleGetInfoOder)
+    router.get('/api/get-info-oder-detail', paymentController.handleGetInfoOrderDetail)
+
     return app.use("/", router);
 }
 

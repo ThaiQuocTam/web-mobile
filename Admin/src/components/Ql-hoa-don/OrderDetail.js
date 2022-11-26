@@ -14,7 +14,7 @@ const OrderDetail = () => {
                 .catch(e => console.log(e))
         }
         else {
-            console.log('dep có');
+            console.log('khong có');
         }
     }, [id_HD])
 
