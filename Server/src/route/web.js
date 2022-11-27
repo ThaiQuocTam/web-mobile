@@ -42,6 +42,7 @@ const initWebRoutes = (app) => {
     router.get('/api/get-status-order', statusOrderController.handleGetAllStatusOrder)
     router.get('/api/get-info-oder', paymentController.handleGetInfoOder)
     router.get('/api/get-info-oder-detail', paymentController.handleGetInfoOrderDetail)
+    router.put('/api/put-has-received', paymentController.handleHasReceived)
 
     return app.use("/", router);
 }

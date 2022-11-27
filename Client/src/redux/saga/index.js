@@ -13,8 +13,6 @@ function* handleSignInAction(action) {
 
 function* handleSignUpAction(action) {
     try {
-        console.log('hahah');
-        console.log(action.payload);
         const post = yield call(api.apiSignUp, action.payload)
         yield put(actions.signUpAction.signUpSuccess(post.data))
     } catch (e) {
@@ -74,7 +72,6 @@ function* handleGetBillAction(action) {
         const getInfoBill = yield call(api.apiGetBill, action.payload)
         yield put(actions.getBillAction.getBillSuccess(getInfoBill.data))
     } catch (e) {
-        console.log('loi API : ', e);
         yield put(actions.getBillAction.getBillFailure)
     }
 }
@@ -91,9 +88,7 @@ function* handleGetListProductGroupAction() {
 
 function* handlePostPaymentAction(action) {
     try {
-        console.log('haha');
         const messagePayment = yield call(api.apiPostPayment, action.payload)
-        console.log(messagePayment.data);
         yield put(actions.postPaymentAction.postPaymentSuccess(messagePayment.data))
 
     } catch (e) {
@@ -150,6 +145,18 @@ function* handleGetInfoProductDetail(action) {
     }
 }
 
+function* handlePutHasReceivedAction(action) {
+    try {
+        console.log(action.payload);
+        const mes = yield call(api.apiPutHasReceived, action.payload)
+        console.log(mes.data);
+        yield put(actions.putHasReceivedAction.putHasReceivedSuccess(mes.data))
+
+    } catch (e) {
+        yield put(actions.putHasReceivedAction.putHasReceivedFailure)
+    }
+}
+
 function* mySaga() {
     yield takeLatest(actions.signInAction.signInRequest, handleSignInAction)
     yield takeLatest(actions.signUpAction.signUpRequest, handleSignUpAction)
@@ -166,6 +173,7 @@ function* mySaga() {
     yield takeLatest(actions.getShowReviewAdminAction.getShowReviewAdminRequest, handleGetShowReviewAdminAction)
     yield takeLatest(actions.getOrderDetailAction.getOrderDetailRequest, handleGetOrderDetailAction)
     yield takeLatest(actions.getInfoProductDetailAction.getInfoProductDetailRequest, handleGetInfoProductDetail)
+    yield takeLatest(actions.putHasReceivedAction.putHasReceivedRequest, handlePutHasReceivedAction)
 
 }
 export default mySaga

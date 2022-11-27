@@ -11,7 +11,6 @@ const handlePostPayment = async (req, res) => {
             order: req.body.order,
             orderDetail: req.body.orderDetail
         }
-        console.log(payment);
         if (!payment) {
             return res.status(500).json({
                 errCode: '1',
@@ -77,8 +76,48 @@ const handleGetInfoOrderDetail = async (req, res) => {
     } catch (e) { console.log(e); }
 }
 
+const handleHasReceived = async (req, res) => {
+    try {
+        if (req.body.id) {
+            let checkBill = await db.hoa_don.findOne({
+                where: { id: req.body.id },
+                raw: true
+            })
+            if (checkBill && checkBill.Trang_thai === 5) {
+                db.hoa_don.update(
+                    {
+                        Ho_ten: checkBill.Ho_ten,
+                        Email: checkBill.Email,
+                        Dia_chi_nhan_hang: checkBill.Dia_chi_nhan_hang,
+                        Tong_tien: checkBill.Tong_tien,
+                        Trang_thai: 8,
+                        So_dien_thoai: checkBill.So_dien_thoai,
+                        Ghi_chu: checkBill.Ghi_chu,
+                        Id_nguoi_dung: checkBill.Id_nguoi_dung
+                    },
+                    {
+                        where: { id: checkBill.id }
+                    }
+                )
+
+                return res.status(200).json({
+                    errCode: 0,
+                    message: 'Xác nhận đã nhận hàng thành công'
+                })
+            }
+            else {
+                return res.status(400).json({
+                    errCode: 1,
+                    message: 'Lỗi'
+                })
+            }
+        }
+    } catch (e) { }
+}
+
 module.exports = {
     handlePostPayment: handlePostPayment,
     handleGetInfoOder: handleGetInfoOder,
-    handleGetInfoOrderDetail: handleGetInfoOrderDetail
+    handleGetInfoOrderDetail: handleGetInfoOrderDetail,
+    handleHasReceived: handleHasReceived
 }

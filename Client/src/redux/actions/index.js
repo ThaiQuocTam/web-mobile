@@ -93,3 +93,9 @@ export const getInfoProductDetailAction = createActions({
     getInfoProductDetailSuccess: (payload) => payload,
     getInfoProductDetailFailure: (err) => err
 })
+
+export const putHasReceivedAction = createActions({
+    putHasReceivedRequest: (payload) => payload,
+    putHasReceivedSuccess: (payload) => payload,
+    putHasReceivedFailure: (err) => err
+})

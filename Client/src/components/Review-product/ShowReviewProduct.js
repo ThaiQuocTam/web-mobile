@@ -61,6 +61,17 @@ const ShowReviewProduct = (props) => {
         } catch (e) { }
     }, [infoUser])
 
+    const convertDate = (date) => {
+        date = new Date(date)
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
+        let seconds = date.getSeconds()
+        let minutes = date.getMinutes()
+        let hours = date.getHours()
+        return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`
+    }
+
     return (
         <>
 
@@ -78,7 +89,7 @@ const ShowReviewProduct = (props) => {
                                         item.Id_phan_quyen === 7 ? <span className='text-2.5 text-green-500 font-semibold'><i class="bi bi-check-circle-fill text-3 text-green-600 mr-1"></i>QTV</span> : ''
                                     }
 
-                                    <span className='text-3 text-gray-500 ml-5'>{item.createdAt || ''}</span>
+                                    <span className='text-3 text-gray-500 ml-5'>{convertDate(item.createdAt) || ''}</span>
                                 </div>
                                 <div className='ml-8'>
                                     <span className='text-3.2 text-gray-800'>{item.Noi_dung || ''}</span>
@@ -121,7 +132,7 @@ const ShowReviewProduct = (props) => {
                                                     <i class="bi bi-person-circle text-green-950 text-5 mr-2"></i>
                                                     <span className='text-3 font-semibold mr-1'>{itemAdmin.Ten_nguoi_dung || ''}</span>
                                                     <span className='text-2.5 text-green-500 font-semibold mr-5'><i class="bi bi-check-circle-fill text-3 text-green-600 mr-1"></i>QTV</span>
-                                                    <span className='text-3 text-gray-500'>{itemAdmin.createdAt || ''}</span>
+                                                    <span className='text-3 text-gray-500'>{convertDate(itemAdmin.createdAt) || ''}</span>
                                                 </div>
                                                 <div className='ml-8'>
                                                     <span className='text-3.2 text-gray-800'>{itemAdmin.Noi_dung || ''} </span>

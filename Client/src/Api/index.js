@@ -36,6 +36,8 @@ export const apiShowReviewReview = (payload) => axios.get(`${URL}/api/get-show-r
 
 export const apiGetInfoProductDetail = (payload) => axios.get(`${URL}/api/get-info-product-detail?Id_san_pham=${payload}`)
 
+export const apiPutHasReceived = (payload) => axios.put(`${URL}/api/put-has-received`, { id: payload })
+
 
 
 

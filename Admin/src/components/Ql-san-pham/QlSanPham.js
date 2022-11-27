@@ -77,7 +77,7 @@ const QlSanPham = () => {
     useEffect(() => {
         if (listProduct) {
             axios.get(`http://localhost:7001/api/get-all-product-detail`)
-                .then(listProductDetail => listProductDetail.data.length !== 0 ? setStateListProductDetail(listProductDetail.data) : '')
+                .then(listProductDetail => listProductDetail.data.length !== 0 ? setStateListProductDetail(listProductDetail.data) : 'không có')
                 .catch(e => console.log(e))
         }
         if (dataListProDuctType) {
@@ -91,7 +91,7 @@ const QlSanPham = () => {
                 console.log(dataListProDuctGroup);
             }
         }
-    }, [dataListProDuctType && dataListProDuctGroup])
+    }, [listProduct || dataListProDuctType && dataListProDuctGroup])
 
     const handleHideModalAddProductDetail = () => {
         navigate(0)

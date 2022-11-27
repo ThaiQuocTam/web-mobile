@@ -101,3 +101,10 @@ export const INIT_STATE_INFO_PRODUCT_DETAIL = {
         data: []
     }
 }
+
+export const INIT_STATE_MES_HAS_RECEIVED = {
+    state_Mes_Has_Received: {
+        isLoading: false,
+        data: []
+    }
+}

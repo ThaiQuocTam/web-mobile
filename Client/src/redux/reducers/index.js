@@ -14,6 +14,7 @@ import postReviewReducer from './postReviewReducer'
 import getShowReviewUserReducer from './getReviewUserReducer'
 import getShowReviewAdminReducer from './getReviewAdminReducer'
 import getInfoProductDetailReducer from './getInfoProductDetailReducer'
+import putHasReceivedReducer from './putHasReceivedReducer'
 
 export default combineReducers({
     signInReducer,
@@ -30,5 +31,6 @@ export default combineReducers({
     postReviewReducer,
     getShowReviewUserReducer,
     getShowReviewAdminReducer,
-    getInfoProductDetailReducer
+    getInfoProductDetailReducer,
+    putHasReceivedReducer
 })
