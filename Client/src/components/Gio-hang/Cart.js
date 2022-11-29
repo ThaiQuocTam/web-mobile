@@ -33,7 +33,6 @@ const Cart = () => {
             let sum = 0
             listProductCartLocal.map((item) => {
                 item.email === email ? sum = sum + (item.Gia_san_pham * item.So_luong) : ''
-
             })
             setSumPayment(sum)
 
@@ -84,6 +83,7 @@ const Cart = () => {
 
     useEffect(() => {
         try {
+            console.log(mesPayment);
             if (mesPayment) {
                 setStateMes(mesPayment)
                 if (mesPayment.errCode === '0') {

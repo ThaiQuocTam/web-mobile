@@ -31,6 +31,12 @@ const OrderDetail = () => {
     }
 
     useEffect(() => {
+        if (mesHasReceived) {
+            console.log(mesHasReceived);
+        }
+    }, [mesHasReceived])
+
+    useEffect(() => {
         try {
             if (listBill) {
                 let arrIdOrder = []
@@ -41,7 +47,6 @@ const OrderDetail = () => {
                 })
                 setStateListBill(arrListBill)
                 setStateListBillHasReceived(arrListBillHasReceived)
-                console.log(arrListBill);
                 listBill.infoOderDetail.map((item) => {
                     {
                         arrIdOrder.push(item.id)
@@ -50,7 +55,7 @@ const OrderDetail = () => {
                 arrIdOrder.length !== 0 ? dispatch(actions.getOrderDetailAction.getOrderDetailRequest(arrIdOrder)) : ''
             }
         } catch (e) { }
-    }, [listBill])
+    }, [mesHasReceived || listBill])
 
     useEffect(() => {
         try {

@@ -23,6 +23,7 @@ const handlePostPayment = async (req, res) => {
                     item.Id_HD = messagePostOrder.infoOrder.dataValues.id
                 })
                 let messagePostOrderDetail = await paymentService.postOrderDetail(payment.orderDetail)
+                console.log(messagePostOrderDetail.errCode);
                 if (messagePostOrderDetail && messagePostOrderDetail.errCode !== '0') {
                     await db.hoa_don.destroy({
                         where: { id: messagePostOrder.infoOrder.dataValues.id }
@@ -55,6 +56,9 @@ const handlePostPayment = async (req, res) => {
 const handleGetInfoOder = async (req, res) => {
     try {
         let data = await db.hoa_don.findAll({
+            order: [
+                ['updatedAt', 'DESC']
+            ],
             raw: true
         })
         return res.status(200).json(data)

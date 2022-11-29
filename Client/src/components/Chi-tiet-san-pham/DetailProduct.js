@@ -9,6 +9,7 @@ import ReviewProduct from "components/Review-product/ReviewProduct";
 import ShowReviewProduct from "components/Review-product/ShowReviewProduct";
 import AddCartMes from "./AddCartMes";
 import SignIn from "components/Sign-in/SignIn";
+import ModalBuyNow from "./ModalBuyNow";
 
 const DetailProduct = () => {
 
@@ -19,6 +20,7 @@ const DetailProduct = () => {
   // const [index, setIndex] = useState(0)
   const [hideAddCartMes, setHideAddCartMes] = useState(false)
   const [showModalSignIn, setShowModalSignIn] = useState(false)
+  const [modalBuyNow, setModalBuyNow] = useState(false)
   // const [animation, setAnimation] = useState('')
   const infoProduct = useSelector(infoProductSelector)
   const [stateInfoProduct, setStateInfoProduct] = useState({
@@ -29,6 +31,7 @@ const DetailProduct = () => {
     email: '',
     id_Product: ''
   })
+  const [stateProductBuyNow, setStateProductBuyNow] = useState()
 
   const product = Products.map(items => items.images.length)
   let email = localStorage.getItem("User")
@@ -114,7 +117,6 @@ const DetailProduct = () => {
       let arrNew = []
       let check = arr.find(item => item.id_Product === product.id_Product)
       if (check) {
-        console.log(check);
         arr.map((item) => {
           if (item.id_Product === product.id_Product) {
             item.So_luong += 1
@@ -153,11 +155,9 @@ const DetailProduct = () => {
     navigate(0)
   }
 
-  // useEffect(() => {
-  //   if (infoProductDetail) {
-  //     console.log(infoProductDetail);
-  //   }
-  // }, [infoProductDetail])
+  const handleCloseModalBuyNow = () => {
+    setModalBuyNow(false)
+  }
 
   return (
     <>
@@ -218,7 +218,7 @@ const DetailProduct = () => {
                 </div>
               </div>
               <div className="flex pl-10 mt-7">
-                <div className="w-2/3 bg-red-600 hover:bg-red-800 text-center py-1 rounded-3 cursor-pointer  ">
+                <div onClick={() => { setModalBuyNow(true); setStateProductBuyNow(stateInfoProduct) }} className="w-2/3 bg-red-600 hover:bg-red-800 text-center py-1 rounded-3 cursor-pointer  ">
                   <button className="text-white text-3 font-bold">MUA NGAY</button>
                 </div>
                 <div className="w-1/3 pl-2">
@@ -290,8 +290,6 @@ const DetailProduct = () => {
           : ''
       }
 
-
-
       <div className="">
         <div className='pl-24 mt-8 mb-5'>
           <div className='bg-green-950 max-w-54 p-1 pl-5 border-l-25 border-green-200 rounded-1'>
@@ -316,6 +314,12 @@ const DetailProduct = () => {
       <div>
         {showModalSignIn && <div className='fixed flex z-sticky items-center bg-slate-950 justify-center left-0 top-0 right-0 bottom-0'>
           <SignIn isClose={handleCloseModal} mes={'Vui lòng đăng nhập để thêm giỏ hàng'} />
+        </div>}
+      </div>
+
+      <div>
+        {modalBuyNow && <div className='fixed flex z-sticky items-center bg-slate-950 justify-center left-0 top-0 right-0 bottom-0'>
+          <ModalBuyNow isClose={handleCloseModalBuyNow} product={stateProductBuyNow} />
         </div>}
       </div>
     </>
