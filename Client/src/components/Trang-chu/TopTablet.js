@@ -24,6 +24,7 @@ const TopTablet = () => {
         centerPadding: "60px",
         slidesToShow: 5,
         swipeToSlide: true,
+
     };
 
     useEffect(() => {

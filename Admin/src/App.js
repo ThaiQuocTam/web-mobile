@@ -15,7 +15,7 @@ import { Routes, Route } from 'react-router-dom'
 function App() {
   return (
     <>
-      <div className='w-80pc absolute right-0 p-5'>
+      <div className='w-80pc absolute right-0 pl-8 mr-2 py-10'>
         <Routes>
           <Route path='/' element={<HomeAdminPage />} />
           <Route path='/OrderDetail' element={<OrderDetailPage />} />

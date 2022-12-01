@@ -1,11 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import ModalMesOrder from './ModalMesOrder'
 
 const QlHoaDon = () => {
     //const [showDetailOder, setShowDetailOder] = useState(false)
     const [stateInfoOder, setInfoOder] = useState([])
     const [stateStatus, setStateStatus] = useState([])
+    const [mesDeleteOrder, setMesDeleteOrder] = useState()
+    const [hideModalMes, setHideModalMes] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -17,6 +20,25 @@ const QlHoaDon = () => {
             .then(listInfoStatusOrder => listInfoStatusOrder.data.length !== 0 ? setStateStatus(listInfoStatusOrder.data) : '')
             .catch(e => console.log(e))
     }, [])
+
+    const handleCloseModalMes = () => {
+        setHideModalMes(false)
+        if (mesDeleteOrder && mesDeleteOrder.errCode === 0) {
+            navigate(0)
+        }
+    }
+
+    useEffect(() => {
+        if (hideModalMes) {
+            const timer = setTimeout(() => {
+                setHideModalMes(false)
+                if (mesDeleteOrder && mesDeleteOrder.errCode === 0) {
+                    navigate(0)
+                }
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [hideModalMes]);
 
     return (
         <>
@@ -62,9 +84,6 @@ const QlHoaDon = () => {
                                         <th scope="col" className="text-sm  bg-gray-400  px-2 font-semibold text-black text-4 text-center">
 
                                         </th>
-                                        <th scope="col" className="text-sm  bg-gray-400  px-2 font-semibold text-black text-4 text-center">
-
-                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,147 +92,53 @@ const QlHoaDon = () => {
                                             stateInfoOder.map((item, index) => (
                                                 <>
                                                     <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                                                        <td className="whitespace-nowrap text-center text-3.5 text-sm font-medium text-gray-900 px-2 py-2">
+                                                        <td className="whitespace-nowrap  text-center text-3.5 text-sm font-medium text-gray-900 px-2 py-2">
                                                             {index + 1}
                                                         </td>
-                                                        <td className="whitespace-nowrap text-center text-sm text-3.5 font-medium text-gray-900 px-2 py-2">
+                                                        <td className="whitespace-nowrap w-28 block overflow-hidden text-ellipsis text-center text-sm text-3.5 font-medium text-gray-900 px-2 py-2">
                                                             {item.Ho_ten}
                                                         </td>
                                                         <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
                                                             {item.Email}
                                                         </td>
-                                                        <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
+                                                        <td className="text-sm w-52 inline-block text-ellipsis overflow-hidden text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
                                                             {item.Dia_chi_nhan_hang}
                                                         </td>
                                                         <td className="text-sm text-center text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
                                                             {item.So_dien_thoai}
                                                         </td>
-                                                        <td className="text-sm text-center text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
+                                                        <td className="text-sm text-center block w-48 hover:overflow-auto hover:text-clip overflow-hidden text-ellipsis text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
                                                             {item.Ghi_chu}
                                                         </td>
-                                                        <td className="text-sm text-center text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
+                                                        <td className="text-sm text-center  text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
                                                             {item.Tong_tien.toLocaleString()} ₫
                                                         </td>
-                                                        <td className="text-sm text-center text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
+                                                        <td className="text-sm text-center  text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
                                                             {stateStatus ? stateStatus.map((itemStatus) => (
                                                                 itemStatus.id === item.Trang_thai ? itemStatus.Ten_trang_thai : ''
                                                             )) : ''}
                                                         </td>
-                                                        <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                            <button onClick={() => { localStorage.setItem('idHD', item.id); navigate('/OrderDetail') }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Xem chi tiết</button>
-                                                        </td>
-                                                        <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                            <button className="px-4 py-1 text-sm text-black border-black font-semibold hover:bg-slate-600 hover:text-white hover:border-white border-2 rounded">Xóa</button>
+                                                        <td className="text-sm inline-block text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                            <i onClick={() => { localStorage.setItem('idHD', item.id); navigate('/OrderDetail') }} class="bi bi-ticket-detailed-fill mx-5 text-5 text-red-800 hover:text-red-500 cursor-pointer"></i>
+                                                            <i onClick={() => { setHideModalMes(true); axios.post(`http://localhost:7001/api/post-delete-order`, { id: item.id }).then(mes => { setMesDeleteOrder(mes.data); }) }} class="bi bi-x-octagon-fill text-5 text-blue-900 hover:text-blue-450 cursor-pointer"></i>
                                                         </td>
                                                     </tr>
                                                 </>
                                             )) : ''
 
                                     }
-
-
-                                    {/* {
-                                        stateListProduct.map((item, index) => (
-                                            <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                                                <td className="whitespace-nowrap text-center text-3.5 text-sm font-medium text-gray-900 px-2 py-2">
-                                                    {index + 1}
-                                                </td>
-                                                <td className="whitespace-nowrap text-center text-sm text-3.5 font-medium text-gray-900 px-2 py-2">
-                                                    {item.Ten_san_pham}
-                                                </td>
-                                                <td className="text-sm text-gray-900 font-light whitespace-nowrap text-center">
-                                                    <img className="mx-3 my-2 w-24" src={item.Hinh_anh} />
-                                                </td>
-                                                <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
-                                                    {item.Gia_san_pham.toLocaleString()} ₫
-                                                </td>
-                                                <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
-                                                    {item.So_luong_SP}
-                                                </td>
-                                                <td className="text-sm text-center text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
-                                                    {
-                                                        stateDataProductType.map((item2) => (
-                                                            item.Id_loai_SP === item2.id ? item2.Ten_loai_SP : ''
-                                                        ))
-                                                    }
-                                                </td>
-                                                <td className="text-sm text-center text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
-                                                    {
-                                                        stateDataProductGroup.map((item2) => (
-                                                            item.Id_nhom_SP === item2.id ? item2.Ten_nhom : ''
-                                                        ))
-                                                    }
-                                                </td>
-                                                <td className="text-sm text-center text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
-                                                    {item.Thong_tin_bao_hanh}
-                                                </td>
-                                                <td className="text-sm text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                    {item.Ghi_chu}
-                                                </td>
-                                                {
-                                                    stateListProductDetail ?
-                                                        stateListProductDetail.some((itemProductDetail) => itemProductDetail.Id_san_pham === item.id) ?
-                                                            <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                                <Link onClick={() => localStorage.setItem('Id_Product_Detail', item.id)} to="/ProductDetail" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</Link>
-                                                            </td> :
-                                                            <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                                <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-gray-700 border-gray-700 font-semibold hover:bg-gray-700 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm</button>
-                                                            </td>
-                                                        // stateListProductDetail ?
-                                                        //     stateListProductDetail.filter((itemProductDetail) => itemProductDetail.Id_san_pham === item.id) ?
-                                                        //         <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                        //             <Link onClick={() => localStorage.setItem('Id_Product_Detail', item.id)} to="/ProductDetail" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</Link>
-                                                        //         </td> :
-                                                        //         <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                        //             <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm đã có ròi</button>
-                                                        //         </td>
-
-                                                        // stateListProductDetail.map((itemProductDetail) => (
-                                                        //     (itemProductDetail.Id_san_pham === item.id) ?
-                                                        //         <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                        //             <Link onClick={() => localStorage.setItem('Id_Product_Detail', item.id)} to="/ProductDetail" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</Link>
-                                                        //         </td> : ''
-
-                                                        // ))
-                                                        // (itemProductDetail.Id_san_pham !== item.id) ?
-                                                        // <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                        //     <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm đã có ròi</button>
-                                                        // </td> : ''
-                                                        : <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                            <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm chưa có</button>
-                                                        </td>
-                                                }
-                                                <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                    <button onClick={() => { dispatch(actions.getInfoProductAction.getInfoProductRequest(item.id)); setShowModalEditInfoProduct(true) }} className="px-4 py-1 text-sm text-black border-black font-semibold hover:bg-slate-600 hover:text-white hover:border-white border-2 rounded">Sửa</button>
-                                                </td>
-
-                                            </tr>
-                                        ))
-                                    } */}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            {/* {
-                showModalAddProduct &&
-                <div className='fixed flex z-sticky  items-center bg-slate-250 justify-center left-0 top-0 right-0 bottom-0'>
-                    <ModalThemSP isClose={hideModalAddProduct} />
-                </div>
-            }
-            {
-                showModalEditInfoProduct &&
-                <div className='fixed flex z-sticky items-center bg-slate-250 justify-center left-0 top-0 right-0 bottom-0'>
-                    <EditInfoProduct isClose={hideModalEditInfoProduct} />
-                </div>
-            }
-            {
-                showModalAddProductDetail &&
-                <div className='fixed flex z-sticky  items-center bg-slate-250 justify-center left-0 top-0 right-0 bottom-0'>
-                    <ModalAddProductDetail isClose={handleHideModalAddProductDetail} />
-                </div>
-            } */}
+            <div>
+                {
+                    hideModalMes &&
+                    <ModalMesOrder isClose={handleCloseModalMes} Mes={mesDeleteOrder} />
+                }
+            </div>
         </>
     )
 }

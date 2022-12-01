@@ -68,7 +68,6 @@ const ModalBuyNow = (props) => {
                         mesPayment.errCode = ''
                         setStateLoading(false)
                         dispatch(actions.getBillAction.getBillRequest(infoUser.Dien_thoai))
-                        console.log('hahahasd');
                         navigate('/OrderDetail')
                         localStorage.removeItem('arrProduct')
                     }, 3000)
@@ -93,6 +92,15 @@ const ModalBuyNow = (props) => {
     const handleCloseModal = () => {
         setShowModalSignIn(false)
     }
+
+    useEffect(() => {
+        if (showModalMesPayment) {
+            const timer = setTimeout(() => {
+                setShowModalMesPayment(false)
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [showModalMesPayment]);
 
     return (
         <>

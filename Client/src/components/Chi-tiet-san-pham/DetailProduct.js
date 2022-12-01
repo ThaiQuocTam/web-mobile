@@ -17,11 +17,13 @@ const DetailProduct = () => {
   const navigate = useNavigate()
   const infoProductDetail = useSelector(infoProductDetailSelector)
 
-  // const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(2)
+  const [indexListProduct, setIndexListProduct] = useState(0)
+  const [positionX, setPositionX] = useState(0)
   const [hideAddCartMes, setHideAddCartMes] = useState(false)
   const [showModalSignIn, setShowModalSignIn] = useState(false)
   const [modalBuyNow, setModalBuyNow] = useState(false)
-  // const [animation, setAnimation] = useState('')
+  const [animation, setAnimation] = useState('')
   const infoProduct = useSelector(infoProductSelector)
   const [stateInfoProduct, setStateInfoProduct] = useState({
     Ten_san_pham: '',
@@ -33,45 +35,49 @@ const DetailProduct = () => {
   })
   const [stateProductBuyNow, setStateProductBuyNow] = useState()
 
-  const product = Products.map(items => items.images.length)
   let email = localStorage.getItem("User")
   const idProductStore = localStorage.getItem('idProduct')
 
-  // const handlePre = () => {
-  //   if (index <= 0) {
-  //     setIndex(product - 1)
-  //     animation === 'animate-aniLeft1' ? setAnimation('animate-aniLeft2') : setAnimation('animate-aniLeft1')
-  //   }
-  //   else {
-  //     setIndex(pre => pre - 1)
-  //     animation === 'animate-aniLeft1' ? setAnimation('animate-aniLeft2') : setAnimation('animate-aniLeft1')
-  //   }
-  // }
+  useEffect(() => {
 
-  // const handleNext = () => {
-  //   if (index >= product - 1) {
-  //     setIndex(0)
-  //     animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
-  //   }
-  //   else {
-  //     setIndex(pre => pre + 1)
-  //     animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
-  //   }
-  // }
+    const timerId = setTimeout(() => {
+      let indexX = 0
+      Products.map((item, index) => {
+        indexX = indexX += 1
+      })
+      setIndexListProduct(indexX)
+      setIndex(pre => pre + 1)
+      if (index <= indexX) {
+        console.log('index', index);
+        console.log(indexX);
+        setPositionX(pre => pre - 340)
+      }
+      else {
+        setPositionX(0)
+        setIndex(2)
+      }
+    }, 3000)
+    return () => clearTimeout(timerId)
+  }, [positionX])
 
-  // useEffect(() => {
-  //   const timerId = setTimeout(() => {
-  //     if (index >= product - 1) {
-  //       setIndex(0)
-  //       animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
-  //     }
-  //     else {
-  //       setIndex(pre => pre + 1)
-  //       animation === 'animate-aniRight1' ? setAnimation('animate-aniRight2') : setAnimation('animate-aniRight1')
-  //     }
-  //   }, 3000);
-  //   return () => clearTimeout(timerId)
-  // }, [index])
+  const handlePre = () => {
+    if (positionX !== 0) {
+      setIndex(pre => pre - 1)
+      setPositionX(pre => pre + 340)
+    }
+  }
+
+  const handleNext = () => {
+    console.log(index);
+    if (index <= indexListProduct) {
+      setIndex(pre => pre + 1)
+      setPositionX(pre => pre - 340)
+    }
+    else {
+      setPositionX(0)
+      setIndex(2)
+    }
+  }
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -161,134 +167,185 @@ const DetailProduct = () => {
 
   return (
     <>
-      <div className="">
-        <div>
-          <div className='overflow-auto w-full pl-32'>
-            <Link className="relative float-left leading-9 h-9 mb-5 block text-green-900 hover:text-green-600" to="/ListProduct">
-              <i className="bi bi-arrow-left-circle icon text-8  mr-2 " />
-              <strong className='text-4  '>Quay lại</strong>
-            </Link  >
+      <div className="bg-gray-100" style={{ 'padding': '0 70px' }}>
+        <div className="bg-white">
+          <div className="">
+            <div>
+              <div className='overflow-auto w-full pl-20 '>
+                <Link className="relative float-left leading-9 h-9 mb-5 block text-green-900 hover:text-green-600" to="/ListProduct">
+                  <i className="bi bi-arrow-left-circle icon text-8  mr-2 " />
+                  <strong className='text-4  '>Quay lại</strong>
+                </Link  >
+              </div>
+            </div>
+            <div className='mr-20' style={{ 'margin-left': '4.8rem' }}>
+              <div className='w-full border-b-2 border-gray-400 pb-2'>
+                <span className='text-5 text-gray-700 font-semibold ' style={{ 'font-family': 'sans-serif' }}>{stateInfoProduct.Ten_san_pham} - Chính hãng</span>
+              </div>
+              <div className="flex w-full">
+                <div className='' style={{ 'width': '32.5%' }}>
+                  <div className=' w-full relative overflow-hidden mt-2 border shadow-soft-xxs bg-sky-50 rounded-4'>
+                    <div className="slider max-w-90 float-left">
+                      <i onClick={handlePre} className="bi bi-caret-left-fill bg-gray-600 text-white inline-block h-11 w-10 absolute left-0 text-center leading-10 slider-prev border-2 border-gray-200 hover:bg-slate-700 text-4"></i>
+                      <div className="slider-wrapper" style={{ 'width': '124%' }}>
+                        <div className="slider-main w-80 p-5  border-slate-100" style={{ 'transform': `translate(${positionX}px)` }}>
+                          {
+                            Products.map((item) => (
+                              <div className="slider-item w-20" style={{ 'margin-left': '38px', 'margin-right': '20px' }}>
+                                <img
+                                  className="block w-full"
+                                  src={item}
+                                  alt=""
+                                />
+                              </div>
+                            ))
+                          }
+
+                        </div>
+                      </div>
+                      <i onClick={handleNext} className="bi bi-caret-right-fill bg-gray-600 text-white h-11 w-10 absolute right-0 mr-28 text-4 slider-next border-2 border-gray-200 hover:bg-slate-700" style={{ 'right': '-188px' }}></i>
+                    </div>
+                    {/* <div className="absolute bottom-0 bg-white w-full h-20 p-2 pl-5 overflow-hidden">
+                      <div className="slider max-w-90 float-left mb-20">
+                        <i onClick={handlePre} className="bi bi-caret-left-fill bg-gray-600 text-white inline-block h-11 w-10 absolute left-0 text-center leading-10 slider-prev border-2 border-gray-200 hover:bg-slate-700 text-4"></i>
+                        <div className="slider-wrapper" style={{ 'width': '124%' }}>
+                          <div className="slider-main w-80 p-5  border-slate-100" style={{ 'transform': `translate(${positionX}px)` }}>
+                            {
+                              Products.map((item) => (
+                                <div className="slider-item w-5" style={{ 'margin-left': '38px', 'margin-right': '20px' }}>
+                                  <img
+                                    className="block w-full"
+                                    src={item}
+                                    alt=""
+                                  />
+                                </div>
+                              ))
+                            }
+
+                          </div>
+                        </div>
+                        <i onClick={handleNext} className="bi bi-caret-right-fill bg-gray-600 text-white h-11 w-10 absolute right-0 mr-28 text-4 slider-next border-2 border-gray-200 hover:bg-slate-700" style={{ 'right': '-188px' }}></i>
+                      </div>
+                    </div> */}
+                  </div>
+                </div>
+                <div className="w-45pc pt-8 pr-5">
+                  <div className="flex p-5">
+                    <div><span className="text-5 text-red-600 font-extrabold mr-5 ml-5">{stateInfoProduct.Gia_san_pham.toLocaleString()} ₫</span></div>
+                    <div className="leading-9"><span className="text-3.5 line-through italic pr-5 border-r border-r-black">{(stateInfoProduct.Gia_san_pham + (stateInfoProduct.Gia_san_pham * (10 / 100))).toLocaleString()} ₫</span></div>
+                    <div className="pl-5 leading-9"><span className="italic text-3.5 font-normal">Giá đã bao gồm 10% VAT</span></div>
+                  </div>
+                  <div className="pl-10">
+                    <span className="text-4 font-semibold">{stateInfoProduct.Ten_san_pham} - Chính hãng</span>
+                  </div>
+                  <div className="pl-10 mt-2">
+                    <div className="bg-green-950 pt-1 w-full text-center rounded-3">
+                      <i className="bi bi-truck-front-fill text-5 text-white"></i>
+                      <span className="text-white ml-3 mb-2 text-3.5">MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC</span>
+                    </div>
+                  </div>
+                  <div className="pl-10 mt-5">
+                    <div className="mb-2">
+                      <span className="text-3.5 uppercase  text-green-950" style={{ 'font-family': 'sans-serif' }}><i className='bi bi-check2-circle text-7 font-semibold text-green-950 mr-1 '></i> Sản phẩm chính hãng</span>
+                    </div>
+                    <div className="mb-2">
+                      <span className="text-3.5 uppercase  text-green-950" style={{ 'font-family': 'sans-serif' }}> <i className='bi bi-box2 text-7 font-semibold text-green-950  mr-1'></i> Được chứng nhận từ các cơ sở </span>
+                    </div>
+                    <div className="mb-2">
+                      <span className="text-3.5 uppercase  text-green-950" style={{ 'font-family': 'sans-serif' }}><i className='bi bi-headset text-7 font-semibold text-green-950  mr-1'></i> HOTLINE HỔ TRỢ 09896.5565 </span>
+                    </div>
+                    <div className="mb-2">
+                      <span className="text-3.5 uppercase  text-green-950" style={{ 'font-family': 'sans-serif' }}><i className='bi bi-arrow-repeat text-7 font-semibold text-green-950  mr-1'></i> Thủ tục đổi trả dễ dàng</span>
+                    </div>
+
+                    {/* <div>
+                      <span className="w-full border borer-slate-100 block rounded-3 h-24 p-3 focus:outline-none">{stateInfoProduct.Thong_tin_bao_hanh}</span>
+                    </div> */}
+                  </div>
+                  <div className="flex pl-10 mt-7">
+                    <div onClick={() => { setModalBuyNow(true); setStateProductBuyNow(stateInfoProduct) }} className="w-2/3 bg-red-600 hover:bg-red-800 text-center py-1 rounded-3 cursor-pointer  ">
+                      <button className="text-white text-3 font-bold">MUA NGAY</button>
+                    </div>
+                    <div className="w-1/3 pl-2">
+                      {
+                        email ?
+                          <div onClick={handleOnclickAddCart} className="bg-yellow-600 rounded-3 text-center cursor-pointer hover:bg-yellow-800">
+                            <i class="bi bi-cart-plus-fill text-6 text-white"></i>
+                            <button className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
+                          </div>
+                          :
+                          <div onClick={() => setShowModalSignIn(true)} className="bg-yellow-600 rounded-3 text-center cursor-pointer hover:bg-yellow-800">
+                            <i class="bi bi-cart-plus-fill text-6 text-white"></i>
+                            <button className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
+                          </div>
+                      }
+
+                    </div>
+                  </div>
+                </div>
+                <div className="p-2 mt-2 bg-slate-50" style={{ 'width': '22.5%' }}>
+                  <div className="w-full h-full pt-10">
+                    <span className="font-semibold text-gray-800 shadow-soft-xxs block w-full bg-white text-center p-2">Thông tin bảo hành</span>
+                    <div className="p-4">
+                      <span className="text-4 text-gray-800"><i class="bi bi-clipboard-check text-5 text-green-600 rounded-8 leading-10  mr-2 font-semibold"></i>{stateInfoProduct.Thong_tin_bao_hanh}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className='mx-34'>
-          <div className='w-full'>
-            <span className='text-5 font-extrabold '>{stateInfoProduct.Ten_san_pham} - Chính hãng</span>
-          </div>
-          <div className="flex w-full">
-            <div className='w-1/2'>
-              <div className=' w-full overflow-hidden pl-20'>
-                <div className="slider max-w-90 float-left">
-                  <i className="bi bi-caret-left-fill ml-28 h-7 w-7 slider-prev border-2 border-gray-200 hover:bg-slate-100 text-4"></i>
-                  <div className="slider-wrapper">
-                    <div className="slider-main w-96 p-5  border-slate-100 shadow-soft-3D">
-                      <div className="slider-item">
-                        <img
-                          className="block max-w-full"
-                          src={stateInfoProduct.Hinh_anh}
-                          alt=""
-                        />
+
+          {
+            infoProductDetail ?
+              infoProductDetail.errCode === '0' ?
+                <div className="mt-20">
+                  <div className="flex mx-20 border rounded-2 shadow-soft-xxs">
+                    <div className="w-1/2 p-5">
+                      <div className="w-full">
+                        <img className="w-full rounded-2" src={infoProductDetail.info.Hinh_anh} />
+                      </div>
+                    </div>
+                    <div className="w-/2 p-5">
+                      <div>
+                        <span className="font-bold text-4">THÔNG SỐ KĨ THUẬT</span>
+                      </div>
+                      <div className="my-2">
+                        <label className="font-bold text-3.5">Công nghệ màn hình : &nbsp;&nbsp;</label>
+                        <span className="text-3.5">{infoProductDetail.info.Cong_nghe_man_hinh}</span>
+                      </div>
+                      <div className="my-2">
+                        <label className="font-bold text-3.5">Độ phân giải: &nbsp;&nbsp;</label>
+                        <span className="text-3.5">{infoProductDetail.info.Do_phan_giai}</span>
+                      </div>
+                      <div className="my-2">
+                        <label className="font-bold text-3.5">Hệ điều hành : &nbsp;&nbsp;</label>
+                        <span className="text-3.5">{infoProductDetail.info.He_dieu_hanh}</span>
+                      </div>
+                      <div className="my-2">
+                        <label className="font-bold text-3.5">Chíp xử lý (CPU) : &nbsp;&nbsp;</label>
+                        <span className="text-3.5">{infoProductDetail.info.Chip_xu_ly}</span>
+                      </div>
+                      <div className="my-2">
+                        <label className="font-bold text-3.5">Bộ nhớ ROM : &nbsp;&nbsp;</label>
+                        <span className="text-3.5">{infoProductDetail.info.Bo_nho_ROM}</span>
+                      </div>
+                      <div className="my-2">
+                        <label className="font-bold text-3.5">RAM : &nbsp;&nbsp;</label>
+                        <span className="text-3.5">{infoProductDetail.info.RAM}</span>
+                      </div>
+                      <div className="my-2">
+                        <label className="font-bold text-3.5">Dung lượng pin : &nbsp;&nbsp;</label>
+                        <span className="text-3.5">{infoProductDetail.info.Dung_luong_PIN}</span>
                       </div>
                     </div>
                   </div>
-                  <i className="bi bi-caret-right-fill h-7 mr-28 w-7 text-4 slider-next border-2 border-gray-200 hover:bg-slate-100"></i>
-                </div>
-              </div>
-            </div>
-            <div className="w-1/2 pt-8">
-              <div className="flex p-5">
-                <div><span className="text-5 text-red-600 font-extrabold mr-5 ml-5">{stateInfoProduct.Gia_san_pham.toLocaleString()} ₫</span></div>
-                <div className="leading-9"><span className="text-3.5 line-through italic pr-5 border-r border-r-black">{(stateInfoProduct.Gia_san_pham + (stateInfoProduct.Gia_san_pham * (10 / 100))).toLocaleString()} ₫</span></div>
-                <div className="pl-5 leading-9"><span className="italic text-3.5 font-normal">Giá đã bao gồm 10% VAT</span></div>
-              </div>
-              <div className="pl-10">
-                <span className="text-4 font-semibold">{stateInfoProduct.Ten_san_pham} - Chính hãng</span>
-              </div>
-              <div className="pl-10 mt-2">
-                <div className="bg-green-950 pt-1 w-full text-center rounded-3">
-                  <i className="bi bi-truck-front-fill text-5 text-white"></i>
-                  <span className="text-white ml-3 mb-2 text-3.5">MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC</span>
-                </div>
-              </div>
-              <div className="pl-10 mt-5">
-                <div className="mb-2">
-                  <span className="text-3.5 font-bold">THÔNG TIN BẢO HÀNH </span>
-                </div>
-                <div>
-                  <span className="w-full border borer-slate-100 block rounded-3 h-24 p-3 focus:outline-none">{stateInfoProduct.Thong_tin_bao_hanh}</span>
-                </div>
-              </div>
-              <div className="flex pl-10 mt-7">
-                <div onClick={() => { setModalBuyNow(true); setStateProductBuyNow(stateInfoProduct) }} className="w-2/3 bg-red-600 hover:bg-red-800 text-center py-1 rounded-3 cursor-pointer  ">
-                  <button className="text-white text-3 font-bold">MUA NGAY</button>
-                </div>
-                <div className="w-1/3 pl-2">
-                  {
-                    email ?
-                      <div onClick={handleOnclickAddCart} className="bg-yellow-600 rounded-3 text-center cursor-pointer hover:bg-yellow-800">
-                        <i class="bi bi-cart-plus-fill text-6 text-white"></i>
-                        <button className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
-                      </div>
-                      :
-                      <div onClick={() => setShowModalSignIn(true)} className="bg-yellow-600 rounded-3 text-center cursor-pointer hover:bg-yellow-800">
-                        <i class="bi bi-cart-plus-fill text-6 text-white"></i>
-                        <button className=" ml-2 text-3 text-white font-bold">THÊM GIỎ HÀNG</button>
-                      </div>
-                  }
-
-                </div>
-              </div>
-            </div>
-          </div>
+                </div> : ''
+              : ''
+          }
         </div>
+
       </div>
 
-      {
-        infoProductDetail ?
-          infoProductDetail.errCode === '0' ?
-            <div>
-              <div className="flex mx-34 my-3 border border-slate-50 bg-slate-50 rounded-2">
-                <div className="w-1/2 p-5">
-                  <div className="w-full">
-                    <img className="w-full rounded-2" src={infoProductDetail.info.Hinh_anh} />
-                  </div>
-                </div>
-                <div className="w-/2 p-5">
-                  <div>
-                    <span className="font-bold text-4">THÔNG SỐ KĨ THUẬT</span>
-                  </div>
-                  <div className="my-2">
-                    <label className="font-bold text-3.5">Công nghệ màn hình : &nbsp;&nbsp;</label>
-                    <span className="text-3.5">{infoProductDetail.info.Cong_nghe_man_hinh}</span>
-                  </div>
-                  <div className="my-2">
-                    <label className="font-bold text-3.5">Độ phân giải: &nbsp;&nbsp;</label>
-                    <span className="text-3.5">{infoProductDetail.info.Do_phan_giai}</span>
-                  </div>
-                  <div className="my-2">
-                    <label className="font-bold text-3.5">Hệ điều hành : &nbsp;&nbsp;</label>
-                    <span className="text-3.5">{infoProductDetail.info.He_dieu_hanh}</span>
-                  </div>
-                  <div className="my-2">
-                    <label className="font-bold text-3.5">Chíp xử lý (CPU) : &nbsp;&nbsp;</label>
-                    <span className="text-3.5">{infoProductDetail.info.Chip_xu_ly}</span>
-                  </div>
-                  <div className="my-2">
-                    <label className="font-bold text-3.5">Bộ nhớ ROM : &nbsp;&nbsp;</label>
-                    <span className="text-3.5">{infoProductDetail.info.Bo_nho_ROM}</span>
-                  </div>
-                  <div className="my-2">
-                    <label className="font-bold text-3.5">RAM : &nbsp;&nbsp;</label>
-                    <span className="text-3.5">{infoProductDetail.info.RAM}</span>
-                  </div>
-                  <div className="my-2">
-                    <label className="font-bold text-3.5">Dung lượng pin : &nbsp;&nbsp;</label>
-                    <span className="text-3.5">{infoProductDetail.info.Dung_luong_PIN}</span>
-                  </div>
-                </div>
-              </div>
-            </div> : ''
-          : ''
-      }
 
       <div className="">
         <div className='pl-24 mt-8 mb-5'>

@@ -130,9 +130,7 @@ const QlSanPham = () => {
                                         <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             Hình ảnh
                                         </th>
-                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
-                                            Giá sản phẩm
-                                        </th>
+
                                         <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             Số lượng
                                         </th>
@@ -144,6 +142,9 @@ const QlSanPham = () => {
                                         </th>
                                         <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             Thông tin bảo hành
+                                        </th>
+                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
+                                            Giá sản phẩm
                                         </th>
                                         <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             Ghi chú
@@ -163,15 +164,13 @@ const QlSanPham = () => {
                                                 <td className="whitespace-nowrap text-center text-3.5 text-sm font-medium text-gray-900 px-2 py-2">
                                                     {index + 1}
                                                 </td>
-                                                <td className="whitespace-nowrap text-center text-sm text-3.5 font-medium text-gray-900 px-2 py-2">
+                                                <td className="whitespace-nowrap block w-60 overflow-hidden text-ellipsis text-center text-sm text-3.5 font-medium text-gray-900 px-2 py-2" style={{ 'height': '138px', 'line-height': '125px' }}>
                                                     {item.Ten_san_pham}
                                                 </td>
                                                 <td className="text-sm text-gray-900 font-light whitespace-nowrap text-center">
                                                     <img className="mx-3 my-2 w-24" src={item.Hinh_anh} />
                                                 </td>
-                                                <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
-                                                    {item.Gia_san_pham.toLocaleString()} ₫
-                                                </td>
+
                                                 <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
                                                     {item.So_luong_SP}
                                                 </td>
@@ -189,10 +188,13 @@ const QlSanPham = () => {
                                                         ))
                                                     }
                                                 </td>
-                                                <td className="text-sm text-center text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
+                                                <td className="text-sm text-center block w-30 overflow-hidden text-ellipsis text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap">
                                                     {item.Thong_tin_bao_hanh}
                                                 </td>
-                                                <td className="text-sm text-gray-900 text-3.5 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                <td className="text-sm text-gray-900 text-center text-3.5 font-light px-2 py-2 whitespace-nowrap">
+                                                    {item.Gia_san_pham.toLocaleString()} ₫
+                                                </td>
+                                                <td className="text-sm text-gray-900 block w-30 overflow-hidden text-ellipsis  text-3.5 font-light px-2 py-2 whitespace-nowrap text-center">
                                                     {item.Ghi_chu}
                                                 </td>
                                                 {
@@ -202,7 +204,7 @@ const QlSanPham = () => {
                                                                 <Link onClick={() => localStorage.setItem('Id_Product_Detail', item.id)} to="/ProductDetail" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</Link>
                                                             </td> :
                                                             <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                                <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-gray-700 border-gray-700 font-semibold hover:bg-gray-700 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm</button>
+                                                                <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-gray-700 border-gray-700 font-semibold hover:bg-gray-700 hover:text-white hover:border-white border-2 rounded">Thêm thông số</button>
                                                             </td>
                                                         // stateListProductDetail ?
                                                         //     stateListProductDetail.filter((itemProductDetail) => itemProductDetail.Id_san_pham === item.id) ?
@@ -225,7 +227,7 @@ const QlSanPham = () => {
                                                         //     <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm đã có ròi</button>
                                                         // </td> : ''
                                                         : <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                            <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm chưa có</button>
+                                                            <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số</button>
                                                         </td>
                                                 }
                                                 <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">

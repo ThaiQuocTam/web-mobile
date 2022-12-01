@@ -119,9 +119,86 @@ const handleHasReceived = async (req, res) => {
     } catch (e) { }
 }
 
+const handleConfirmOrder = async (req, res) => {
+    try {
+        if (req.body.id) {
+            let check = await db.hoa_don.findOne({
+                where: { id: req.body.id },
+                raw: true
+            })
+            if (check) {
+                await db.hoa_don.update({
+                    Ho_ten: check.Ho_ten,
+                    Email: check.Email,
+                    Dia_chi_nhan_hang: check.Dia_chi_nhan_hang,
+                    Tong_tien: check.Tong_tien,
+                    Trang_thai: 5,
+                    So_dien_thoai: check.So_dien_thoai,
+                    Ghi_chu: check.Ghi_chu,
+                    Id_nguoi_dung: check.Id_nguoi_dung
+                },
+                    {
+                        where: { id: check.id }
+                    })
+                return res.status(200).json({
+                    errCode: 0,
+                    message: 'Đã xác nhận'
+                })
+            } else {
+                return res.status(200).json({
+                    errCode: 1,
+                    message: 'Không tìm thấy hóa đơn'
+                })
+            }
+
+        }
+
+    } catch (e) { console.log(e) }
+}
+
+const handleDeleteOrder = async (req, res) => {
+    try {
+        if (req.body.id) {
+            let check = await db.hoa_don.findOne({
+                where: { id: req.body.id },
+                raw: true
+            })
+            if (check) {
+                if (check.Trang_thai === 8) {
+                    await db.hoa_don.destroy({
+                        where: { id: check.id }
+                    })
+                    await db.chi_tiet_hd.destroy({
+                        where: { Id_HD: check.id }
+                    })
+
+                    return res.status(200).json({
+                        errCode: 0,
+                        message: 'Xóa thành công'
+                    })
+                }
+                else {
+                    return res.status(200).json({
+                        errCode: 1,
+                        message: 'Hóa đơn chưa nhận hàng'
+                    })
+                }
+            } else {
+                return res.status(200).json({
+                    errCode: 2,
+                    message: 'Không tìm thấy hóa đơn'
+                })
+            }
+        }
+    }
+    catch (e) { console.log(e) }
+}
+
 module.exports = {
     handlePostPayment: handlePostPayment,
     handleGetInfoOder: handleGetInfoOder,
     handleGetInfoOrderDetail: handleGetInfoOrderDetail,
-    handleHasReceived: handleHasReceived
+    handleHasReceived: handleHasReceived,
+    handleConfirmOrder: handleConfirmOrder,
+    handleDeleteOrder: handleDeleteOrder
 }
