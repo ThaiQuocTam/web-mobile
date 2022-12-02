@@ -152,7 +152,7 @@ const ModalBuyNow = (props) => {
                                 <div className="p-4">
                                     <div className="mt-4">
                                         <input
-                                            readOnly={email ? true : false}
+                                            readOnly={email ? false : false}
                                             value={infoUser ? infoUser.Ho_ten : ''}
                                             placeholder='Họ và tên'
                                             type="text"

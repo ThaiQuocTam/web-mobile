@@ -66,7 +66,7 @@ const SignIn = (props) => {
 
     return (
         <>
-            <div className={`${hidden} items-center bg-slate-50 w-70pc h-70pc rounded-5 relative animate-modalForm`}>
+            <div className={`${hidden} items-center bg-white w-70pc h-70pc rounded-5 relative animate-modalForm`}>
                 <div className="mr-3 bg-blue-100 h-full rounded-5 pt-20 px-8">
                     <img className='w-full' src={imageSignIn} />
                 </div>
@@ -86,8 +86,9 @@ const SignIn = (props) => {
                                 <input
                                     {...register('Email', { required: false })}
                                     type="text"
+                                    placeholder='Nhập Email...'
                                     pattern="[A-Za-z]{1-15}"
-                                    className="mt-1 p-2 pr-12 text-3.5 bg-gray-200 focus:outline-none rounded border-b-2 border-gray-500 w-full"
+                                    className="mt-1 p-2 pr-12 bg-slate-50 placeholder:text-gray-500 placeholder:text-3.2 text-3.5 focus:outline-none rounded border-b-2 border-gray-500 w-full"
                                 />
                                 {/* {
                                     errors.Email &&
@@ -101,7 +102,8 @@ const SignIn = (props) => {
                                 <input
                                     {...register('Mat_khau', { required: false })}
                                     type={hidePass ? 'password' : 'text'}
-                                    className="mt-1 p-2 pr-12 bg-gray-200 focus:outline-none rounded border-b-2 border-gray-500 w-full"
+                                    placeholder='Nhập mật khẩu...'
+                                    className="mt-1 p-2 pr-12 bg-slate-50 placeholder:text-gray-500 placeholder:text-3.2 focus:outline-none rounded border-b-2 border-gray-500 w-full"
                                 />
                                 {
                                     hidePass ? <span className='relative right-4 float-right top-17px cursor-pointer' onClick={handleShowPass}><i class="bi bi-eye-slash-fill"></i></span> : <span className='relative right-4 float-right top-17px cursor-pointer line-through' onClick={handleShowPass}><i class="bi bi-eye-fill"></i></span>

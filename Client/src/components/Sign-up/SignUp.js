@@ -103,7 +103,7 @@ const SignUp = (props) => {
                   <label className='font font-semibold text-3.5'>Họ tên</label>
                   <input
                     type="text"
-                    placeholder="Nhập họ tên"
+                    placeholder="Nhập họ tên..."
                     className="mt-1 p-2 placeholder:text-3.2 border-gray-500 placeholder:text-gray-500 border-t-slate-500 bg-slate-50 focus:outline-none  border-b w-full text-3.5"
                     {...register('Ho_ten', { required: false })}
                   />
@@ -112,7 +112,7 @@ const SignUp = (props) => {
                   <label className='font font-semibold text-3.5'>Email</label>
                   <input
                     type="email"
-                    placeholder="Email"
+                    placeholder="Nhập Email..."
                     className="mt-1 p-2 placeholder:text-3.2 border-gray-500 placeholder:text-gray-500 border-t-slate-500 bg-slate-50 focus:outline-none  border-b w-full text-3.5"
 
                     {...register('Email', { required: false })}
@@ -124,7 +124,7 @@ const SignUp = (props) => {
                   <label className='font font-semibold text-3.5'>Mật khẩu</label>
                   <input
                     type={hidePass ? 'password' : 'text'}
-                    placeholder="Mật khẩu"
+                    placeholder="Nhập mật khẩu..."
                     className="mt-1 p-2 placeholder:text-3.2 border-gray-500 placeholder:text-gray-500 border-t-slate-500 bg-slate-50 focus:outline-none  border-b w-full text-3.5"
 
                     {...register('Mat_khau', { required: false })}
@@ -138,7 +138,7 @@ const SignUp = (props) => {
                   <label className='font font-semibold text-3.5'>Nhập lại mật khẩu</label>
                   <input
                     type={hideRePass ? 'password' : 'text'}
-                    placeholder="Nhật lại mật khẩu"
+                    placeholder="Nhật lại mật khẩu..."
                     className="mt-1 p-2 placeholder:text-3.2 border-gray-500 placeholder:text-gray-500 border-t-slate-500 bg-slate-50 focus:outline-none  border-b w-full text-3.5"
                     {...register('Nl_mat_khau', { required: false })}
 
@@ -162,7 +162,7 @@ const SignUp = (props) => {
                   <label className='font font-semibold text-3.5'>Số điện thoại</label>
                   <input
                     type="number"
-                    placeholder="Số điện thoại"
+                    placeholder="Nhập số điện thoại..."
                     className="mt-1 p-2 placeholder:text-3.2 border-gray-500 placeholder:text-gray-500 border-t-slate-500 bg-slate-50 focus:outline-none  border-b w-full text-3.5"
                     {...register('Dien_thoai', { required: false })}
 
