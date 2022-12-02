@@ -346,7 +346,6 @@ const DetailProduct = () => {
 
       </div>
 
-
       <div className="">
         <div className='pl-24 mt-8 mb-5'>
           <div className='bg-green-950 max-w-54 p-1 pl-5 border-l-25 border-green-200 rounded-1'>

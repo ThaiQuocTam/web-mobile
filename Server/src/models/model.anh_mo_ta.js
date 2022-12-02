@@ -14,12 +14,13 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     anh_mo_ta.init({
-        Ten_san_pham: DataTypes.STRING,
-        So_luong: DataTypes.INTEGER,
-        Gia_san_pham: DataTypes.INTEGER,
-        Ngay_dat: DataTypes.DATE,
-        Id_nguoi_dung: DataTypes.INTEGER,
-        Id_san_pham: DataTypes.INTEGER,
+        Id_SP: DataTypes.INTEGER,
+        Hinh_anh1: DataTypes.TEXT('long'),
+        Hinh_anh2: DataTypes.TEXT('long'),
+        Hinh_anh3: DataTypes.TEXT('long'),
+        Hinh_anh4: DataTypes.TEXT('long'),
+        Hinh_anh5: DataTypes.TEXT('long'),
+
     }, {
         sequelize,
         modelName: 'anh_mo_ta',
