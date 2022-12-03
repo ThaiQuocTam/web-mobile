@@ -60,7 +60,7 @@ const ListSmartphone = () => {
                                 }
                                 {
                                     item.So_luong_SP <= 5 && item.So_luong_SP > 0 ?
-                                        <div className="absolute w-10 top-0 left-0">
+                                        <div className="absolute animate-bounce w-10 top-0 left-0">
                                             <img className="w-full" src='https://hoanghamobile.com/Content/web/sticker/hot.png' />
                                         </div> : ''
                                 }

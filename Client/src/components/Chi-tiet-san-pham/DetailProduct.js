@@ -356,7 +356,7 @@ const DetailProduct = () => {
           <FlashSale />
         </div>
       </div>
-      <div className='px-32 bg-slate-50'>
+      <div id='Review' className='px-32 bg-slate-50'>
         <div className='bg-white w-full p-8 px-20 rounded-5'>
           <ReviewProduct product={stateInfoProduct} />
           <ShowReviewProduct product={stateInfoProduct} />

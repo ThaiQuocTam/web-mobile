@@ -46,6 +46,7 @@ const initWebRoutes = (app) => {
     router.put('/api/put-confirm-order', paymentController.handleConfirmOrder)
     router.post('/api/post-delete-order', paymentController.handleDeleteOrder)
     router.get('/api/post-add-avatar-description', productsController.handleAddAvatarDescription)
+    router.get('/api/get-info-review-not-response', reviewController.handleInfoReviewNotResponse)
 
     return app.use("/", router);
 }

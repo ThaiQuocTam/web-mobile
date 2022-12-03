@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import image from '../Assets/images/logo.jpg'
-import { listProductGroupSelector, signInSelector } from '../redux/selector/index'
+import { listProductGroupSelector, signInSelector, getInfoUserSelector } from '../redux/selector/index'
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../redux/actions'
 import SignIn from 'components/Sign-in/SignIn';
@@ -14,6 +14,7 @@ const Header = () => {
     const dispatch = useDispatch()
     const listProductGroup = useSelector(listProductGroupSelector)
     const signData = useSelector(signInSelector)
+    const infoUserSelector = useSelector(getInfoUserSelector)
 
     const [hidden, setHidden] = useState(false)
     const [stateProductGroup, setStateProductGroup] = useState([])
@@ -22,6 +23,10 @@ const Header = () => {
     const [email, setEmail] = useState()
     const [stateValueSearch, setStateValuSearch] = useState('')
     const [stateListSearchProduct, setStateListSearchProduct] = useState()
+    const [showNotification, setShowNotification] = useState(false)
+    const [dataReview, setDataReview] = useState()
+    const [infoUser, setInfoUser] = useState()
+    const [listProduct, setListProduct] = useState()
 
     let emailLocal = localStorage.getItem("User")
     let listProductCartLocal = JSON.parse(localStorage.getItem('arrProduct'))
@@ -57,6 +62,7 @@ const Header = () => {
     useEffect(() => {
         if (emailLocal || signData) {
             setEmail(emailLocal)
+            dispatch(actions.getInfoUserAction.getInfoUserRequest(emailLocal))
         }
     }, [emailLocal || signData])
 
@@ -71,17 +77,36 @@ const Header = () => {
         }
     }, [stateValueSearch])
 
+    useEffect(() => {
+        if (infoUserSelector) {
+            setInfoUser(infoUserSelector)
+            axios.get(`http://localhost:7001/api/get-list-product`)
+                .then(listData => setListProduct(listData.data))
+                .catch(e => console.log(e))
+        }
+    }, [infoUserSelector])
+
+    useEffect(() => {
+        if (infoUser) {
+            if (infoUser.Id_phan_quyen === 7) {
+                axios.get(`http://localhost:7001/api/get-info-review-not-response`)
+                    .then(info => setDataReview(info.data))
+                    .catch(e => console.log(e))
+            }
+        }
+    }, [infoUser || dataReview])
+
     return (
         <>
             <header className='h-200 px-5 z-10 mb-10 bg-white'>
-                <div className='flex items-center pl-24'>
+                <div className='flex items-center content-center pl-24'>
                     <div className='w-15pc h-15pc'>
                         <Link to='/' className='w-full h-full block'>
                             <img className='w-full h-full' src={image} />
                         </Link>
                     </div>
                     <ul className=''>
-                        <li className='inline-block mr-24'>
+                        <li className='inline-block mr-10'>
                             <div className='relative'>
                                 <input
                                     value={stateValueSearch}
@@ -91,7 +116,7 @@ const Header = () => {
                             </div>
                             {
                                 stateListSearchProduct ?
-                                    <div className='mt-1 absolute bg-slate-100 rounded-2 p-3 max-h-96 overflow-auto z-30 cursor-pointer' style={{ width: '525px' }}>
+                                    <div className='mt-1 absolute bg-slate-100  rounded-2 p-3 max-h-96 overflow-auto z-30 cursor-pointer' style={{ width: '525px' }}>
                                         {
                                             stateListSearchProduct.map((item) => (
                                                 <div onClick={() => { localStorage.setItem("idProduct", item.id); navigate(`/DetailProduct?Ten_san_pham=${item.Ten_san_pham}`); setStateListSearchProduct(); setStateValuSearch('') }} className='flex mb-3 hover:bg-slate-50 p-1'>
@@ -114,16 +139,63 @@ const Header = () => {
 
                         </li>
                         <Link to='/Cart'>
-                            <li className='inline-block mr-14 text-6 hover:opacity-50'>
+                            <li className='inline-block mr-10 text-5 hover:opacity-50'>
                                 <a className='inline-block' href='#'>
-                                    <i className="bi bi-cart2 inline-block text-green-900 text-7 pr-1"></i>
+                                    <i className="bi bi-cart2 inline-block text-green-900 text-6 pr-1"></i>
                                     <span className='w-7 h-7 text-center inline-block text-white text-3.5 p-1 bg-orange-500 rounded-2'>
                                         {stateSoluong || 0}
                                     </span>
                                 </a>
                             </li>
                         </Link>
-                        <li className='inline-block mr-14 hover:opacity-50'>
+                        {/* <Link to='/Cart'> */}
+                        <li className='inline-block mr-10 text-5 relative'>
+                            {/* <a className='inline-block hover:opacity-50 ' href='#'> */}
+                            <i class="bi bi-circle-fill absolute text-orange-500 text-3 right-0 cursor-pointer"></i>
+                            <i onClick={() => setShowNotification(!showNotification)} className="bi bi-bell-fill cursor-pointer inline-block text-green-900 text-6 pr-1"></i>
+                            {/* </a> */}
+                            {
+                                showNotification &&
+                                <div className='w-72 animate-modalForm rounded-2 shadow-soft-xxs absolute bg-slate-50  pl-5 p-4 h-90 z-50 overflow-auto'>
+                                    {
+                                        emailLocal ?
+                                            showNotification &&
+                                            <>
+                                                <span className='font-semibold' style={{ 'font-family': 'sans-serif' }}>Thông báo</span>
+                                                <div className='flex mt-2 mb-2'>
+                                                    <div className='mr-10 bg-sky-100 p-1 rounded-2 px-2'>
+                                                        <span className='text-3.5 font-black' style={{ 'color': '#1877f2' }}>Chưa đọc</span>
+                                                    </div>
+                                                    <div className='p-1 rounded-2 px-2'>
+                                                        <span className='text-3.5 font-black'>Đã đọc</span>
+                                                    </div>
+                                                </div>
+                                                {
+                                                    dataReview ?
+                                                        dataReview.map((item) => (
+                                                            listProduct.map((itemProduct => (
+                                                                item.Id_san_pham === itemProduct.id ?
+                                                                    <div className='mb-2 hover:bg-slate-400 hover:text-white p-2 rounded-2'>
+                                                                        <a onClick={() => localStorage.setItem("idProduct", itemProduct.id)} href='/DetailProduct#Review'>
+                                                                            <span className='text-3.2 font-bold mr-1'>{item.Ten_nguoi_dung}</span>
+                                                                            <span className='text-3.2 mr-1'>Đã bình luận về sản phẩm</span>
+                                                                            <span className='text-3.2 font-semibold'>{itemProduct.Ten_san_pham}</span>
+                                                                        </a>
+                                                                    </div> : ''
+                                                            )))
+                                                        )) : ''
+                                                }
+                                            </> :
+                                            <div className='text-center'>
+                                                <span className='text-3.5  text-red-600 font-semibold'>Vui Lòng đăng nhập</span>
+                                            </div>
+                                    }
+                                </div>
+                            }
+
+                        </li>
+                        {/* </Link> */}
+                        <li className='inline-block mr-10 hover:opacity-50'>
                             <a href='/OrderLookup'>
                                 <div className='cursor-pointer'>
                                     <i className="bi bi-clock-history text-6 pr-2 text-green-700"></i>
