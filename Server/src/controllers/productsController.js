@@ -331,52 +331,34 @@ const handlePostEditProductType = async (req, res) => {
     } catch (e) { console.log(e) }
 }
 
-const handleAddAvatarDescription = async (req, res) => {
+const handleAddVersionProduct = async (req, res) => {
     try {
         let Id_SP = req.body.Id_SP
-        let Hinh_anh1 = req.body.Hinh_anh1
-        let Hinh_anh2 = req.body.Hinh_anh2
-        let Hinh_anh3 = req.body.Hinh_anh3
-        let Hinh_anh4 = req.body.Hinh_anh4
-        let Hinh_anh5 = req.body.Hinh_anh5
-        if (!Id_SP || !Hinh_anh1 || !Hinh_anh2 || !Hinh_anh3 || !Hinh_anh4 || !Hinh_anh5) {
+        let Anh_phien_ban = req.body.Anh_phien_ban
+        let Ten_phien_ban = req.body.Ten_phien_ban
+        let Gia_phien_ban = req.body.Gia_phien_ban
+        if (!Id_SP || !Anh_phien_ban || !Ten_phien_ban || !Gia_phien_ban) {
             return res.status(200).json({
                 errCode: 1,
-                message: 'Vui lòng nhập dữ liệu'
+                message: 'Vui lòng nhập đủ thông tin'
             })
-        } else {
-            let checkProduct = await db.san_pham.findOne({
-                where: { id: Id_SP },
-                raw: true
-            })
-            if (checkProduct) {
-                let mes = await db.anh_mo_ta.create({
-                    Id_SP: Id_SP,
-                    Hinh_anh1: Hinh_anh1,
-                    Hinh_anh2: Hinh_anh2,
-                    Hinh_anh3: Hinh_anh3,
-                    Hinh_anh4: Hinh_anh4,
-                    Hinh_anh5: Hinh_anh5
-                })
-                mes ? res.status(200).json({
-                    errCode: 0,
-                    message: 'Thêm thành côbng'
-                }) : res.status(200).json({
-                    errCode: 2,
-                    message: 'Thêm thất bại'
-                })
-            }
-            else {
-                return res.status(200).json({
-                    errCode: 3,
-                    message: 'Không tìm thấy sản phẩm'
-                })
-            }
-
         }
+        else {
+            await db.phien_ban.create({
+                Id_SP: Id_SP,
+                Anh_phien_ban: Anh_phien_ban,
+                Ten_phien_ban: Ten_phien_ban,
+                Gia_phien_ban: Gia_phien_ban
+            })
 
+            return res.status(200).json({
+                errCode: 0,
+                message: 'Thêm thành công'
+            })
+        }
     } catch (e) { console.log(e) }
 }
+
 
 module.exports = {
     handleAddProduct: handleAddProduct,
@@ -393,5 +375,5 @@ module.exports = {
     handlePostEditProductGroup: handlePostEditProductGroup,
     handlePostAddProductTye: handlePostAddProductTye,
     handlePostEditProductType: handlePostEditProductType,
-    handleAddAvatarDescription: handleAddAvatarDescription
+    handleAddVersionProduct: handleAddVersionProduct
 }

@@ -48,8 +48,6 @@ const DetailProduct = () => {
       setIndexListProduct(indexX)
       setIndex(pre => pre + 1)
       if (index <= indexX) {
-        console.log('index', index);
-        console.log(indexX);
         setPositionX(pre => pre - 340)
       }
       else {
@@ -205,28 +203,6 @@ const DetailProduct = () => {
                       </div>
                       <i onClick={handleNext} className="bi bi-caret-right-fill bg-gray-600 text-white h-11 w-10 absolute right-0 mr-28 text-4 slider-next border-2 border-gray-200 hover:bg-slate-700" style={{ 'right': '-188px' }}></i>
                     </div>
-                    {/* <div className="absolute bottom-0 bg-white w-full h-20 p-2 pl-5 overflow-hidden">
-                      <div className="slider max-w-90 float-left mb-20">
-                        <i onClick={handlePre} className="bi bi-caret-left-fill bg-gray-600 text-white inline-block h-11 w-10 absolute left-0 text-center leading-10 slider-prev border-2 border-gray-200 hover:bg-slate-700 text-4"></i>
-                        <div className="slider-wrapper" style={{ 'width': '124%' }}>
-                          <div className="slider-main w-80 p-5  border-slate-100" style={{ 'transform': `translate(${positionX}px)` }}>
-                            {
-                              Products.map((item) => (
-                                <div className="slider-item w-5" style={{ 'margin-left': '38px', 'margin-right': '20px' }}>
-                                  <img
-                                    className="block w-full"
-                                    src={item}
-                                    alt=""
-                                  />
-                                </div>
-                              ))
-                            }
-
-                          </div>
-                        </div>
-                        <i onClick={handleNext} className="bi bi-caret-right-fill bg-gray-600 text-white h-11 w-10 absolute right-0 mr-28 text-4 slider-next border-2 border-gray-200 hover:bg-slate-700" style={{ 'right': '-188px' }}></i>
-                      </div>
-                    </div> */}
                   </div>
                 </div>
                 <div className="w-45pc pt-8 pr-5">
@@ -261,6 +237,19 @@ const DetailProduct = () => {
                     {/* <div>
                       <span className="w-full border borer-slate-100 block rounded-3 h-24 p-3 focus:outline-none">{stateInfoProduct.Thong_tin_bao_hanh}</span>
                     </div> */}
+                    <form className="overflow-hidden">
+                      <div className="border-2 hover:border-green-500 border-gray-500 w-32 p-2 rounded-2 text-center float-left mr-5 relative cursor-pointer">
+                        <input className="absolute left-5  top-7 cursor-pointer" type='radio' checked name='Phien_bang' />
+                        <div className="w-10 h-10 mx-auto">
+                          <img className="w-full" src='https://cdn.hoanghamobile.com/i/productlist/dsp/Uploads/2022/09/08/anh-chup-man-hinh-2022-09-08-luc-01-58-38-removebg-preview.png' />
+                        </div>
+                        <span className="text-3 text-gray-700 font-semibold" style={{ 'font-family': 'sans-serif' }}>Màu Hồng</span>
+                        <br />
+                        <span className="text-3 text-red-500 font-semibold" style={{ 'font-family': 'sans-serif' }}>7.590.000 ₫</span>
+                      </div>
+                    </form>
+                  </div>
+                  <div>
                   </div>
                   <div className="flex pl-10 mt-7">
                     <div onClick={() => { setModalBuyNow(true); setStateProductBuyNow(stateInfoProduct) }} className="w-2/3 bg-red-600 hover:bg-red-800 text-center py-1 rounded-3 cursor-pointer  ">

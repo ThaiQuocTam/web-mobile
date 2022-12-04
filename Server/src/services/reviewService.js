@@ -12,7 +12,8 @@ const postReview = (data) => {
                     Id_nguoi_dung: data.Id_nguoi_dung,
                     Id_phan_quyen: data.Id_phan_quyen,
                     Id_review_user: data.Id_review_user,
-                    Id_san_pham: data.Id_san_pham
+                    Checked: false,
+                    Id_san_pham: data.Id_san_pham,
                 })
                 mesCreteReview.errCode = '0'
                 mesCreteReview.message = 'Thêm thành công'

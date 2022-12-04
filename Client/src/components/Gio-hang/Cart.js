@@ -35,8 +35,6 @@ const Cart = () => {
                 item.email === email ? sum = sum + (item.Gia_san_pham * item.So_luong) : ''
             })
             setSumPayment(sum)
-
-            console.log('có nhé');
         }
     }, [listProductCartLocal])
 
@@ -83,7 +81,6 @@ const Cart = () => {
 
     useEffect(() => {
         try {
-            console.log(mesPayment);
             if (mesPayment) {
                 setStateMes(mesPayment)
                 if (mesPayment.errCode === '0') {
@@ -130,7 +127,7 @@ const Cart = () => {
             <div>
                 <BackHome />
             </div>
-            <div>
+            <div className='rounded-3 mx-10 shadow-soft-xxs'>
                 <form onSubmit={handleSubmit(submitData)} class="flex flex-row pl-60">
                     <div class="basis-1/2">
 
@@ -139,7 +136,18 @@ const Cart = () => {
                                 <i className='bi bi-check2-circle text-12 mr-2 text-green-900'></i>
                                 <span className='text-center text-7 text-green-950 font-semibold'> GIỎ HÀNG</span>
                             </div>
-                            <div className='p-10 px-20'>
+                            <div className=' px-20'>
+                                {
+                                    listProductCartLocal ?
+                                        <div
+                                            onClick={() => {
+                                                localStorage.removeItem('arrProduct');
+                                                navigate(0)
+                                            }}
+                                            className='cursor-pointer hover:opacity-60 pb-4 w-auto'>
+                                            <span className='text-3.5 border-b border-red-600 pb-1 text-red-600'>Xóa tất cả</span>
+                                        </div> : ''
+                                }
                                 {
                                     listProductCartLocal ?
                                         listProductCartLocal.length !== 0 ?
@@ -245,9 +253,9 @@ const Cart = () => {
                             <div className='text-center pt-2'>
                                 <span className='text-5 uppercase text-green-950 font-semibold'> Thông tin đặt hàng</span>
                             </div>
-                            <div className=" rounded-[12px] mt-8">
+                            <div className=" rounded-[12px]">
                                 <div className="p-4">
-                                    <div className="mt-4">
+                                    <div className="mt-8">
                                         <input
                                             placeholder='Họ và tên'
                                             value={stateInfoUser.Ho_ten}

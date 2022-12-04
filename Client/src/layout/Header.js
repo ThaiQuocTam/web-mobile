@@ -17,6 +17,7 @@ const Header = () => {
     const infoUserSelector = useSelector(getInfoUserSelector)
 
     const [hidden, setHidden] = useState(false)
+    const [stateDataReviewResponseUser, setStateDataReviewResponse] = useState()
     const [stateProductGroup, setStateProductGroup] = useState([])
     const [stateSoluong, setStateSoluong] = useState(0)
     const [showModalSignIn, setShowModalSignIn] = useState(false)
@@ -27,6 +28,9 @@ const Header = () => {
     const [dataReview, setDataReview] = useState()
     const [infoUser, setInfoUser] = useState()
     const [listProduct, setListProduct] = useState()
+    const [showNotificationRead, setShowNotificationRead] = useState(true)
+    const [bgNotificationRead, setBgNotificationRead] = useState('')
+    const [bgNotification, setBgNotification] = useState('bg-sky-200 text-blue-500')
 
     let emailLocal = localStorage.getItem("User")
     let listProductCartLocal = JSON.parse(localStorage.getItem('arrProduct'))
@@ -93,8 +97,25 @@ const Header = () => {
                     .then(info => setDataReview(info.data))
                     .catch(e => console.log(e))
             }
+            else {
+                axios.get(`http://localhost:7001/api/get-info-review-user?Id_user=${infoUser.id}`)
+                    .then(reviewData => setStateDataReviewResponse(reviewData.data))
+                    .catch(e => console.log(e))
+            }
         }
     }, [infoUser || dataReview])
+
+
+    const convertDate = (date) => {
+        date = new Date(date)
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
+        let seconds = date.getSeconds()
+        let minutes = date.getMinutes()
+        let hours = date.getHours()
+        return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`
+    }
 
     return (
         <>
@@ -151,40 +172,122 @@ const Header = () => {
                         {/* <Link to='/Cart'> */}
                         <li className='inline-block mr-10 text-5 relative'>
                             {/* <a className='inline-block hover:opacity-50 ' href='#'> */}
-                            <i class="bi bi-circle-fill absolute text-orange-500 text-3 right-0 cursor-pointer"></i>
-                            <i onClick={() => setShowNotification(!showNotification)} className="bi bi-bell-fill cursor-pointer inline-block text-green-900 text-6 pr-1"></i>
+
+                            <div onClick={() => setShowNotification(!showNotification)}>
+                                {
+                                    (dataReview && dataReview.listReview.length !== 0) ?
+                                        <i class="bi bi-circle-fill animate-spin absolute text-orange-500 text-3 right-0 cursor-pointer"></i> : ''
+                                }
+                                {
+                                    (stateDataReviewResponseUser && stateDataReviewResponseUser.length !== 0) ?
+                                        stateDataReviewResponseUser.every((item) => item.Checked === 1) ? ''
+                                            : <i class="bi bi-circle-fill animate-spin absolute text-orange-500 text-3 right-0 cursor-pointer"></i>
+                                        : ''
+                                }
+                                <i className="bi bi-bell-fill cursor-pointer inline-block text-green-900 text-6 pr-1"></i>
+                            </div>
                             {/* </a> */}
                             {
                                 showNotification &&
-                                <div className='w-72 animate-modalForm rounded-2 shadow-soft-xxs absolute bg-slate-50  pl-5 p-4 h-90 z-50 overflow-auto'>
+                                <div className='w-72 animate-modalForm rounded-2 shadow-soft-xxs absolute bg-slate-50  pl-5 p-4 max-h-120    z-50 overflow-auto'>
                                     {
                                         emailLocal ?
                                             showNotification &&
                                             <>
                                                 <span className='font-semibold' style={{ 'font-family': 'sans-serif' }}>Thông báo</span>
-                                                <div className='flex mt-2 mb-2'>
-                                                    <div className='mr-10 bg-sky-100 p-1 rounded-2 px-2'>
-                                                        <span className='text-3.5 font-black' style={{ 'color': '#1877f2' }}>Chưa đọc</span>
+                                                <div className='flex mt-2 pb-2 mb-2 border-b border-gray-500'>
+                                                    <div onClick={() => { setShowNotificationRead(true); setBgNotificationRead(''); setBgNotification('bg-sky-200 text-blue-500') }} className={`mr-10 border text-black hover:bg-slate-200 hover:text-black border-slate-200 py-1 rounded-2 px-2 cursor-pointer ${bgNotification}`}>
+                                                        <span className='text-3.5 font-black' >Chưa đọc</span>
+                                                        {/* style={{ 'color': '#1877f2' }} */}
                                                     </div>
-                                                    <div className='p-1 rounded-2 px-2'>
+                                                    <div onClick={() => { setBgNotificationRead('bg-sky-200 text-blue-500'); setBgNotification(''); setShowNotificationRead(false) }} className={`py-1 rounded-2 px-2 border border-slate-200 hover:text-black hover:bg-slate-200 cursor-pointer ${bgNotificationRead}`} >
                                                         <span className='text-3.5 font-black'>Đã đọc</span>
                                                     </div>
                                                 </div>
                                                 {
-                                                    dataReview ?
-                                                        dataReview.map((item) => (
-                                                            listProduct.map((itemProduct => (
-                                                                item.Id_san_pham === itemProduct.id ?
-                                                                    <div className='mb-2 hover:bg-slate-400 hover:text-white p-2 rounded-2'>
-                                                                        <a onClick={() => localStorage.setItem("idProduct", itemProduct.id)} href='/DetailProduct#Review'>
-                                                                            <span className='text-3.2 font-bold mr-1'>{item.Ten_nguoi_dung}</span>
-                                                                            <span className='text-3.2 mr-1'>Đã bình luận về sản phẩm</span>
-                                                                            <span className='text-3.2 font-semibold'>{itemProduct.Ten_san_pham}</span>
-                                                                        </a>
-                                                                    </div> : ''
-                                                            )))
-                                                        )) : ''
+                                                    showNotificationRead ?
+                                                        <div>
+                                                            {
+                                                                dataReview ?
+                                                                    dataReview.listReview.map((item) => (
+                                                                        listProduct.map((itemProduct => (
+                                                                            item.Id_san_pham === itemProduct.id ?
+                                                                                <a onClick={() => localStorage.setItem("idProduct", itemProduct.id)} href='/DetailProduct#Review'>
+                                                                                    <div className='mb-2 hover:bg-slate-500 hover:text-white p-2 rounded-2'>
+                                                                                        <span className='text-3.2 font-bold mr-1'>{item.Ten_nguoi_dung}</span>
+                                                                                        <span className='text-3.2 mr-1'>Đã bình luận về sản phẩm</span>
+                                                                                        <span className='text-3.2 font-semibold'>{itemProduct.Ten_san_pham}</span><br />
+                                                                                        <span className='text-3 inline-block overflow-hidden '>({item.Noi_dung})</span><br />
+                                                                                        <span className='text-3 '>{convertDate(item.createdAt)}</span>
+                                                                                    </div>
+                                                                                </a> : ''
+                                                                        )))
+                                                                    )) : stateDataReviewResponseUser && stateDataReviewResponseUser.length !== 0 ?
+                                                                        <>
+                                                                            {
+                                                                                stateDataReviewResponseUser.map((itemReview) => (
+                                                                                    listProduct.map((itemProduct) => (
+                                                                                        itemProduct.id === itemReview.Id_san_pham && itemReview.Checked === 0 ?
+                                                                                            <a onClick={() => { setShowNotification(false); localStorage.setItem("idProduct", itemProduct.id); axios.put(`http://localhost:7001/api/put-check-review-user`, { Id_review: itemReview.id }) }} href='/DetailProduct#Review'>
+                                                                                                <div className='mb-2 hover:bg-slate-500 hover:text-white p-2 rounded-2 relative'>
+                                                                                                    <span className='text-2.5 absolute text-green-500 font-semibold mr-5 top-0 ' style={{ 'left': '-18px', 'top': '20px' }}>QTV</span>
+                                                                                                    <span className='text-3.2 font-bold mr-1'>{itemReview.Ten_nguoi_dung}</span>
+                                                                                                    <span className='text-3.2 mr-1'>Đã trả lời bình luận của bạn tại sản phẩm </span>
+                                                                                                    <span className='text-3.2 font-semibold'>{itemProduct.Ten_san_pham}</span><br />
+                                                                                                    <span className='text-3 inline-block overflow-hidden '>({itemReview.Noi_dung})</span><br />
+                                                                                                    <span className='text-3 '>{convertDate(itemReview.createdAt)}</span>
+                                                                                                </div>
+                                                                                            </a> : ''
+                                                                                    ))
+                                                                                ))
+                                                                            }
+                                                                        </>
+                                                                        : ''
+                                                            }
+                                                        </div>
+                                                        :
+                                                        <div>
+                                                            {
+                                                                dataReview && dataReview.listReviewNotResponse ?
+                                                                    dataReview.listReviewNotResponse.map((item) => (
+                                                                        listProduct.map((itemProduct => (
+                                                                            item.Id_san_pham === itemProduct.id ?
+                                                                                <a onClick={() => { setShowNotification(false); localStorage.setItem("idProduct", itemProduct.id) }} href='/DetailProduct#Review'>
+                                                                                    <div className='mb-2 hover:bg-slate-500 hover:text-white p-2 rounded-2'>
+                                                                                        <span className='text-3.2 font-bold mr-1'>{item.Ten_nguoi_dung}</span>
+                                                                                        <span className='text-3.2 mr-1'>Đã bình luận về sản phẩm</span>
+                                                                                        <span className='text-3.2 font-semibold'>{itemProduct.Ten_san_pham}</span><br />
+                                                                                        <span className='text-3 inline-block overflow-hidden '>({item.Noi_dung})</span><br />
+                                                                                        <span className='text-3 '>{convertDate(item.createdAt)}</span>
+                                                                                    </div>
+                                                                                </a> : '')))
+                                                                    ))
+                                                                    : stateDataReviewResponseUser && stateDataReviewResponseUser.length !== 0 ?
+                                                                        <>
+                                                                            {
+                                                                                stateDataReviewResponseUser.map((itemReview) => (
+                                                                                    listProduct.map((itemProduct) => (
+                                                                                        itemProduct.id === itemReview.Id_san_pham && itemReview.Checked === 1 ?
+                                                                                            <a onClick={() => { setShowNotification(false); localStorage.setItem("idProduct", itemProduct.id) }} href='/DetailProduct#Review'>
+                                                                                                <div className='mb-2 hover:bg-slate-500 hover:text-white p-2 rounded-2 relative'>
+                                                                                                    <span className='text-2.5 absolute text-green-500 font-semibold mr-5 top-0 ' style={{ 'left': '-18px', 'top': '20px' }}>QTV</span>
+                                                                                                    <span className='text-3.2 font-bold mr-1'>{itemReview.Ten_nguoi_dung}</span>
+                                                                                                    <span className='text-3.2 mr-1'>Đã trả lời bình luận của bạn tại sản phẩm </span>
+                                                                                                    <span className='text-3.2 font-semibold'>{itemProduct.Ten_san_pham}</span><br />
+                                                                                                    <span className='text-3 inline-block overflow-hidden '>({itemReview.Noi_dung})</span><br />
+                                                                                                    <span className='text-3 '>{convertDate(itemReview.createdAt)}</span>
+                                                                                                </div>
+                                                                                            </a> : ''
+                                                                                    ))
+                                                                                ))
+                                                                            }
+                                                                        </>
+                                                                        : ''
+                                                            }
+                                                        </div>
                                                 }
+
+
                                             </> :
                                             <div className='text-center'>
                                                 <span className='text-3.5  text-red-600 font-semibold'>Vui Lòng đăng nhập</span>
@@ -205,13 +308,17 @@ const Header = () => {
                         </li>
                         {
                             email ?
-                                <li onMouseEnter={() => setHidden(true)} onMouseLeave={() => setHidden(false)} className='inline-block mr-10'>
-                                    <div className='cursor-pointer'>
+                                <li onMouseEnter={() => setHidden(true)} onMouseLeave={() => setHidden(false)} className='inline-block mr-10 relative'>
+                                    <div className='cursor-pointer relative'>
+                                        {
+                                            infoUser && infoUser.Id_phan_quyen === 7 &&
+                                            <span className='text-2.5 absolute text-green-500 font-semibold mr-5 top-0 ' style={{ 'right': '-48px' }}><i class="bi bi-check-circle-fill text-3 text-green-600 mr-1"></i>QTV</span>
+                                        }
                                         <i className="bi bi-person-fill text-6 pr-2 text-green-700"></i>
                                         <span className='font-semibold text-3.5 relative' >{email}</span>
                                     </div>
                                     {
-                                        hidden && <a href='/' onClick={() => localStorage.removeItem('User')} className='absolute bg-slate-500 w-28 h-8 leading-8 text-center rounded-2 right-10 cursor-pointer hover:opacity-75 animate-modalForm'>
+                                        hidden && <a href='/' onClick={() => localStorage.removeItem('User')} className='absolute bg-slate-500 w-28 h-8 leading-8 text-center rounded-2 cursor-pointer hover:opacity-75 animate-modalForm' style={{ right: '-80px' }}>
                                             <span className='text-white text-3.5'>Đăng xuất</span>
                                             <i class="bi bi-caret-up-fill absolute position-top_-19 left-1 text-slate-500"></i>
                                         </a>

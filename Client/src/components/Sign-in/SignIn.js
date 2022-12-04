@@ -26,6 +26,14 @@ const SignIn = (props) => {
         setHidePass(() => !hidePass)
     }
 
+    const dataSubmit = (data) => {
+        if (data.Email === '' || data.Mat_khau === '') {
+            setMessage('Vui lòng nhập đủ thông tin')
+        } else {
+            dispatch(actions.signInAction.signInRequest(data))
+        }
+    }
+
     useEffect(() => {
         try {
             if (signData.errCode !== 0) {
@@ -39,15 +47,6 @@ const SignIn = (props) => {
         catch (e) {
         }
     }, [signData])
-
-    const dataSubmit = (data) => {
-        if (data.Email !== '' || data.Mat_khau !== '') {
-            dispatch(actions.signInAction.signInRequest(data))
-        } else {
-            console.log('kh có');
-            setMessage('Vui lòng nhập đủ thông tin')
-        }
-    }
 
     const handleCloseModalSignUp = () => {
         setShowModalSignUp(false)

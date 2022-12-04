@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         Id_nguoi_dung: DataTypes.INTEGER,
         Id_phan_quyen: DataTypes.INTEGER,
         Id_review_user: DataTypes.INTEGER,
+        Checked: DataTypes.BOOLEAN,
         Id_san_pham: DataTypes.INTEGER
     }, {
         sequelize,

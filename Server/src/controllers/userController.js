@@ -8,7 +8,7 @@ const handleSignIn = async (req, res) => {
     let password = req.body.Mat_khau
 
     if (!email || !password) {
-        return res.status(500).json({
+        return res.status(200).json({
             errCode: 1,
             message: 'Vui lòng nhập đầy đủ thông tin'
         })
@@ -33,7 +33,7 @@ const handleSignUp = async (req, res) => {
     console.log(req.body);
 
     if (!Ho_ten || !Email || !Mat_khau || !Dien_thoai || !Gioi_tinh) {
-        return res.status(500).json({
+        return res.status(200).json({
             errCode: 5,
             message: 'Vui lòng nhập đầy đủ thông tin'
         })
@@ -55,7 +55,7 @@ const handleGetInfoUser = async (req, res) => {
         if (infoUser) {
             return res.status(200).json(infoUser)
         } else {
-            return res.status(500).json({
+            return res.status(200).json({
                 errCode: '1',
                 message: 'Không tìm thấy người dùng'
             })
@@ -75,7 +75,7 @@ const handleGetAllInfoUser = async (req, res) => {
         if (infoUser) {
             return res.status(200).json(infoUser)
         } else {
-            return res.status(500).json({
+            return res.status(200).json({
                 errCode: '1',
                 message: 'Không tìm thấy người dùng'
             })

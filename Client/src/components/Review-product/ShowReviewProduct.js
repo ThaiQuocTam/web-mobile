@@ -95,34 +95,36 @@ const ShowReviewProduct = (props) => {
                                     <span className='text-3.2 text-gray-800'>{item.Noi_dung || ''}</span>
                                 </div>
                                 {
-                                    (ID === item.id && !stateInfoUser) ? <div className='pl-5'>
-                                        <form onSubmit={handleSubmit((data) => {
-                                            if (stateInfoAdmin) {
-                                                dispatch(actions.postReviewAction.postReviewRequest({
-                                                    Ten_nguoi_dung: stateInfoAdmin.Ho_ten,
-                                                    Noi_dung: data.Noi_dung,
-                                                    Loai: 2,
-                                                    Id_nguoi_dung: stateInfoAdmin.id,
-                                                    Id_phan_quyen: stateInfoAdmin.Id_phan_quyen,
-                                                    Id_review_user: item.id,
-                                                    Id_san_pham: props.product.id_Product
-                                                }))
-                                                setValue('Noi_dung', '')
-                                            }
-                                        })}>
-                                            <input
-                                                type='text'
-                                                placeholder='Nhập phản hồi của bạn...'
-                                                className='outline-none mr-2 border mt-2 w-90 bg border-slate-200 p-1 placeholder:text-3 text-3 text-gray-600 pl-5 rounded-5'
-                                                {...register('Noi_dung', { required: true })}
-                                            />
-                                            <button className='rounded-5 px-2 py-1 bg-slate-500 text-white text-3 hover:bg-slate-700'><i class="bi bi-send-fill mr-2 "></i>Bình luận</button>
-                                            <br />
-                                            {/* vc */}
+                                    (ID === item.id && !stateInfoUser) ?
+                                        <div
+                                            className='pl-5'>
+                                            <form onSubmit={handleSubmit((data) => {
+                                                if (stateInfoAdmin) {
+                                                    dispatch(actions.postReviewAction.postReviewRequest({
+                                                        Ten_nguoi_dung: stateInfoAdmin.Ho_ten,
+                                                        Noi_dung: data.Noi_dung,
+                                                        Loai: 2,
+                                                        Id_nguoi_dung: stateInfoAdmin.id,
+                                                        Id_phan_quyen: stateInfoAdmin.Id_phan_quyen,
+                                                        Id_review_user: item.id,
+                                                        Id_san_pham: props.product.id_Product
+                                                    }))
+                                                    setValue('Noi_dung', '')
+                                                }
+                                            })}>
+                                                <input
+                                                    type='text'
+                                                    placeholder='Nhập phản hồi của bạn...'
+                                                    className='outline-none mr-2 border mt-2 w-90 bg border-slate-200 p-1 placeholder:text-3 text-3 text-gray-600 pl-5 rounded-5'
+                                                    {...register('Noi_dung', { required: true })}
+                                                />
+                                                <button className='rounded-5 px-2 py-1 bg-slate-500 text-white text-3 hover:bg-slate-700'><i class="bi bi-send-fill mr-2 "></i>Bình luận</button>
+                                                <br />
+                                                {/* vc */}
 
 
-                                        </form>
-                                    </div> : ''
+                                            </form>
+                                        </div> : ''
                                 }
                                 {
                                     stateListInfoReviewAdmin.map((itemAdmin) => (

@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs"
 const salt = bcrypt.genSaltSync(10)
 
 
-let handleUserLogin = (email, password) => {
+let handleUserLogin = async (email, password) => {
     return new Promise(async (resolve, reject) => {
         try {
             let userData = {}

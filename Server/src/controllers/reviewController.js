@@ -5,7 +5,6 @@ const Op = Sequelize.Op
 const handlePostReview = async (req, res) => {
     try {
         if (req.body) {
-            console.log('1');
             let mesPostReview = await reviewService.postReview(req.body)
             if (mesPostReview) {
                 return res.status(200).json({
@@ -50,6 +49,7 @@ const handleShowReview = async (req, res) => {
 
 const handleInfoReviewNotResponse = async (req, res) => {
     let listReview = []
+    let listArrNew = []
     let listReviewResponse = await db.review.findAll({
         where: { Loai: 2, Id_phan_quyen: 7 },
         order: [[
@@ -67,7 +67,6 @@ const handleInfoReviewNotResponse = async (req, res) => {
     if (listReviewNotResponse && listReviewResponse) {
         let i
         let j
-        let listArrNew = []
         for (i = 0; i < listReviewNotResponse.length; i++) {
             for (j = 0; j < listReviewResponse.length; j++) {
                 if (listReviewResponse[j].Id_review_user === listReviewNotResponse[i].id) {
@@ -77,55 +76,98 @@ const handleInfoReviewNotResponse = async (req, res) => {
                 }
             }
         }
-        listReviewNotResponse.push(...listArrNew)
-        checkArr(listReviewNotResponse, listReviewNotResponse.length)
-        listReviewNotResponse.map((item, index) => {
-            if (item !== listArrNew[index]) {
-                listReview.push(item)
-            }
+        listReviewNotResponse.map((itemReviewNotResponse) => {
+            listArrNew.includes(itemReviewNotResponse) ? '' : listReview.push(itemReviewNotResponse)
         })
     }
 
-    function unique(arr) {
-        let list
-        let newArr = []
-
-        for (let i = 0; i <= arr.length; i++) {
-            for (let j = i + 1; j <= arr.length; j++) {
-                if (arr[i] === arr[j]) {
-                    //  newArr.includes((item) => )
-                }
-            }
-        }
-        // return list
-        // var newArr = []
-        // for (var i = 0; i < arr.length; i++) {
-        //     if (!newArr.includes(arr[i])) {
-        //         newArr.push(arr[i])
-        //     }
-        // }
-        // return newArr
-    }
-    console.log(unique([1, 1, 2, 3, 2]))
-    return res.status(200).json(listReviewNotResponse)
+    return res.status(200).json({
+        listReview: listReview,
+        listReviewNotResponse: listArrNew
+    })
 }
 
-const checkArr = (arr, size) => {
-    for (let i = 0; i < size - 1; i++) {
-        for (let j = i + 1; j < size; j++) {
-            if (arr[i] === arr[j]) {
-                break
-            }
-            else {
-                break
-            }
+const handleGetReviewUser = async (req, res) => {
+    try {
+        if (req.query.Id_user) {
+            let listReviewResponseUser = []
+            let listDataReviewUser = await db.review.findAll({
+                where: {
+                    Id_nguoi_dung: req.query.Id_user,
+                    Loai: 1
+                },
+                order: [
+                    ['createdAt', 'DESC']
+                ],
+                raw: true
+            })
 
+            if (listDataReviewUser) {
+                let reviewResponse = await db.review.findAll({
+                    where: {
+                        Loai: 2
+                    },
+                    order: [
+                        ['createdAt', 'DESC']
+                    ],
+                    raw: true
+                })
+
+                for (let i = 0; i < reviewResponse.length; i++) {
+
+                    for (let j = 0; j < listDataReviewUser.length; j++) {
+                        if (reviewResponse[i].Id_review_user === listDataReviewUser[j].id) {
+                            listReviewResponseUser.push(reviewResponse[i])
+                        }
+                    }
+                }
+
+                return res.status(200).json(listReviewResponseUser)
+            } else {
+                return res.status(200).json({
+                    errCode: 1,
+                    message: 'Không tìm thấy'
+                })
+            }
         }
-    }
+
+    } catch (e) { console.log(e) }
+}
+
+const handleCheckedReviewUser = async (req, res) => {
+    try {
+        if (req.body.Id_review) {
+            let data = await db.review.findOne({
+                where: { id: req.body.Id_review },
+                raw: true
+            })
+            if (data && data.Loai === 2) {
+                await db.review.update(
+                    {
+                        Checked: true
+                    },
+                    {
+                        where: { id: data.id }
+                    }
+                )
+                return res.status(200).json({
+                    errCode: 0,
+                    message: 'Check thông báo thành công'
+                })
+            } else {
+                return res.status(200).json({
+                    errCode: 1,
+                    message: 'Không tìm thấy id'
+                })
+            }
+        }
+    } catch (e) { console.log(e) }
 }
 
 module.exports = {
     handlePostReview: handlePostReview,
     handleShowReview: handleShowReview,
-    handleInfoReviewNotResponse: handleInfoReviewNotResponse
+    handleInfoReviewNotResponse: handleInfoReviewNotResponse,
+    handleGetReviewUser: handleGetReviewUser,
+    handleCheckedReviewUser: handleCheckedReviewUser
 }
