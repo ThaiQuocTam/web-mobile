@@ -353,7 +353,7 @@ const handleAddVersionProduct = async (req, res) => {
             }
             else {
                 let check = await db.phien_ban.findOne({
-                    where: { Ten_phien_ban: Ten_phien_ban },
+                    where: { Ten_phien_ban: Ten_phien_ban, Id_SP: Id_SP },
                     raw: true
                 })
                 if (check) {
@@ -439,7 +439,8 @@ const handleEditVersion = async (req, res) => {
                         errCode: 0,
                         message: 'Cập nhập thành công'
                     })
-                } else {
+                }
+                else {
                     return res.status(200).json({
                         errCode: 2,
                         message: 'Không tìm thấy'

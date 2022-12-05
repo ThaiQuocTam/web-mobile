@@ -12,7 +12,7 @@ import SignIn from "components/Sign-in/SignIn";
 import ModalBuyNow from "./ModalBuyNow";
 import axios from "axios";
 import FormVersionProduct from "./FormVersionProduct";
-// import FormVersionProduct from "./FormVersionProduct"
+import ListAvatar from "./ListAvatar";
 
 const DetailProduct = () => {
 
@@ -41,44 +41,6 @@ const DetailProduct = () => {
 
   let email = localStorage.getItem("User")
   const idProductStore = localStorage.getItem('idProduct')
-
-  useEffect(() => {
-    const timerId = setTimeout(() => {
-      let indexX = 0
-      Products.map((item, index) => {
-        indexX = indexX += 1
-      })
-      setIndexListProduct(indexX)
-      setIndex(pre => pre + 1)
-      if (index <= indexX) {
-        setPositionX(pre => pre - 340)
-      }
-      else {
-        setPositionX(0)
-        setIndex(2)
-      }
-    }, 3000)
-    return () => clearTimeout(timerId)
-  }, [])
-
-  const handlePre = () => {
-    if (positionX !== 0) {
-      setIndex(pre => pre - 1)
-      setPositionX(pre => pre + 340)
-    }
-  }
-
-  const handleNext = () => {
-    console.log(index);
-    if (index <= indexListProduct) {
-      setIndex(pre => pre + 1)
-      setPositionX(pre => pre - 340)
-    }
-    else {
-      setPositionX(0)
-      setIndex(2)
-    }
-  }
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -187,30 +149,7 @@ const DetailProduct = () => {
                 <span className='text-5 text-gray-700 font-semibold ' style={{ 'font-family': 'sans-serif' }}>{stateInfoProduct.Ten_san_pham} - Chính hãng</span>
               </div>
               <div className="flex w-full">
-                <div className='' style={{ 'width': '32.5%' }}>
-                  <div className=' w-full relative overflow-hidden mt-2 border shadow-soft-xxs bg-sky-50 rounded-4'>
-                    <div className="slider max-w-90 float-left">
-                      <i onClick={handlePre} className="bi bi-caret-left-fill bg-gray-600 text-white inline-block h-11 w-10 absolute left-0 text-center leading-10 slider-prev border-2 border-gray-200 hover:bg-slate-700 text-4"></i>
-                      <div className="slider-wrapper" style={{ 'width': '124%' }}>
-                        <div className="slider-main w-80 p-5  border-slate-100" style={{ 'transform': `translate(${positionX}px)` }}>
-                          {
-                            Products.map((item) => (
-                              <div className="slider-item w-20" style={{ 'margin-left': '38px', 'margin-right': '20px' }}>
-                                <img
-                                  className="block w-full"
-                                  src={item}
-                                  alt=""
-                                />
-                              </div>
-                            ))
-                          }
-
-                        </div>
-                      </div>
-                      <i onClick={handleNext} className="bi bi-caret-right-fill bg-gray-600 text-white h-11 w-10 absolute right-0 mr-28 text-4 slider-next border-2 border-gray-200 hover:bg-slate-700" style={{ 'right': '-188px' }}></i>
-                    </div>
-                  </div>
-                </div>
+                <ListAvatar />
                 <div className="w-45pc pt-8 pr-5">
                   <div className="flex p-5">
                     <div><span className="text-5 text-red-600 font-extrabold mr-5 ml-5">{stateInfoProduct.Gia_san_pham.toLocaleString()} ₫</span></div>
@@ -240,35 +179,6 @@ const DetailProduct = () => {
                       <span className="text-3.5 uppercase  text-green-950" style={{ 'font-family': 'sans-serif' }}><i className='bi bi-arrow-repeat text-7 font-semibold text-green-950  mr-1'></i> Thủ tục đổi trả dễ dàng</span>
                     </div>
 
-                    {/* <div>
-                      <span className="w-full border borer-slate-100 block rounded-3 h-24 p-3 focus:outline-none">{stateInfoProduct.Thong_tin_bao_hanh}</span>
-                    </div> */}
-                    {/* <form className="overflow-hidden">
-                      <div className="border-2 mb-2 hover:border-green-500 border-gray-500 w-32 p-2 rounded-2 text-center float-left mr-5 relative cursor-pointer">
-                        <input checked className="absolute left-5  top-7 cursor-pointer" type='radio' name='Phien_bang' />
-                        <div className="w-10 h-10 mx-auto">
-                          <img className="w-full" src={stateInfoProduct.Hinh_anh || ''} />
-                        </div>
-                        <span className="text-3 text-gray-700 font-semibold" style={{ 'font-family': 'sans-serif' }}>Bản chính</span>
-                        <br />
-                        <span className="text-3 text-red-500 font-semibold" style={{ 'font-family': 'sans-serif' }}>{stateInfoProduct.Gia_san_pham.toLocaleString() || ''} ₫</span>
-                      </div>
-                      {
-                        stateVersionProduct && stateVersionProduct.length !== 0 ?
-                          stateVersionProduct.map((item, index) => (
-                            <div className="border-2 mb-2 hover:border-green-500 border-gray-500 w-32 p-2 rounded-2 text-center float-left mr-5 relative cursor-pointer">
-                              <input className="absolute left-5 top-7 cursor-pointer" type='radio' name='Phien_bang' />
-                              <div className="w-10 h-10 mx-auto">
-                                <img className="w-full" src={item.Anh_phien_ban} />
-                              </div>
-                              <span className="text-3 text-gray-700 font-semibold" style={{ 'font-family': 'sans-serif' }}>{item.Ten_phien_ban}</span>
-                              <br />
-                              <span className="text-3 text-red-500 font-semibold" style={{ 'font-family': 'sans-serif' }}>{item.Gia_phien_ban.toLocaleString()} ₫</span>
-                            </div>
-                          ))
-                          : ''
-                      }
-                    </form> */}
                     <div>
                       <FormVersionProduct />
                     </div>

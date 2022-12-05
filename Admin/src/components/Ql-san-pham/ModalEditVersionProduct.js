@@ -8,6 +8,7 @@ const ModalEditVersionProduct = (props) => {
 
     const [stateVersionProduct, setStateVersionProduct] = useState({
         Id: 0,
+        Id_SP: 0,
         Ten_phien_ban: '',
         Gia_phien_ban: 0,
         Anh_phien_ban: ''
@@ -20,6 +21,7 @@ const ModalEditVersionProduct = (props) => {
             setStateVersionProduct({
                 ...stateVersionProduct,
                 Id: props.versionProps.id,
+                Id_SP: props.versionProps.Id_SP,
                 Ten_phien_ban: props.versionProps.Ten_phien_ban,
                 Gia_phien_ban: props.versionProps.Gia_phien_ban,
                 Anh_phien_ban: props.versionProps.Anh_phien_ban
