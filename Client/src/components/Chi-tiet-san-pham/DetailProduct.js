@@ -10,6 +10,9 @@ import ShowReviewProduct from "components/Review-product/ShowReviewProduct";
 import AddCartMes from "./AddCartMes";
 import SignIn from "components/Sign-in/SignIn";
 import ModalBuyNow from "./ModalBuyNow";
+import axios from "axios";
+import FormVersionProduct from "./FormVersionProduct";
+// import FormVersionProduct from "./FormVersionProduct"
 
 const DetailProduct = () => {
 
@@ -34,12 +37,12 @@ const DetailProduct = () => {
     id_Product: ''
   })
   const [stateProductBuyNow, setStateProductBuyNow] = useState()
+  const [stateVersionProduct, setStateVersionProduct] = useState()
 
   let email = localStorage.getItem("User")
   const idProductStore = localStorage.getItem('idProduct')
 
   useEffect(() => {
-
     const timerId = setTimeout(() => {
       let indexX = 0
       Products.map((item, index) => {
@@ -56,7 +59,7 @@ const DetailProduct = () => {
       }
     }, 3000)
     return () => clearTimeout(timerId)
-  }, [positionX])
+  }, [])
 
   const handlePre = () => {
     if (positionX !== 0) {
@@ -89,6 +92,9 @@ const DetailProduct = () => {
       if (idProductStore) {
         dispatch(actions.getInfoProductAction.getInfoProductRequest(idProductStore))
         dispatch(actions.getInfoProductDetailAction.getInfoProductDetailRequest(idProductStore))
+        axios.get(`http://localhost:7001/api/get-info-version-product?Id_SP=${idProductStore}`)
+          .then(dataVersion => setStateVersionProduct(dataVersion.data))
+          .catch(e => console.log(e))
       }
     } catch (e) {
     }
@@ -237,17 +243,35 @@ const DetailProduct = () => {
                     {/* <div>
                       <span className="w-full border borer-slate-100 block rounded-3 h-24 p-3 focus:outline-none">{stateInfoProduct.Thong_tin_bao_hanh}</span>
                     </div> */}
-                    <form className="overflow-hidden">
-                      <div className="border-2 hover:border-green-500 border-gray-500 w-32 p-2 rounded-2 text-center float-left mr-5 relative cursor-pointer">
-                        <input className="absolute left-5  top-7 cursor-pointer" type='radio' checked name='Phien_bang' />
+                    {/* <form className="overflow-hidden">
+                      <div className="border-2 mb-2 hover:border-green-500 border-gray-500 w-32 p-2 rounded-2 text-center float-left mr-5 relative cursor-pointer">
+                        <input checked className="absolute left-5  top-7 cursor-pointer" type='radio' name='Phien_bang' />
                         <div className="w-10 h-10 mx-auto">
-                          <img className="w-full" src='https://cdn.hoanghamobile.com/i/productlist/dsp/Uploads/2022/09/08/anh-chup-man-hinh-2022-09-08-luc-01-58-38-removebg-preview.png' />
+                          <img className="w-full" src={stateInfoProduct.Hinh_anh || ''} />
                         </div>
-                        <span className="text-3 text-gray-700 font-semibold" style={{ 'font-family': 'sans-serif' }}>Màu Hồng</span>
+                        <span className="text-3 text-gray-700 font-semibold" style={{ 'font-family': 'sans-serif' }}>Bản chính</span>
                         <br />
-                        <span className="text-3 text-red-500 font-semibold" style={{ 'font-family': 'sans-serif' }}>7.590.000 ₫</span>
+                        <span className="text-3 text-red-500 font-semibold" style={{ 'font-family': 'sans-serif' }}>{stateInfoProduct.Gia_san_pham.toLocaleString() || ''} ₫</span>
                       </div>
-                    </form>
+                      {
+                        stateVersionProduct && stateVersionProduct.length !== 0 ?
+                          stateVersionProduct.map((item, index) => (
+                            <div className="border-2 mb-2 hover:border-green-500 border-gray-500 w-32 p-2 rounded-2 text-center float-left mr-5 relative cursor-pointer">
+                              <input className="absolute left-5 top-7 cursor-pointer" type='radio' name='Phien_bang' />
+                              <div className="w-10 h-10 mx-auto">
+                                <img className="w-full" src={item.Anh_phien_ban} />
+                              </div>
+                              <span className="text-3 text-gray-700 font-semibold" style={{ 'font-family': 'sans-serif' }}>{item.Ten_phien_ban}</span>
+                              <br />
+                              <span className="text-3 text-red-500 font-semibold" style={{ 'font-family': 'sans-serif' }}>{item.Gia_phien_ban.toLocaleString()} ₫</span>
+                            </div>
+                          ))
+                          : ''
+                      }
+                    </form> */}
+                    <div>
+                      <FormVersionProduct />
+                    </div>
                   </div>
                   <div>
                   </div>

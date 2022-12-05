@@ -49,7 +49,6 @@ const ModalAddProductDetail = (props) => {
 
     useEffect(() => {
         if (mesAddProductDetail) {
-            console.log(mesAddProductDetail);
             setShowAddSuccess(true)
         }
     }, [mesAddProductDetail])

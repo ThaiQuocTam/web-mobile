@@ -16,13 +16,25 @@ const AddSuccess = (props) => {
             setTex('bi bi-x-octagon-fill')
         }
         if (props.mesEditInfo) {
-            if (props.mesEditInfo.errCode === '0') {
+            if (props.mesEditInfo.errCode === '0' || props.mesEditInfo.errCode === 0) {
                 setMesEditInfoProductDetail(props.mesEditInfo)
                 setBackground('bg-green-600 w-60')
                 setTex('bi bi-check-circle')
             }
             else {
                 setMesEditInfoProductDetail(props.mesEditInfo)
+                setBackground(`bg-red-500 w-80`)
+                setTex('bi bi-x-octagon-fill')
+            }
+        }
+        if (props.mesAddVersion) {
+            if (props.mesAddVersion.errCode === 0) {
+                setMesEditInfoProductDetail(props.mesAddVersion)
+                setBackground('bg-green-600 w-60')
+                setTex('bi bi-check-circle')
+            }
+            else {
+                setMesEditInfoProductDetail(props.mesAddVersion)
                 setBackground(`bg-red-500 w-80`)
                 setTex('bi bi-x-octagon-fill')
             }

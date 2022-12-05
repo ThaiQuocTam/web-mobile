@@ -1,6 +1,7 @@
 import EditInfoProduct from 'components/Ql-san-pham/EditInfoProduct';
 import ModalAddProductDetail from 'components/Ql-san-pham/ModalAddProductDetail';
 import ModalThemSP from 'components/Ql-san-pham/ModalThemSP';
+import VersionProduct from 'components/Ql-san-pham/VersionProduct';
 import HomeAdminPage from 'page/HomeAdmin.page';
 import OrderDetailPage from 'page/OrderDetail.page';
 import ProductDetailPage from 'page/ProductDetail.page';
@@ -27,6 +28,7 @@ function App() {
           <Route path='/QlThanhVien' element={<QlThanhVienPage />} />
           <Route path='/ThemSP' element={<ModalAddProductDetail />} />
           <Route path='/ProductDetail' element={<ProductDetailPage />} />
+          <Route path='/VersionProduct' element={<VersionProduct />} />
         </Routes>
       </div >
     </>

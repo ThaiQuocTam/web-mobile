@@ -2,7 +2,7 @@ import React, { useEffect, useState, lazy } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../redux/actions/actions'
-import { listProductTypeSelector, listProductGroupSelector, messageCreateProductSelector, infoProductSelector, messageEditInfoProductSelector } from 'redux/selector/selector';
+import { listProductTypeSelector, listProductGroupSelector, infoProductSelector, messageEditInfoProductSelector } from 'redux/selector/selector';
 import EditSuccess from './EditSuccess';
 
 const EditInfoProduct = (props) => {
@@ -26,8 +26,6 @@ const EditInfoProduct = (props) => {
         Id_loai_SP: 0,
         Id_nhom_SP: 0
     })
-
-    console.log(infoProduct);
 
     useEffect(() => {
         dispatch(actions.getListProductTypeAction.getListProductTypeRequest())

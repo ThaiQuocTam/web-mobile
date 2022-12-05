@@ -49,6 +49,9 @@ const initWebRoutes = (app) => {
     router.get('/api/get-info-review-user', reviewController.handleGetReviewUser)
     router.put('/api/put-check-review-user', reviewController.handleCheckedReviewUser)
     router.post('/api/post-add-version-product', productsController.handleAddVersionProduct)
+    router.get('/api/get-info-version-product', productsController.handleGetInfoVersionProduct)
+    router.put('/api/put-edit-version-product', productsController.handleEditVersion)
+    router.post('/api/post-delete-version-product', productsController.handleDeleteVersionProduct)
 
     return app.use("/", router);
 }

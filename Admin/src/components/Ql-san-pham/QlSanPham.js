@@ -7,8 +7,6 @@ import {
     listProductSelector,
     listProductTypeSelector,
     listProductGroupSelector,
-    mesAddProductDetailSelector,
-    messageCreateProductSelector,
     messageEditInfoProductSelector,
     infoProductSearchedSelector
 } from 'redux/selector/selector';
@@ -24,7 +22,6 @@ const QlSanPham = () => {
     const listProduct = useSelector(listProductSelector)
     const dataListProDuctType = useSelector(listProductTypeSelector)
     const dataListProDuctGroup = useSelector(listProductGroupSelector)
-    const mesAddProduct = useSelector(messageCreateProductSelector)
     const mesEditInfoProduct = useSelector(messageEditInfoProductSelector)
     const infoProduct = useSelector(infoProductSearchedSelector)
 
@@ -44,9 +41,10 @@ const QlSanPham = () => {
         setShowModalAddProduct(false)
     }
 
+
     const hideModalEditInfoProduct = () => {
-        navigate(0)
         setShowModalEditInfoProduct(false)
+        navigate(0)
     }
 
     useEffect(() => {
@@ -149,10 +147,7 @@ const QlSanPham = () => {
                                         <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
                                             Ghi chú
                                         </th>
-                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
-
-                                        </th>
-                                        <th scope="col" className=" w-80 text-sm sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
+                                        <th scope="col" className=" w-80 text-sm z-30 sticky top-0 bg-gray-400  px-2 font-semibold text-black text-4 text-center">
 
                                         </th>
                                     </tr>
@@ -197,43 +192,21 @@ const QlSanPham = () => {
                                                 <td className="text-sm text-gray-900 block w-30 overflow-hidden text-ellipsis  text-3.5 font-light px-2 py-2 whitespace-nowrap text-center">
                                                     {item.Ghi_chu}
                                                 </td>
-                                                {
-                                                    stateListProductDetail ?
-                                                        stateListProductDetail.some((itemProductDetail) => itemProductDetail.Id_san_pham === item.id) ?
-                                                            <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                                <Link onClick={() => localStorage.setItem('Id_Product_Detail', item.id)} to="/ProductDetail" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</Link>
-                                                            </td> :
-                                                            <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                                <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-gray-700 border-gray-700 font-semibold hover:bg-gray-700 hover:text-white hover:border-white border-2 rounded">Thêm thông số</button>
-                                                            </td>
-                                                        // stateListProductDetail ?
-                                                        //     stateListProductDetail.filter((itemProductDetail) => itemProductDetail.Id_san_pham === item.id) ?
-                                                        //         <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                        //             <Link onClick={() => localStorage.setItem('Id_Product_Detail', item.id)} to="/ProductDetail" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</Link>
-                                                        //         </td> :
-                                                        //         <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                        //             <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm đã có ròi</button>
-                                                        //         </td>
+                                                <td className="text-sm relative text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
+                                                    <button onClick={() => { localStorage.setItem('id_add_product', item.id); navigate('/VersionProduct') }} className="px-4 top-4 absolute py-1 text-3 text-green-700 border-green-700 font-semibold hover:bg-green-950 hover:text-white hover:border-white border-2 rounded">Phiên bản khác</button>
 
-                                                        // stateListProductDetail.map((itemProductDetail) => (
-                                                        //     (itemProductDetail.Id_san_pham === item.id) ?
-                                                        //         <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                        //             <Link onClick={() => localStorage.setItem('Id_Product_Detail', item.id)} to="/ProductDetail" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500 hover:text-white hover:border-white border-2 rounded">Xem thông Số</Link>
-                                                        //         </td> : ''
+                                                    {
+                                                        stateListProductDetail ?
+                                                            stateListProductDetail.some((itemProductDetail) => itemProductDetail.Id_san_pham === item.id) ?
+                                                                <Link onClick={() => localStorage.setItem('Id_Product_Detail', item.id)} to="/ProductDetail" className="px-4 py-1 text-sm text-blue-500 border-blue-500 font-semibold hover:bg-blue-500  hover:text-white hover:border-white border-2 rounded">Xem thông Số</Link>
+                                                                :
+                                                                <Link onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-gray-700 border-gray-500 font-semibold hover:bg-gray-500  hover:text-white border-2 rounded">Thêm thông Số</Link>
 
-                                                        // ))
-                                                        // (itemProductDetail.Id_san_pham !== item.id) ?
-                                                        // <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                        //     <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số sản phẩm đã có ròi</button>
-                                                        // </td> : ''
-                                                        : <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                            <button onClick={() => { setShowModalAddProductDetail(true); localStorage.setItem('id_add_product', item.id); }} className="px-4 py-1 text-sm text-red-500 border-red-500 font-semibold hover:bg-red-500 hover:text-white hover:border-white border-2 rounded">Thêm thông số</button>
-                                                        </td>
-                                                }
-                                                <td className="text-sm text-gray-900 font-light px-2 py-2 whitespace-nowrap text-center">
-                                                    <button onClick={() => { dispatch(actions.getInfoProductAction.getInfoProductRequest(item.id)); setShowModalEditInfoProduct(true) }} className="px-4 py-1 text-sm text-black border-black font-semibold hover:bg-slate-600 hover:text-white hover:border-white border-2 rounded">Sửa</button>
+                                                            // <Link  className="px-4 py-1 absolute top-12 text-sm text-gray-700 border-gray-700 left-1 font-semibold hover:bg-gray-700 hover:text-white hover:border-white border-2 rounded">Thêm thông số</Link>
+                                                            :
+                                                            ''}
+                                                    <button onClick={() => { dispatch(actions.getInfoProductAction.getInfoProductRequest(item.id)); setShowModalEditInfoProduct(true) }} className="px-4 py-1 left-9 bottom-4 text-sm absolute text-black border-black font-semibold hover:bg-slate-600 hover:text-white hover:border-white border-2 rounded">Sửa</button>
                                                 </td>
-
                                             </tr>
                                         ))
                                     }

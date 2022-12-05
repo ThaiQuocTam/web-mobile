@@ -1,3 +1,4 @@
+import { where } from 'sequelize'
 import db, { Sequelize } from '../models/index'
 import productsService from '../services/productsService'
 const Op = Sequelize.Op
@@ -344,21 +345,139 @@ const handleAddVersionProduct = async (req, res) => {
             })
         }
         else {
-            await db.phien_ban.create({
-                Id_SP: Id_SP,
-                Anh_phien_ban: Anh_phien_ban,
-                Ten_phien_ban: Ten_phien_ban,
-                Gia_phien_ban: Gia_phien_ban
-            })
+            if (Gia_phien_ban.length > 9) {
+                return res.status(200).json({
+                    errCode: 2,
+                    message: 'Giá sản phẩm không hợp lệ'
+                })
+            }
+            else {
+                let check = await db.phien_ban.findOne({
+                    where: { Ten_phien_ban: Ten_phien_ban },
+                    raw: true
+                })
+                if (check) {
+                    return res.status(200).json({
+                        errCode: 3,
+                        message: 'Tên phiên bản đã tồn tại'
+                    })
+                }
+                else {
+                    await db.phien_ban.create({
+                        Id_SP: Id_SP,
+                        Anh_phien_ban: Anh_phien_ban,
+                        Ten_phien_ban: Ten_phien_ban,
+                        Gia_phien_ban: Gia_phien_ban
+                    })
 
-            return res.status(200).json({
-                errCode: 0,
-                message: 'Thêm thành công'
-            })
+                    return res.status(200).json({
+                        errCode: 0,
+                        message: 'Thêm thành công'
+                    })
+                }
+            }
         }
     } catch (e) { console.log(e) }
 }
 
+const handleGetInfoVersionProduct = async (req, res) => {
+    try {
+        if (req.query.Id_SP) {
+            let data = await db.phien_ban.findAll({
+                where: { Id_SP: req.query.Id_SP },
+                order: [
+                    ['createdAt', 'DESC']
+                ],
+                raw: true
+            })
+            data ? res.status(200).json(data) : res.status(200).json({
+                errCode: 1,
+                message: 'Không tìm thấy'
+            })
+        }
+        else {
+            console.log('lỗi');
+        }
+    } catch (e) { console.log(e) }
+}
+
+const handleEditVersion = async (req, res) => {
+    try {
+        let Id = req.body.Id
+        let Anh_phien_ban = req.body.Anh_phien_ban
+        let Ten_phien_ban = req.body.Ten_phien_ban
+        let Gia_phien_ban = req.body.Gia_phien_ban
+        if (!Id || !Anh_phien_ban || !Ten_phien_ban || !Gia_phien_ban) {
+            return res.status(200).json({
+                errCode: 1,
+                message: 'Vui lòng nhập đủ thông tin'
+            })
+        }
+        else {
+            if (Gia_phien_ban.length > 9) {
+                return res.status(200).json({
+                    errCode: 3,
+                    message: 'Giá sản phẩm không hợp lệ'
+                })
+            }
+            else {
+                let checkData = await db.phien_ban.findOne({
+                    where: { id: Id },
+                    raw: true
+                })
+                if (checkData) {
+                    await db.phien_ban.update(
+                        {
+                            Ten_phien_ban: Ten_phien_ban,
+                            Gia_phien_ban: Gia_phien_ban,
+                            Anh_phien_ban: Anh_phien_ban
+                        },
+                        {
+                            where: { id: checkData.id }
+                        })
+                    return res.status(200).json({
+                        errCode: 0,
+                        message: 'Cập nhập thành công'
+                    })
+                } else {
+                    return res.status(200).json({
+                        errCode: 2,
+                        message: 'Không tìm thấy'
+                    })
+                }
+            }
+        }
+    } catch (e) { console.log(e) }
+}
+
+const handleDeleteVersionProduct = async (req, res) => {
+    try {
+        if (req.body.id) {
+            let check = await db.phien_ban.findOne({
+                where: { id: req.body.id }
+            })
+            if (check) {
+                await check.destroy()
+                return res.status(200).json({
+                    errCode: 0,
+                    message: 'Xóa thành công'
+                })
+            }
+            else {
+                return res.status(200).json({
+                    errCode: 2,
+                    message: 'Không tìm tháy'
+                })
+            }
+        }
+        else {
+            return res.status(200).json({
+                errCode: 1,
+                message: 'Vui lòng nhập id'
+            })
+        }
+    } catch (e) { console.log(e) }
+}
 
 module.exports = {
     handleAddProduct: handleAddProduct,
@@ -375,5 +494,8 @@ module.exports = {
     handlePostEditProductGroup: handlePostEditProductGroup,
     handlePostAddProductTye: handlePostAddProductTye,
     handlePostEditProductType: handlePostEditProductType,
-    handleAddVersionProduct: handleAddVersionProduct
+    handleAddVersionProduct: handleAddVersionProduct,
+    handleGetInfoVersionProduct: handleGetInfoVersionProduct,
+    handleEditVersion: handleEditVersion,
+    handleDeleteVersionProduct: handleDeleteVersionProduct
 }
