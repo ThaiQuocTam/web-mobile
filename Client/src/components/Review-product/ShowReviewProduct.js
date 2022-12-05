@@ -3,10 +3,12 @@ import { useForm } from 'react-hook-form'
 import * as actions from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { listReviewUserSelector, listReviewAdminSelector, mesPostReviewSelector, getInfoUserSelector } from '../../redux/selector'
+import { useNavigate } from 'react-router-dom'
 
 const ShowReviewProduct = (props) => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const listInfoReviewUser = useSelector(listReviewUserSelector)
     const listInfoReviewAdmin = useSelector(listReviewAdminSelector)
     const mesPostReview = useSelector(mesPostReviewSelector)
@@ -109,6 +111,7 @@ const ShowReviewProduct = (props) => {
                                                         Id_review_user: item.id,
                                                         Id_san_pham: props.product.id_Product
                                                     }))
+                                                    navigate(0)
                                                     setValue('Noi_dung', '')
                                                 }
                                             })}>

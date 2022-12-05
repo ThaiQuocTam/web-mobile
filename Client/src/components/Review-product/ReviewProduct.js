@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form';
 import { getInfoUserSelector } from '../../redux/selector'
 import SignIn from 'components/Sign-in/SignIn';
+import { useNavigate } from 'react-router-dom';
 
 
 const ReviewProduct = (props) => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const infoUser = useSelector(getInfoUserSelector)
     let email = localStorage.getItem("User")
 
@@ -47,6 +49,7 @@ const ReviewProduct = (props) => {
                 Id_san_pham: props.product.id_Product
             }))
             setValue('Noi_dung', '')
+            navigate(0)
         } else {
             setShowModalSignIn(true)
         }
