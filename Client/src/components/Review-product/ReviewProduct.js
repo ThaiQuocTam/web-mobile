@@ -49,7 +49,6 @@ const ReviewProduct = (props) => {
                 Id_san_pham: props.product.id_Product
             }))
             setValue('Noi_dung', '')
-            navigate(0)
         } else {
             setShowModalSignIn(true)
         }

@@ -20,55 +20,87 @@ const DetailProduct = () => {
   const navigate = useNavigate()
   const infoProductDetail = useSelector(infoProductDetailSelector)
 
-  const [index, setIndex] = useState(2)
-  const [indexListProduct, setIndexListProduct] = useState(0)
-  const [positionX, setPositionX] = useState(0)
   const [hideAddCartMes, setHideAddCartMes] = useState(false)
   const [showModalSignIn, setShowModalSignIn] = useState(false)
   const [modalBuyNow, setModalBuyNow] = useState(false)
-  const [animation, setAnimation] = useState('')
   const infoProduct = useSelector(infoProductSelector)
   const [stateInfoProduct, setStateInfoProduct] = useState({
     Ten_san_pham: '',
     Gia_san_pham: '',
     Thong_tin_khuyen_mai: '',
+    Ten_phien_ban: '',
     Hinh_anh: '',
     email: '',
     id_Product: ''
   })
-  const [stateProductBuyNow, setStateProductBuyNow] = useState()
-  const [stateVersionProduct, setStateVersionProduct] = useState()
+  const [stateValueVersion, setStateValueVersion] = useState({
+    id_Product: 0,
+    Ten_san_pham: '',
+    Ten_phien_ban: '',
+    Gia_san_pham: 0,
+    Hinh_anh: '',
+    email: ''
+  })
+  const [stateIndex, setStateIndex] = useState(0)
 
   let email = localStorage.getItem("User")
   const idProductStore = localStorage.getItem('idProduct')
 
   useEffect(() => {
-    const timerId = setTimeout(() => {
-      setHideAddCartMes(false)
-    }, 3000)
-    return () => clearTimeout(timerId)
+    if (hideAddCartMes) {
+      const timerId = setTimeout(() => {
+        setHideAddCartMes(false)
+      }, 2700)
+      return () => clearTimeout(timerId)
+    }
   }, [hideAddCartMes])
+
+  const handleGetValueVersion = (value, index) => {
+    if (value) {
+      setStateIndex(index)
+      setStateValueVersion({
+        ...stateValueVersion,
+        Ten_phien_ban: value.Ten_phien_ban,
+        Gia_san_pham: value.Gia_phien_ban,
+        Hinh_anh: value.Anh_phien_ban,
+      })
+
+      setStateInfoProduct({
+        ...stateInfoProduct,
+        Ten_phien_ban: value.Ten_phien_ban,
+        Gia_san_pham: value.Gia_phien_ban,
+        Hinh_anh: value.Anh_phien_ban
+      })
+    }
+  }
 
   useEffect(() => {
     try {
       if (idProductStore) {
         dispatch(actions.getInfoProductAction.getInfoProductRequest(idProductStore))
         dispatch(actions.getInfoProductDetailAction.getInfoProductDetailRequest(idProductStore))
-        axios.get(`http://localhost:7001/api/get-info-version-product?Id_SP=${idProductStore}`)
-          .then(dataVersion => setStateVersionProduct(dataVersion.data))
-          .catch(e => console.log(e))
       }
     } catch (e) {
     }
-  }, [idProductStore])
+  }, [])
 
   useEffect(() => {
     try {
       if (infoProduct) {
+        setStateValueVersion({
+          ...stateValueVersion,
+          id_Product: infoProduct.data.id,
+          Ten_san_pham: infoProduct.data.Ten_san_pham,
+          Ten_phien_ban: 'Bản chínhh',
+          Gia_san_pham: infoProduct.data.Gia_san_pham,
+          Hinh_anh: infoProduct.data.Hinh_anh,
+          email: email
+        })
         setStateInfoProduct({
           ...stateInfoProduct,
           id_Product: infoProduct.data.id,
           Ten_san_pham: infoProduct.data.Ten_san_pham,
+          Ten_phien_ban: 'Bản chính',
           Gia_san_pham: infoProduct.data.Gia_san_pham,
           Thong_tin_bao_hanh: infoProduct.data.Thong_tin_bao_hanh,
           Hinh_anh: infoProduct.data.Hinh_anh,
@@ -87,15 +119,23 @@ const DetailProduct = () => {
     arr = JSON.parse(storage)
     if (storage && arr.length !== 0) {
       let arrNew = []
-      let check = arr.find(item => item.id_Product === product.id_Product)
-      if (check) {
-        arr.map((item) => {
-          if (item.id_Product === product.id_Product) {
-            item.So_luong += 1
-          }
-          arrNew.push(item)
-        })
-        localStorage.setItem('arrProduct', JSON.stringify([...arrNew]))
+      let checkIdProduct = arr.find(item => item.id_Product === product.id_Product)
+      if (checkIdProduct) {
+        let checkVersion = arr.find(item => item.Ten_phien_ban === product.Ten_phien_ban)
+        if (checkVersion) {
+          arr.map((item) => {
+            if (item.id_Product === product.id_Product && item.Ten_phien_ban === product.Ten_phien_ban) {
+              item.So_luong += 1
+            }
+            arrNew.push(item)
+          })
+          localStorage.setItem('arrProduct', JSON.stringify([...arrNew]))
+        }
+        else {
+          product.So_luong = 1
+          localStorage.setItem('arrProduct', JSON.stringify([...arr, product]))
+
+        }
       }
       else {
         product.So_luong = 1
@@ -114,9 +154,10 @@ const DetailProduct = () => {
     if (stateInfoProduct) {
       addProduct(stateInfoProduct)
     } else {
-
     }
   }
+
+
 
   const handleCloseMes = () => {
     setHideAddCartMes(false)
@@ -129,6 +170,12 @@ const DetailProduct = () => {
 
   const handleCloseModalBuyNow = () => {
     setModalBuyNow(false)
+  }
+
+  const handlePostValueProduct = () => {
+    if (infoProduct) {
+      setModalBuyNow(true)
+    }
   }
 
   return (
@@ -149,7 +196,7 @@ const DetailProduct = () => {
                 <span className='text-5 text-gray-700 font-semibold ' style={{ 'font-family': 'sans-serif' }}>{stateInfoProduct.Ten_san_pham} - Chính hãng</span>
               </div>
               <div className="flex w-full">
-                <ListAvatar />
+                <ListAvatar indexVersion={stateIndex} />
                 <div className="w-45pc pt-8 pr-5">
                   <div className="flex p-5">
                     <div><span className="text-5 text-red-600 font-extrabold mr-5 ml-5">{stateInfoProduct.Gia_san_pham.toLocaleString()} ₫</span></div>
@@ -180,13 +227,13 @@ const DetailProduct = () => {
                     </div>
 
                     <div>
-                      <FormVersionProduct />
+                      <FormVersionProduct getValueVersion={handleGetValueVersion} />
                     </div>
                   </div>
                   <div>
                   </div>
                   <div className="flex pl-10 mt-7">
-                    <div onClick={() => { setModalBuyNow(true); setStateProductBuyNow(stateInfoProduct) }} className="w-2/3 bg-red-600 hover:bg-red-800 text-center py-1 rounded-3 cursor-pointer  ">
+                    <div onClick={handlePostValueProduct} className="w-2/3 bg-red-600 hover:bg-red-800 text-center py-1 rounded-3 cursor-pointer  ">
                       <button className="text-white text-3 font-bold">MUA NGAY</button>
                     </div>
                     <div className="w-1/3 pl-2">
@@ -298,9 +345,10 @@ const DetailProduct = () => {
 
       <div>
         {modalBuyNow && <div className='fixed flex z-sticky items-center bg-slate-950 justify-center left-0 top-0 right-0 bottom-0'>
-          <ModalBuyNow isClose={handleCloseModalBuyNow} product={stateProductBuyNow} />
+          <ModalBuyNow isClose={handleCloseModalBuyNow} product={stateValueVersion} />
         </div>}
       </div>
+
     </>
   )
 }

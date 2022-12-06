@@ -159,7 +159,7 @@ const Cart = () => {
                                                             let storage = localStorage.getItem('arrProduct')
                                                             if (storage) {
                                                                 cart = JSON.parse(storage)
-                                                                cart = cart.filter(itemCart => itemCart.id_Product !== item.id_Product)
+                                                                cart = cart.filter(itemCart => itemCart.id_Product !== item.id_Product || itemCart.Ten_phien_ban !== item.Ten_phien_ban)
                                                                 localStorage.setItem('arrProduct', JSON.stringify(cart))
                                                             }
                                                             navigate('/Cart')
@@ -168,6 +168,9 @@ const Cart = () => {
                                                         <div className=''>
                                                             <div className='w-full p-5 text-center'>
                                                                 <img className="mx-auto my-1 zoom-image hover:zoom-image-hover" src={item.Hinh_anh} />
+                                                            </div>
+                                                            <div className='text-center'>
+                                                                <span className='text-3.2 text-green-950 italic'> -  {item.Ten_phien_ban || ''}  - </span>
                                                             </div>
                                                             <div className='text-center'>
                                                                 <p className="text-3.5 font-semibold" >{item.Ten_san_pham}</p>
@@ -193,14 +196,14 @@ const Cart = () => {
                                                                                 let cart = JSON.parse(storage)
                                                                                 // cart = cart.filter(itemCart => itemCart.id !== item.id_Product)
                                                                                 cart.map((itemStorage) => {
-                                                                                    if (itemStorage.id_Product === item.id_Product) {
-                                                                                        if (itemStorage.So_luong !== 0) {
+                                                                                    if (itemStorage.id_Product === item.id_Product && itemStorage.Ten_phien_ban === item.Ten_phien_ban) {
+                                                                                        if (itemStorage.So_luong > 0) {
                                                                                             itemStorage.So_luong -= 1
                                                                                             localStorage.setItem('arrProduct', JSON.stringify([...cart]))
                                                                                             navigate('/Cart')
                                                                                         }
-                                                                                        if (itemStorage.So_luong === 0) {
-                                                                                            cart = cart.filter(itemCart => itemCart.id_Product !== item.id_Product)
+                                                                                        if (itemStorage.So_luong <= 0) {
+                                                                                            cart = cart.filter(itemCart => itemCart.id_Product !== item.id_Product || itemCart.Ten_phien_ban !== item.Ten_phien_ban)
                                                                                             localStorage.setItem('arrProduct', JSON.stringify(cart))
                                                                                             navigate('/Cart')
                                                                                         }
@@ -218,7 +221,7 @@ const Cart = () => {
                                                                             if (storage) {
                                                                                 let cart = JSON.parse(storage)
                                                                                 cart.map((itemStorage) => {
-                                                                                    if (itemStorage.id_Product === item.id_Product) {
+                                                                                    if (itemStorage.id_Product === item.id_Product && itemStorage.Ten_phien_ban === item.Ten_phien_ban) {
                                                                                         if (itemStorage.So_luong < 30) {
                                                                                             itemStorage.So_luong += 1
                                                                                             localStorage.setItem('arrProduct', JSON.stringify([...cart]))

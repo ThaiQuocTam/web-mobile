@@ -1,3 +1,5 @@
+//
+
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../redux/actions'
@@ -117,8 +119,11 @@ const ModalBuyNow = (props) => {
                                 <div className="border border-gray-200 rounded-[12px] px-2 shadow-soft-xxs mb-4">
 
                                     <div className=''>
-                                        <div className='w-full p-5 text-center'>
-                                            <img className="mx-auto my-1 zoom-image hover:zoom-image-hover" src={stateProduct ? stateProduct.Hinh_anh : ''} />
+                                        <div className='w-full p-3 text-center'>
+                                            <img className="mx-auto zoom-image hover:zoom-image-hover" src={stateProduct ? stateProduct.Hinh_anh : ''} />
+                                        </div>
+                                        <div className='text-center'>
+                                            <span className='text-3.2 text-red-500 italic'> -  {stateProduct ? stateProduct.Ten_phien_ban : ''}  - </span>
                                         </div>
                                         <div className='text-center'>
                                             <p className="text-3.5 font-semibold" >{stateProduct ? stateProduct.Ten_san_pham : ''}</p>
@@ -247,6 +252,7 @@ const ModalBuyNow = (props) => {
                 </div>}
             </div>
         </>
+
     )
 }
 
