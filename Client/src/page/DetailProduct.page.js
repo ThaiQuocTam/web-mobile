@@ -1,11 +1,15 @@
-import DetailProduct from 'components/Chi-tiet-san-pham/DetailProduct'
+// import DetailProduct from 'components/Chi-tiet-san-pham/DetailProduct'
 import BackHome from 'components/Trang-chu/BackHome'
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
+
+const DetailProduct = React.lazy(() => import('components/Chi-tiet-san-pham/DetailProduct'))
 
 const DetailProductPage = () => {
   return (
     <>
-      <DetailProduct />
+      <Suspense>
+        <DetailProduct />
+      </Suspense>
     </>
   )
 }

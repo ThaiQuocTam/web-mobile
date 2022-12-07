@@ -59,9 +59,21 @@ const FlashSale = () => {
                 <Slider {...settings}>
                     {
                         listSmartphone.map((item) => (
-                            <div className='p-5 mx-5 h-96 box-shadow relative rounded-2 bg-white'>
+                            <div className='p-5 mx-5 h-96 box-shadow relative absolute rounded-2 bg-white'>
                                 {
                                     item.So_luong_SP <= 5 ? <LimitProduct soLuong={item.So_luong_SP} /> : ''
+                                }
+                                {
+                                    item.So_luong_SP <= 5 && item.So_luong_SP > 0 ?
+                                        <div className="absolute animate-bounce w-10 top-0 left-0">
+                                            <img className="w-full" src='https://hoanghamobile.com/Content/web/sticker/hot.png' />
+                                        </div> : ''
+                                }
+                                {
+                                    item.So_luong_SP === 0 ?
+                                        <div className="absolute bg-green-950 p-1 rounded-2 px-2 top-0 right-0">
+                                            <span className="text-3 text-white font-">Vui lòng đợi vài ngày</span>
+                                        </div> : ''
 
                                 }
                                 <div className=''>

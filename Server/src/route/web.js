@@ -52,6 +52,7 @@ const initWebRoutes = (app) => {
     router.get('/api/get-info-version-product', productsController.handleGetInfoVersionProduct)
     router.put('/api/put-edit-version-product', productsController.handleEditVersion)
     router.post('/api/post-delete-version-product', productsController.handleDeleteVersionProduct)
+    router.post('/api/post-delete-member-admin', userController.handleDeleteAdmin)
 
     return app.use("/", router);
 }

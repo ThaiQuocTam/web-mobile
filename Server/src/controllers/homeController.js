@@ -64,7 +64,6 @@ const getHomePage = async (req, res) => {
 
 const editNguoiDung = async (req, res) => {
     let data = req.body;
-    console.log('asdas', data);
     // await updateUser(data)
     return res.send('done')
 }

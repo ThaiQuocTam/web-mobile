@@ -1,10 +1,13 @@
-import ProductType from 'components/Ql-san-pham/ProductType'
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
+
+const ProductType = React.lazy(() => import('components/Ql-san-pham/ProductType'))
 
 const ProductTypePage = () => {
     return (
         <>
-            <ProductType />
+            <Suspense>
+                <ProductType />
+            </Suspense>
         </>
     )
 }

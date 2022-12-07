@@ -1,15 +1,12 @@
-import EditInfoProduct from 'components/Ql-san-pham/EditInfoProduct';
-import ModalAddProductDetail from 'components/Ql-san-pham/ModalAddProductDetail';
-import ModalThemSP from 'components/Ql-san-pham/ModalThemSP';
-import VersionProduct from 'components/Ql-san-pham/VersionProduct';
-import HomeAdminPage from 'page/HomeAdmin.page';
-import OrderDetailPage from 'page/OrderDetail.page';
-import ProductDetailPage from 'page/ProductDetail.page';
+import HomeAdminPage from 'page/HomeAdminPage';
+import OrderDetailPage from 'page/OrderDetailPage';
+import ProductDetailPage from 'page/ProductDetailPage';
 import ProductGroupPage from 'page/ProductGroupPage';
 import ProductTypePage from 'page/ProductTypePage';
-import QlHoaDonPage from 'page/QlHoaDon.page';
-import QlSanPhamPage from 'page/QlSanPham.page';
-import QlThanhVienPage from 'page/QlThanhVien.page';
+import QlHoaDonPage from 'page/QlHoaDonPage';
+import QlSanPhamPage from 'page/QlSanPhamPage';
+import QlThanhVienPage from 'page/QlThanhVienPage';
+import VersionProductPage from 'page/VersionProductPage';
 import { Routes, Route } from 'react-router-dom'
 
 
@@ -26,9 +23,8 @@ function App() {
           <Route path='/QlHoaDon' element={<QlHoaDonPage />} />
           <Route path='/QlSanPham' element={<QlSanPhamPage />} />
           <Route path='/QlThanhVien' element={<QlThanhVienPage />} />
-          <Route path='/ThemSP' element={<ModalAddProductDetail />} />
           <Route path='/ProductDetail' element={<ProductDetailPage />} />
-          <Route path='/VersionProduct' element={<VersionProduct />} />
+          <Route path='/VersionProduct' element={<VersionProductPage />} />
         </Routes>
       </div >
     </>

@@ -23,7 +23,6 @@ const handlePostPayment = async (req, res) => {
                     item.Id_HD = messagePostOrder.infoOrder.dataValues.id
                 })
                 let messagePostOrderDetail = await paymentService.postOrderDetail(payment.orderDetail)
-                console.log(messagePostOrderDetail.errCode);
                 if (messagePostOrderDetail && messagePostOrderDetail.errCode !== '0') {
                     await db.hoa_don.destroy({
                         where: { id: messagePostOrder.infoOrder.dataValues.id }
@@ -63,7 +62,6 @@ const handleGetInfoOder = async (req, res) => {
         })
         return res.status(200).json(data)
     } catch (e) {
-        console.log(e);
     }
 }
 
@@ -77,7 +75,7 @@ const handleGetInfoOrderDetail = async (req, res) => {
 
             data ? res.status(200).json(data) : res.status(200).json({ errCode: '1', message: 'Không tìm thấy' })
         }
-    } catch (e) { console.log(e); }
+    } catch (e) { }
 }
 
 const handleHasReceived = async (req, res) => {
@@ -153,7 +151,7 @@ const handleConfirmOrder = async (req, res) => {
 
         }
 
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 const handleDeleteOrder = async (req, res) => {
@@ -191,7 +189,7 @@ const handleDeleteOrder = async (req, res) => {
             }
         }
     }
-    catch (e) { console.log(e) }
+    catch (e) { }
 }
 
 module.exports = {

@@ -144,11 +144,9 @@ const SearchProduct = (data) => {
                         { 'Ten_san_pham': { $regex: data.Ten_san_pham } }
                     ]
                 })
-                console.log(check);
                 resolve(check)
             }
             else {
-                console.log('nooo');
             }
         } catch (e) {
 

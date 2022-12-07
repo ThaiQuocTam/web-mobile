@@ -18,6 +18,8 @@ const QlThanhVien = () => {
     const [stateValueSearchMember, setStateValueSearchMember] = useState({
         Ho_ten: ''
     })
+    const [showSuccess, setShowSuccess] = useState(false)
+    const [message, setMessage] = useState()
 
     useEffect(() => {
         if (stateValueSearchMember.Ho_ten !== '') {
@@ -43,6 +45,27 @@ const QlThanhVien = () => {
         setStateModal(false)
 
     }
+
+    const showMessage = () => {
+        if (message && message.errCode === 0) {
+            navigate(0)
+        }
+        setShowSuccess(false)
+    }
+
+    useEffect(() => {
+        if (showSuccess) {
+            const timerId = setTimeout(() => {
+                if (message && message.errCode === 0) {
+                    navigate(0)
+                }
+                setShowSuccess(false)
+            }, 3000)
+
+            return () => clearTimeout(timerId)
+        }
+    }, [showSuccess])
+
     return (
         <>
             <div className='font-bold text-3xl mb-3'>Danh sách thành viên</div>
@@ -52,7 +75,7 @@ const QlThanhVien = () => {
                         value={stateValueSearchMember.Ho_ten}
                         onChange={(e) => { setStateValueSearchMember({ ...stateValueSearchMember, Ho_ten: e.target.value }) }
                         }
-                        className='border focus:outline-none border-green-700 text-3.5 hover:border-green-900 focus:border placeholder:text-3 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-96 mr-3 px-5' type={'text'} placeholder='Nhập thành viên cần tìm...' />
+                        className='border focus:outline-none border-green-700 text-3.5 hover:border-green-900 focus:border placeholder:text-3 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-96 mr-3 px-5' type={'text'} placeholder='Nhập email cần tìm...' />
                     <a className='inline-block h-10 leading-10' href='#'><i className="bi bi-search text-gray-600 h-10 inline-block hover:text-black text-5 cursor-pointer leading-10"></i></a>
                 </div>
                 <div className="leading-9 h-9 mb-5 inline-block ml-30rem" onClick={() => setStateModal(true)}>
@@ -66,26 +89,26 @@ const QlThanhVien = () => {
                             <table className="min-w-full">
                                 <thead className="bg-gray-400 border-b">
                                     <tr>
-                                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        <th scope="col" className="font-semibold text-sm text-gray-900 px-6 py-4 text-left" style={{ 'font-family': 'sans-serif' }}>
                                             STT
                                         </th>
-                                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        <th scope="col" className="font-semibold text-sm text-gray-900 px-6 py-4 text-left" style={{ 'font-family': 'sans-serif' }}>
                                             Họ và tên
                                         </th>
-                                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        <th scope="col" className="font-semibold text-sm text-gray-900 px-6 py-4 text-left" style={{ 'font-family': 'sans-serif' }}>
                                             Email
                                         </th>
-                                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        <th scope="col" className="font-semibold text-sm text-gray-900 px-6 py-4 text-left" style={{ 'font-family': 'sans-serif' }}>
                                             Số điện thoại
                                         </th>
-                                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        <th scope="col" className="font-semibold text-sm text-gray-900 px-6 py-4 text-left" style={{ 'font-family': 'sans-serif' }}>
                                             Giới tính
                                         </th>
-                                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        <th scope="col" className="font-semibold text-sm text-gray-900 px-6 py-4 text-left" style={{ 'font-family': 'sans-serif' }}>
                                             Quyền
                                         </th>
 
-                                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        <th scope="col" className="font-semibold text-sm text-gray-900 px-6 py-4 text-left" style={{ 'font-family': 'sans-serif' }}>
 
                                         </th>
 
@@ -95,7 +118,7 @@ const QlThanhVien = () => {
                                     {
                                         stateListInfoUser ?
                                             stateListInfoUser.map((item, index) => (
-                                                <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                                                <tr className="bg-sky-50 border-b transition duration-300 ease-in-out hover:bg-sky-100">
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                         {index + 1}
                                                     </td>
@@ -114,8 +137,15 @@ const QlThanhVien = () => {
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                         {item.Id_phan_quyen === 6 ? 'User' : 'Admin'}
                                                     </td>
-                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap ">
-                                                        <a href="#" className="px-4 py-1 text-sm text-white bg-blue-400 rounded">Xóa</a>
+                                                    <td className="text-sm text-gray-900 text-center     font-light px-6 py-4 whitespace-nowrap ">
+                                                        <i
+                                                            onClick={() => {
+                                                                setShowSuccess(true);
+                                                                axios.post(`http://localhost:7001/api/post-delete-member-admin`, { id: item.id })
+                                                                    .then(mess => setMessage(mess.data))
+                                                                    .catch(e => console.log(e));
+                                                            }}
+                                                            className="bi bi-dash-circle text-5 text-red-900 hover:text-red-500 cursor-pointer"></i>
                                                     </td>
                                                 </tr>
                                             )) : ''
@@ -128,11 +158,15 @@ const QlThanhVien = () => {
                 </div>
             </div>
 
-            {stateShowModal &&
+            {
+                stateShowModal &&
                 <div className='fixed flex z-sticky  items-center bg-slate-250 justify-center left-0 top-0 right-0 bottom-0'>
                     <ModalAddTV isClose={handleHideModalAddTV} />
                 </div>
 
+            }
+            {
+                showSuccess && <AddSuccess show={showMessage} mesAddVersion={message} />
             }
         </>
     )

@@ -30,8 +30,6 @@ const handleSignUp = async (req, res) => {
     let Dien_thoai = req.body.Dien_thoai
     let Gioi_tinh = req.body.Gioi_tinh
 
-    console.log(req.body);
-
     if (!Ho_ten || !Email || !Mat_khau || !Dien_thoai || !Gioi_tinh) {
         return res.status(200).json({
             errCode: 5,
@@ -39,7 +37,6 @@ const handleSignUp = async (req, res) => {
         })
     } else {
         let signUpData = await handleRegister(req.body)
-        console.log('data', signUpData);
         return res.status(200).json({
             errCode: signUpData.errCode,
             message: signUpData.message
@@ -87,11 +84,10 @@ const handleGetAllInfoUser = async (req, res) => {
 
 const handleGetSearchMember = async (req, res) => {
     try {
-        if (req.query.Ho_ten) {
-            console.log(req.query.Ho_ten);
+        if (req.query.email) {
             const data = await db.nguoi_dung.findAll({
                 where: {
-                    Ho_ten: { [Op.like]: `%${req.query.Ho_ten}%` },
+                    Email: { [Op.like]: `%${req.query.email}%` }
                 },
                 default: true,
                 order: [
@@ -115,11 +111,76 @@ const handleGetSearchMember = async (req, res) => {
     } catch (e) { console.log(e) }
 }
 
+const handleDeleteAdmin = async (req, res) => {
+    try {
+        if (req.body.id) {
+            let checkMember = await db.nguoi_dung.findOne({
+                where: {
+                    id: req.body.id,
+                },
+                raw: true
+            })
+            if (checkMember) {
+                if (checkMember.Id_phan_quyen === 6) {
+                    let checkOrder = await db.hoa_don.findAll({
+                        where: { Id_nguoi_dung: checkMember.id },
+                        raw: true
+                    })
+                    if (checkOrder && checkOrder.length !== 0) {
+                        let checked = checkOrder.filter((item) => item.Trang_thai === 8)
+                        if (checked && checked.length !== 0) {
+                            // await db.nguoi_dung.destroy({
+                            //     where: { id: checkMember.id }
+                            // })
+                            return res.status(200).json({
+                                errCode: 0,
+                                message: 'Xóa thành công'
+                            })
+                        }
+                        else {
+                            return res.status(200).json({
+                                errCode: 2,
+                                message: 'User chưa nhận hàng'
+                            })
+                        }
+                    }
+                    else {
+                        // await db.nguoi_dung.destroy({
+                        //     where: { id: checkMember.id }
+                        // })
+                        return res.status(200).json({
+                            errCode: 0,
+                            message: 'Xóa thành công'
+                        })
+                    }
+                }
+                else {
+                    // await db.nguoi_dung.destroy({
+                    //     where: { id: checkMember.id }
+                    // })
+                    return res.status(200).json({
+                        errCode: 0,
+                        message: 'Xóa thành công'
+                    })
+                }
+            }
+            else {
+                return res.status(200).json({
+                    errCode: 3,
+                    message: 'Không tìm thấy'
+                })
+            }
+
+        }
+    } catch (e) { console.log(e) }
+}
+
 module.exports = {
     handleSignIn: handleSignIn,
     handleSignUp: handleSignUp,
     handleGetInfoUser: handleGetInfoUser,
     handleGetAllInfoUser: handleGetAllInfoUser,
-    handleGetSearchMember: handleGetSearchMember
+    handleGetSearchMember: handleGetSearchMember,
+    handleDeleteAdmin: handleDeleteAdmin
 }
 

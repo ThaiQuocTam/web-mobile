@@ -149,6 +149,7 @@ const DetailProduct = () => {
   }
 
   const handleOnclickAddCart = () => {
+    setHideAddCartMes(false)
     setHideAddCartMes(true)
     navigate(`/DetailProduct?Ten_san_pham=${stateInfoProduct.Ten_san_pham}`)
     if (stateInfoProduct) {
@@ -214,16 +215,16 @@ const DetailProduct = () => {
                   </div>
                   <div className="pl-10 mt-5">
                     <div className="mb-2">
-                      <span className="text-3.5 uppercase  text-green-950" style={{ 'font-family': 'sans-serif' }}><i className='bi bi-check2-circle text-7 font-semibold text-green-950 mr-1 '></i> Sản phẩm chính hãng</span>
+                      <span className="text-3 uppercase font-semibold  text-green-950" style={{ 'font-family': 'sans-serif' }}><i className='bi bi-check2-circle text-4 font-semibold text-green-950 mr-1 '></i> Sản phẩm chính hãng</span>
                     </div>
                     <div className="mb-2">
-                      <span className="text-3.5 uppercase  text-green-950" style={{ 'font-family': 'sans-serif' }}> <i className='bi bi-box2 text-7 font-semibold text-green-950  mr-1'></i> Được chứng nhận từ các cơ sở </span>
+                      <span className="text-3 uppercase font-semibold text-green-950" style={{ 'font-family': 'sans-serif' }}> <i className='bi bi-box2 text-4 font-semibold text-green-950  mr-1'></i> Được chứng nhận từ các cơ sở </span>
                     </div>
                     <div className="mb-2">
-                      <span className="text-3.5 uppercase  text-green-950" style={{ 'font-family': 'sans-serif' }}><i className='bi bi-headset text-7 font-semibold text-green-950  mr-1'></i> HOTLINE HỔ TRỢ 09896.5565 </span>
+                      <span className="text-3 uppercase font-semibold text-green-950" style={{ 'font-family': 'sans-serif' }}><i className='bi bi-headset text-4 font-semibold text-green-950  mr-1'></i> HOTLINE HỔ TRỢ 09896.5565 </span>
                     </div>
                     <div className="mb-2">
-                      <span className="text-3.5 uppercase  text-green-950" style={{ 'font-family': 'sans-serif' }}><i className='bi bi-arrow-repeat text-7 font-semibold text-green-950  mr-1'></i> Thủ tục đổi trả dễ dàng</span>
+                      <span className="text-3 uppercase font-semibold text-green-950" style={{ 'font-family': 'sans-serif' }}><i className='bi bi-arrow-repeat text-4 font-semibold text-green-950  mr-1'></i> Thủ tục đổi trả dễ dàng</span>
                     </div>
 
                     <div>
@@ -316,11 +317,9 @@ const DetailProduct = () => {
 
       </div>
 
-      <div className="">
-        <div className='pl-24 mt-8 mb-5'>
-          <div className='bg-green-950 max-w-54 p-1 pl-5 border-l-25 border-green-200 rounded-1'>
-            <span className='text-4 font-semibold text-white'>GỢI Ý CHO BẠN</span>
-          </div>
+      <div className="mt-5">
+        <div className="mt-2 text-center w-80 pr-5 ml-20 border-l-25 border-green-200 p-2 bg-green-950 mb-5">
+          <span className='text-3.5 font-semibold text-white'> GỢI Ý CHO BẠN</span>
         </div>
         <div>
           <FlashSale />

@@ -1,10 +1,13 @@
-import Cart from 'components/Gio-hang/Cart'
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
+
+const Cart = React.lazy(() => import('components/Gio-hang/Cart'))
 
 const CartPage = () => {
     return (
         <>
-            <Cart />
+            <Suspense>
+                <Cart />
+            </Suspense>
         </>
     )
 }

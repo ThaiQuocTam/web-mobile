@@ -54,9 +54,9 @@ const TopTablet = () => {
 
     return (
         <>
-            <div className='pl-24 mt-8 mb-5'>
-                <div className='bg-green-950 max-w-75 p-1 pl-5 border-l-25 border-green-200 rounded-1'>
-                    <span className='text-4 font-semibold text-white uppercase'>TOP láp tóp bán chạy </span>
+            <div className='pl-24 mt-8 w-96 mb-5'>
+                <div className=" text-center w-auto pr-5 ml-20 border-l-25 border-green-200 p-2 bg-green-950">
+                    <span className='text-3.5 font-semibold text-white'>Tóp Laptop bán chạy</span>
                 </div>
             </div>
             <div className='px-24 shadow-soft-xxs bg-green-150'>
@@ -66,6 +66,19 @@ const TopTablet = () => {
                             <div className='p-5 mx-5 h-27em box-shadow relative rounded-2 bg-white'>
                                 {
                                     item.So_luong_SP <= 5 ? <LimitProduct soLuong={item.So_luong_SP} /> : ''
+                                }
+                                {
+                                    item.So_luong_SP <= 5 && item.So_luong_SP > 0 ?
+                                        <div className="absolute animate-bounce w-10 top-0 left-0">
+                                            <img className="w-full" src='https://hoanghamobile.com/Content/web/sticker/hot.png' />
+                                        </div> : ''
+                                }
+                                {
+                                    item.So_luong_SP === 0 ?
+                                        <div className="absolute bg-green-950 p-1 rounded-2 px-2 top-0 right-0">
+                                            <span className="text-3 text-white font-">Vui lòng đợi vài ngày</span>
+                                        </div> : ''
+
                                 }
                                 <div className='mb-10 shadow-soft-xxs text-center'>
                                     <div className=''>

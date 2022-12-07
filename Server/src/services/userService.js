@@ -118,7 +118,6 @@ const hashPassword = (Mat_khau) => {
             const hashPassword = await bcrypt.hashSync(Mat_khau, salt)
             resolve(hashPassword)
         } catch (e) {
-            console.log('loi 1');
             reject(e)
         }
     })

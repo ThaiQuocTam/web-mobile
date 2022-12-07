@@ -71,9 +71,9 @@ const Home = () => {
                 <i className="bi bi-caret-right-fill slider-next border-2 border-gray-200 hover:bg-slate-100" onClick={handleClickNext}></i>
             </div>
             <div>
-                <div className='pl-24 mt-8 mb-5'>
-                    <div className='bg-green-950 max-w-68 p-1 pl-5 border-l-25 border-green-200 rounded-1'>
-                        <span className='text-4 font-semibold text-white uppercase'>Tóp điện thoại bán chạy</span>
+                <div className='pl-24 mt-8 w-96 mb-5'>
+                    <div className=" text-center w-auto pr-5 ml-20 border-l-25 border-green-200 p-2 bg-green-950">
+                        <span className='text-3.5 font-semibold text-white'>Tóp điện thoại bán chạy</span>
                     </div>
                 </div>
                 <FlashSale />

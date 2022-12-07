@@ -54,7 +54,6 @@ const postOrderDetail = async (data) => {
                 }
                 if (newData.length !== 0) {
                     let newQuantity = 0
-                    console.log(newData);
                     for (let i = 0; i < newData.length; i++) {
                         let product = await db.san_pham.findOne({
                             where: { id: data[i].id_Product },
@@ -80,7 +79,6 @@ const postOrderDetail = async (data) => {
             }
             resolve(messagePostOrderDetail)
         } catch (e) {
-            console.log('Lỗi', e);
             reject(e)
         }
     })

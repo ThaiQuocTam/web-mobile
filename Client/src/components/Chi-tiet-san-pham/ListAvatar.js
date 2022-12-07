@@ -11,11 +11,12 @@ const ListAvatar = (props) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const [index, setIndex] = useState(1)
+    const [index, setIndex] = useState(0)
     const [indexListProduct, setIndexListProduct] = useState(0)
     const [positionX, setPositionX] = useState(0)
     const infoProduct = useSelector(infoProductSelector)
     const [stateVersionProduct, setStateVersionProduct] = useState([])
+    const [stateChecked, setStateChecked] = useState()
 
     let email = localStorage.getItem("User")
     const idProductStore = localStorage.getItem('idProduct')
@@ -58,21 +59,22 @@ const ListAvatar = (props) => {
     }, [infoProduct])
 
     useEffect(() => {
-        console.log('hahaha');
         const timerId = setTimeout(() => {
             let indexX = 0
+            let sumPositionX = 0
             if (stateVersionProduct) {
                 stateVersionProduct.map((item, index) => {
-                    indexX = index += 1
+                    indexX = index
                 })
                 setIndexListProduct(indexX)
-                setIndex(pre => pre + 1)
-                if (index < indexX) {
+                sumPositionX = indexX * (-340)
+                if (index <= indexX && positionX > sumPositionX) {
+                    setIndex(pre => pre + 1)
                     setPositionX(pre => pre - 340)
                 }
                 else {
                     setPositionX(0)
-                    setIndex(1)
+                    setIndex(0)
                 }
             }
         }, 3000)
@@ -87,32 +89,19 @@ const ListAvatar = (props) => {
     }
 
     const handleNext = () => {
-        if (index < indexListProduct) {
+        let sum = indexListProduct * (-340)
+        if (index < indexListProduct && positionX > sum) {
             setIndex(pre => pre + 1)
             setPositionX(pre => pre - 340)
         }
         else {
             setPositionX(0)
-            setIndex(1)
+            setIndex(0)
         }
     }
 
     useEffect(() => {
-        let indexProps = props.indexVersion
-        setPositionX(0)
-
-        // if (stateVersionProduct) {
-
-        //     // setIndexListProduct(indexX)
-        //     // setIndex(pre => pre + 1)
-        //     if (index < indexX) {
-        //         setPositionX(pre => pre - 340)
-        //     }
-        //     else {
-        //         setPositionX(0)
-        //         setIndex(1)
-        //     }
-        // }
+        setPositionX(props.indexVersion * (-340))
     }, [props.indexVersion])
 
     return (
@@ -142,6 +131,19 @@ const ListAvatar = (props) => {
                         </div>
                         <i onClick={handleNext} className="bi bi-caret-right-fill bg-gray-600 text-white h-11 w-10 absolute right-0 mr-28 text-4 slider-next border-2 border-gray-200 hover:bg-slate-700" style={{ 'right': '-188px' }}></i>
                     </div>
+                </div>
+                <div className="w-full bg-slate-50 mt-2 h-24 p-3 overflow-auto shadow-soft-xxs">
+                    {
+
+                        stateVersionProduct && stateVersionProduct.length !== 0 ?
+
+                            stateVersionProduct.map((item, indexVersionProduct) => (
+                                <div onClick={() => { setPositionX(indexVersionProduct * (-340)) }} className={`w-14 ml-4 h-16 float-left border-2 ${props.indexVersion === indexVersionProduct ? 'border-red-300 bg-slate-300' : 'border-gray-500'}   rounded-2 p-1  `}>
+                                    <img className="w-full" src={item.Anh_phien_ban} />
+                                </div>
+                            )) : ''
+                    }
+
                 </div>
             </div>
         </>

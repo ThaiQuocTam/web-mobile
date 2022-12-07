@@ -228,7 +228,7 @@ const Header = () => {
                                                                                 stateDataReviewResponseUser.map((itemReview) => (
                                                                                     listProduct.map((itemProduct) => (
                                                                                         itemProduct.id === itemReview.Id_san_pham && itemReview.Checked === 0 ?
-                                                                                            <a onClick={() => { setShowNotification(false); localStorage.setItem("idProduct", itemProduct.id); axios.put(`http://localhost:7001/api/put-check-review-user`, { Id_review: itemReview.id }) }} href='/DetailProduct#Review'>
+                                                                                            <a onClick={() => { navigate(0); setShowNotification(false); localStorage.setItem("idProduct", itemProduct.id); axios.put(`http://localhost:7001/api/put-check-review-user`, { Id_review: itemReview.id }) }} href='/DetailProduct#Review'>
                                                                                                 <div className='mb-2 hover:bg-slate-500 hover:text-white p-2 rounded-2 relative'>
                                                                                                     <span className='text-2.5 absolute text-green-500 font-semibold mr-5 top-0 ' style={{ 'left': '-18px', 'top': '20px' }}>QTV</span>
                                                                                                     <span className='text-3.2 font-bold mr-1'>{itemReview.Ten_nguoi_dung}</span>

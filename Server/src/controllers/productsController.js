@@ -146,7 +146,6 @@ const handleGetSmartphone = async (req, res) => {
 
 const handleGetInfoBill = async (req, res) => {
     try {
-        console.log(req.query.So_dien_thoai);
         let data = await productsService.getInfoBill(req.query.So_dien_thoai)
         if (data) {
             return res.status(200).json(data)
@@ -396,7 +395,6 @@ const handleGetInfoVersionProduct = async (req, res) => {
             })
         }
         else {
-            console.log('lỗi');
         }
     } catch (e) { console.log(e) }
 }

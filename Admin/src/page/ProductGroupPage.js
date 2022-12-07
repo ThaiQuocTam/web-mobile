@@ -1,9 +1,13 @@
-import ProductGroup from '../components/Ql-san-pham/ProductGroup'
+import React, { lazy, Suspense } from 'react'
+
+const ProductGroup = React.lazy(() => import('../components/Ql-san-pham/ProductGroup'))
 
 const ProductGroupPage = () => {
     return (
         <>
-            <ProductGroup />
+            <Suspense>
+                <ProductGroup />
+            </Suspense>
         </>
     )
 }

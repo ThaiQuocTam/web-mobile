@@ -1,15 +1,18 @@
 import Banner from 'components/Trang-chu/Banner'
-import FlashSale from 'components/Trang-chu/FlashSale'
-import Home from 'components/Trang-chu/Home'
-import TopTablet from 'components/Trang-chu/TopTablet'
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
+
+const Home = React.lazy(() => import('components/Trang-chu/Home'))
+const FlashSale = React.lazy(() => import('components/Trang-chu/FlashSale'))
+const TopTablet = React.lazy(() => import('components/Trang-chu/TopTablet'))
 
 const HomePage = () => {
     return (
         <>
-            <Home />
-            <Banner />
-            <TopTablet />
+            <Suspense>
+                <Home />
+                <Banner />
+                <TopTablet />
+            </Suspense>
         </>
     )
 }

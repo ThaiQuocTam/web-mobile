@@ -15,6 +15,7 @@ const FormVersionProduct = (props) => {
     const [stateValue, setStateValue] = useState({
         Ten_phien_ban: 'Bản chính'
     })
+    const [stateChecked, setStateChecked] = useState(true)
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         mode: "onChange"
