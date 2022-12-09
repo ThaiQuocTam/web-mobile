@@ -252,7 +252,7 @@ const Header = () => {
                                                                     dataReview.listReviewNotResponse.map((item) => (
                                                                         listProduct.map((itemProduct => (
                                                                             item.Id_san_pham === itemProduct.id ?
-                                                                                <a onClick={() => { setShowNotification(false); localStorage.setItem("idProduct", itemProduct.id) }} href='/DetailProduct#Review'>
+                                                                                <a onClick={() => { navigate(0); setShowNotification(false); localStorage.setItem("idProduct", itemProduct.id) }} href='/DetailProduct#Review'>
                                                                                     <div className='mb-2 hover:bg-slate-500 hover:text-white p-2 rounded-2'>
                                                                                         <span className='text-3.2 font-bold mr-1'>{item.Ten_nguoi_dung}</span>
                                                                                         <span className='text-3.2 mr-1'>Đã bình luận về sản phẩm</span>
@@ -268,7 +268,7 @@ const Header = () => {
                                                                                 stateDataReviewResponseUser.map((itemReview) => (
                                                                                     listProduct.map((itemProduct) => (
                                                                                         itemProduct.id === itemReview.Id_san_pham && itemReview.Checked === 1 ?
-                                                                                            <a onClick={() => { setShowNotification(false); localStorage.setItem("idProduct", itemProduct.id) }} href='/DetailProduct#Review'>
+                                                                                            <a onClick={() => { navigate(0); setShowNotification(false); localStorage.setItem("idProduct", itemProduct.id) }} href='/DetailProduct#Review'>
                                                                                                 <div className='mb-2 hover:bg-slate-500 hover:text-white p-2 rounded-2 relative'>
                                                                                                     <span className='text-2.5 absolute text-green-500 font-semibold mr-5 top-0 ' style={{ 'left': '-18px', 'top': '20px' }}>QTV</span>
                                                                                                     <span className='text-3.2 font-bold mr-1'>{itemReview.Ten_nguoi_dung}</span>

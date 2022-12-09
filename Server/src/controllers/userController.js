@@ -127,27 +127,27 @@ const handleDeleteAdmin = async (req, res) => {
                         raw: true
                     })
                     if (checkOrder && checkOrder.length !== 0) {
-                        let checked = checkOrder.filter((item) => item.Trang_thai === 8)
+                        let checked = checkOrder.filter((item) => item.Trang_thai !== 8)
                         if (checked && checked.length !== 0) {
-                            // await db.nguoi_dung.destroy({
-                            //     where: { id: checkMember.id }
-                            // })
-                            return res.status(200).json({
-                                errCode: 0,
-                                message: 'Xóa thành công'
+                            await db.nguoi_dung.destroy({
+                                where: { id: checkMember.id }
                             })
-                        }
-                        else {
                             return res.status(200).json({
                                 errCode: 2,
                                 message: 'User chưa nhận hàng'
                             })
                         }
+                        else {
+                            return res.status(200).json({
+                                errCode: 0,
+                                message: 'Xóa thành công'
+                            })
+                        }
                     }
                     else {
-                        // await db.nguoi_dung.destroy({
-                        //     where: { id: checkMember.id }
-                        // })
+                        await db.nguoi_dung.destroy({
+                            where: { id: checkMember.id }
+                        })
                         return res.status(200).json({
                             errCode: 0,
                             message: 'Xóa thành công'
@@ -155,9 +155,9 @@ const handleDeleteAdmin = async (req, res) => {
                     }
                 }
                 else {
-                    // await db.nguoi_dung.destroy({
-                    //     where: { id: checkMember.id }
-                    // })
+                    await db.nguoi_dung.destroy({
+                        where: { id: checkMember.id }
+                    })
                     return res.status(200).json({
                         errCode: 0,
                         message: 'Xóa thành công'
