@@ -53,28 +53,49 @@ const postOrderDetail = async (data) => {
                     }
                 }
                 if (newData.length !== 0) {
-                    let newQuantity = 0
+                    let total = 0
+                    newData.map((item) => {
+                        total = total + item.So_luong
+                    })
                     for (let i = 0; i < newData.length; i++) {
+                        let newQuantity = 0
                         let product = await db.san_pham.findOne({
                             where: { id: data[i].id_Product },
                             raw: true
                         })
-                        newQuantity = newQuantity + (product.So_luong_SP - data[i].So_luong)
-                        await db.san_pham.upsert({
-                            id: product.id,
-                            Ten_san_pham: product.Ten_san_pham,
-                            Hinh_anh: product.Hinh_anh,
-                            Gia_san_pham: product.Gia_san_pham,
-                            So_luong_SP: newQuantity,
-                            Thong_tin_bao_hanh: product.Thong_tin_bao_hanh,
-                            Ghi_chu: product.Ghi_chu,
-                            Id_loai_SP: product.Id_loai_SP,
-                            Id_nhom_SP: product.Id_nhom_SP
-                        });
+                        if (total > product.So_luong_SP) {
+                            messagePostOrderDetail.errCode = '5'
+                            messagePostOrderDetail.message = `${product.Ten_san_pham} chỉ còn ${product.So_luong_SP} chiếc`
+                            break;
+                        }
+                        else {
+                            newQuantity = newQuantity + (product.So_luong_SP - data[i].So_luong)
+                            console.log('Sản phẩm:', product.Ten_san_pham);
+                            console.log('Số lượng trong database : ', product.So_luong_SP);
+                            console.log('Số lượng đặt hàng', data[i].So_luong);
+                            console.log('Số lượng mới', newQuantity);
+                            console.log('===================================================');
+                            await db.san_pham.update(
+                                {
+                                    id: product.id,
+                                    Ten_san_pham: product.Ten_san_pham,
+                                    Hinh_anh: product.Hinh_anh,
+                                    Gia_san_pham: product.Gia_san_pham,
+                                    So_luong_SP: newQuantity,
+                                    Thong_tin_bao_hanh: product.Thong_tin_bao_hanh,
+                                    Ghi_chu: product.Ghi_chu,
+                                    Id_loai_SP: product.Id_loai_SP,
+                                    Id_nhom_SP: product.Id_nhom_SP
+                                },
+                                {
+                                    where: { id: product.id }
+                                }
+                            );
+                            await db.chi_tiet_hd.bulkCreate(newData)
+                            messagePostOrderDetail.errCode = '0'
+                            messagePostOrderDetail.message = 'Thêm chi tiết thành công'
+                        }
                     }
-                    await db.chi_tiet_hd.bulkCreate(newData)
-                    messagePostOrderDetail.errCode = '0'
-                    messagePostOrderDetail.message = 'Thêm chi tiết thành công'
                 }
             }
             resolve(messagePostOrderDetail)
