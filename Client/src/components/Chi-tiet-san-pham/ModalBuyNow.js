@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import MesPayment from 'components/Gio-hang/MesPayment'
 import SignIn from 'components/Sign-in/SignIn'
+import '../Gio-hang/Cart.css'
 
 const ModalBuyNow = (props) => {
 
