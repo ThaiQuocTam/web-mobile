@@ -105,16 +105,20 @@ const handlePostEditInfoProduct = async (req, res) => {
 
 const handleGetSearchProduct = async (req, res) => {
     try {
-        if (req.query.Ten_san_pham) {
+
+        let limitPro = parseInt(req.query.limit)
+        let Ten_san_pham = req.query.Ten_san_pham
+
+        if (Ten_san_pham && limitPro) {
             const data = await db.san_pham.findAll({
                 where: {
-                    Ten_san_pham: { [Op.like]: `%${req.query.Ten_san_pham}%` },
+                    Ten_san_pham: { [Op.like]: `%${Ten_san_pham}%` },
                 },
                 default: true,
                 order: [
                     ['updatedAt', 'DESC']
                 ],
-                // limit: 3,
+                limit: limitPro,
                 raw: true,
             });
 
@@ -135,12 +139,24 @@ const handleGetSearchProduct = async (req, res) => {
 
 const handleGetSmartphone = async (req, res) => {
     try {
-        let data = await db.san_pham.findAll({
-            where: { Id_nhom_SP: req.query.id }
-        })
-        return res.status(200).json(data)
-    } catch (e) {
 
+        let page = req.query.page
+        let pageSize = 10
+        if (req.query.id) {
+
+            let data = await db.san_pham.findAll({
+                where: { Id_nhom_SP: req.query.id }
+            })
+            return res.status(200).json(data)
+        }
+        else {
+            return res.status(200).json({
+                errCode: 1,
+                message: 'Lỗi server'
+            })
+        }
+    } catch (e) {
+        console.log(e)
     }
 }
 

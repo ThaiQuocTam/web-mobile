@@ -17,6 +17,7 @@ const Header = () => {
     const infoUserSelector = useSelector(getInfoUserSelector)
 
     const [hidden, setHidden] = useState(false)
+    const [limit, SetLimit] = useState(5)
     const [stateDataReviewResponseUser, setStateDataReviewResponse] = useState()
     const [stateProductGroup, setStateProductGroup] = useState([])
     const [stateSoluong, setStateSoluong] = useState(0)
@@ -72,7 +73,9 @@ const Header = () => {
 
     useEffect(() => {
         if (stateValueSearch !== '') {
-            axios.get(`http://localhost:7001/api/get-search-product?Ten_san_pham=${stateValueSearch}`)
+            SetLimit(5)
+            let limitProduct = 5
+            axios.get(`http://localhost:7001/api/get-search-product?Ten_san_pham=${stateValueSearch}&limit=${limitProduct}`)
                 .then(listProduct => setStateListSearchProduct(listProduct.data))
                 .catch(e => console.log(e))
         }
@@ -117,6 +120,14 @@ const Header = () => {
         return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`
     }
 
+    const handleOnClickSeeMore = () => {
+        let limitMore = limit + 5
+        SetLimit(limitMore)
+        axios.get(`http://localhost:7001/api/get-search-product?Ten_san_pham=${stateValueSearch}&limit=${limitMore}`)
+            .then(listProduct => setStateListSearchProduct(listProduct.data))
+            .catch(e => console.log(e))
+    }
+
     return (
         <>
             <header className='h-200 px-5 z-10 mb-10 bg-white'>
@@ -153,6 +164,15 @@ const Header = () => {
                                                     </div>
                                                 </div>
                                             ))
+                                        }
+                                        {
+                                            stateListSearchProduct.length !== 0 ?
+                                                <div
+                                                    className='text-center border-t border-gray-800'>
+                                                    <button
+                                                        onClick={handleOnClickSeeMore}
+                                                        className='italic shadow-soft-xxs p-1 bg-white font-semibold hover:text-white hover:bg-green-950 border-green-950 border px-10 rounded-3 mb-2 mt-2 text-3.2 text-green-950'>Xem thêm...</button>
+                                                </div> : ''
                                         }
                                     </div> : ''
                             }

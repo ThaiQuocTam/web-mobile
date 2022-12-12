@@ -26,6 +26,7 @@ const QlSanPham = () => {
     const infoProduct = useSelector(infoProductSearchedSelector)
 
     const [showModalAddProduct, setShowModalAddProduct] = useState(false)
+    const [limit, setLimit] = useState(5)
     const [showModalAddProductDetail, setShowModalAddProductDetail] = useState(false)
     const [showModalEditInfoProduct, setShowModalEditInfoProduct] = useState(false)
     const [stateListProduct, setStateListProduct] = useState([])
@@ -61,7 +62,11 @@ const QlSanPham = () => {
 
     useEffect(() => {
         if (stateValueSearchProduct.Ten_san_pham !== '') {
-            dispatch(actions.getSearchProductAction.getSearchProductRequest(stateValueSearchProduct.Ten_san_pham))
+            setLimit(5)
+            dispatch(actions.getSearchProductAction.getSearchProductRequest({
+                Ten_san_pham: stateValueSearchProduct.Ten_san_pham,
+                limit: 5
+            }))
             setStateListProduct([])
         }
         else {
@@ -94,6 +99,16 @@ const QlSanPham = () => {
     const handleHideModalAddProductDetail = () => {
         navigate(0)
         setShowModalAddProductDetail(false)
+    }
+
+    const handleOnClickSeeMore = () => {
+        let limitMore = limit + 5
+        setLimit(limitMore)
+        dispatch(actions.getSearchProductAction.getSearchProductRequest({
+            Ten_san_pham: stateValueSearchProduct.Ten_san_pham,
+            limit: limitMore
+        }))
+        // setStateListProduct([])
     }
 
     return (
@@ -211,7 +226,14 @@ const QlSanPham = () => {
                                         ))
                                     }
                                 </tbody>
+                                <div className='text-center'>
+                                    <button
+                                        onClick={handleOnClickSeeMore}
+                                        className='italic shadow-soft-xxs p-1 bg-white font-semibold hover:text-white hover:bg-green-950 border-green-950 border px-10 rounded-3 mb-2 mt-2 text-3.2 text-green-950'>Xem thêm...
+                                    </button>
+                                </div>
                             </table>
+
                         </div>
                     </div>
                 </div>
