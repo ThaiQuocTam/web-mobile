@@ -50,13 +50,26 @@ const handleGetProductGroup = async (req, res) => {
 
 const handleGetProduct = async (req, res) => {
     try {
-        let lisProProduct = await db.san_pham.findAll({
-            order: [
-                ['updatedAt', 'DESC']
-            ],
-            raw: true
-        })
-        return res.status(200).json(lisProProduct)
+        let param = parseInt(req.query.limit)
+        if (param) {
+            let lisProProduct = await db.san_pham.findAll({
+                order: [
+                    ['updatedAt', 'DESC']
+                ],
+                limit: param,
+                raw: true
+            })
+            return res.status(200).json(lisProProduct)
+        }
+        else {
+            let lisProProduct = await db.san_pham.findAll({
+                order: [
+                    ['updatedAt', 'DESC']
+                ],
+                raw: true
+            })
+            return res.status(200).json(lisProProduct)
+        }
     } catch (e) {
 
     }
@@ -140,12 +153,20 @@ const handleGetSearchProduct = async (req, res) => {
 const handleGetSmartphone = async (req, res) => {
     try {
 
-        let page = req.query.page
-        let pageSize = 10
-        if (req.query.id) {
-
+        let idGroupProduct = req.query.id
+        let limit = parseInt(req.query.limit)
+        if (idGroupProduct && limit === 0) {
             let data = await db.san_pham.findAll({
-                where: { Id_nhom_SP: req.query.id }
+                where: { Id_nhom_SP: req.query.id },
+                raw: true
+            })
+            return res.status(200).json(data)
+        }
+        if (idGroupProduct && limit) {
+            let data = await db.san_pham.findAll({
+                where: { Id_nhom_SP: req.query.id },
+                limit: limit,
+                raw: true
             })
             return res.status(200).json(data)
         }

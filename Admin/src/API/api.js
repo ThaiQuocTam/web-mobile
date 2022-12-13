@@ -14,7 +14,7 @@ export const apiPostCreateProduct = (payload) => axios.post(`${URL}/api/add-Prod
     Id_loai_SP: payload.Id_loai_SP,
     Id_nhom_SP: payload.Id_nhom_SP
 })
-export const apiGetProduct = () => axios.get(`${URL}/api/get-list-product`)
+export const apiGetProduct = (payload) => axios.get(`${URL}/api/get-list-product?limit=${payload}`)
 export const apiGetInfoProduct = (payload) => axios.get(`${URL}/api/get-info-product?id=${payload}`)
 export const apiPostEditInfoProduct = (payload) => axios.post(`${URL}/api/post-edit-info-product`, payload)
 export const apiPostAddProductDetail = (payload) => axios.post(`${URL}/api/post-add-product-detail`, payload)

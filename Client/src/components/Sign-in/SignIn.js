@@ -30,7 +30,11 @@ const SignIn = (props) => {
         if (data.Email === '' || data.Mat_khau === '') {
             setMessage('Vui lòng nhập đủ thông tin')
         } else {
-            dispatch(actions.signInAction.signInRequest(data))
+            dispatch(actions.signInAction.signInRequest({
+                Email: data.Email,
+                Mat_khau: data.Mat_khau,
+                phanQuyen: 6
+            }))
         }
     }
 

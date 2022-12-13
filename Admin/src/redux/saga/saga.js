@@ -33,7 +33,7 @@ function* handlePostCreateProductAction(action) {
 
 function* handleGetProductAction(action) {
     try {
-        const listProduct = yield call(api.apiGetProduct)
+        const listProduct = yield call(api.apiGetProduct, action.payload)
         yield put(actions.getProductAction.getProductSuccess(listProduct.data))
 
     } catch (e) {

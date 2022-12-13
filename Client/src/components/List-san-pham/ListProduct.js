@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions'
 import { listProductSelector } from '../../redux/selector'
 import LimitProduct from "components/Trang-chu/LimitProduct"
+import axios from "axios"
 
 const ListSmartphone = () => {
 
@@ -16,12 +17,25 @@ const ListSmartphone = () => {
 
     const [stateListSmartphone, setStateListSmartphone] = useState([])
     const [ID, setID] = useState()
+    const [limit, setLimit] = useState(5)
+    const [stateAllProduct, setStateAllProduct] = useState()
 
     const nameProductGroupLocal = localStorage.getItem("nameProductGroup")
     const idProductGroupLocal = localStorage.getItem("idProductGroup")
 
+
     useEffect(() => {
-        dispatch(actions.getListSmartphoneAction.getListSmartphoneRequest(idProductGroupLocal || 1))
+        setLimit(5)
+        dispatch(actions.getListSmartphoneAction.getListSmartphoneRequest({
+            idGroupProduct: idProductGroupLocal,
+            limit: 5
+        }))
+    }, [idProductGroupLocal])
+
+    useEffect(() => {
+        axios.get(`http://localhost:7001/api/get-smartphone?id=${idProductGroupLocal}&limit=${0}`)
+            .then(listData => setStateAllProduct(listData.data))
+            .catch(e => console.log(e))
     }, [idProductGroupLocal])
 
     useEffect(() => {
@@ -39,6 +53,22 @@ const ListSmartphone = () => {
     }
 
     const idProduct = stateListSmartphone.map((item) => item.id)
+
+    const handleOnClickSeeMore = () => {
+        let limitNew = limit + 5
+        setLimit(limitNew)
+        dispatch(actions.getListSmartphoneAction.getListSmartphoneRequest({
+            idGroupProduct: idProductGroupLocal,
+            limit: limitNew
+        }))
+    }
+
+    useEffect(() => {
+        if (stateAllProduct && stateListSmartphone && stateListSmartphone.length !== 0) {
+            console.log('all', stateAllProduct.length);
+            console.log('Group', stateListSmartphone.length);
+        }
+    }, [stateAllProduct && stateListSmartphone])
 
     return (
         <>
@@ -92,6 +122,13 @@ const ListSmartphone = () => {
 
                         ))}
                     </div>
+                    {
+                        (stateAllProduct && stateListSmartphone && stateListSmartphone.length !== 0) ?
+                            stateAllProduct.length === stateListSmartphone.length ?
+                                '' : <div className="my-5 text-center">
+                                    <button onClick={handleOnClickSeeMore} className="px-20 py-1 border-2 rounded-1 border-green-950 shadow-soft-xxs  font-semibold italic text-green-950 bg-white hover:bg-green-950 hover:text-white text-3.2">{`Xem thêm ${parseInt(stateAllProduct.length) - parseInt(stateListSmartphone.length)} sản phẩm`}</button>
+                                </div> : ''
+                    }
                 </div>
             </div>
         </>

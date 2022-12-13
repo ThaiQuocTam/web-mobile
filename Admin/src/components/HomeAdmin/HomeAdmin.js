@@ -49,13 +49,6 @@ const HomeAdmin = () => {
     return (
         <>
             <div className='font-bold text-3xl text-gray-700 pb-3 border-b border-slate-200'>Danh sách hóa đơn chưa xác nhận</div>
-            <div className='w-full mt-4'>
-                <div className='inline-block relative'>
-                    <input
-                        className='border focus:outline-none border-green-700 text-3.5 hover:border-green-900 focus:border placeholder:text-3 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-96 mr-3 px-5' type={'text'} placeholder='Nhập hóa đơn cần tìm...' />
-                    <a className='inline-block h-10 leading-10' href='#'><i className="bi bi-search text-gray-600 h-10 inline-block hover:text-black text-5 cursor-pointer leading-10"></i></a>
-                </div>
-            </div>
             <div className="flex flex-col mt-10">
                 <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className=" inline-block min-w-full sm:px-6 lg:px-8">

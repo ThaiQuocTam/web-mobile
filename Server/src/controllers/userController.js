@@ -1,11 +1,13 @@
 import db, { Sequelize } from '../models/index'
 const Op = Sequelize.Op
+import bcrypt from "bcryptjs"
 import { handleUserLogin, handleRegister } from "../services/userService"
 const express = require('express')
 
 const handleSignIn = async (req, res) => {
     let email = req.body.Email
     let password = req.body.Mat_khau
+    let phanQuyen = req.body.phanQuyen
 
     if (!email || !password) {
         return res.status(200).json({
@@ -13,13 +15,49 @@ const handleSignIn = async (req, res) => {
             message: 'Vui lòng nhập đầy đủ thông tin'
         })
     }
+    else {
+        if (phanQuyen === 6) {
+            let signInData = await handleUserLogin(email, password)
+            return res.status(200).json({
+                errCode: signInData.errCode,
+                message: signInData.errMessage,
+                user: signInData.user ? signInData.user : {}
+            })
+        }
+        else {
+            if (phanQuyen === 7) {
+                let checkInfo = await db.nguoi_dung.findOne({
+                    attributes: ['id', 'Email', 'Id_phan_quyen', 'Mat_khau'],
+                    where: { Email: email },
+                    raw: true
+                })
+                if (checkInfo && checkInfo.Id_phan_quyen === 7) {
+                    let check = await bcrypt.compareSync(password, checkInfo.Mat_khau)
+                    if (check) {
+                        delete checkInfo.Mat_khau
+                        return res.status(200).json({
+                            errCode: 0,
+                            message: 'Đăng nhập thành công',
+                            info: checkInfo
+                        })
+                    }
+                    else {
+                        return res.status(200).json({
+                            errCode: 2,
+                            message: 'Mật khẩu không chính xác'
+                        })
+                    }
+                }
+                else {
+                    return res.status(200).json({
+                        errCode: 3,
+                        message: 'Email không tồn tại'
+                    })
+                }
+            }
+        }
+    }
 
-    let signInData = await handleUserLogin(email, password)
-    return res.status(200).json({
-        errCode: signInData.errCode,
-        message: signInData.errMessage,
-        user: signInData.user ? signInData.user : {}
-    })
 }
 
 const handleSignUp = async (req, res) => {
@@ -129,15 +167,16 @@ const handleDeleteAdmin = async (req, res) => {
                     if (checkOrder && checkOrder.length !== 0) {
                         let checked = checkOrder.filter((item) => item.Trang_thai !== 8)
                         if (checked && checked.length !== 0) {
-                            await db.nguoi_dung.destroy({
-                                where: { id: checkMember.id }
-                            })
+
                             return res.status(200).json({
                                 errCode: 2,
                                 message: 'User chưa nhận hàng'
                             })
                         }
                         else {
+                            await db.nguoi_dung.destroy({
+                                where: { id: checkMember.id }
+                            })
                             return res.status(200).json({
                                 errCode: 0,
                                 message: 'Xóa thành công'
@@ -155,12 +194,12 @@ const handleDeleteAdmin = async (req, res) => {
                     }
                 }
                 else {
-                    await db.nguoi_dung.destroy({
-                        where: { id: checkMember.id }
-                    })
+                    // await db.nguoi_dung.destroy({
+                    //     where: { id: checkMember.id }
+                    // })
                     return res.status(200).json({
                         errCode: 0,
-                        message: 'Xóa thành công'
+                        message: 'Xóa admin thành công'
                     })
                 }
             }

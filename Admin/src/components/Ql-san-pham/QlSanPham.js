@@ -27,6 +27,7 @@ const QlSanPham = () => {
 
     const [showModalAddProduct, setShowModalAddProduct] = useState(false)
     const [limit, setLimit] = useState(5)
+    const [pageSize, setPageSize] = useState(20)
     const [showModalAddProductDetail, setShowModalAddProductDetail] = useState(false)
     const [showModalEditInfoProduct, setShowModalEditInfoProduct] = useState(false)
     const [stateListProduct, setStateListProduct] = useState([])
@@ -49,7 +50,7 @@ const QlSanPham = () => {
     }
 
     useEffect(() => {
-        dispatch(actions.getProductAction.getProductRequest())
+        dispatch(actions.getProductAction.getProductRequest(pageSize))
         dispatch(actions.getListProductTypeAction.getListProductTypeRequest())
         dispatch(actions.getListProductGroupAction.getListProductGroupRequest())
     }, [])
@@ -108,7 +109,14 @@ const QlSanPham = () => {
             Ten_san_pham: stateValueSearchProduct.Ten_san_pham,
             limit: limitMore
         }))
-        // setStateListProduct([])
+    }
+
+    const handleOnClickGetMoreInfoProduct = () => {
+        let pageSizeMore = pageSize + 10
+        setPageSize(pageSizeMore)
+        axios.get(`http://localhost:7001/api/get-list-product?limit=${pageSizeMore}`)
+            .then(listData => setStateListProduct(listData.data))
+            .catch(e => console.log(e))
     }
 
     return (
@@ -226,12 +234,23 @@ const QlSanPham = () => {
                                         ))
                                     }
                                 </tbody>
-                                <div className='text-center'>
-                                    <button
-                                        onClick={handleOnClickSeeMore}
-                                        className='italic shadow-soft-xxs p-1 bg-white font-semibold hover:text-white hover:bg-green-950 border-green-950 border px-10 rounded-3 mb-2 mt-2 text-3.2 text-green-950'>Xem thêm...
-                                    </button>
-                                </div>
+                                {
+                                    stateListProduct.length !== 0 ?
+                                        stateValueSearchProduct.Ten_san_pham !== '' ?
+                                            <div className='text-center'>
+                                                <button
+                                                    onClick={handleOnClickSeeMore}
+                                                    className='italic shadow-soft-xxs p-1 bg-white font-semibold hover:text-white hover:bg-green-950 border-green-950 border px-10 rounded-3 mb-2 mt-2 text-3.2 text-green-950'>Xem thêm...
+                                                </button>
+                                            </div> :
+                                            <div className='text-center'>
+                                                <button
+                                                    onClick={handleOnClickGetMoreInfoProduct}
+                                                    className='italic shadow-soft-xxs p-1 bg-white font-semibold hover:text-white hover:bg-green-950 border-green-950 border px-10 rounded-3 mb-2 mt-2 text-3.2 text-green-950'>Xem thêm...
+                                                </button>
+                                            </div>
+                                        : ''
+                                }
                             </table>
 
                         </div>

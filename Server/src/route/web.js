@@ -6,6 +6,7 @@ import paymentController from "../controllers/paymentController"
 import reviewController from "../controllers/reviewController"
 import productDetailController from "../controllers/productDetailController"
 import statusOrderController from "../controllers/statusOrderController"
+import slidesController from "../controllers/slidesController"
 
 const router = express.Router();
 
@@ -53,6 +54,9 @@ const initWebRoutes = (app) => {
     router.put('/api/put-edit-version-product', productsController.handleEditVersion)
     router.post('/api/post-delete-version-product', productsController.handleDeleteVersionProduct)
     router.post('/api/post-delete-member-admin', userController.handleDeleteAdmin)
+    router.get('/api-get-list-slides', slidesController.handleGetListSlides)
+    router.post('/api-post-add-slides', slidesController.handlePostAddSlides)
+    router.post('/api-post-delete-slides', slidesController.handlePostDeleteSlides)
 
     return app.use("/", router);
 }

@@ -7,7 +7,7 @@ const AddSuccess = (props) => {
     const [mesEditInfoProductDetail, setMesEditInfoProductDetail] = useState()
 
     useEffect(() => {
-        if (props.Mes === 'Thêm thành công' || props.Mes === 'Cập nhật thành công') {
+        if (props.Mes === 'Thêm thành công' || props.Mes === 'Cập nhật thành công' || props.Mes === 'Xóa thành công') {
             setBackground('bg-green-600 w-60')
             setTex('bi bi-check-circle')
         }
