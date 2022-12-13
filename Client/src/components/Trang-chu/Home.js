@@ -22,14 +22,15 @@ const Home = () => {
         if (images && images.length !== 0) {
             let totalItem = images.length
             setSlideItems(totalItem)
+            let index = indexItem + 1
             const timerId = setTimeout(() => {
-                if (positionX <= 0 && indexItem < totalItem) {
+                if (positionX <= 0 && index <= totalItem) {
                     setPositionX(pre => pre - 1000)
                     setIndex(pre => pre + 1)
                 }
                 else {
                     setPositionX(0)
-                    setIndex(0)
+                    setIndex(1)
                 }
 
             }, 3000)
@@ -50,10 +51,7 @@ const Home = () => {
     }
 
     const handleClickPrevious = () => {
-        if (indexItem === sliderItems) {
-
-        }
-        else {
+        if (indexItem > 1) {
             setIndex(pre => pre - 1)
             setPositionX(pre => pre + 1000)
         }
@@ -67,7 +65,7 @@ const Home = () => {
                     {
                         images && images.length !== 0 &&
                         images.map((item, index) => (
-                            <li className="slider-dot-item" style={{ background: `${indexItem === index ? 'gray' : '#fff'}` }} data-index={index} ></li>
+                            <li className="slider-dot-item" style={{ background: `${indexItem === (index + 1) ? 'gray' : '#fff'}` }} data-index={index} ></li>
                         ))}
                 </ul>
                 <div className="slider-wrapper">

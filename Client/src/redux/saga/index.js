@@ -22,7 +22,7 @@ function* handleSignUpAction(action) {
 
 function* handleTopSmartphoneAction(action) {
     try {
-        const getTopSmartphone = yield call(api.apiTopSmartphone, action.payload)
+        const getTopSmartphone = yield call(api.apiTopProduct, action.payload)
         yield put(actions.topSmartphoneAction.topSmartphoneSuccess(getTopSmartphone.data))
     } catch (e) {
         console.log(e);
@@ -51,7 +51,7 @@ function* handleGetListSmartphoneAction(action) {
 
 function* handleGetListTopTabletAction(action) {
     try {
-        const listTablet = yield call(api.apiTopSmartphone, action.payload)
+        const listTablet = yield call(api.apiTopProduct, action.payload)
         yield put(actions.getListTopTabletAction.getListTopTabletSuccess(listTablet.data))
     } catch (e) {
         yield put(actions.getListTopTabletAction.getListTopTabletFailure)

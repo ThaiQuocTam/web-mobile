@@ -146,7 +146,7 @@ const handleGetSearchMember = async (req, res) => {
         }
         else {
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 const handleDeleteAdmin = async (req, res) => {
@@ -211,7 +211,7 @@ const handleDeleteAdmin = async (req, res) => {
             }
 
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 module.exports = {

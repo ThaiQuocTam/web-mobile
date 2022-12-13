@@ -14,8 +14,7 @@ const initWebRoutes = (app) => {
 
     router.post('/api/signIn', userController.handleSignIn)
     router.post('/api/signUp', userController.handleSignUp)
-    router.get('/api/top-Smartphone', topProductsController.handleTopSmartphone)
-    router.get('/api/top-TableLet', topProductsController.handleTopTablet)
+    router.get('/api/top-product', topProductsController.handleTopProduct)
     router.post('/api/add-Product', productsController.handleAddProduct)
     router.get('/api/get-list-product-type', productsController.handleGetProductType)
     router.get('/api/get-list-product-group', productsController.handleGetProductGroup)

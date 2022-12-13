@@ -144,7 +144,6 @@ const Header = () => {
                                     value={stateValueSearch}
                                     onChange={(e) => setStateValuSearch(e.target.value)}
                                     className='border focus:outline-none border-green-700 hover:border-green-900 focus:border placeholder:text-3.5 placeholder:text-slate-500 focus:border-green-900 rounded-5 h-10 w-120 mr-3 pl-5' type={'text'} placeholder='Nhập sản phẩm cần tìm...' />
-                                <a href='#' className='inline-block'><i className="bi bi-search text-7 cursor-pointer text-gray-700"></i></a>
                             </div>
                             {
                                 stateListSearchProduct ?
@@ -358,7 +357,7 @@ const Header = () => {
                 </div >
 
                 <div className='px-32 mt-2 '>
-                    <div className='w-full flex justify-center leading-12 items-center bg-green-300 rounded-2 '>
+                    <div className='w-full min-h-12 flex justify-center leading-12 items-center bg-green-300 rounded-2 '>
                         {
                             stateProductGroup.map((item) => (
                                 <>

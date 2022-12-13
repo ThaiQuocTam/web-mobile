@@ -7,7 +7,6 @@ const handleGetAllStatusOrder = async (req, res) => {
         })
         data ? res.status(200).json(data) : res.status(401).json({ message: 'Lỗi, không tìm thấy' })
     } catch (e) {
-        console.log(e);
     }
 }
 

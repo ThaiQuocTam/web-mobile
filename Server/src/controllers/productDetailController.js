@@ -36,7 +36,6 @@ const handlePostAddProductDetail = async (req, res) => {
             })
         }
     } catch (e) {
-        console.log('errors post product detail', e);
     }
 }
 
@@ -55,7 +54,6 @@ const handleGetInfoProductDetail = async (req, res) => {
             })
         }
     } catch (e) {
-        console.log(e);
     }
 }
 
@@ -139,7 +137,7 @@ const handleEditInfoProductDetail = async (req, res) => {
                 })
             }
         }
-    } catch (e) { console.log(e); }
+    } catch (e) { }
 }
 
 module.exports = {

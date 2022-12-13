@@ -147,7 +147,7 @@ const handleGetSearchProduct = async (req, res) => {
         }
         else {
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 const handleGetSmartphone = async (req, res) => {
@@ -177,7 +177,6 @@ const handleGetSmartphone = async (req, res) => {
             })
         }
     } catch (e) {
-        console.log(e)
     }
 }
 
@@ -218,7 +217,6 @@ const handleGetInfoOderDetail = async (req, res) => {
             }
         }
         else {
-            console.log('nope');
         }
     } catch (e) {
     }
@@ -261,7 +259,7 @@ const handlePostAddProductGroup = async (req, res) => {
                 message: 'Vui lòng nhập dữ liệu'
             })
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 const handlePostEditProductGroup = async (req, res) => {
@@ -293,7 +291,7 @@ const handlePostEditProductGroup = async (req, res) => {
                 message: 'Vui lòng nhập dữ liệu'
             })
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 const handlePostAddProductTye = async (req, res) => {
@@ -333,7 +331,7 @@ const handlePostAddProductTye = async (req, res) => {
                 message: 'Vui lòng nhập dữ liệu'
             })
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 const handlePostEditProductType = async (req, res) => {
@@ -365,7 +363,7 @@ const handlePostEditProductType = async (req, res) => {
                 message: 'Vui lòng nhập dữ liệu'
             })
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 const handleAddVersionProduct = async (req, res) => {
@@ -413,7 +411,7 @@ const handleAddVersionProduct = async (req, res) => {
                 }
             }
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 const handleGetInfoVersionProduct = async (req, res) => {
@@ -433,7 +431,7 @@ const handleGetInfoVersionProduct = async (req, res) => {
         }
         else {
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 const handleEditVersion = async (req, res) => {
@@ -483,7 +481,7 @@ const handleEditVersion = async (req, res) => {
                 }
             }
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 const handleDeleteVersionProduct = async (req, res) => {
@@ -512,7 +510,7 @@ const handleDeleteVersionProduct = async (req, res) => {
                 message: 'Vui lòng nhập id'
             })
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 module.exports = {

@@ -34,32 +34,18 @@ const FlashSale = () => {
 
     useEffect(() => {
         try {
-            setListSmartphone(listTopSmartphone.listProductSmartphone)
-        } catch (e) {
-
-        }
+            setListSmartphone(listTopSmartphone)
+        } catch (e) { }
     }, [listTopSmartphone])
-
-    useEffect(() => {
-        try {
-            if (listSmartphone) {
-
-            }
-            else {
-                console.log('Khong có');
-            }
-        } catch (e) {
-            console.log('Lỗi kết nói :', e);
-        }
-    }, [listSmartphone])
 
     return (
         <>
             <div className='px-24 shadow-soft-xxs bg-green-150'>
                 <Slider {...settings}>
                     {
+                        listSmartphone && listSmartphone.length !== 0 &&
                         listSmartphone.map((item) => (
-                            <div className='p-5 mx-5 h-96 box-shadow relative absolute rounded-2 bg-white'>
+                            <div className='p-5 mx-5 h-96 box-shadow relative rounded-2 bg-white'>
                                 {
                                     item.So_luong_SP <= 5 ? <LimitProduct soLuong={item.So_luong_SP} /> : ''
                                 }

@@ -15,7 +15,7 @@ const TopTablet = () => {
 
     const dispatch = useDispatch(useDispatch)
     const listTablet = useSelector(listTopTabletReducer)
-    const [stateListTablet, setStateListTablet] = useState([])
+    const [stateListTablet, setStateListTablet] = useState()
     const navigate = useNavigate()
 
     const settings = {
@@ -33,7 +33,7 @@ const TopTablet = () => {
 
     useEffect(() => {
         try {
-            setStateListTablet(listTablet.listProductSmartphone)
+            setStateListTablet(listTablet)
         } catch (e) {
 
         }
@@ -42,7 +42,7 @@ const TopTablet = () => {
     useEffect(() => {
         try {
             if (stateListTablet) {
-
+                console.log(stateListTablet);
             }
             else {
                 console.log('Khong có');
@@ -62,6 +62,7 @@ const TopTablet = () => {
             <div className='px-24 shadow-soft-xxs bg-green-150'>
                 <Slider {...settings}>
                     {
+                        stateListTablet && stateListTablet.length !== 0 &&
                         stateListTablet.map((item, index) => (
                             <div className='p-5 mx-5 h-27em box-shadow relative rounded-2 bg-white'>
                                 {

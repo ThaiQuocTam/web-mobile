@@ -76,9 +76,10 @@ const ModalEditVersionProduct = (props) => {
                             <div className='pl-3 pt-2 rounded-5 border border-gray-300'>
                                 <div className='px-2 pb-3 mt-1'>
                                     <input
+                                        readOnly
                                         value={stateVersionProduct.Ten_phien_ban}
                                         onChange={(e) => setStateVersionProduct({ ...stateVersionProduct, Ten_phien_ban: e.target.value })}
-                                        className='w-full placeholder:text-gray-500 text-3.5 border-2 rounded-2 focus:outline-none focus:border-red-200 hover:border-slate-200 border-slate-100 focus:bg-white pl-5 py-2 text-slate-800 font-medium'
+                                        className='w-full bg-slate-50 placeholder:text-gray-500 text-3.5 border-2 rounded-2 focus:outline-none hover:border-slate-200 border-slate-100 focus:bg-white pl-5 py-2 text-slate-800 font-medium'
                                     />
 
                                 </div>

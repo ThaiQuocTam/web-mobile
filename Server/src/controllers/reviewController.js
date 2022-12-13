@@ -131,7 +131,7 @@ const handleGetReviewUser = async (req, res) => {
             }
         }
 
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 const handleCheckedReviewUser = async (req, res) => {
@@ -161,7 +161,7 @@ const handleCheckedReviewUser = async (req, res) => {
                 })
             }
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { }
 }
 
 module.exports = {

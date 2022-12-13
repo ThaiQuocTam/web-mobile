@@ -6,7 +6,7 @@ export const apiSignIn = (payload) => axios.post(`${URL}/api/signIn`, payload)
 
 export const apiSignUp = (payload) => axios.post(`${URL}/api/signUp`, payload)
 
-export const apiTopSmartphone = (payload) => axios.get(`${URL}/api/top-smartphone?Id_nhom_SP=${payload}`)
+export const apiTopProduct = (payload) => axios.get(`${URL}/api/top-product?Id_nhom_SP=${payload}`)
 
 export const apiTopTablet = (payload) => axios.get(`${URL}/api/top-smartphone?Id_nhom_SP=${payload}`)
 

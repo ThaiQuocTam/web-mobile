@@ -70,11 +70,6 @@ const postOrderDetail = async (data) => {
                         }
                         else {
                             newQuantity = newQuantity + (product.So_luong_SP - data[i].So_luong)
-                            console.log('Sản phẩm:', product.Ten_san_pham);
-                            console.log('Số lượng trong database : ', product.So_luong_SP);
-                            console.log('Số lượng đặt hàng', data[i].So_luong);
-                            console.log('Số lượng mới', newQuantity);
-                            console.log('===================================================');
                             await db.san_pham.update(
                                 {
                                     id: product.id,
@@ -94,6 +89,7 @@ const postOrderDetail = async (data) => {
                             await db.chi_tiet_hd.bulkCreate(newData)
                             messagePostOrderDetail.errCode = '0'
                             messagePostOrderDetail.message = 'Thêm chi tiết thành công'
+                            break;
                         }
                     }
                 }
