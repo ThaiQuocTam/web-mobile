@@ -39,19 +39,6 @@ const TopTablet = () => {
         }
     }, [listTablet])
 
-    useEffect(() => {
-        try {
-            if (stateListTablet) {
-                console.log(stateListTablet);
-            }
-            else {
-                console.log('Khong có');
-            }
-        } catch (e) {
-            console.log('Lỗi kết nói :', e);
-        }
-    }, [stateListTablet])
-
     return (
         <>
             <div className='pl-24 mt-8 w-96 mb-5'>

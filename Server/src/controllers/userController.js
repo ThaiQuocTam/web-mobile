@@ -194,9 +194,9 @@ const handleDeleteAdmin = async (req, res) => {
                     }
                 }
                 else {
-                    // await db.nguoi_dung.destroy({
-                    //     where: { id: checkMember.id }
-                    // })
+                    await db.nguoi_dung.destroy({
+                        where: { id: checkMember.id }
+                    })
                     return res.status(200).json({
                         errCode: 0,
                         message: 'Xóa admin thành công'
