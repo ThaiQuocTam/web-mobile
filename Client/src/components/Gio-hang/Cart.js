@@ -191,24 +191,22 @@ const Cart = () => {
                                                             className="mt-2 ">{item.So_luong}</p> */}
                                                                     <input
                                                                         onClick={() => {
-                                                                            let storage = localStorage.getItem('arrProduct')
+                                                                            let storage = localStorage.getItem('arrProduct') // Lấy list giỏ hàng trên local gán cho storage
                                                                             if (storage) {
-                                                                                let cart = JSON.parse(storage)
-                                                                                // cart = cart.filter(itemCart => itemCart.id !== item.id_Product)
-                                                                                cart.map((itemStorage) => {
-                                                                                    if (itemStorage.id_Product === item.id_Product && itemStorage.Ten_phien_ban === item.Ten_phien_ban) {
-                                                                                        if (itemStorage.So_luong > 0) {
-                                                                                            itemStorage.So_luong -= 1
-                                                                                            localStorage.setItem('arrProduct', JSON.stringify([...cart]))
-                                                                                            navigate('/Cart')
+                                                                                let cart = JSON.parse(storage) // convert storage ra dạng mảng ròi gán cho cart
+                                                                                cart.map((itemStorage) => { // duyệt mảng
+                                                                                    if (itemStorage.id_Product === item.id_Product && itemStorage.Ten_phien_ban === item.Ten_phien_ban) { // check id vs version từng phẩn từ trong mảng vs sản phẩm muốn giảm
+                                                                                        if (itemStorage.So_luong > 0) { // nếu số lượng sản phẩm đó lớn hơn 0                                                               
+                                                                                            itemStorage.So_luong -= 1  // Trừ đi 1
+                                                                                            localStorage.setItem('arrProduct', JSON.stringify([...cart])) // Cập nhật lạt giỏ hảng
+                                                                                            navigate('/Cart') // Làm mới trang
                                                                                         }
-                                                                                        if (itemStorage.So_luong <= 0) {
-                                                                                            cart = cart.filter(itemCart => itemCart.id_Product !== item.id_Product || itemCart.Ten_phien_ban !== item.Ten_phien_ban)
-                                                                                            localStorage.setItem('arrProduct', JSON.stringify(cart))
-                                                                                            navigate('/Cart')
+                                                                                        if (itemStorage.So_luong <= 0) { // Nếu sản phẩm <=0
+                                                                                            cart = cart.filter(itemCart => itemCart.id_Product !== item.id_Product || itemCart.Ten_phien_ban !== item.Ten_phien_ban) // Lấy ra cái list kh liên quan đến sản phẩm này
+                                                                                            localStorage.setItem('arrProduct', JSON.stringify(cart)) // Cập nhật cái giỏ hàng và xóa sản phẩm này
+                                                                                            navigate('/Cart') // Làm mới trang
                                                                                         }
 
-                                                                                    } else {
                                                                                     }
                                                                                 })
                                                                             }

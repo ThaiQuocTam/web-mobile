@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import images from '../../Assets/images/dki.png'
 
 const SignInAdmin = () => {
 
@@ -49,7 +50,7 @@ const SignInAdmin = () => {
             <div className='fixed flex z-sticky  items-center bg-slate-250 justify-center left-0 top-0 right-0 bottom-0'>
                 <div className={`flex items-center bg-white w-70pc h-70pc rounded-5  animate-modalForm`}>
                     <div className=" bg-blue-100 h-full rounded-5 w-30pc pt-20 px-8">
-                        <img className='w-full' src={`http://localhost:3000/static/media/dki.71ab03011a884e61897c.png`} />
+                        <img className='w-full' src={images} />
                     </div>
                     <div className="p-3 w-70pc px-16 justify-center">
                         <form onSubmit={handleSubmit(dataSubmit)} className=" rounded-[12px]">
